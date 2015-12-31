@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBV-B0-Bj3">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--WebView-->
+        <scene sceneID="Lld-ZC-N0V">
+            <objects>
+                <viewController title="WebView" id="ZBV-B0-Bj3" customClass="HLWebViewViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3rL-L8-9pD"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xis-UA-xHJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iRw-hk-vik">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhc-gb-w6c">
+                                <rect key="frame" x="250" y="546" width="100" height="34"/>
+                                <state key="normal" title="Go to Solver">
+                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="1lh-am-sXc" kind="show" identifier="GotoSolver" id="AsD-Rm-M91"/>
+                                </connections>
+                            </button>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDi-nS-bAH">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ZBV-B0-Bj3" id="dVU-rj-eIf"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="UDi-nS-bAH" firstAttribute="leading" secondItem="iRw-hk-vik" secondAttribute="leading" id="5x4-Uj-z7q"/>
+                            <constraint firstAttribute="centerX" secondItem="hhc-gb-w6c" secondAttribute="centerX" id="FV3-fy-qSR"/>
+                            <constraint firstAttribute="trailing" secondItem="UDi-nS-bAH" secondAttribute="trailing" id="hvR-Wz-dcc"/>
+                            <constraint firstItem="hhc-gb-w6c" firstAttribute="top" secondItem="UDi-nS-bAH" secondAttribute="bottom" constant="8" id="o8L-Gh-ujb"/>
+                            <constraint firstItem="UDi-nS-bAH" firstAttribute="top" secondItem="iRw-hk-vik" secondAttribute="top" id="qkq-YG-Nzp"/>
+                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" constant="20" id="rHA-ex-B0F"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gotoButton" destination="hhc-gb-w6c" id="fdI-xa-izk"/>
+                        <outlet property="webView" destination="UDi-nS-bAH" id="iLc-8o-vKx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sXp-NM-KuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728" y="716"/>
+        </scene>
+        <!--Solver-->
+        <scene sceneID="g3e-JT-cei">
+            <objects>
+                <viewController title="Solver" id="1lh-am-sXc" customClass="HLSolverViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oSl-gV-Rmx"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lln-d8-FFc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="emN-cI-9yU">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
+                                <rect key="frame" x="104" y="28" width="560" height="720"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="2Fh-nQ-z4x" userLabel="Top Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="57"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="PV5-Hz-PqA" userLabel="Control Stack View">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="57"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H5q-3i-lcC" userLabel="Row Stack View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="49" height="57"/>
+                                                        <subviews>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="He1-bw-H5S" userLabel="Row Switch">
+                                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                                <connections>
+                                                                    <action selector="settingsAction" destination="1lh-am-sXc" eventType="valueChanged" id="wjv-Zx-FqI"/>
+                                                                </connections>
+                                                            </switch>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAG-sb-6hK">
+                                                                <rect key="frame" x="4" y="36" width="41" height="21"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ta7-Rx-pmX" userLabel="Column Stack View">
+                                                        <rect key="frame" x="133" y="0.0" width="68" height="57"/>
+                                                        <subviews>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOo-2B-Htu" userLabel="Column Switch">
+                                                                <rect key="frame" x="9" y="0.0" width="51" height="31"/>
+                                                                <connections>
+                                                                    <action selector="settingsAction" destination="1lh-am-sXc" eventType="valueChanged" id="SOF-ko-mxd"/>
+                                                                </connections>
+                                                            </switch>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Columns" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGU-b3-izd">
+                                                                <rect key="frame" x="0.0" y="36" width="68" height="21"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iZS-D7-Qza" userLabel="Block Stack View">
+                                                        <rect key="frame" x="283" y="0.0" width="51" height="57"/>
+                                                        <subviews>
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y4A-zP-Yhg" userLabel="Block Switch">
+                                                                <rect key="frame" x="1" y="0.0" width="51" height="31"/>
+                                                                <connections>
+                                                                    <action selector="settingsAction" destination="1lh-am-sXc" eventType="valueChanged" id="4PN-UT-xGU"/>
+                                                                </connections>
+                                                            </switch>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNj-sQ-18f">
+                                                                <rect key="frame" x="0.0" y="36" width="51" height="21"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="8D3-KQ-yf1" userLabel="Info Stack View">
+                                                <rect key="frame" x="414" y="0.0" width="146" height="57"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puzzle Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Vc-u7v">
+                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="29"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unsolved Nodes: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djP-HE-PfT">
+                                                        <rect key="frame" x="0.0" y="29" width="146" height="28"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="raL-M3-hEL">
+                                        <rect key="frame" x="0.0" y="77" width="560" height="560"/>
+                                        <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="560" id="38T-2M-sP2"/>
+                                            <constraint firstAttribute="width" constant="600" id="3Pv-uq-oga"/>
+                                            <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="275:259" constant="-22.123552123552145" id="8zF-yL-M9h"/>
+                                            <constraint firstAttribute="height" constant="600" id="FlL-tD-rDs"/>
+                                            <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="1:1" id="GYZ-mS-Np0"/>
+                                            <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="1:1" id="ctH-Uc-JAs"/>
+                                            <constraint firstAttribute="height" constant="560" id="hS8-aS-vNG"/>
+                                            <constraint firstAttribute="height" constant="550" id="qJB-2o-gMf"/>
+                                            <constraint firstAttribute="height" constant="560" id="sZt-jR-Pfw"/>
+                                            <constraint firstAttribute="width" constant="550" id="uS0-Ds-VLM"/>
+                                            <constraint firstAttribute="width" constant="560" id="yki-cG-khd"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="tt6-eR-VRI">
+                                            <size key="itemSize" width="72" height="72"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="5" minY="20" maxX="5" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HLPuzzleCell" id="VpR-t9-VR1">
+                                                <rect key="frame" x="5" y="20" width="72" height="72"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="38T-2M-sP2"/>
+                                                <exclude reference="3Pv-uq-oga"/>
+                                                <exclude reference="8zF-yL-M9h"/>
+                                                <exclude reference="FlL-tD-rDs"/>
+                                                <exclude reference="GYZ-mS-Np0"/>
+                                                <exclude reference="qJB-2o-gMf"/>
+                                                <exclude reference="sZt-jR-Pfw"/>
+                                                <exclude reference="uS0-Ds-VLM"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="dataSource" destination="1lh-am-sXc" id="25Y-79-jdt"/>
+                                            <outlet property="delegate" destination="1lh-am-sXc" id="Ff0-K1-cmS"/>
+                                        </connections>
+                                    </collectionView>
+                                    <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Er-9Cg" userLabel="Bottom Stack View">
+                                        <rect key="frame" x="0.0" y="651" width="560" height="69"/>
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9I9-M9-gre">
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="29"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="0EG-dk-Q4V"/>
+                                                    <constraint firstAttribute="width" constant="560" id="xMX-16-4v8"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="Mono Cell"/>
+                                                    <segment title="Find Sets"/>
+                                                    <segment title="Mono Sector"/>
+                                                    <segment title="Test"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="modeSelectAction" destination="1lh-am-sXc" eventType="valueChanged" id="sha-eN-Cfg"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="TxT-TK-zCR" userLabel="Buttons Stack View">
+                                                <rect key="frame" x="0.0" y="38" width="560" height="31"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-TI-m18" userLabel="RdWrt Stack View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="132" height="30"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rj-Oa-WEK" userLabel="ReadButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="51" id="LDR-Vb-QgO"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="mQ7-cz-pvX"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Read">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="readAction" destination="1lh-am-sXc" eventType="touchUpInside" id="ugo-me-676"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUY-S1-fHk" userLabel="WriteButton">
+                                                                <rect key="frame" x="81" y="0.0" width="51" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="Xgh-bl-5Nt"/>
+                                                                    <constraint firstAttribute="width" constant="51" id="iVk-UQ-bN8"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Write">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="writeAction" destination="1lh-am-sXc" eventType="touchUpInside" id="lv4-ME-jck"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-AX-dm0">
+                                                        <rect key="frame" x="218" y="-3" width="124" height="34"/>
+                                                        <state key="normal" title="Go to WebView">
+                                                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <segue destination="mN4-m4-heJ" kind="unwind" unwindAction="unwindToMainMenu:" id="3Cf-pP-fRH"/>
+                                                        </connections>
+                                                    </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="g2g-xi-1S7" userLabel="Solve Stack View">
+                                                        <rect key="frame" x="427" y="0.0" width="133" height="30"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-6f-4eh" userLabel="UndoButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="7KW-Z7-Fpq"/>
+                                                                    <constraint firstAttribute="width" constant="51" id="MAk-gm-hlb"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Undo">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="undoAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="gMq-Z9-bhv"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbY-a6-gGW" userLabel="SolveButton">
+                                                                <rect key="frame" x="81" y="0.0" width="52" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="52" id="qPN-Rx-LL7"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="rXd-d2-gsk"/>
+                                                                </constraints>
+                                                                <state key="normal" title="Solve">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="solveAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="waZ-Gy-pHI"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="OGI-BA-KbS" firstAttribute="top" secondItem="oSl-gV-Rmx" secondAttribute="bottom" constant="8" id="7BP-lY-MDK"/>
+                            <constraint firstItem="OGI-BA-KbS" firstAttribute="centerX" secondItem="emN-cI-9yU" secondAttribute="centerX" id="Q6N-HH-Sdn"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="algorithmSelect" destination="9I9-M9-gre" id="oP7-ic-6dE"/>
+                        <outlet property="blockSwitch" destination="Y4A-zP-Yhg" id="chx-IX-PBd"/>
+                        <outlet property="collectionView" destination="raL-M3-hEL" id="SMN-7D-l1C"/>
+                        <outlet property="columnSwitch" destination="UOo-2B-Htu" id="Wca-am-2JJ"/>
+                        <outlet property="nodeCountLabel" destination="djP-HE-PfT" id="m6a-ut-h8S"/>
+                        <outlet property="puzzleNameLabel" destination="pQb-Vc-u7v" id="gJa-er-yRq"/>
+                        <outlet property="rowSwitch" destination="He1-bw-H5S" id="h6M-9d-jI6"/>
+                        <outlet property="solveButton" destination="VbY-a6-gGW" id="6cW-Va-Lqg"/>
+                        <outlet property="undoButton" destination="tcH-6f-4eh" id="Iqt-Nd-GFV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mox-1L-5mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mN4-m4-heJ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1491" y="716"/>
+        </scene>
+    </scenes>
+</document>
