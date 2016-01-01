@@ -16,6 +16,12 @@ class HLWebViewViewController: UIViewController {
     @IBOutlet weak var gotoButton: UIButton?
 
     
+    @IBAction func unwindToWebView(sender: UIStoryboardSegue)
+    {
+        let sourceViewController = sender.sourceViewController
+        print("HLWebViewController-  webViewDidFinishLoad: \(sourceViewController)")
+    }
+    
     func parseHTML( data: String)
     {
         var count = 0;
@@ -90,7 +96,7 @@ class HLWebViewViewController: UIViewController {
     {
         
         let data = webView.stringByEvaluatingJavaScriptFromString("document.documentElement.outerHTML")
-  //      println("HLWebViewController-  webViewDidFinishLoad: \(data)")
+  //      print("HLWebViewController-  webViewDidFinishLoad: \(data)")
        
         parseHTML(data!)
     }
@@ -98,7 +104,7 @@ class HLWebViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        println("HLWebViewController-  viewDidLoad")
+//        print("HLWebViewController-  viewDidLoad")
         
         let url = NSURL(string: "http://view.websudoku.com")
         let request = NSURLRequest(URL: url!)

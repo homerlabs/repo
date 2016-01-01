@@ -185,6 +185,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
 //        updateAndDisplayCells()
 
         _solver.load(importArray)
+        _solver.prunePuzzle(rows:true, columns:true, blocks:true)
         nodeCountLabel!.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
     }
 }

@@ -34,7 +34,7 @@ class HLSolver: NSObject {
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
     let blockIndexSet = [
-        [ 0,  1,  2,  9, 10, 11, 18, 19 ,20],
+        [ 0,  1,  2,  9, 10, 11, 18, 19, 20],
         [ 3,  4,  5, 12, 13, 14, 21, 22, 23],
         [ 6,  7,  8, 15, 16, 17, 24, 25, 26],
         
@@ -452,25 +452,25 @@ class HLSolver: NSObject {
     
         func isValidPuzzleRow(row: Int) -> Bool {
             var returnValue = true
+            var numArray = Array(count: 10, repeatedValue: 0)
+                
             for column in 0..<kColumns {
             
-                var numArray = Array(count: 10, repeatedValue: 0)
-                
                 let (data, _) = dataSet[row, column]
                 let cell = Array(data)
                 if cell.count == 1 {
                     let value = cell[0]
                     numArray[Int(value)!]++
                 }
-                
-                for i in 0..<numArray.count {
-                    if numArray[i] > 2 {
-                        returnValue = false
-                        break
-                    }
-                }
             }
             
+            for i in 0..<numArray.count {
+                if numArray[i] > 1 {
+                    returnValue = false
+                    break
+                }
+            }
+
             return returnValue
         }
 
@@ -503,7 +503,6 @@ class HLSolver: NSObject {
                 dataSet[i] = newCell
             }
             
-            prunePuzzle(rows:true, columns:true, blocks:true)
             previousDataSet = dataSet
             
             printDataSet(dataSet)
