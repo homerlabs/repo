@@ -277,6 +277,7 @@ class HLSolver: NSObject {
                     if data.count > 1   {   dataSet[row, column] = (data.subtract(solvedSet), status) }
                 }
             }
+            
             //  start of func prunePuzzleRows()
             for row in 0..<kRows {  pruneRow(row)   }
         }

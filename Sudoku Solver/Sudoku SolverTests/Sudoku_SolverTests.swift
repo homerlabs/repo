@@ -11,22 +11,46 @@ import XCTest
 
 class Sudoku_SolverTests: XCTestCase {
 
-    //  tests the isPuzzleValid method
+    //  0, 2, 3, 4, 5, 6, 7, 8, 9,
+    //  2, 0, 4, 5, 6, 7, 8, 9, 1,
+    //  3, 4, 0, 6, 7, 8, 9, 1, 2,
+    //  4, 5, 6, 0, 8, 9, 1, 2, 3,
+    //  5, 6, 7, 8, 0, 1, 2, 3, 4,
+    //  6, 7, 8, 9, 1, 0, 3, 4, 5,
+    //  7, 8, 9, 1, 2, 3, 0, 5, 6,
+    //  8, 9, 1, 2, 3, 4, 5, 0, 7,
+    //  9, 1, 2, 3, 4, 5, 6, 7, 0
+    func testPrunePuzzle()  {
+    
+        let solver = HLSolver()
+        
+        var puzzleData = createValidSolvedPuzzle()
+        
+        for index in 0...80 {
+            if (index % 10) == 0    {   puzzleData[index] = "0"     }
+        }
+
+        solver.load(puzzleData)
+        solver.prunePuzzle(rows: true, columns: false, blocks: false)
+        XCTAssert(solver.unsolvedCount()==0, "Pass")
+
+        solver.load(puzzleData)
+        solver.prunePuzzle(rows: false, columns: true, blocks: false)
+        XCTAssert(solver.unsolvedCount()==0, "Pass")
+    }
+
+    //  tests the isPuzzleValid function
     func testIsPuzzleValid() {
 
         let solver = HLSolver()
         
         var puzzleData = createValidSolvedPuzzle()
-//        print(puzzleData)
-
         solver.load(puzzleData)
-        let isValid = solver.isValidPuzzle()
-        XCTAssert(isValid, "Pass")
+        XCTAssert(solver.isValidPuzzle(), "Pass")
 
         puzzleData[0] = "6" //  should be "1"
         solver.load(puzzleData)
-        let isNotValid = !solver.isValidPuzzle()
-        XCTAssert(isNotValid, "Pass")
+        XCTAssert(!solver.isValidPuzzle(), "Pass")
     }
     
     //  1, 2, 3, 4, 5, 6, 7, 8, 9,
