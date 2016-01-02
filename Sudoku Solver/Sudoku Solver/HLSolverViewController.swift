@@ -102,10 +102,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
                 _solver.findMonoSectors(rows: rowsSelected, columns: columnsSelected)
                 break
             
-            case 3:     //  Prune
-                _solver.prunePuzzle(rows: rowsSelected, columns: columnsSelected, blocks: blocksSelected)
-                break
-            
             default:
                 break
         }
