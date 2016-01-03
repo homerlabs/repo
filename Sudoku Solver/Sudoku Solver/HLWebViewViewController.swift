@@ -12,6 +12,10 @@ class HLWebViewViewController: UIViewController {
 
     var puzzleTitle: String
     var puzzleData: Array<String>
+    let viewTall: CGFloat = 248
+    let viewShort: CGFloat  = 129
+    
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var webView: UIWebView?
     @IBOutlet weak var gotoButton: UIButton?
 
@@ -22,10 +26,25 @@ class HLWebViewViewController: UIViewController {
         print("HLWebViewController-  webViewDidFinishLoad: \(sourceViewController)")
     }
     
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)    {
+        print("HLWebViewController-  viewWillTransitionToSize w x h: \(size.width)\(size.height)")
+        
+        if (size.width > size.height)   {   heightConstraint!.constant = viewShort  }
+        else                            {   heightConstraint!.constant = viewTall   }
+    }
+    
+    
+    func attemptRotationToDeviceOrientation()
+    {
+        print("HLWebViewController-  webViewDidFinishLoad")
+    }
+    
+    
     func parseHTML( data: String)
     {
         var count = 0;
- //       println( "data:\(data)" )
+   //     print( "data:\(data)" )
         var stringArray = Array<String>()
         let formTag = data.rangeOfString("<form")
         
@@ -111,6 +130,19 @@ class HLWebViewViewController: UIViewController {
         webView!.loadRequest(request)
     }
 
+
+    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(animated)
+
+        if (UIDevice.currentDevice().orientation == .LandscapeLeft || UIDevice.currentDevice().orientation == .LandscapeRight)    {
+            heightConstraint!.constant = viewShort
+        }
+        else {
+            heightConstraint!.constant = viewShort
+        }
+    }
+    
 
     override func viewWillDisappear(animated: Bool)
     {
