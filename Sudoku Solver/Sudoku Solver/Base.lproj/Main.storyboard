@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--WebView-->
@@ -14,11 +15,22 @@
                         <viewControllerLayoutGuide type="bottom" id="Xis-UA-xHJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iRw-hk-vik">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDi-nS-bAH">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="973"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ZBV-B0-Bj3" id="dVU-rj-eIf"/>
+                                </connections>
+                            </webView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhc-gb-w6c">
-                                <rect key="frame" x="249" y="547" width="101" height="33"/>
+                                <rect key="frame" x="0.0" y="976" width="768" height="48"/>
+                                <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="bC4-5c-m5K"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                 <state key="normal" title="Go to Solver">
                                     <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -28,24 +40,47 @@
                                     <segue destination="1lh-am-sXc" kind="show" identifier="GotoSolver" id="AsD-Rm-M91"/>
                                 </connections>
                             </button>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDi-nS-bAH">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="539"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ZBV-B0-Bj3" id="dVU-rj-eIf"/>
-                                </connections>
-                            </webView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cGx-uP-2zk">
+                                <rect key="frame" x="0.0" y="18" width="282" height="25"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ss-eQ-OPO">
+                                <rect key="frame" x="297" y="18" width="471" height="25"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r86-sL-QrG">
+                                <rect key="frame" x="297" y="720" width="471" height="248"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gxw-5D-ITW">
+                                <rect key="frame" x="0.0" y="203" width="282" height="765"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UDi-nS-bAH" firstAttribute="leading" secondItem="iRw-hk-vik" secondAttribute="leading" id="5x4-Uj-z7q"/>
                             <constraint firstAttribute="centerX" secondItem="hhc-gb-w6c" secondAttribute="centerX" id="FV3-fy-qSR"/>
+                            <constraint firstItem="hhc-gb-w6c" firstAttribute="top" secondItem="UDi-nS-bAH" secondAttribute="bottom" constant="3" id="Ylj-H5-czY"/>
+                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" id="hjg-2T-4XN"/>
                             <constraint firstAttribute="trailing" secondItem="UDi-nS-bAH" secondAttribute="trailing" id="hvR-Wz-dcc"/>
+                            <constraint firstItem="hhc-gb-w6c" firstAttribute="leading" secondItem="iRw-hk-vik" secondAttribute="leadingMargin" constant="-20" id="jkU-LO-6c8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hhc-gb-w6c" secondAttribute="trailing" constant="-20" id="mpb-Bo-0hI"/>
                             <constraint firstItem="hhc-gb-w6c" firstAttribute="top" secondItem="UDi-nS-bAH" secondAttribute="bottom" constant="8" id="o8L-Gh-ujb"/>
                             <constraint firstItem="UDi-nS-bAH" firstAttribute="top" secondItem="iRw-hk-vik" secondAttribute="top" id="qkq-YG-Nzp"/>
                             <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" constant="20" id="rHA-ex-B0F"/>
+                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" constant="15" id="sbK-VE-KA2"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FV3-fy-qSR"/>
+                                <exclude reference="o8L-Gh-ujb"/>
+                                <exclude reference="rHA-ex-B0F"/>
+                                <exclude reference="sbK-VE-KA2"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="gotoButton" destination="hhc-gb-w6c" id="fdI-xa-izk"/>
                         <outlet property="webView" destination="UDi-nS-bAH" id="iLc-8o-vKx"/>
@@ -53,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXp-NM-KuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="728" y="716"/>
+            <point key="canvasLocation" x="732" y="716"/>
         </scene>
         <!--Solver-->
         <scene sceneID="g3e-JT-cei">
@@ -67,8 +102,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
-                                <rect key="frame" x="104" y="153" width="560" height="719"/>
+                            <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
+                                <rect key="frame" x="104" y="153" width="560" height="718"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="2Fh-nQ-z4x" userLabel="Top Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="57"/>
@@ -133,13 +168,13 @@
                                                 <rect key="frame" x="415" y="0.0" width="146" height="57"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puzzle Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Vc-u7v">
-                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="29"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="28"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unsolved Nodes: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djP-HE-PfT">
-                                                        <rect key="frame" x="0.0" y="29" width="146" height="28"/>
+                                                        <rect key="frame" x="0.0" y="28" width="146" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -149,7 +184,7 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="raL-M3-hEL">
-                                        <rect key="frame" x="0.0" y="77" width="560" height="560"/>
+                                        <rect key="frame" x="0.0" y="76" width="560" height="560"/>
                                         <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="560" id="38T-2M-sP2"/>
@@ -200,7 +235,7 @@
                                         </connections>
                                     </collectionView>
                                     <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Er-9Cg" userLabel="Bottom Stack View">
-                                        <rect key="frame" x="0.0" y="651" width="560" height="69"/>
+                                        <rect key="frame" x="0.0" y="650" width="560" height="68"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9I9-M9-gre">
                                                 <rect key="frame" x="0.0" y="0.0" width="560" height="29"/>
@@ -218,7 +253,7 @@
                                                 </connections>
                                             </segmentedControl>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="TxT-TK-zCR" userLabel="Buttons Stack View">
-                                                <rect key="frame" x="0.0" y="38" width="560" height="31"/>
+                                                <rect key="frame" x="0.0" y="38" width="560" height="30"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-TI-m18" userLabel="RdWrt Stack View">
                                                         <rect key="frame" x="0.0" y="0.0" width="132" height="30"/>
@@ -251,17 +286,6 @@
                                                             </button>
                                                         </subviews>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-AX-dm0">
-                                                        <rect key="frame" x="218" y="-3" width="124" height="33"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                                        <state key="normal" title="Go to WebView">
-                                                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <segue destination="mN4-m4-heJ" kind="unwind" unwindAction="unwindToWebView:" id="qkL-7J-oVK"/>
-                                                        </connections>
-                                                    </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="g2g-xi-1S7" userLabel="Solve Stack View">
                                                         <rect key="frame" x="427" y="0.0" width="133" height="30"/>
                                                         <subviews>
@@ -299,8 +323,20 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-AX-dm0">
+                                <rect key="frame" x="0.0" y="976" width="768" height="48"/>
+                                <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <state key="normal" title="Go to WebView">
+                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="mN4-m4-heJ" kind="unwind" unwindAction="unwindToWebView:" id="qkL-7J-oVK"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OGI-BA-KbS" firstAttribute="top" secondItem="oSl-gV-Rmx" secondAttribute="bottom" constant="8" id="7BP-lY-MDK"/>
                             <constraint firstItem="OGI-BA-KbS" firstAttribute="centerX" secondItem="emN-cI-9yU" secondAttribute="centerX" id="Q6N-HH-Sdn"/>
