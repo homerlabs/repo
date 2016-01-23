@@ -27,6 +27,13 @@ class HLWebViewViewController: UIViewController {
     }
     
     
+    @IBAction func aboutAction(sender: UIButton)
+    {
+        print("HLWebViewController-  aboutAction")
+        self.performSegueWithIdentifier( "GotoAbout", sender:self)
+    }
+    
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)    {
         
         if (size.width > size.height)   {   heightConstraint!.constant = viewShort  }
@@ -37,7 +44,7 @@ class HLWebViewViewController: UIViewController {
     func parseHTML( data: String)
     {
         var count = 0;
-        print( "data:\(data)" )
+//        print( "data:\(data)" )
         var stringArray = Array<String>()
         let formTag = data.rangeOfString("<form")
         
@@ -153,6 +160,10 @@ class HLWebViewViewController: UIViewController {
                 viewController.importArray = puzzleData
                 viewController.puzzleName = puzzleTitle
             }
+        }
+        else if segue.identifier == "GotoAbout"
+        {
+            print("HLWebViewController-  prepareForSegue-  GotoAbout")
         }
     }
 }
