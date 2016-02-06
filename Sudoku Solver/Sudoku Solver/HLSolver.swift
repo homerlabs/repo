@@ -74,7 +74,7 @@ class HLSolver: NSObject {
                 for column in 0..<kColumns     {
                     let (data, _) = dataSet[row, column]
                     if data.count > 1                                              {
-                        for item: String in data {  numArray[Int(item)!]++   }   }
+                        for item: String in data {  numArray[Int(item)!] += 1   }   }
                 }
                 
                 for index in 1..<10 {
@@ -160,12 +160,12 @@ class HLSolver: NSObject {
                     data.remove(String(reduceNumber))
                     dataSet[row, column] = (data, status)
 
-                    column++
+                    column += 1
                     (data, status) = dataSet[row, column]
                     data.remove(String(reduceNumber))
                     dataSet[row, column] = (data, status)
 
-                    column++
+                    column += 1
                     (data, status) = dataSet[row, column]
                     data.remove(String(reduceNumber))
                     dataSet[row, column] = (data, status)
@@ -175,9 +175,13 @@ class HLSolver: NSObject {
                 var reduceRow = sectorForIndex(row) * 3
                 if row != reduceRow                                                         {
                     reduceRowForRow(reduceRow, sector: sector, reduceNumber: reduceNumber)  }
-                if row != ++reduceRow                                                       {
+                
+                reduceRow += 1
+                if row != reduceRow                                                         {
                     reduceRowForRow(reduceRow, sector: sector, reduceNumber: reduceNumber)  }
-                if row != ++reduceRow                                                       {
+                
+                reduceRow += 1
+                if row != reduceRow                                                       {
                     reduceRowForRow(reduceRow, sector: sector, reduceNumber: reduceNumber)  }
             }
 
@@ -461,7 +465,7 @@ class HLSolver: NSObject {
                 let cell = Array(data)
                 if cell.count == 1 {
                     let value = cell[0]
-                    numArray[Int(value)!]++
+                    numArray[Int(value)!] += 1
                 }
             }
             
@@ -493,7 +497,7 @@ class HLSolver: NSObject {
     func load(data: [String])
     {
         if data.count == kCellCount     {
-            for( var i=0; i<kCellCount; i++ )
+            for i in 0 ..< kCellCount 
             {
                 let cellValue = data[i]
                 var newCell: (Set<String>, CMGCellStatus)
@@ -519,10 +523,10 @@ class HLSolver: NSObject {
 
             puzzleName = (NSUserDefaults.standardUserDefaults().objectForKey(kNameKey) as! String)
 
-            if let dataArray = NSUserDefaults.standardUserDefaults().objectForKey(kDataKey)     {
+            if let dataArray: [[String]] = NSUserDefaults.standardUserDefaults().objectForKey(kDataKey) as? [[String]]    {
                 
                 for index in 0..<kCellCount {
-                    let x: [String] = dataArray[index] as! [String]
+                    let x: [String] = dataArray[index]
                     dataSet[index] = (arrayToSet(x), CMGCellStatus(rawValue: statusArray[index])!)
                 }
                 

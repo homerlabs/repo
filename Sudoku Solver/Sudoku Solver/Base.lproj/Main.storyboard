@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBV-B0-Bj3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBV-B0-Bj3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="732" y="716"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--About-->
         <scene sceneID="9o1-Wh-Zie">
             <objects>
-                <viewController id="xV2-ZI-mxn" customClass="HLDetailViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="About" id="xV2-ZI-mxn" customClass="HLDetailViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hFG-l3-siI"/>
                         <viewControllerLayoutGuide type="bottom" id="8Nh-Bj-EdJ"/>
@@ -162,10 +162,10 @@
             </objects>
             <point key="canvasLocation" x="1357" y="3237"/>
         </scene>
-        <!--Root View Controller-->
+        <!--MasterViewController-->
         <scene sceneID="uFG-aA-rgA">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="gdC-gP-UTU" customClass="HLMasterViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="MasterViewController" clearsSelectionOnViewWillAppear="NO" id="gdC-gP-UTU" customClass="HLMasterViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="26K-M3-T3l">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,16 +185,16 @@
                             <outlet property="delegate" destination="gdC-gP-UTU" id="t4F-Bm-Wz9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="eCn-ro-GCc"/>
+                    <navigationItem key="navigationItem" title="Sudoku Solver About" id="7mv-kn-N8O"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Em6-tH-lyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1953" y="2107"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--AboutNavController-->
         <scene sceneID="Z71-Oe-3BR">
             <objects>
-                <navigationController id="ozd-3O-JyO" sceneMemberID="viewController">
+                <navigationController title="AboutNavController" id="ozd-3O-JyO" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mFm-49-fdh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
