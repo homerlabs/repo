@@ -79,7 +79,7 @@ class HLWebViewViewController: UIViewController {
                     }
                 }
                 
-                count++
+                count += 1
                 tdTag = remainingString.rangeOfString("<td")
             }
             
