@@ -1,0 +1,516 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B00B7B211A631D5600EAD797 /* HLGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = B00B7B201A631D5600EAD797 /* HLGraphView.m */; };
+		B06E59601A5D2B86007C122A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B06E595F1A5D2B86007C122A /* AppDelegate.m */; };
+		B06E59621A5D2B86007C122A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B06E59611A5D2B86007C122A /* main.m */; };
+		B06E59641A5D2B86007C122A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06E59631A5D2B86007C122A /* Images.xcassets */; };
+		B06E59671A5D2B86007C122A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06E59651A5D2B86007C122A /* MainMenu.xib */; };
+		B06E59731A5D2B86007C122A /* Phidget1018Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = B06E59721A5D2B86007C122A /* Phidget1018Tests.m */; };
+		B06E597D1A5D2C1D007C122A /* Phidget21.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E597C1A5D2C1D007C122A /* Phidget21.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B06E598D1A5D4731007C122A /* HLPhidgetWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06E598B1A5D4731007C122A /* HLPhidgetWindowController.m */; };
+		B06E598E1A5D4731007C122A /* HLPhidgetWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B06E598C1A5D4731007C122A /* HLPhidgetWindowController.xib */; };
+		B06E59911A5D4A4A007C122A /* HLPhidgetInterfaceKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06E59901A5D4A4A007C122A /* HLPhidgetInterfaceKitController.m */; };
+		B06E59931A5D7AE8007C122A /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E59921A5D7AE8007C122A /* AppKit.framework */; };
+		B06E59951A5D94B0007C122A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06E59941A5D94B0007C122A /* Cocoa.framework */; };
+		B0A1E4301A5E956500876B50 /* HLPhidget1018.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A1E42F1A5E956500876B50 /* HLPhidget1018.m */; };
+		B0D2846C1A9927CC002CD9EB /* HLPasswordPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D2846A1A9927CC002CD9EB /* HLPasswordPanelController.m */; };
+		B0D2846D1A9927CC002CD9EB /* HLPasswordPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0D2846B1A9927CC002CD9EB /* HLPasswordPanelController.xib */; };
+		B0D348E21A9B7CAB00EF4B01 /* HLUserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D348E11A9B7CAB00EF4B01 /* HLUserPreferences.m */; };
+		B0ED40A81A6F739E00E574B5 /* HLCircularBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0ED40A71A6F739E00E574B5 /* HLCircularBuffer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B06E596D1A5D2B86007C122A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B06E59511A5D2B86007C122A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B06E59581A5D2B86007C122A;
+			remoteInfo = Phidget1018;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B00B7B1F1A631D5600EAD797 /* HLGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLGraphView.h; sourceTree = "<group>"; };
+		B00B7B201A631D5600EAD797 /* HLGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLGraphView.m; sourceTree = "<group>"; };
+		B0129DA81AAE3FA7007BE5BB /* Phidget1018.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Phidget1018.entitlements; sourceTree = "<group>"; };
+		B02D27FD1A8C1A91009B1F44 /* phidget21.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = phidget21.h; sourceTree = "<group>"; };
+		B06E59591A5D2B86007C122A /* Phidget1018.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phidget1018.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06E595D1A5D2B86007C122A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B06E595E1A5D2B86007C122A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B06E595F1A5D2B86007C122A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B06E59611A5D2B86007C122A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B06E59631A5D2B86007C122A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B06E59661A5D2B86007C122A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B06E596C1A5D2B86007C122A /* Phidget1018Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Phidget1018Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06E59711A5D2B86007C122A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B06E59721A5D2B86007C122A /* Phidget1018Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Phidget1018Tests.m; sourceTree = "<group>"; };
+		B06E597C1A5D2C1D007C122A /* Phidget21.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Phidget21.framework; path = /Library/Frameworks/Phidget21.framework; sourceTree = "<absolute>"; };
+		B06E598A1A5D4731007C122A /* HLPhidgetWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLPhidgetWindowController.h; sourceTree = "<group>"; };
+		B06E598B1A5D4731007C122A /* HLPhidgetWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLPhidgetWindowController.m; sourceTree = "<group>"; };
+		B06E598C1A5D4731007C122A /* HLPhidgetWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLPhidgetWindowController.xib; sourceTree = "<group>"; };
+		B06E598F1A5D4A49007C122A /* HLPhidgetInterfaceKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLPhidgetInterfaceKitController.h; sourceTree = "<group>"; };
+		B06E59901A5D4A4A007C122A /* HLPhidgetInterfaceKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLPhidgetInterfaceKitController.m; sourceTree = "<group>"; };
+		B06E59921A5D7AE8007C122A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		B06E59941A5D94B0007C122A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B0A1E42E1A5E956500876B50 /* HLPhidget1018.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLPhidget1018.h; sourceTree = "<group>"; };
+		B0A1E42F1A5E956500876B50 /* HLPhidget1018.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLPhidget1018.m; sourceTree = "<group>"; };
+		B0A1E4321A5EB11900876B50 /* HLPhidget1018Delegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLPhidget1018Delegate.h; sourceTree = "<group>"; };
+		B0D284691A9927CC002CD9EB /* HLPasswordPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLPasswordPanelController.h; sourceTree = "<group>"; };
+		B0D2846A1A9927CC002CD9EB /* HLPasswordPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLPasswordPanelController.m; sourceTree = "<group>"; };
+		B0D2846B1A9927CC002CD9EB /* HLPasswordPanelController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLPasswordPanelController.xib; sourceTree = "<group>"; };
+		B0D348E01A9B7CAB00EF4B01 /* HLUserPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLUserPreferences.h; sourceTree = "<group>"; };
+		B0D348E11A9B7CAB00EF4B01 /* HLUserPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLUserPreferences.m; sourceTree = "<group>"; };
+		B0ED40A61A6F739E00E574B5 /* HLCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLCircularBuffer.h; sourceTree = "<group>"; };
+		B0ED40A71A6F739E00E574B5 /* HLCircularBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLCircularBuffer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B06E59561A5D2B86007C122A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06E59951A5D94B0007C122A /* Cocoa.framework in Frameworks */,
+				B06E59931A5D7AE8007C122A /* AppKit.framework in Frameworks */,
+				B06E597D1A5D2C1D007C122A /* Phidget21.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06E59691A5D2B86007C122A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B06E59501A5D2B86007C122A = {
+			isa = PBXGroup;
+			children = (
+				B06E595B1A5D2B86007C122A /* Phidget1018 */,
+				B06E59811A5D2D62007C122A /* Frameworks */,
+				B06E596F1A5D2B86007C122A /* Phidget1018Tests */,
+				B06E595A1A5D2B86007C122A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B06E595A1A5D2B86007C122A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B06E59591A5D2B86007C122A /* Phidget1018.app */,
+				B06E596C1A5D2B86007C122A /* Phidget1018Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B06E595B1A5D2B86007C122A /* Phidget1018 */ = {
+			isa = PBXGroup;
+			children = (
+				B0D348E01A9B7CAB00EF4B01 /* HLUserPreferences.h */,
+				B0D348E11A9B7CAB00EF4B01 /* HLUserPreferences.m */,
+				B0D284691A9927CC002CD9EB /* HLPasswordPanelController.h */,
+				B0D2846A1A9927CC002CD9EB /* HLPasswordPanelController.m */,
+				B0D2846B1A9927CC002CD9EB /* HLPasswordPanelController.xib */,
+				B0ED40A61A6F739E00E574B5 /* HLCircularBuffer.h */,
+				B0ED40A71A6F739E00E574B5 /* HLCircularBuffer.m */,
+				B00B7B1F1A631D5600EAD797 /* HLGraphView.h */,
+				B00B7B201A631D5600EAD797 /* HLGraphView.m */,
+				B0A1E42E1A5E956500876B50 /* HLPhidget1018.h */,
+				B0A1E42F1A5E956500876B50 /* HLPhidget1018.m */,
+				B06E598F1A5D4A49007C122A /* HLPhidgetInterfaceKitController.h */,
+				B06E59901A5D4A4A007C122A /* HLPhidgetInterfaceKitController.m */,
+				B06E598A1A5D4731007C122A /* HLPhidgetWindowController.h */,
+				B06E598B1A5D4731007C122A /* HLPhidgetWindowController.m */,
+				B06E598C1A5D4731007C122A /* HLPhidgetWindowController.xib */,
+				B0A1E4321A5EB11900876B50 /* HLPhidget1018Delegate.h */,
+				B06E595E1A5D2B86007C122A /* AppDelegate.h */,
+				B06E595F1A5D2B86007C122A /* AppDelegate.m */,
+				B06E59631A5D2B86007C122A /* Images.xcassets */,
+				B06E59651A5D2B86007C122A /* MainMenu.xib */,
+				B06E595C1A5D2B86007C122A /* Supporting Files */,
+			);
+			path = Phidget1018;
+			sourceTree = "<group>";
+		};
+		B06E595C1A5D2B86007C122A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0129DA81AAE3FA7007BE5BB /* Phidget1018.entitlements */,
+				B02D27FD1A8C1A91009B1F44 /* phidget21.h */,
+				B06E595D1A5D2B86007C122A /* Info.plist */,
+				B06E59611A5D2B86007C122A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B06E596F1A5D2B86007C122A /* Phidget1018Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B06E59721A5D2B86007C122A /* Phidget1018Tests.m */,
+				B06E59701A5D2B86007C122A /* Supporting Files */,
+			);
+			path = Phidget1018Tests;
+			sourceTree = "<group>";
+		};
+		B06E59701A5D2B86007C122A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B06E59711A5D2B86007C122A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B06E59811A5D2D62007C122A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B06E59941A5D94B0007C122A /* Cocoa.framework */,
+				B06E59921A5D7AE8007C122A /* AppKit.framework */,
+				B06E597C1A5D2C1D007C122A /* Phidget21.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B06E59581A5D2B86007C122A /* Phidget1018 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B06E59761A5D2B86007C122A /* Build configuration list for PBXNativeTarget "Phidget1018" */;
+			buildPhases = (
+				B06E59551A5D2B86007C122A /* Sources */,
+				B06E59561A5D2B86007C122A /* Frameworks */,
+				B06E59571A5D2B86007C122A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Phidget1018;
+			productName = Phidget1018;
+			productReference = B06E59591A5D2B86007C122A /* Phidget1018.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B06E596B1A5D2B86007C122A /* Phidget1018Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B06E59791A5D2B86007C122A /* Build configuration list for PBXNativeTarget "Phidget1018Tests" */;
+			buildPhases = (
+				B06E59681A5D2B86007C122A /* Sources */,
+				B06E59691A5D2B86007C122A /* Frameworks */,
+				B06E596A1A5D2B86007C122A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B06E596E1A5D2B86007C122A /* PBXTargetDependency */,
+			);
+			name = Phidget1018Tests;
+			productName = Phidget1018Tests;
+			productReference = B06E596C1A5D2B86007C122A /* Phidget1018Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B06E59511A5D2B86007C122A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Homer Labs";
+				TargetAttributes = {
+					B06E59581A5D2B86007C122A = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 9YP4SSJBR5;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+					B06E596B1A5D2B86007C122A = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = B06E59581A5D2B86007C122A;
+					};
+				};
+			};
+			buildConfigurationList = B06E59541A5D2B86007C122A /* Build configuration list for PBXProject "Phidget1018" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B06E59501A5D2B86007C122A;
+			productRefGroup = B06E595A1A5D2B86007C122A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B06E59581A5D2B86007C122A /* Phidget1018 */,
+				B06E596B1A5D2B86007C122A /* Phidget1018Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B06E59571A5D2B86007C122A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06E59641A5D2B86007C122A /* Images.xcassets in Resources */,
+				B0D2846D1A9927CC002CD9EB /* HLPasswordPanelController.xib in Resources */,
+				B06E59671A5D2B86007C122A /* MainMenu.xib in Resources */,
+				B06E598E1A5D4731007C122A /* HLPhidgetWindowController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06E596A1A5D2B86007C122A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B06E59551A5D2B86007C122A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06E59621A5D2B86007C122A /* main.m in Sources */,
+				B0D2846C1A9927CC002CD9EB /* HLPasswordPanelController.m in Sources */,
+				B06E59601A5D2B86007C122A /* AppDelegate.m in Sources */,
+				B0D348E21A9B7CAB00EF4B01 /* HLUserPreferences.m in Sources */,
+				B00B7B211A631D5600EAD797 /* HLGraphView.m in Sources */,
+				B0A1E4301A5E956500876B50 /* HLPhidget1018.m in Sources */,
+				B06E59911A5D4A4A007C122A /* HLPhidgetInterfaceKitController.m in Sources */,
+				B0ED40A81A6F739E00E574B5 /* HLCircularBuffer.m in Sources */,
+				B06E598D1A5D4731007C122A /* HLPhidgetWindowController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06E59681A5D2B86007C122A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06E59731A5D2B86007C122A /* Phidget1018Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B06E596E1A5D2B86007C122A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B06E59581A5D2B86007C122A /* Phidget1018 */;
+			targetProxy = B06E596D1A5D2B86007C122A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B06E59651A5D2B86007C122A /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B06E59661A5D2B86007C122A /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B06E59741A5D2B86007C122A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B06E59751A5D2B86007C122A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B06E59771A5D2B86007C122A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Phidget1018/Phidget1018.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = Phidget1018/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.homerlabs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B06E59781A5D2B86007C122A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Phidget1018/Phidget1018.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = Phidget1018/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.homerlabs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B06E597A1A5D2B86007C122A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Phidget1018Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.homerlabs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phidget1018.app/Contents/MacOS/Phidget1018";
+			};
+			name = Debug;
+		};
+		B06E597B1A5D2B86007C122A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Phidget1018Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.homerlabs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phidget1018.app/Contents/MacOS/Phidget1018";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B06E59541A5D2B86007C122A /* Build configuration list for PBXProject "Phidget1018" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B06E59741A5D2B86007C122A /* Debug */,
+				B06E59751A5D2B86007C122A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B06E59761A5D2B86007C122A /* Build configuration list for PBXNativeTarget "Phidget1018" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B06E59771A5D2B86007C122A /* Debug */,
+				B06E59781A5D2B86007C122A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B06E59791A5D2B86007C122A /* Build configuration list for PBXNativeTarget "Phidget1018Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B06E597A1A5D2B86007C122A /* Debug */,
+				B06E597B1A5D2B86007C122A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B06E59511A5D2B86007C122A /* Project object */;
+}
