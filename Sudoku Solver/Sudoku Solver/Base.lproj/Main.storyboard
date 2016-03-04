@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBV-B0-Bj3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10115" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBV-B0-Bj3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10084"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -116,6 +116,9 @@
                             <constraint firstItem="cGx-uP-2zk" firstAttribute="top" secondItem="iRw-hk-vik" secondAttribute="top" constant="18" id="zo3-8S-YGM"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="bJ5-yY-Ae8"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="FV3-fy-qSR"/>
                                 <exclude reference="o8L-Gh-ujb"/>
@@ -175,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9jg-Sg-p8Z" id="e0U-l1-7Cl">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -232,16 +235,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
+                            <stackView contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
                                 <rect key="frame" x="104" y="153" width="560" height="718"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="2Fh-nQ-z4x" userLabel="Top Stack View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="2Fh-nQ-z4x" userLabel="Top Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="57"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="PV5-Hz-PqA" userLabel="Control Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalCentering" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="PV5-Hz-PqA" userLabel="Control Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="57"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H5q-3i-lcC" userLabel="Row Stack View">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H5q-3i-lcC" userLabel="Row Stack View">
                                                         <rect key="frame" x="0.0" y="0.0" width="49" height="57"/>
                                                         <subviews>
                                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="He1-bw-H5S" userLabel="Row Switch">
@@ -250,7 +253,7 @@
                                                                     <action selector="settingsAction" destination="1lh-am-sXc" eventType="valueChanged" id="wjv-Zx-FqI"/>
                                                                 </connections>
                                                             </switch>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAG-sb-6hK">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rows" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAG-sb-6hK">
                                                                 <rect key="frame" x="4" y="36" width="41" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -258,16 +261,16 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ta7-Rx-pmX" userLabel="Column Stack View">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ta7-Rx-pmX" userLabel="Column Stack View">
                                                         <rect key="frame" x="133" y="0.0" width="68" height="57"/>
                                                         <subviews>
-                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOo-2B-Htu" userLabel="Column Switch">
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UOo-2B-Htu" userLabel="Column Switch">
                                                                 <rect key="frame" x="10" y="0.0" width="51" height="31"/>
                                                                 <connections>
                                                                     <action selector="settingsAction" destination="1lh-am-sXc" eventType="valueChanged" id="SOF-ko-mxd"/>
                                                                 </connections>
                                                             </switch>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Columns" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGU-b3-izd">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Columns" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGU-b3-izd">
                                                                 <rect key="frame" x="0.0" y="36" width="68" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -275,16 +278,16 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iZS-D7-Qza" userLabel="Block Stack View">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iZS-D7-Qza" userLabel="Block Stack View">
                                                         <rect key="frame" x="284" y="0.0" width="51" height="57"/>
                                                         <subviews>
-                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y4A-zP-Yhg" userLabel="Block Switch">
+                                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y4A-zP-Yhg" userLabel="Block Switch">
                                                                 <rect key="frame" x="1" y="0.0" width="51" height="31"/>
                                                                 <connections>
                                                                     <action selector="settingsAction" destination="1lh-am-sXc" eventType="valueChanged" id="4PN-UT-xGU"/>
                                                                 </connections>
                                                             </switch>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNj-sQ-18f">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Blocks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNj-sQ-18f">
                                                                 <rect key="frame" x="0.0" y="36" width="51" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -294,16 +297,16 @@
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="8D3-KQ-yf1" userLabel="Info Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="8D3-KQ-yf1" userLabel="Info Stack View">
                                                 <rect key="frame" x="415" y="0.0" width="146" height="57"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puzzle Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Vc-u7v">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Puzzle Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQb-Vc-u7v">
                                                         <rect key="frame" x="0.0" y="0.0" width="101" height="28"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unsolved Nodes: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djP-HE-PfT">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Unsolved Nodes: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djP-HE-PfT">
                                                         <rect key="frame" x="0.0" y="28" width="146" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -313,7 +316,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="raL-M3-hEL">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="raL-M3-hEL">
                                         <rect key="frame" x="0.0" y="76" width="560" height="560"/>
                                         <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                                         <constraints>
@@ -364,7 +367,7 @@
                                             <outlet property="delegate" destination="1lh-am-sXc" id="Ff0-K1-cmS"/>
                                         </connections>
                                     </collectionView>
-                                    <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Er-9Cg" userLabel="Bottom Stack View">
+                                    <stackView contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Er-9Cg" userLabel="Bottom Stack View">
                                         <rect key="frame" x="0.0" y="650" width="560" height="68"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9I9-M9-gre">
@@ -495,6 +498,11 @@
                                     <constraint firstAttribute="bottom" secondItem="Oxz-zy-e7t" secondAttribute="bottom" id="byc-xU-avZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Oxz-zy-e7t" secondAttribute="trailing" id="l15-vt-CW4"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="Oxz-zy-e7t"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="1" alpha="1" colorSpace="calibratedRGB"/>
