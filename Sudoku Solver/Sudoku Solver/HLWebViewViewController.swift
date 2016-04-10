@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import WebKit
 
-class HLWebViewViewController: UIViewController {
+
+class HLWebViewViewController: UIViewController, WKNavigationDelegate {
 
     var puzzleTitle: String
     var puzzleData: Array<String>
@@ -16,9 +18,9 @@ class HLWebViewViewController: UIViewController {
     let viewShort: CGFloat  = 123
     
     @IBOutlet weak var heightConstraint: NSLayoutConstraint?
-    @IBOutlet weak var webView: UIWebView?
-    @IBOutlet weak var gotoButton: UIButton?
-
+    @IBOutlet weak var gotoButton: UIButton!
+    @IBOutlet weak var containerView: UIView!
+    var webView: WKWebView?
     
     @IBAction func unwindToWebView(sender: UIStoryboardSegue)
     {
@@ -31,6 +33,17 @@ class HLWebViewViewController: UIViewController {
     {
         print("HLWebViewController-  aboutAction")
         self.performSegueWithIdentifier( "GotoAbout", sender:self)
+    }
+    
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        print("HLWebViewController-  didFinishNavigation: \(navigation)")
+
+        webView.evaluateJavaScript("document.documentElement.outerHTML.toString()",
+                           completionHandler: { (html: AnyObject?, error: NSError?) in
+        //    print(html)
+            self.parseHTML(html as! String)
+            })
     }
     
     
@@ -91,7 +104,7 @@ class HLWebViewViewController: UIViewController {
                 remainingString = remainingString.substringFromIndex(nameTag!.endIndex.advancedBy(2))
                 let endTag = remainingString.rangeOfString("</a>")
                 puzzleTitle = remainingString.substringToIndex(endTag!.startIndex)
-                gotoButton?.enabled = true;
+                gotoButton.enabled = true;
     //           print( "puzzleData: \(puzzleData)" )
     //           print( "puzzleTitle: \(puzzleTitle)" )
             }
@@ -101,53 +114,6 @@ class HLWebViewViewController: UIViewController {
                 assert( false );
             }
         }
-    }
-
-
-    required init?(coder: NSCoder) {
-        puzzleTitle = ""
-        puzzleData = Array<String>()
-        super.init(coder: coder)
-    }
-
-
-    func webViewDidFinishLoad(webView: UIWebView)
-    {
-        
-        let data = webView.stringByEvaluatingJavaScriptFromString("document.documentElement.outerHTML")
-        print("HLWebViewController-  webViewDidFinishLoad")
-       
-        parseHTML(data!)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-//        print("HLWebViewController-  viewDidLoad")
-        
-        let url = NSURL(string: "http://view.websudoku.com")
-        let request = NSURLRequest(URL: url!)
-        webView!.loadRequest(request)
-    }
-
-
-    override func viewDidAppear(animated: Bool)
-    {
-        super.viewDidAppear(animated)
-
-        if (UIDevice.currentDevice().orientation == .LandscapeLeft || UIDevice.currentDevice().orientation == .LandscapeRight)    {
-            heightConstraint!.constant = viewShort
-        }
-        else {
-            heightConstraint!.constant = viewTall
-        }
-    }
-    
-
-    override func viewWillDisappear(animated: Bool)
-    {
-        super.viewWillDisappear(animated)
-        webView!.stopLoading()
     }
 
 
@@ -165,5 +131,46 @@ class HLWebViewViewController: UIViewController {
         {
             print("HLWebViewController-  prepareForSegue-  GotoAbout")
         }
+    }
+
+
+    required init?(coder: NSCoder) {
+        puzzleTitle = ""
+        puzzleData = Array<String>()
+        super.init(coder: coder)
+    }
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        print("HLWebViewController-  viewDidLoad")
+
+        let url: NSURL = NSURL(string: "http://view.websudoku.com")!
+        let request = NSURLRequest(URL: url)
+        webView = WKWebView(frame:containerView.bounds)
+        containerView.addSubview(webView!)
+        webView!.navigationDelegate = self
+        webView!.loadRequest(request)
+    }
+    
+    
+/*    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(animated)
+
+
+        if (UIDevice.currentDevice().orientation == .LandscapeLeft || UIDevice.currentDevice().orientation == .LandscapeRight)    {
+            heightConstraint!.constant = viewShort
+        }
+        else {
+            heightConstraint!.constant = viewTall
+        }
+    }   */
+    
+
+    override func viewWillDisappear(animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        webView!.stopLoading()
     }
 }
