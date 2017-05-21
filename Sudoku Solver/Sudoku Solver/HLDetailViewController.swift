@@ -15,8 +15,8 @@ class HLDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    let pdfLoc = NSURL(fileURLWithPath:NSBundle.mainBundle().pathForResource("Overview", ofType:"pdf")!)
-    let request = NSURLRequest(URL: pdfLoc);
+    let pdfLoc = URL(fileURLWithPath:Bundle.main.path(forResource: "Overview", ofType:"pdf")!)
+    let request = URLRequest(url: pdfLoc);
     self.pdfWebView!.loadRequest(request);
     }
     

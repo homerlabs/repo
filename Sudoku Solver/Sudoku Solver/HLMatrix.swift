@@ -39,12 +39,12 @@ struct Matrix {
         kColumns = columns
         kCellCount = rows * columns
         
-        grid = Array(count: rows*columns, repeatedValue: (Set<String>(), .CMGUnSolvedStatus))
+        grid = Array(repeating: (Set<String>(), .cmgUnSolvedStatus), count: rows*columns)
     }
     
-    func description(index: Int) -> String {
+    func description(_ index: Int) -> String {
         let (data, _) = grid[index]
-        let sortedCell = Array(data).sort(<)
+        let sortedCell = Array(data).sorted(by: <)
         var outputString = String()
         
         for i in 0..<sortedCell.count {
@@ -55,9 +55,9 @@ struct Matrix {
         return outputString
     }
     
-    func description(row row: Int, column: Int) -> String {
+    func description(row: Int, column: Int) -> String {
         let (data, _) = grid[row*kColumns+column]
-        let sortedCell = Array(data).sort(<)
+        let sortedCell = Array(data).sorted(by: <)
         var outputString = String()
         
         for i in 0..<sortedCell.count {
@@ -72,10 +72,10 @@ struct Matrix {
         return outputString
     }
     
-    func indexIsValidForRow(row: Int) -> Bool   {
+    func indexIsValidForRow(_ row: Int) -> Bool   {
         return row>=0 && row<kRows              }
     
-    func indexIsValidForColumn(column: Int) -> Bool {
+    func indexIsValidForColumn(_ column: Int) -> Bool {
         return column>=0 && column<kColumns         }
     
     subscript(row: Int, column: Int) -> (Set<String>, CMGCellStatus) {
@@ -92,7 +92,7 @@ struct Matrix {
         }
     }
     
-    func indexIsValidForCell(index: Int) -> Bool {
+    func indexIsValidForCell(_ index: Int) -> Bool {
         return index>=0 && index<kCellCount
     }
     

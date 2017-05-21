@@ -22,63 +22,63 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet weak var containerView: UIView!
     var webView: WKWebView?
     
-    @IBAction func unwindToWebView(sender: UIStoryboardSegue)
+    @IBAction func unwindToWebView(_ sender: UIStoryboardSegue)
     {
-        let sourceViewController = sender.sourceViewController
+        let sourceViewController = sender.source
         print("HLWebViewController-  webViewDidFinishLoad: \(sourceViewController)")
     }
     
     
-    @IBAction func aboutAction(sender: UIButton)
+    @IBAction func aboutAction(_ sender: UIButton)
     {
         print("HLWebViewController-  aboutAction")
-        self.performSegueWithIdentifier( "GotoAbout", sender:self)
+        self.performSegue( withIdentifier: "GotoAbout", sender:self)
     }
     
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("HLWebViewController-  didFinishNavigation: \(navigation)")
 
         webView.evaluateJavaScript("document.documentElement.outerHTML.toString()",
                            completionHandler: { (html: AnyObject?, error: NSError?) in
         //    print(html)
             self.parseHTML(html as! String)
-            })
+            } as? (Any?, Error?) -> Void)
     }
     
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)    {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)    {
         
         if (size.width > size.height)   {   heightConstraint!.constant = viewShort  }
         else                            {   heightConstraint!.constant = viewTall   }
     }
     
     
-    func parseHTML( data: String)
+    func parseHTML( _ data: String)
     {
         var count = 0;
 //        print( "data:\(data)" )
         var stringArray = Array<String>()
-        let formTag = data.rangeOfString("<form")
+        let formTag = data.range(of: "<form")
         
         if( formTag != nil )
         {
-            var remainingString = data.substringFromIndex(formTag!.endIndex)
-            var tdTag = remainingString.rangeOfString("<td ")
+            var remainingString = data.substring(from: formTag!.upperBound)
+            var tdTag = remainingString.range(of: "<td ")
             
             while( tdTag != nil && count < 81 )
             {
-                remainingString = remainingString.substringFromIndex(tdTag!.endIndex)
+                remainingString = remainingString.substring(from: tdTag!.upperBound)
                 
-                if let tdClosingTag = remainingString.rangeOfString("</td>")
+                if let tdClosingTag = remainingString.range(of: "</td>")
                 {
-                   if let readonlyTag = remainingString.rangeOfString("value=")
+                   if let readonlyTag = remainingString.range(of: "value=")
                     {
-                        if( tdClosingTag.startIndex > readonlyTag.startIndex )
+                        if( tdClosingTag.lowerBound > readonlyTag.lowerBound )
                         {
-                            remainingString = remainingString.substringFromIndex(readonlyTag.endIndex.advancedBy(1))
+ //                           remainingString = remainingString.substring(from: <#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(readonlyTag.upperBound, offsetBy: 1))
                             
-                            let t1 = remainingString.substringToIndex(remainingString.startIndex.advancedBy(1))
+                            let t1 = remainingString.substring(to: remainingString.characters.index(remainingString.startIndex, offsetBy: 1))
                             stringArray.append(t1)
                         }
                         else
@@ -93,18 +93,23 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
                 }
                 
                 count += 1
-                tdTag = remainingString.rangeOfString("<td")
+                tdTag = remainingString.range(of: "<td")
             }
             
             if ( stringArray.count == 81 )
             {
                 puzzleData = stringArray
                 
-                let nameTag = remainingString.rangeOfString("Copy link for this puzzle")
-                remainingString = remainingString.substringFromIndex(nameTag!.endIndex.advancedBy(2))
-                let endTag = remainingString.rangeOfString("</a>")
-                puzzleTitle = remainingString.substringToIndex(endTag!.startIndex)
-                gotoButton.enabled = true;
+                let nameTag = remainingString.range(of: "Copy link for this puzzle")
+                
+                remainingString = remainingString.substring(from: nameTag!.upperBound)
+                let newIndex = remainingString.index(after: remainingString.startIndex)
+                let newIndex2 = remainingString.index(after: newIndex)
+                remainingString = remainingString.substring(from: newIndex2)
+                
+                let endTag = remainingString.range(of: "</a>")
+                puzzleTitle = remainingString.substring(to: endTag!.lowerBound)
+                gotoButton.isEnabled = true;
     //           print( "puzzleData: \(puzzleData)" )
     //           print( "puzzleTitle: \(puzzleTitle)" )
             }
@@ -117,11 +122,11 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     }
 
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!)
     {
         if segue.identifier == "GotoSolver"
         {
-            if let viewController: HLSolverViewController = segue.destinationViewController as? HLSolverViewController
+            if let viewController: HLSolverViewController = segue.destination as? HLSolverViewController
             {
                 viewController.importArray = puzzleData
                 viewController.puzzleName = puzzleTitle
@@ -145,12 +150,12 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
 //        print("HLWebViewController-  viewDidLoad")
 
-        let url: NSURL = NSURL(string: "http://view.websudoku.com")!
-        let request = NSURLRequest(URL: url)
+        let url: URL = URL(string: "http://view.websudoku.com")!
+        let request = URLRequest(url: url)
         webView = WKWebView(frame:containerView.bounds)
         containerView.addSubview(webView!)
         webView!.navigationDelegate = self
-        webView!.loadRequest(request)
+        webView!.load(request)
     }
     
     
@@ -168,7 +173,7 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     }   */
     
 
-    override func viewWillDisappear(animated: Bool)
+    override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         webView!.stopLoading()

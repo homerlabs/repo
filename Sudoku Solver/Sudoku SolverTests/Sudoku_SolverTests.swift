@@ -64,7 +64,7 @@ class Sudoku_SolverTests: XCTestCase {
     //  9, 1, 2, 3, 4, 5, 6, 7, 8
     func createValidSolvedPuzzle() -> [String]
     {
-        var dataArray = [String](count: 81, repeatedValue: "0" )
+        var dataArray = [String](repeating: "0", count: 81 )
         
         for row in 0...8    {
             for column in 0...8 {

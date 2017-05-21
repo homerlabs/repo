@@ -11,10 +11,10 @@ import UIKit
 
 enum CMGCellStatus: Int
 {
-    case CMGUnSolvedStatus
-    case CMGGivenStatus
-    case CMGSolvedStatus
-    case CMGChangedStatus
+    case cmgUnSolvedStatus
+    case cmgGivenStatus
+    case cmgSolvedStatus
+    case cmgChangedStatus
 }
 
 
@@ -30,7 +30,7 @@ class HLSolver: NSObject {
     var dataSet = Matrix(rows:9, columns:9)
     var previousDataSet = Matrix(rows:9, columns:9)
     var puzzleName = ""
-    var workingArray: [Set<String>] = Array(count: 8, repeatedValue: Set<String>())
+    var workingArray: [Set<String>] = Array(repeating: Set<String>(), count: 8)
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
     let blockIndexSet = [
@@ -65,12 +65,12 @@ class HLSolver: NSObject {
     }   */
     
     
-    func findMonoCells(rows rows: Bool, columns: Bool)   {
+    func findMonoCells(rows: Bool, columns: Bool)   {
     
         func monoCellRows()                 {
         
-            func monoCell(row: Int)         {
-                var numArray = Array(count: 10, repeatedValue: 0)
+            func monoCell(_ row: Int)         {
+                var numArray = Array(repeating: 0, count: 10)
                 for column in 0..<kColumns     {
                     let (data, _) = dataSet[row, column]
                     if data.count > 1                                              {
@@ -82,10 +82,10 @@ class HLSolver: NSObject {
                         for column in 0..<kColumns     {
                             let (data, _) = dataSet[row, column]
                             let solutionSet: Set<String> = Set(arrayLiteral: String(index))
-                            let newSet = data.intersect(solutionSet)
+                            let newSet = data.intersection(solutionSet)
                             if !newSet.isEmpty {
       //          print("row: \(row)   column: \(column)   newSet: \(newSet)")
-                                dataSet[row, column] = (newSet, .CMGSolvedStatus)
+                                dataSet[row, column] = (newSet, .cmgSolvedStatus)
                             }
                         }
                     }
@@ -111,12 +111,12 @@ class HLSolver: NSObject {
     }
     
     
-    func findMonoSectors(rows rows: Bool, columns: Bool)  {
+    func findMonoSectors(rows: Bool, columns: Bool)  {
 
         func reduceMonoSectorsForRows()     {
             
             //  returns an array of found MonoSectors as a tuple (num, sector)
-            func findMonoSectorForRow(row: Int) -> [(Int, Int)]    {
+            func findMonoSectorForRow(_ row: Int) -> [(Int, Int)]    {
                 print("monoSector")
                 
                 var foundMonoSectors: [(Int, Int)] = Array()
@@ -152,9 +152,9 @@ class HLSolver: NSObject {
                 return foundMonoSectors
             }
     
-            func reduceBlockForRow(row: Int, sector: Int, reduceNumber: Int)    {
+            func reduceBlockForRow(_ row: Int, sector: Int, reduceNumber: Int)    {
                 
-                func reduceRowForRow(row: Int, sector: Int, reduceNumber: Int)    {
+                func reduceRowForRow(_ row: Int, sector: Int, reduceNumber: Int)    {
                     var column = sector * 3
                     var (data, status) = dataSet[row, column]
                     data.remove(String(reduceNumber))
@@ -209,9 +209,9 @@ class HLSolver: NSObject {
     }
     
     
-    func findPuzzleSets(rows rows: Bool, columns: Bool, blocks: Bool)  {
+    func findPuzzleSets(rows: Bool, columns: Bool, blocks: Bool)  {
 
-        func findSetsForRow(row: Int, sizeOfSet: Int)  {
+        func findSetsForRow(_ row: Int, sizeOfSet: Int)  {
             
       //      fillRow()
             var startingSets:   [Set<String>] = [Set<String>()]
@@ -223,8 +223,8 @@ class HLSolver: NSObject {
                 if data.count>1             {   startingSets.append(data)   }
             }
             
-            if startingSets.count>1 && startingSets[0].isEmpty  {   startingSets.removeAtIndex(0)   }
-            if setsToSearch.count>1 && setsToSearch[0].isEmpty  {   setsToSearch.removeAtIndex(0)   }
+            if startingSets.count>1 && startingSets[0].isEmpty  {   startingSets.remove(at: 0)   }
+            if setsToSearch.count>1 && setsToSearch[0].isEmpty  {   setsToSearch.remove(at: 0)   }
             
      //       print( "startingSets:")
      //       printArrayOfSets(startingSets)
@@ -268,17 +268,17 @@ class HLSolver: NSObject {
     }
     
     
-    func prunePuzzle(rows rows: Bool, columns: Bool, blocks: Bool)  {
+    func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool)  {
 
         func prunePuzzleRows()                          {
 
-            func pruneRow(row: Int)         {
+            func pruneRow(_ row: Int)         {
                 let solvedSet = solvedSetForRow(row)
         //        println(solvedSet)
 
                 for column in 0..<kColumns  {
                     let (data, status) = dataSet[row, column]
-                    if data.count > 1   {   dataSet[row, column] = (data.subtract(solvedSet), status) }
+                    if data.count > 1   {   dataSet[row, column] = (data.subtracting(solvedSet), status) }
                 }
             }
             
@@ -315,7 +315,7 @@ class HLSolver: NSObject {
     }
     
     
-    func searchForSets(setsToSearch: [Set<String>], superSet: Set<String>, count: Int) -> Bool {
+    func searchForSets(_ setsToSearch: [Set<String>], superSet: Set<String>, count: Int) -> Bool {
         
  //       print( "searchForSets: \(setsToSearch)   count: \(count)")
 
@@ -323,10 +323,10 @@ class HLSolver: NSObject {
         var item = remainingSets.removeLast()
         
         //  remove cells that are not subset
-        while !item.isSubsetOf(superSet) && !remainingSets.isEmpty  {
+        while !item.isSubset(of: superSet) && !remainingSets.isEmpty  {
             item = remainingSets.removeLast()                       }
         
-        if !item.isSubsetOf(superSet)   {   return false    }
+        if !item.isSubset(of: superSet)   {   return false    }
         
         if count>1 && !remainingSets.isEmpty                                        {
             return searchForSets(remainingSets, superSet: superSet, count: count-1)
@@ -337,13 +337,13 @@ class HLSolver: NSObject {
     }
     
     
-    func reduceRow(row: Int, forSet reduceSet: Set<String>)    {
+    func reduceRow(_ row: Int, forSet reduceSet: Set<String>)    {
  //       print( "reduceRow: \(row)   reduceSet: \(reduceSet)")
 
         for column in 0..<kColumns  {
             let (data, status) = dataSet[row, column]
             if data.count>1                            {
-                let prunedSet = data.subtract(reduceSet)
+                let prunedSet = data.subtracting(reduceSet)
                 if !prunedSet.isEmpty  {   dataSet[row, column] = (prunedSet, status)  }   }
     }   }
     
@@ -354,21 +354,21 @@ class HLSolver: NSObject {
             let (data2, _) = previousDataSet[index]
             
             //  first lets convert Changed to Solved or Unsollved
-            if status == .CMGChangedStatus {
-                if data.count == 1  {   status = .CMGSolvedStatus   }
-                else                {   status = .CMGUnSolvedStatus }
+            if status == .cmgChangedStatus {
+                if data.count == 1  {   status = .cmgSolvedStatus   }
+                else                {   status = .cmgUnSolvedStatus }
                 dataSet[index] = (data, status)
             }
             
             //  then find the cells that changed
             if data.count != data2.count        {
-                status = .CMGChangedStatus
+                status = .cmgChangedStatus
                 dataSet[index] = (data, status) }
         }
     }
     
     
-    func arrayToSet(array: [String]) -> Set<String> {
+    func arrayToSet(_ array: [String]) -> Set<String> {
         
         var aSet: Set<String> = Set()
   //      print( "array: \(array)" )
@@ -384,10 +384,10 @@ class HLSolver: NSObject {
     }
     
     
-    func encodeWithCoder(aCoder: NSCoder)
+    func encodeWithCoder(_ aCoder: NSCoder)
     {
-        var dataArray: [Set<String>] = Array(count: kCellCount, repeatedValue: Set<String>(arrayLiteral: "0"))
-        var statusArray: [Int] = Array(count: kCellCount, repeatedValue: 0)
+        var dataArray: [Set<String>] = Array(repeating: Set<String>(arrayLiteral: "0"), count: kCellCount)
+        var statusArray: [Int] = Array(repeating: 0, count: kCellCount)
         for index in 0..<kCellCount
         {
             let (data, status) = dataSet[index]
@@ -395,9 +395,9 @@ class HLSolver: NSObject {
             statusArray[index] = status.rawValue
         }
     
-        aCoder.encodeObject(puzzleName,  forKey:kNameKey)
-        aCoder.encodeObject(dataArray,   forKey:kDataKey)
-        aCoder.encodeObject(statusArray, forKey:kStatusKey)
+        aCoder.encode(puzzleName,  forKey:kNameKey)
+        aCoder.encode(dataArray,   forKey:kDataKey)
+        aCoder.encode(statusArray, forKey:kStatusKey)
     }
     
     
@@ -406,9 +406,9 @@ class HLSolver: NSObject {
     required init(coder aDecoder: NSCoder)
     {
 //        var newDataSet = Matrix(rows:9, columns:9)
-        let puzzleName  = aDecoder.decodeObjectForKey(kNameKey)
-        let data        = aDecoder.decodeObjectForKey(kDataKey) as! Set<String>
-        let status      = aDecoder.decodeIntegerForKey(kStatusKey)
+        let puzzleName  = aDecoder.decodeObject(forKey: kNameKey)
+        let data        = aDecoder.decodeObject(forKey: kDataKey) as! Set<String>
+        let status      = aDecoder.decodeInteger(forKey: kStatusKey)
         
         print("data: \(data)   status: \(status)   puzzleName: \(puzzleName)")
     }
@@ -418,7 +418,7 @@ class HLSolver: NSObject {
     
         var newDataSet = Matrix(rows:9, columns:9)
         for index in 0..<81                                         {
-            newDataSet[index] = (Set(arrayLiteral: String(index)), .CMGUnSolvedStatus)  }
+            newDataSet[index] = (Set(arrayLiteral: String(index)), .cmgUnSolvedStatus)  }
         
         dataSet = newDataSet;
     }
@@ -428,7 +428,7 @@ class HLSolver: NSObject {
         return dataSet.nodeCount()  }
     
     
-    func solvedSetForRow(row: Int) -> Set<String>       {
+    func solvedSetForRow(_ row: Int) -> Set<String>       {
         var solvedSet = Set<String>()
         for column in 0..<kColumns                      {
             let (data, _) = dataSet[row, column]
@@ -455,9 +455,9 @@ class HLSolver: NSObject {
 
     func isValidPuzzle() -> Bool {
     
-        func isValidPuzzleRow(row: Int) -> Bool {
+        func isValidPuzzleRow(_ row: Int) -> Bool {
             var returnValue = true
-            var numArray = Array(count: 10, repeatedValue: 0)
+            var numArray = Array(repeating: 0, count: 10)
                 
             for column in 0..<kColumns {
             
@@ -491,10 +491,10 @@ class HLSolver: NSObject {
     }
 
 
-    func sectorForIndex(index: Int)->Int    {   return index/3  }
+    func sectorForIndex(_ index: Int)->Int    {   return index/3  }
     
     
-    func load(data: [String])
+    func load(_ data: [String])
     {
         if data.count == kCellCount     {
             for i in 0 ..< kCellCount 
@@ -502,8 +502,8 @@ class HLSolver: NSObject {
                 let cellValue = data[i]
                 var newCell: (Set<String>, CMGCellStatus)
                 
-                if ( cellValue == "0" )     { newCell = (fullSet, .CMGUnSolvedStatus)       }
-                else    {  newCell = (Set<String>(arrayLiteral: data[i]), .CMGGivenStatus)  }
+                if ( cellValue == "0" )     { newCell = (fullSet, .cmgUnSolvedStatus)       }
+                else    {  newCell = (Set<String>(arrayLiteral: data[i]), .cmgGivenStatus)  }
                 
                 dataSet[i] = newCell
             }
@@ -519,11 +519,11 @@ class HLSolver: NSObject {
     func read() {
         print( "HLSolver-  read" )
         
-        if let statusArray: [Int] = NSUserDefaults.standardUserDefaults().objectForKey(kStatusKey) as? [Int]    {
+        if let statusArray: [Int] = UserDefaults.standard.object(forKey: kStatusKey) as? [Int]    {
 
-            puzzleName = (NSUserDefaults.standardUserDefaults().objectForKey(kNameKey) as! String)
+            puzzleName = (UserDefaults.standard.object(forKey: kNameKey) as! String)
 
-            if let dataArray: [[String]] = NSUserDefaults.standardUserDefaults().objectForKey(kDataKey) as? [[String]]    {
+            if let dataArray: [[String]] = UserDefaults.standard.object(forKey: kDataKey) as? [[String]]    {
                 
                 for index in 0..<kCellCount {
                     let x: [String] = dataArray[index]
@@ -539,21 +539,21 @@ class HLSolver: NSObject {
     
     func save() {
         print( "HLSolver-  save" )
-        var dataArray: [[String]] = Array(count: kCellCount, repeatedValue: [""])
-        var statusArray: [Int] = Array(count: kCellCount, repeatedValue: 0)
+        var dataArray: [[String]] = Array(repeating: [""], count: kCellCount)
+        var statusArray: [Int] = Array(repeating: 0, count: kCellCount)
         
         for index in 0..<kCellCount                             {
             let (data, status) = dataSet[index]
                 dataArray[index] = Array(data)
                 statusArray[index] = status.rawValue    }
         
-            NSUserDefaults.standardUserDefaults().setObject(puzzleName, forKey: kNameKey)
-            NSUserDefaults.standardUserDefaults().setObject(dataArray, forKey: kDataKey)
-            NSUserDefaults.standardUserDefaults().setObject(statusArray, forKey: kStatusKey)
+            UserDefaults.standard.set(puzzleName, forKey: kNameKey)
+            UserDefaults.standard.set(dataArray, forKey: kDataKey)
+            UserDefaults.standard.set(statusArray, forKey: kStatusKey)
     }
     
     
-    func printIndexDataSet(index:Int) {
+    func printIndexDataSet(_ index:Int) {
         print("\(dataSet.description(index)) \t", terminator: "")
     }
     
@@ -565,7 +565,7 @@ class HLSolver: NSObject {
     }
     
     
-    func printArrayOfSets(data:[Set<String>])   {
+    func printArrayOfSets(_ data:[Set<String>])   {
         for index in 0..<data.count                                         {
             print("\(setToString(data[index])) \t", terminator: "")
         }
@@ -573,17 +573,17 @@ class HLSolver: NSObject {
     }
 
 
-    func setToString(aSet: Set<String>)->String     {
-        let list = Array(aSet.sort(<))
+    func setToString(_ aSet: Set<String>)->String     {
+        let list = Array(aSet.sorted(by: <))
         var returnString = ""
         for index in 0..<list.count     {   returnString += list[index]     }
         return returnString
     }
     
     
-    func printDataSet(dataSet: Matrix) {
+    func printDataSet(_ dataSet: Matrix) {
         
-        func printRowDataSet(dataSet: Matrix, row:Int)   {
+        func printRowDataSet(_ dataSet: Matrix, row:Int)   {
             for column in 0..<kColumns                                                          {
                 print("\(dataSet.description(row: row, column: column)) \t", terminator: "")    }
             print("")                   }

@@ -20,7 +20,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     var columnsSelected = true
     var blocksSelected  = true
     
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
     let rowSwitchKey    = "Row"
     let columnSwitchKey = "Column"
     let blockSwitchKey  = "Block"
@@ -40,13 +40,13 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var blockSwitch: UISwitch?
     
     
-    @IBAction func undoAction(sender:UISwitch)
+    @IBAction func undoAction(_ sender:UISwitch)
     {
         print( "HLSolverViewController-  undoAction" )
         _solver.dataSet = _solver.previousDataSet
         updateAndDisplayCells()
         
-        undoButton!.enabled = false
+        undoButton!.isEnabled = false
     }
     
     
@@ -67,23 +67,23 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func settingsAction()
     {
-        rowsSelected    = rowSwitch!.on
-        columnsSelected = columnSwitch!.on
-        blocksSelected  = blockSwitch!.on
+        rowsSelected    = rowSwitch!.isOn
+        columnsSelected = columnSwitch!.isOn
+        blocksSelected  = blockSwitch!.isOn
         
-        defaults.setBool(!rowsSelected,     forKey:rowSwitchKey )
-        defaults.setBool(!columnsSelected,  forKey:columnSwitchKey )
-        defaults.setBool(!blocksSelected,   forKey:blockSwitchKey )
+        defaults.set(!rowsSelected,     forKey:rowSwitchKey )
+        defaults.set(!columnsSelected,  forKey:columnSwitchKey )
+        defaults.set(!blocksSelected,   forKey:blockSwitchKey )
     }
     
     
     @IBAction func modeSelectAction()
     {
-        defaults.setInteger(algorithmSelect!.selectedSegmentIndex, forKey: moodeSelectKey)
+        defaults.set(algorithmSelect!.selectedSegmentIndex, forKey: moodeSelectKey)
     }
     
     
-    @IBAction func solveAction(sender:UIButton)
+    @IBAction func solveAction(_ sender:UIButton)
     {
          
         _solver.previousDataSet = _solver.dataSet
@@ -116,23 +116,23 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         let unsolvedCount = _solver.unsolvedCount()
         nodeCountLabel!.text = "Unsolved Nodes: \(unsolvedCount)"
         
-        undoButton!.enabled = true
-        if unsolvedCount == 0   {   solveButton!.enabled = false    }
-        else                    {   solveButton!.enabled = true     }
+        undoButton!.isEnabled = true
+        if unsolvedCount == 0   {   solveButton!.isEnabled = false    }
+        else                    {   solveButton!.isEnabled = true     }
     }
     
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section:Int)->Int
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section:Int)->Int
     {
         return _solver.kCellCount
     }
 
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath)->UICollectionViewCell
     {
 
-        let  cell = collectionView.dequeueReusableCellWithReuseIdentifier("HLPuzzleCell",
-                                        forIndexPath: indexPath) as! HLCollectionViewCell
+        let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HLPuzzleCell",
+                                        for: indexPath) as! HLCollectionViewCell
         
         let (_, status) = _solver.dataSet[indexPath.row]
         
@@ -140,17 +140,17 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
 
        switch status {
             
-            case .CMGGivenStatus:
-                cell.hlLabel!.textColor = UIColor.brownColor()
+            case .cmgGivenStatus:
+                cell.hlLabel!.textColor = UIColor.brown
         
-            case .CMGSolvedStatus:
-                cell.hlLabel!.textColor = UIColor.greenColor()
+            case .cmgSolvedStatus:
+                cell.hlLabel!.textColor = UIColor.green
         
-            case .CMGChangedStatus:
-                cell.hlLabel!.textColor = UIColor.redColor()
+            case .cmgChangedStatus:
+                cell.hlLabel!.textColor = UIColor.red
         
-            case .CMGUnSolvedStatus:
-                cell.hlLabel!.textColor = UIColor.blueColor()
+            case .cmgUnSolvedStatus:
+                cell.hlLabel!.textColor = UIColor.blue
         }
 
         return cell
@@ -161,19 +161,19 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         super.viewDidLoad()
 
         let nib = UINib(nibName:"HLCollectionViewCell", bundle:nil)
-        collectionView!.registerNib(nib, forCellWithReuseIdentifier:"HLPuzzleCell")
+        collectionView!.register(nib, forCellWithReuseIdentifier:"HLPuzzleCell")
         
-        algorithmSelect!.selectedSegmentIndex = defaults.integerForKey(moodeSelectKey)
-        rowsSelected        = !defaults.boolForKey(rowSwitchKey)
-        columnsSelected     = !defaults.boolForKey(columnSwitchKey)
-        blocksSelected      = !defaults.boolForKey(blockSwitchKey)
-        rowSwitch!.on       = rowsSelected
-        columnSwitch!.on    = columnsSelected
-        blockSwitch!.on     = blocksSelected
+        algorithmSelect!.selectedSegmentIndex = defaults.integer(forKey: moodeSelectKey)
+        rowsSelected        = !defaults.bool(forKey: rowSwitchKey)
+        columnsSelected     = !defaults.bool(forKey: columnSwitchKey)
+        blocksSelected      = !defaults.bool(forKey: blockSwitchKey)
+        rowSwitch!.isOn       = rowsSelected
+        columnSwitch!.isOn    = columnsSelected
+        blockSwitch!.isOn     = blocksSelected
         
         _solver.puzzleName = puzzleName
         puzzleNameLabel!.text = _solver.puzzleName
-        undoButton!.enabled = false
+        undoButton!.isEnabled = false
         
 //        _solver.read()
 //        updateAndDisplayCells()
