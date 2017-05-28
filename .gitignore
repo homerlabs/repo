@@ -1,4 +1,7 @@
 *.DS_Store
 
+HLPrimes/HLPrimes.xcodeproj/xcuserdata
+HLPrimes/HLPrimes.xcodeproj/project.xcworkspace/xcuserdata
+
 Sudoku\ Solver/Sudoku\ Solver.xcodeproj/xcuserdata
 Sudoku\ Solver/Sudoku\ Solver.xcodeproj/project.xcworkspace/xcuserdata

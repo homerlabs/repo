@@ -410,7 +410,7 @@ class HLSolver: NSObject {
         let data        = aDecoder.decodeObject(forKey: kDataKey) as! Set<String>
         let status      = aDecoder.decodeInteger(forKey: kStatusKey)
         
-        print("data: \(data)   status: \(status)   puzzleName: \(puzzleName)")
+        print("data: \(data)   status: \(status)   puzzleName: \(String(describing: puzzleName))")
     }
     
     
