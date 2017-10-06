@@ -1,5 +1,8 @@
 *.DS_Store
 
+HLPong/HLPong.xcodeproj/xcuserdata
+HLPong/HLPong.xcodeproj/project.xcworkspace/xcuserdata
+
 HLPrimes/HLPrimes.xcodeproj/xcuserdata
 HLPrimes/HLPrimes.xcodeproj/project.xcworkspace/xcuserdata
 
