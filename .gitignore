@@ -1,5 +1,8 @@
 *.DS_Store
 
+Phidget1018/Phidget1018.xcodeproj/xcuserdata
+Phidget1018/Phidget1018.xcodeproj/project.xcworkspace/xcuserdata
+
 HLPong/HLPong.xcodeproj/xcuserdata
 HLPong/HLPong.xcodeproj/project.xcworkspace/xcuserdata
 
