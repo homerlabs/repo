@@ -46,8 +46,8 @@ NSString *filePath;
     int items = fscanf(tempFile, "%d\t%ld\n", &num, &prime );
     
     while ( items > 0 )    {
-  //      NSLog( @"HLFileManager-  getLastLine-  items: %d   num: %d   prime: %ld", items, num, prime );
-        items = fscanf(tempFile, "%d:%ld\n", &num, &prime );
+//        NSLog( @"HLFileManager-  getLastLine-  items: %d   num: %d   prime: %ld", items, num, prime );
+        items = fscanf(tempFile, "%d\t%ld\n", &num, &prime );
    }
    
    fclose( tempFile );

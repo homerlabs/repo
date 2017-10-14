@@ -22,9 +22,9 @@ class HLPrime: NSObject {
         let lastP = lastLine.suffix(from: delimiter)
         print( "lastN: \(lastN)    lastP: \(lastP)" )
 
-        let n: Int = Int(lastN)!
+        var n = Int(lastN)!
         while( numberOfPrimes > n ) {
-        
+            n += 1
         }
     }
 }
