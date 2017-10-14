@@ -1,5 +1,8 @@
 *.DS_Store
 
+PrimeToolCPP/PrimeTool.xcodeproj/xcuserdata
+PrimeToolCPP/PrimeTool.xcodeproj/project.xcworkspace/xcuserdata
+
 Phidget1018/Phidget1018.xcodeproj/xcuserdata
 Phidget1018/Phidget1018.xcodeproj/project.xcworkspace/xcuserdata
 
