@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B049FC471F92CCC000714FA7 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0457C0F1F92CACF00002007 /* HLFileManager.m */; };
 		B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */; };
 		B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1E1EDB17FC00564DDB /* ViewController.swift */; };
 		B09FBB211EDB17FC00564DDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09FBB201EDB17FC00564DDB /* Assets.xcassets */; };
@@ -26,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B0457C0F1F92CACF00002007 /* HLFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
+		B0457C101F92CACF00002007 /* HLFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B09FBB191EDB17FC00564DDB /* HLPrimes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLPrimes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09FBB1E1EDB17FC00564DDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		B09FBB2E1EDB17FC00564DDB /* HLPrimesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPrimesTests.swift; sourceTree = "<group>"; };
 		B09FBB301EDB17FC00564DDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09FBB391EDB19AA00564DDB /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
+		B0C8D5B71F92D53500F1E277 /* HLPrimes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLPrimes-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,9 @@
 		B09FBB101EDB17FC00564DDB = {
 			isa = PBXGroup;
 			children = (
+				B0C8D5B71F92D53500F1E277 /* HLPrimes-Bridging-Header.h */,
+				B0457C101F92CACF00002007 /* HLFileManager.h */,
+				B0457C0F1F92CACF00002007 /* HLFileManager.m */,
 				B09FBB1B1EDB17FC00564DDB /* HLPrimes */,
 				B09FBB2D1EDB17FC00564DDB /* HLPrimesTests */,
 				B09FBB1A1EDB17FC00564DDB /* Products */,
@@ -147,6 +154,7 @@
 					B09FBB181EDB17FC00564DDB = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 9YP4SSJBR5;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					B09FBB291EDB17FC00564DDB = {
@@ -201,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */,
+				B049FC471F92CCC000714FA7 /* HLFileManager.m in Sources */,
 				B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */,
 				B09FBB3A1EDB19AA00564DDB /* HLPrime.swift in Sources */,
 			);
@@ -344,6 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -352,6 +362,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.HLPrimes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HLPrimes-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -360,6 +372,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -368,6 +381,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.HLPrimes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "HLPrimes-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

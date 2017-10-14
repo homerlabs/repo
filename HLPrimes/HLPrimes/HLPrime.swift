@@ -11,10 +11,20 @@ import Foundation
 
 class HLPrime: NSObject {
 
-    let inputFilePath = "~/Desktop/primes.txt"
-    let outputFilePath = "~/Desktop/primes2.txt"
+    let fileManager = HLFileManager(path: "/Users/mhomer/Desktop/Primes.txt")!
     
     func makePrimes(numberOfPrimes: Int)  {
         print( "HLPrime-  makePrimes-  numberOfPrimes: \(numberOfPrimes)" )
+        
+        let lastLine = fileManager.getLastLine()!
+        let delimiter = lastLine.index(of: "\t")!
+        let lastN = lastLine.prefix(upTo: delimiter)
+        let lastP = lastLine.suffix(from: delimiter)
+        print( "lastN: \(lastN)    lastP: \(lastP)" )
+
+        let n: Int = Int(lastN)!
+        while( numberOfPrimes > n ) {
+        
+        }
     }
 }

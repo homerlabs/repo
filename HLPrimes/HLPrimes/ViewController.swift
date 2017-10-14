@@ -14,7 +14,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         let prime = HLPrime()
-        prime.makePrimes(numberOfPrimes: 5)
+        prime.makePrimes(numberOfPrimes: 10)
     }
 
     override var representedObject: Any? {
