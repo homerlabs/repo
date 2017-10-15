@@ -8,29 +8,54 @@
 
 import Foundation
 
+typealias HLPrimeType = Int64
+
 
 class HLPrime: NSObject {
 
     let fileManager = HLFileManager(path: "/Users/mhomer/Desktop/Primes.txt")!
+    let bufSize = 100
+    var buf: [HLPrimeType] = []
+    var largestBufPrime: HLPrimeType = 0
     
-    func isPrime(n: Int) -> Bool    {
-        return true
+    func isPrime(n: HLPrimeType) -> Bool    {
+        var isPrime = true
+        let largestTestPrime = Int(sqrt(Double(n)))
+        
+        if largestTestPrime > largestBufPrime   {
+            print( "HLPrime-  isPrime-  largestTestPrime: \(largestTestPrime)  largestBufPrime: \(largestBufPrime)" )
+            assert( false )
+        }
+        
+        var index = 1   //  we don't try the value in [0] == 2
+        var testPrime = buf[index]
+        while testPrime <= largestTestPrime {
+            let q_r = lldiv(n, testPrime)
+            if q_r.rem == 0 {
+                isPrime = false
+                break
+            }
+            
+            index += 1
+            testPrime = buf[index]
+        }
+        
+//        print( "HLPrime-  isPrime-  n: \(n)   isPrime: \(isPrime)" )
+        return isPrime
     }
     
     func makePrimes(numberOfPrimes: Int)  {
         print( "HLPrime-  makePrimes-  numberOfPrimes: \(numberOfPrimes)" )
         
         //  find out where we left off and continue from there
-        let lastLine = fileManager.getLastLine()!
-        let index = lastLine.index(of: "\t")!
-        let index2 = lastLine.index(after: index)
-        let lastN = lastLine.prefix(upTo: index)
-        let lastP = lastLine.suffix(from: index2)
-        print( "lastN: \(lastN)    lastP: '\(lastP)'" )
+        let (lastN, lastP) = parseLine(line: fileManager.getLastLine()!)
+        print( "lastN: \(lastN)    lastP: \(lastP)" )
 
-        var n = Int(lastN)!
-        var nextPrime = Int(lastP)!
-        
+        var n = Int(lastN)
+        var nextPrime = Int64(lastP)
+        loadupBuf()
+        print( "buf: \(buf)" )
+
         while( numberOfPrimes > n ) {
             
             nextPrime += 2
@@ -43,4 +68,32 @@ class HLPrime: NSObject {
         
         fileManager.cleanup()
     }
+    
+    func parseLine(line: String) -> (index: Int, prime: Int64)  {
+        let index = line.index(of: "\t")!
+        let index2 = line.index(after: index)
+        let lastN = line.prefix(upTo: index)
+        let lastP = line.suffix(from: index2)
+        return (Int(lastN)!, Int64(lastP)!)
+    }
+    
+    func loadupBuf()   {
+        fileManager.openForRead()
+
+        for _ in 0..<4 {
+            if let nextLine = fileManager.readLine()    {
+       //         print( "index: \(index)   nextLine: \(String(describing: nextLine))" )
+                
+                let index = nextLine.index(of: "\t")!
+                let index2 = nextLine.index(after: index)
+      //          let lastN = nextLine.prefix(upTo: index)
+                let lastP = nextLine.suffix(from: index2)
+            
+                let newPrime = Int64(lastP)!
+                buf.append(newPrime)
+                largestBufPrime = newPrime
+            }
+        }
+    }
 }
+

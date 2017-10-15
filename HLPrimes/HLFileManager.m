@@ -12,11 +12,19 @@
 @implementation HLFileManager
 
 FILE *inFile, *outFile;
+FILE *readFile;
 NSString *filePath;
+
+
+-(void)openForRead  {
+    fclose( readFile );
+    readFile = fopen(filePath.UTF8String, "r");
+}
 
 -(void)cleanup  {
     fclose( inFile );
     fclose( outFile );
+    fclose( readFile );
 }
 
 
@@ -29,7 +37,7 @@ NSString *filePath;
     if ( !inFile )
     {
         FILE *tempFile = fopen(path.UTF8String, "w");
-        NSString *tempString = [NSString stringWithFormat:@"1\t2\n2\t3\n3\t5\n"];
+        NSString *tempString = [NSString stringWithFormat:@"1\t2\n2\t3\n3\t5\n4\t7\n"];
         fprintf(tempFile, "%s", tempString.UTF8String);
         fclose( tempFile );
         //  try now ...
@@ -68,8 +76,12 @@ NSString *filePath;
 
 -(NSString *)readLine
 {
-    NSLog( @"HLFileManager-  readLine" );
-    return @"";
+    int num = 0;
+    long prime = 0;
+    int items = fscanf(readFile, "%d\t%ld\n", &num, &prime );
+    assert( items == 2 );
+//    NSLog( @"items: %d   num: %d    prime: %ld", items, num, prime );
+    return [NSString stringWithFormat:@"%d\t%ld",num, prime];
 }
 
 @end
