@@ -71,7 +71,7 @@ NSString *filePath;
 -(void)writeLine:(NSString *)line
 {
     NSLog( @"HLFileManager-  writeLine: %@", line );
-//    fputs(line.UTF8String, outFile);
+    fputs(line.UTF8String, outFile);
 }
 
 -(NSString *)readLine
@@ -79,9 +79,12 @@ NSString *filePath;
     int num = 0;
     long prime = 0;
     int items = fscanf(readFile, "%d\t%ld\n", &num, &prime );
-    assert( items == 2 );
-//    NSLog( @"items: %d   num: %d    prime: %ld", items, num, prime );
-    return [NSString stringWithFormat:@"%d\t%ld",num, prime];
+    NSLog( @"items: %d   num: %d    prime: %ld", items, num, prime );
+    
+    if ( items == 2 )
+        return [NSString stringWithFormat:@"%d\t%ld",num, prime];
+    else
+        return nil;
 }
 
 @end

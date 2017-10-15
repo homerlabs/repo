@@ -16,12 +16,11 @@ class ViewController: NSViewController {
     var prime: HLPrime!
 
     @IBAction func buttonPushed(sender: NSButton) {
-        print( "ViewController-  viewDidLoad-  buttonPushed: \(sender.intValue)" )
+        print( "ViewController-  buttonPushed: \(sender.intValue)" )
         
         let value = runButton.state == .on
-
         if value {
-            runButton.stringValue = "Running"
+            runButton.title = "Running"
             print( "terminalPrime: \(terminalPrime.intValue)  primeFilePath: \(primeFilePath.stringValue)" )
 
             prime = HLPrime(path: primeFilePath.stringValue)
@@ -29,18 +28,15 @@ class ViewController: NSViewController {
             prime.makePrimes(largestPrime: lastPrime)
         }
         else    {
-            runButton.stringValue = "Stopped"
+            runButton.title = "Stopped"
+            runButton.isEnabled = false
             prime.active = value
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            print( "ViewController-  representedObject-  didSet: \(String(describing: representedObject))" )
         }
     }
 
