@@ -14,6 +14,12 @@
 FILE *inFile, *outFile;
 NSString *filePath;
 
+-(void)cleanup  {
+    fclose( inFile );
+    fclose( outFile );
+}
+
+
 -(instancetype)initWithPath:(NSString *)path
 {
     self = [super init];
@@ -57,7 +63,7 @@ NSString *filePath;
 -(void)writeLine:(NSString *)line
 {
     NSLog( @"HLFileManager-  writeLine: %@", line );
-    fputs(line.UTF8String, outFile);
+//    fputs(line.UTF8String, outFile);
 }
 
 -(NSString *)readLine

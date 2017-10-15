@@ -14,5 +14,6 @@
 -(NSString *)readLine;
 -(void)writeLine:(NSString *)line;
 -(NSString *)getLastLine;
+-(void)cleanup;
 
 @end
