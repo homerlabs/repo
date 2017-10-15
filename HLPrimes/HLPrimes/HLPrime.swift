@@ -13,10 +13,11 @@ typealias HLPrimeType = Int64
 
 class HLPrime: NSObject {
 
-    let fileManager = HLFileManager(path: "/Users/mhomer/Desktop/Primes.txt")!
+    let fileManager: HLFileManager!
     let bufSize = 100
     var buf: [HLPrimeType] = []
     var largestBufPrime: HLPrimeType = 0
+    var active = true
     
     func isPrime(n: HLPrimeType) -> Bool    {
         var isPrime = true
@@ -44,7 +45,36 @@ class HLPrime: NSObject {
         return isPrime
     }
     
-    func makePrimes(numberOfPrimes: Int)  {
+    func makePrimes(largestPrime: HLPrimeType)  {
+        print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
+        
+        //  find out where we left off and continue from there
+        let (lastN, lastP) = parseLine(line: fileManager.getLastLine()!)
+        print( "lastN: \(lastN)    lastP: \(lastP)" )
+
+        var n = Int(lastN)
+        var nextPrime = Int64(lastP)
+        loadupBuf()
+        print( "buf: \(buf)" )
+
+        while( largestPrime > nextPrime ) {
+            
+            nextPrime += 2
+            if isPrime(n: nextPrime)    {
+                n += 1
+                let output = String(format: "%d\t%ld\n", n, nextPrime)
+                fileManager.writeLine(output)
+            }
+            
+            if !active   {
+                break
+            }
+        }
+        
+        fileManager.cleanup()
+    }
+    
+    func makePrimes(numberOfPrimes: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  numberOfPrimes: \(numberOfPrimes)" )
         
         //  find out where we left off and continue from there
@@ -94,6 +124,11 @@ class HLPrime: NSObject {
                 largestBufPrime = newPrime
             }
         }
+    }
+    
+    init(path: String)  {
+        fileManager = HLFileManager(path: path)!
+        super.init()
     }
 }
 

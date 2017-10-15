@@ -84,12 +84,12 @@
 		B09FBB1B1EDB17FC00564DDB /* HLPrimes */ = {
 			isa = PBXGroup;
 			children = (
+				B09FBB391EDB19AA00564DDB /* HLPrime.swift */,
 				B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */,
 				B09FBB1E1EDB17FC00564DDB /* ViewController.swift */,
 				B09FBB201EDB17FC00564DDB /* Assets.xcassets */,
 				B09FBB221EDB17FC00564DDB /* Main.storyboard */,
 				B09FBB251EDB17FC00564DDB /* Info.plist */,
-				B09FBB391EDB19AA00564DDB /* HLPrime.swift */,
 			);
 			path = HLPrimes;
 			sourceTree = "<group>";
