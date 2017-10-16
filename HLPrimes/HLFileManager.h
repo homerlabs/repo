@@ -12,12 +12,19 @@
 
 -(instancetype)initWithPath:(NSString *)path;
 -(NSString *)lastLineForFile:(NSString *)path;
+
 -(NSString *)readLine;
 -(void)writeLine:(NSString *)line;
--(void)cleanup;
--(void)openPrimeForReadWith:(NSString *)path;
--(void)openFactorForReadWith:(NSString *)path;
--(void)openTempForReadWith:(NSString *)path;
+
+-(void)openPrimeFileForReadWith:(NSString *)path;
+-(void)closePrimeFileForRead;
+
+-(void)openPrimeFileForAppendWith:(NSString *)path;
+-(void)closePrimeFileForAppend;
+
+-(void)openTempFileForReadWith:(NSString *)path;
 -(void)closeTempFileForRead;
+
+-(void)openFactorFileForReadWith:(NSString *)path;
 
 @end

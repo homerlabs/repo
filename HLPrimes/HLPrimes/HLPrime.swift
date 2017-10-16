@@ -15,6 +15,7 @@ class HLPrime: NSObject {
 
     let fileManager: HLFileManager!
     var primeFilePath: String = ""
+    var factorFilePath: String = ""
     let bufSize = 100
     var buf: [HLPrimeType] = []
     var largestBufPrime: HLPrimeType = 0
@@ -61,7 +62,7 @@ class HLPrime: NSObject {
     }
     
     func setupBufFor(prime: HLPrimeType)   {
-        fileManager.openTempForRead(with: primeFilePath)
+        fileManager.openTempFileForRead(with: primeFilePath)
         let largestTestPrime = Int(sqrt(Double(prime)))
 
         repeat  {
@@ -96,47 +97,28 @@ class HLPrime: NSObject {
     
     func factorPrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
-        
-        var n = lastN
-        var nextPrime = lastP + 2
-        setupBufFor(prime: largestPrime)
- //       print( "buf: \(buf)" )
-
-        while( largestPrime > nextPrime ) {
-            
-            if isPrime(n: nextPrime)    {
-                n += 1
-                let output = String(format: "%d\t%ld\n", n, nextPrime)
-                fileManager.writeLine(output)
-            }
-            
-            nextPrime += 2
-
-            //  yikes!  not working
-            if !active   {
-                break
-            }
-        }
-        
-        fileManager.cleanup()
+        fileManager.openFactorFileForRead(with: primeFilePath)
     }
     
     func makePrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
         
         var nextN = lastN + 1
-        var nextPrime = lastP + 2
+        var nextP = lastP + 2
         setupBufFor(prime: largestPrime)
  //       print( "buf: \(buf)" )
+ 
+        fileManager.openPrimeFileForRead(with: primeFilePath)
+        fileManager.openPrimeFileForAppend(with: primeFilePath)
 
-        while( largestPrime > nextPrime ) {
+        while( largestPrime > nextP ) {
             
-            if isPrime(n: nextPrime)    {
-                let output = String(format: "%d\t%ld\n", nextN, nextPrime)
+            if isPrime(n: nextP)    {
+                let output = String(format: "%d\t%ld\n", nextN, nextP)
                 fileManager.writeLine(output)
             }
             
-            nextPrime += 2
+            nextP += 2
             nextN += 1
 
             //  yikes!  not working
@@ -145,7 +127,8 @@ class HLPrime: NSObject {
             }
         }
         
-        fileManager.cleanup()
+        fileManager.closePrimeFileForRead()
+        fileManager.closePrimeFileForAppend()
     }
 
  /*   func makePrimes(numberOfPrimes: HLPrimeType)  {

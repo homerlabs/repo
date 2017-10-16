@@ -811,10 +811,11 @@
                     </view>
                     <connections>
                         <outlet property="factorFilePathTextField" destination="YlF-0x-Jez" id="qBV-jW-3iU"/>
+                        <outlet property="factorStartButton" destination="flh-Gv-mea" id="LFP-c9-r7J"/>
                         <outlet property="lastLineFactorTextField" destination="6aV-tO-GYK" id="vJj-f5-rkh"/>
                         <outlet property="lastLinePrimeTextField" destination="hi3-o6-VKI" id="oMx-Ud-cFy"/>
                         <outlet property="primeFilePathTextField" destination="omV-qV-Ric" id="K0n-rM-ANd"/>
-                        <outlet property="runButton" destination="l2e-J5-b88" id="jXB-5r-uAN"/>
+                        <outlet property="primeStartButton" destination="l2e-J5-b88" id="1ew-k4-Our"/>
                         <outlet property="terminalPrimeTextField" destination="upz-zn-Oqs" id="gAH-cc-VPQ"/>
                     </connections>
                 </viewController>

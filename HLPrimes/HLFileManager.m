@@ -12,42 +12,17 @@
 @implementation HLFileManager
 
 FILE *primeReadFile, *primeAppendFile;
+FILE *factorReadFile, *factorAppendFile;
 FILE *readTempFile;
 NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
+NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
 int kMOD_SIZE = 100000;
 
 
--(void)openPrimeForReadWith:(NSString *)path  {
-    fclose( primeReadFile );
+-(void)openPrimeFileForReadWith:(NSString *)path  {
     primeReadFile = fopen(path.UTF8String, "r");
-}
-
--(void)openFactorForReadWith:(NSString *)path  {
- //   fclose( primeAppendFile );
-//    readFile = fopen(path.UTF8String, "r");
-}
-
--(void)openTempForReadWith:(NSString *)path  {
-    readTempFile = fopen(path.UTF8String, "r");
-}
-
--(void)closeTempFileForRead
-{
-    fclose( readTempFile );
-}
-
--(void)cleanup  {
-    fclose( primeReadFile );
-    fclose( primeAppendFile );
-}
-
-
--(instancetype)initWithPath:(NSString *)path
-{
-    self = [super init];
     
-//    filePath = path;
-    primeReadFile = fopen(path.UTF8String, "r");
+    //  if open failed, create and open new file
     if ( !primeReadFile )
     {
         FILE *tempFile = fopen(path.UTF8String, "w");
@@ -56,13 +31,42 @@ int kMOD_SIZE = 100000;
         //  try now ...
         primeReadFile = fopen(path.UTF8String, "r");
     }
+}
+-(void)closePrimeFileForRead
+{
+    fclose( primeReadFile );
+}
+
+-(void)openPrimeFileForAppendWith:(NSString *)path  {
+     primeAppendFile = fopen(path.UTF8String, "a");
+}
+
+-(void)closePrimeFileForAppend
+{
+    fclose( primeAppendFile );
+}
+
+-(void)openFactorFileForReadWith:(NSString *)path  {
+    factorReadFile = fopen(path.UTF8String, "r");
     
-    NSLog( @"HLFileManager-  initWithPath: %@", path );
-//    NSString *lastLine = [self lastLineForFile:path];
-//    NSLog( @"HLFileManager-  initWithPath-  lastLine: %@", lastLine );
-    
-    primeAppendFile = fopen(path.UTF8String, "a");
-    return self;
+    //  if open failed, create and open new file
+    if ( !factorReadFile )
+    {
+        FILE *tempFile = fopen(path.UTF8String, "w");
+        fprintf(tempFile, "%s", initialFactorFile.UTF8String);
+        fclose( tempFile );
+        //  try now ...
+        factorReadFile = fopen(path.UTF8String, "r");
+    }
+}
+
+-(void)openTempFileForReadWith:(NSString *)path  {
+    readTempFile = fopen(path.UTF8String, "r");
+}
+
+-(void)closeTempFileForRead
+{
+    fclose( readTempFile );
 }
 
 -(NSString *)lastLineForFile:(NSString *)path
@@ -103,6 +107,15 @@ int kMOD_SIZE = 100000;
     }
     else
         return nil;
+}
+
+-(instancetype)initWithPath:(NSString *)path
+{
+    self = [super init];
+    
+    NSLog( @"HLFileManager-  initWithPath: %@", path );
+   primeAppendFile = fopen(path.UTF8String, "a");
+    return self;
 }
 
 @end

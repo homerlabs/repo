@@ -15,36 +15,53 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBOutlet var lastLinePrimeTextField: NSTextField!
     @IBOutlet var lastLineFactorTextField: NSTextField!
     @IBOutlet var terminalPrimeTextField: NSTextField!
-    @IBOutlet var runButton: NSButton!
-    
+    @IBOutlet var primeStartButton: NSButton!
+    @IBOutlet var factorStartButton: NSButton!
+
     var primeFinder: HLPrime!
 
     @IBAction func primeStartAction(sender: NSButton) {
         print( "ViewController-  primeStartAction: \(sender.intValue)" )
         
-        let value = runButton.state == .on
+        let value = primeStartButton.state == .on
         if value {
-            runButton.title = "Running"
+            primeStartButton.title = "Running"
             print( "terminalPrime: \(terminalPrimeTextField.intValue)  primeFilePath: \(primeFilePathTextField.stringValue)" )
 
-     //       primeFinder = HLPrime(path: primeFilePathTextField.stringValue)
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
             primeFinder.makePrimes(largestPrime: lastPrime)
 
             print( "    *********   makePrimes completed    *********" )
-            runButton.title = "Completed"
-            runButton.isEnabled = false
+            primeStartButton.title = "Completed"
+            primeStartButton.isEnabled = false
         }
         else    {
-            runButton.title = "Stopped"
-            runButton.isEnabled = false
+            primeStartButton.title = "Stopped"
+            primeStartButton.isEnabled = false
             primeFinder.active = value
         }
     }
     
     @IBAction func factorStartAction(sender: NSButton) {
         print( "ViewController-  factorStartAction: \(sender.intValue)" )
-    }
+        
+         let value = factorStartButton.state == .on
+        if value {
+            factorStartButton.title = "Running"
+            print( "terminalPrime: \(terminalPrimeTextField.intValue)  factorFilePath: \(factorFilePathTextField.stringValue)" )
+
+            let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
+            primeFinder.factorPrimes(largestPrime: lastPrime)
+            
+            print( "    *********   factorPrimes completed    *********" )
+            factorStartButton.title = "Completed"
+            factorStartButton.isEnabled = false
+        }
+        else    {
+            factorStartButton.title = "Stopped"
+            factorStartButton.isEnabled = false
+        }
+   }
     
 	func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control)" )
