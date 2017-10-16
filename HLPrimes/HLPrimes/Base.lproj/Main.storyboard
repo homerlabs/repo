@@ -681,10 +681,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--HLPrimes-->
+        <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="HLPrimes" id="XfG-lQ-9wD" customClass="ViewController" customModule="HLPrimes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="HLPrimes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -751,8 +751,11 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="H5J-YP-BGZ"/>
+                                </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlF-0x-Jez">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlF-0x-Jez" userLabel="Factor File Path">
                                 <rect key="frame" x="158" y="208" width="291" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="/Users/mhomer/Desktop/PFactors.txt" drawsBackground="YES" usesSingleLineMode="YES" id="QGu-UH-Yy2">
@@ -760,6 +763,9 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="YGV-Ti-lXS"/>
+                                </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2e-J5-b88">
                                 <rect key="frame" x="59" y="26" width="115" height="32"/>
@@ -804,11 +810,12 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="lastLineFactor" destination="6aV-tO-GYK" id="p3H-V7-PoM"/>
-                        <outlet property="lastLinePrime" destination="hi3-o6-VKI" id="5vO-hC-A2K"/>
-                        <outlet property="primeFilePath" destination="omV-qV-Ric" id="Cbk-ZF-HCR"/>
+                        <outlet property="factorFilePathTextField" destination="YlF-0x-Jez" id="qBV-jW-3iU"/>
+                        <outlet property="lastLineFactorTextField" destination="6aV-tO-GYK" id="vJj-f5-rkh"/>
+                        <outlet property="lastLinePrimeTextField" destination="hi3-o6-VKI" id="oMx-Ud-cFy"/>
+                        <outlet property="primeFilePathTextField" destination="omV-qV-Ric" id="K0n-rM-ANd"/>
                         <outlet property="runButton" destination="l2e-J5-b88" id="jXB-5r-uAN"/>
-                        <outlet property="terminalPrime" destination="upz-zn-Oqs" id="uQR-3l-Yl4"/>
+                        <outlet property="terminalPrimeTextField" destination="upz-zn-Oqs" id="gAH-cc-VPQ"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

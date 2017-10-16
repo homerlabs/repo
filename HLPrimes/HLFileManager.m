@@ -11,22 +11,34 @@
 
 @implementation HLFileManager
 
-FILE *inFile, *outFile;
-FILE *readFile;
-NSString *filePath;
+FILE *primeReadFile, *primeAppendFile;
+FILE *readTempFile;
 NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
 int kMOD_SIZE = 100000;
 
 
--(void)openForRead  {
-    fclose( readFile );
-    readFile = fopen(filePath.UTF8String, "r");
+-(void)openPrimeForReadWith:(NSString *)path  {
+    fclose( primeReadFile );
+    primeReadFile = fopen(path.UTF8String, "r");
+}
+
+-(void)openFactorForReadWith:(NSString *)path  {
+ //   fclose( primeAppendFile );
+//    readFile = fopen(path.UTF8String, "r");
+}
+
+-(void)openTempForReadWith:(NSString *)path  {
+    readTempFile = fopen(path.UTF8String, "r");
+}
+
+-(void)closeTempFileForRead
+{
+    fclose( readTempFile );
 }
 
 -(void)cleanup  {
-    fclose( inFile );
-    fclose( outFile );
-    fclose( readFile );
+    fclose( primeReadFile );
+    fclose( primeAppendFile );
 }
 
 
@@ -34,28 +46,28 @@ int kMOD_SIZE = 100000;
 {
     self = [super init];
     
-    filePath = path;
-    inFile = fopen(filePath.UTF8String, "r");
-    if ( !inFile )
+//    filePath = path;
+    primeReadFile = fopen(path.UTF8String, "r");
+    if ( !primeReadFile )
     {
         FILE *tempFile = fopen(path.UTF8String, "w");
         fprintf(tempFile, "%s", initialPrimeFile.UTF8String);
         fclose( tempFile );
         //  try now ...
-        inFile = fopen(filePath.UTF8String, "r");
+        primeReadFile = fopen(path.UTF8String, "r");
     }
     
     NSLog( @"HLFileManager-  initWithPath: %@", path );
-    NSString *lastLine = [self getLastLine];
-    NSLog( @"HLFileManager-  initWithPath-  lastLine: %@", lastLine );
+//    NSString *lastLine = [self lastLineForFile:path];
+//    NSLog( @"HLFileManager-  initWithPath-  lastLine: %@", lastLine );
     
-    outFile = fopen(path.UTF8String, "a");
+    primeAppendFile = fopen(path.UTF8String, "a");
     return self;
 }
 
--(NSString *)getLastLine
+-(NSString *)lastLineForFile:(NSString *)path
 {
-    FILE *tempFile = fopen(filePath.UTF8String, "r");
+    FILE *tempFile = fopen(path.UTF8String, "r");
     int num = 0;
     long prime = 0;
     int items = fscanf(tempFile, "%d\t%ld\n", &num, &prime );
@@ -75,18 +87,20 @@ int kMOD_SIZE = 100000;
     if ( n % kMOD_SIZE == 0 )
         NSLog( @"writeLine: %@", line );
     
-    fputs(line.UTF8String, outFile);
+    fputs(line.UTF8String, primeAppendFile);
 }
 
 -(NSString *)readLine
 {
-    int num = 0;
-    long prime = 0;
-    int items = fscanf(readFile, "%d\t%ld\n", &num, &prime );
-//    NSLog( @"items: %d   num: %d    prime: %ld", items, num, prime );
-    
-    if ( items == 2 )
-        return [NSString stringWithFormat:@"%d\t%ld",num, prime];
+    int lineSize = 1000;
+    char lineBuf[lineSize];
+    char *result = fgets(lineBuf, lineSize, readTempFile);
+    if ( result )
+    {
+        unsigned long len = strlen(result);
+        result[len-1] = '\0';       //  need to remove '\n'
+       return [NSString stringWithUTF8String:result];
+    }
     else
         return nil;
 }

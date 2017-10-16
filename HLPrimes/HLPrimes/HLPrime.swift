@@ -14,6 +14,7 @@ typealias HLPrimeType = Int64
 class HLPrime: NSObject {
 
     let fileManager: HLFileManager!
+    var primeFilePath: String = ""
     let bufSize = 100
     var buf: [HLPrimeType] = []
     var largestBufPrime: HLPrimeType = 0
@@ -21,6 +22,13 @@ class HLPrime: NSObject {
     
     var lastN: Int = 0
     var lastP: HLPrimeType = 0
+    var primeFileLastLine: String?
+    var factorFileLastLine: String?
+
+    func lastLineFor(path: String) -> String?   {
+        print( "lastLineFor: \(path)" )
+        return nil
+    }
 
     func isPrime(n: HLPrimeType) -> Bool    {
         var isPrime = true
@@ -53,13 +61,13 @@ class HLPrime: NSObject {
     }
     
     func setupBufFor(prime: HLPrimeType)   {
-        fileManager.openForRead()
+        fileManager.openTempForRead(with: primeFilePath)
         let largestTestPrime = Int(sqrt(Double(prime)))
 
         repeat  {
             if let nextLine = fileManager.readLine()    {
-                let (_, lastP) = parseLine(line: nextLine)
-                let prime = Int64(lastP)
+                let (_, valueP) = parseLine(line: nextLine)
+                let prime = Int64(valueP)
                 buf.append(prime)
                 largestBufPrime = prime
             }
@@ -67,6 +75,8 @@ class HLPrime: NSObject {
                 break
             }
         } while largestBufPrime < largestTestPrime
+        
+        fileManager.closeTempFileForRead()
     }
     
     func getPrimeInBufAt(index: Int) -> HLPrimeType   {
@@ -114,7 +124,7 @@ class HLPrime: NSObject {
     func makePrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
         
-        var n = lastN
+        var nextN = lastN + 1
         var nextPrime = lastP + 2
         setupBufFor(prime: largestPrime)
  //       print( "buf: \(buf)" )
@@ -122,12 +132,12 @@ class HLPrime: NSObject {
         while( largestPrime > nextPrime ) {
             
             if isPrime(n: nextPrime)    {
-                n += 1
-                let output = String(format: "%d\t%ld\n", n, nextPrime)
+                let output = String(format: "%d\t%ld\n", nextN, nextPrime)
                 fileManager.writeLine(output)
             }
             
             nextPrime += 2
+            nextN += 1
 
             //  yikes!  not working
             if !active   {
@@ -171,11 +181,13 @@ class HLPrime: NSObject {
         return (Int(lastN)!, Int64(lastP)!)
     }
     
-    init(path: String)  {
-        fileManager = HLFileManager(path: path)!
+    init(primeFilePath: String, factorFilePath: String)  {
+        fileManager = HLFileManager(path: primeFilePath)!
         super.init()
         
-        (lastN, lastP) = parseLine(line: fileManager.getLastLine()!)
+        self.primeFilePath = primeFilePath
+        primeFileLastLine = fileManager.lastLine(forFile: primeFilePath)
+        (lastN, lastP) = parseLine(line: primeFileLastLine!)
         print( "HLPrime.init-  lastN: \(lastN)    lastP: \(lastP)" )
     }
 }

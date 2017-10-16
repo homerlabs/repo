@@ -8,14 +8,15 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSControlTextEditingDelegate {
 
-    @IBOutlet var lastLinePrime: NSTextField!
-    @IBOutlet var lastLineFactor: NSTextField!
-
-    @IBOutlet var terminalPrime: NSTextField!
-    @IBOutlet var primeFilePath: NSTextField!
+    @IBOutlet var primeFilePathTextField: NSTextField!
+    @IBOutlet var factorFilePathTextField: NSTextField!
+    @IBOutlet var lastLinePrimeTextField: NSTextField!
+    @IBOutlet var lastLineFactorTextField: NSTextField!
+    @IBOutlet var terminalPrimeTextField: NSTextField!
     @IBOutlet var runButton: NSButton!
+    
     var primeFinder: HLPrime!
 
     @IBAction func primeStartAction(sender: NSButton) {
@@ -24,10 +25,10 @@ class ViewController: NSViewController {
         let value = runButton.state == .on
         if value {
             runButton.title = "Running"
-            print( "terminalPrime: \(terminalPrime.intValue)  primeFilePath: \(primeFilePath.stringValue)" )
+            print( "terminalPrime: \(terminalPrimeTextField.intValue)  primeFilePath: \(primeFilePathTextField.stringValue)" )
 
-            primeFinder = HLPrime(path: primeFilePath.stringValue)
-            let lastPrime: HLPrimeType = Int64(terminalPrime.stringValue)!
+     //       primeFinder = HLPrime(path: primeFilePathTextField.stringValue)
+            let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
             primeFinder.makePrimes(largestPrime: lastPrime)
 
             print( "    *********   makePrimes completed    *********" )
@@ -45,10 +46,46 @@ class ViewController: NSViewController {
         print( "ViewController-  factorStartAction: \(sender.intValue)" )
     }
     
+	func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
+        print( "ViewController-  textShouldEndEditing-  control: \(control)" )
+        
+        if control == primeFilePathTextField    {
+            if let lastLine = primeFinder.lastLineFor(path: primeFilePathTextField.stringValue) {
+                lastLinePrimeTextField.stringValue = lastLine
+            }
+            else    {
+                lastLinePrimeTextField.stringValue = "FILE NOT FOUND"
+            }
+        }
+        
+        else if control == factorFilePathTextField  {
+            if let lastLine = primeFinder.lastLineFor(path: factorFilePathTextField.stringValue) {
+                lastLineFactorTextField.stringValue = lastLine
+            }
+            else    {
+                lastLineFactorTextField.stringValue = "FILE NOT FOUND"
+            }
+        }
+        
+        else    {   assert( false )     }
+        
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        lastLinePrime.stringValue = "?"
-        lastLineFactor.stringValue = "?"
+        lastLinePrimeTextField.stringValue = "?"
+        lastLineFactorTextField.stringValue = "?"
+        
+        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, factorFilePath: factorFilePathTextField.stringValue)
+        
+        if let primeLastLine = primeFinder.primeFileLastLine {
+            lastLinePrimeTextField.stringValue = primeLastLine
+        }
+        
+        if let factorLastLine = primeFinder.factorFileLastLine {
+            lastLineFactorTextField.stringValue = factorLastLine
+        }
     }
 
 /*    override var representedObject: Any? {
