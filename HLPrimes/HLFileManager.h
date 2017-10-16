@@ -10,13 +10,13 @@
 
 @interface HLFileManager : NSObject
 
--(instancetype)initWithPath:(NSString *)path;
 -(NSString *)lastLineForFile:(NSString *)path;
 
--(NSString *)readLine;
+-(NSString *)readTempFileLine;
 -(void)writeLine:(NSString *)line;
 
 -(void)openPrimeFileForReadWith:(NSString *)path;
+-(NSString *)readPrimeFileLine;
 -(void)closePrimeFileForRead;
 
 -(void)openPrimeFileForAppendWith:(NSString *)path;
@@ -26,5 +26,6 @@
 -(void)closeTempFileForRead;
 
 -(void)openFactorFileForReadWith:(NSString *)path;
+-(void)closeFactorFileForRead;
 
 @end

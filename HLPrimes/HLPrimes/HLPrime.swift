@@ -61,12 +61,12 @@ class HLPrime: NSObject {
         return isPrime
     }
     
-    func setupBufFor(prime: HLPrimeType)   {
-        fileManager.openTempFileForRead(with: primeFilePath)
+    func loadBufFor(prime: HLPrimeType)   {
+        fileManager.openPrimeFileForRead(with: primeFilePath)     //  creates one if needed
         let largestTestPrime = Int(sqrt(Double(prime)))
 
         repeat  {
-            if let nextLine = fileManager.readLine()    {
+            if let nextLine = fileManager.readPrimeFileLine()    {
                 let (_, valueP) = parseLine(line: nextLine)
                 let prime = Int64(valueP)
                 buf.append(prime)
@@ -77,12 +77,19 @@ class HLPrime: NSObject {
             }
         } while largestBufPrime < largestTestPrime
         
-        fileManager.closeTempFileForRead()
+        fileManager.closePrimeFileForRead()
+ //       print( "loadBuf: \(buf)" )
+ 
+        //  this will be nil if prime file didn't exist
+        if primeFileLastLine == nil {
+            primeFileLastLine = fileManager.lastLine(forFile: primeFilePath)
+        }
     }
     
     func getPrimeInBufAt(index: Int) -> HLPrimeType   {
-        while index >= buf.count   {
-            if let nextLine = fileManager.readLine()    {
+        if index >= buf.count   {
+            assert( false )
+  /*          if let nextLine = fileManager.readLine()    {
                 let (_, lastP) = parseLine(line: nextLine)
                 let prime = Int64(lastP)
                 buf.append(prime)
@@ -90,24 +97,31 @@ class HLPrime: NSObject {
             }
             else    {
                 return 0
-            }
+            }   */
         }
         return buf[index]
     }
     
     func factorPrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
+        let startDate = Date()
         fileManager.openFactorFileForRead(with: primeFilePath)
+        
+        fileManager.closeFactorFileForRead()
+        let time = startDate.timeIntervalSinceNow
+        print( "HLPrime-  factorPrimes-  completed.  Time: \(time)" )
     }
     
     func makePrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
         
+         //  find out where we left off and continue from there
+        let (lastN, lastP) = parseLine(line: primeFileLastLine!)
+        print( "lastN: \(lastN)    lastP: \(lastP)" )
+
         var nextN = lastN + 1
         var nextP = lastP + 2
-        setupBufFor(prime: largestPrime)
- //       print( "buf: \(buf)" )
- 
+
         fileManager.openPrimeFileForRead(with: primeFilePath)
         fileManager.openPrimeFileForAppend(with: primeFilePath)
 
@@ -116,10 +130,10 @@ class HLPrime: NSObject {
             if isPrime(n: nextP)    {
                 let output = String(format: "%d\t%ld\n", nextN, nextP)
                 fileManager.writeLine(output)
+                nextN += 1
             }
             
             nextP += 2
-            nextN += 1
 
             //  yikes!  not working
             if !active   {
@@ -129,6 +143,8 @@ class HLPrime: NSObject {
         
         fileManager.closePrimeFileForRead()
         fileManager.closePrimeFileForAppend()
+        
+        primeFileLastLine = fileManager.lastLine(forFile: primeFilePath)
     }
 
  /*   func makePrimes(numberOfPrimes: HLPrimeType)  {
@@ -165,13 +181,18 @@ class HLPrime: NSObject {
     }
     
     init(primeFilePath: String, factorFilePath: String)  {
-        fileManager = HLFileManager(path: primeFilePath)!
+        fileManager = HLFileManager()
         super.init()
         
         self.primeFilePath = primeFilePath
-        primeFileLastLine = fileManager.lastLine(forFile: primeFilePath)
-        (lastN, lastP) = parseLine(line: primeFileLastLine!)
-        print( "HLPrime.init-  lastN: \(lastN)    lastP: \(lastP)" )
+        
+        if let primeFileLastLine = fileManager.lastLine(forFile: primeFilePath) {
+            self.primeFileLastLine = primeFileLastLine
+            (lastN, lastP) = parseLine(line: primeFileLastLine)
+            print( "HLPrime.init-  lastN: \(lastN)    lastP: \(lastP)" )
+        }
+        
+//        factorFileLastLine = fileManager.lastLine(forFile: factorFilePath)
     }
 }
 

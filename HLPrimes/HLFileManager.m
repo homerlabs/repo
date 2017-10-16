@@ -40,7 +40,6 @@ int kMOD_SIZE = 100000;
 -(void)openPrimeFileForAppendWith:(NSString *)path  {
      primeAppendFile = fopen(path.UTF8String, "a");
 }
-
 -(void)closePrimeFileForAppend
 {
     fclose( primeAppendFile );
@@ -59,11 +58,14 @@ int kMOD_SIZE = 100000;
         factorReadFile = fopen(path.UTF8String, "r");
     }
 }
+-(void)closeFactorFileForRead
+{
+    fclose( factorReadFile );
+}
 
 -(void)openTempFileForReadWith:(NSString *)path  {
     readTempFile = fopen(path.UTF8String, "r");
 }
-
 -(void)closeTempFileForRead
 {
     fclose( readTempFile );
@@ -71,18 +73,23 @@ int kMOD_SIZE = 100000;
 
 -(NSString *)lastLineForFile:(NSString *)path
 {
-    FILE *tempFile = fopen(path.UTF8String, "r");
-    int num = 0;
-    long prime = 0;
-    int items = fscanf(tempFile, "%d\t%ld\n", &num, &prime );
+    readTempFile = fopen(path.UTF8String, "r");
     
-    while ( items > 0 )    {
-//        NSLog( @"HLFileManager-  getLastLine-  items: %d   num: %d   prime: %ld", items, num, prime );
-        items = fscanf(tempFile, "%d\t%ld\n", &num, &prime );
-   }
-   
-   fclose( tempFile );
-    return [NSString stringWithFormat:@"%d\t%ld",num, prime];
+    if ( readTempFile )  {
+        NSString *temp = @"";
+        NSString *previous;
+
+        do  {
+            previous = temp;
+            temp = [self readTempFileLine];
+        } while (temp);
+        
+        fclose( readTempFile );
+        return previous;
+    }
+    
+    else
+        return nil;
 }
 
 -(void)writeLine:(NSString *)line
@@ -94,7 +101,22 @@ int kMOD_SIZE = 100000;
     fputs(line.UTF8String, primeAppendFile);
 }
 
--(NSString *)readLine
+-(NSString *)readPrimeFileLine
+{
+    int lineSize = 1000;
+    char lineBuf[lineSize];
+    char *result = fgets(lineBuf, lineSize, primeReadFile);
+    if ( result )
+    {
+        unsigned long len = strlen(result);
+        result[len-1] = '\0';       //  need to remove '\n'
+       return [NSString stringWithUTF8String:result];
+    }
+    else
+        return nil;
+}
+
+-(NSString *)readTempFileLine
 {
     int lineSize = 1000;
     char lineBuf[lineSize];
@@ -107,15 +129,6 @@ int kMOD_SIZE = 100000;
     }
     else
         return nil;
-}
-
--(instancetype)initWithPath:(NSString *)path
-{
-    self = [super init];
-    
-    NSLog( @"HLFileManager-  initWithPath: %@", path );
-   primeAppendFile = fopen(path.UTF8String, "a");
-    return self;
 }
 
 @end

@@ -21,17 +21,18 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     var primeFinder: HLPrime!
 
     @IBAction func primeStartAction(sender: NSButton) {
-        print( "ViewController-  primeStartAction: \(sender.intValue)" )
         
         let value = primeStartButton.state == .on
         if value {
             primeStartButton.title = "Running"
-            print( "terminalPrime: \(terminalPrimeTextField.intValue)  primeFilePath: \(primeFilePathTextField.stringValue)" )
-
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
+  //          print( "terminalPrime: \(terminalPrimeTextField.intValue)  primeFilePath: \(primeFilePathTextField.stringValue)" )
+
+            primeFinder.loadBufFor(prime: lastPrime)
             primeFinder.makePrimes(largestPrime: lastPrime)
 
             print( "    *********   makePrimes completed    *********" )
+            lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
             primeStartButton.title = "Completed"
             primeStartButton.isEnabled = false
         }
@@ -43,9 +44,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
     
     @IBAction func factorStartAction(sender: NSButton) {
-        print( "ViewController-  factorStartAction: \(sender.intValue)" )
         
-         let value = factorStartButton.state == .on
+        let value = factorStartButton.state == .on
         if value {
             factorStartButton.title = "Running"
             print( "terminalPrime: \(terminalPrimeTextField.intValue)  factorFilePath: \(factorFilePathTextField.stringValue)" )
