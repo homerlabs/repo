@@ -84,6 +84,33 @@ class HLPrime: NSObject {
         return buf[index]
     }
     
+    func factorPrimes(largestPrime: HLPrimeType)  {
+        print( "HLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
+        
+        var n = lastN
+        var nextPrime = lastP + 2
+        setupBufFor(prime: largestPrime)
+ //       print( "buf: \(buf)" )
+
+        while( largestPrime > nextPrime ) {
+            
+            if isPrime(n: nextPrime)    {
+                n += 1
+                let output = String(format: "%d\t%ld\n", n, nextPrime)
+                fileManager.writeLine(output)
+            }
+            
+            nextPrime += 2
+
+            //  yikes!  not working
+            if !active   {
+                break
+            }
+        }
+        
+        fileManager.cleanup()
+    }
+    
     func makePrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
         
@@ -102,6 +129,7 @@ class HLPrime: NSObject {
             
             nextPrime += 2
 
+            //  yikes!  not working
             if !active   {
                 break
             }
@@ -109,7 +137,7 @@ class HLPrime: NSObject {
         
         fileManager.cleanup()
     }
-    
+
  /*   func makePrimes(numberOfPrimes: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  numberOfPrimes: \(numberOfPrimes)" )
         

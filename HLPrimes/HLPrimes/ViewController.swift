@@ -10,13 +10,16 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet var lastLinePrime: NSTextField!
+    @IBOutlet var lastLineFactor: NSTextField!
+
     @IBOutlet var terminalPrime: NSTextField!
     @IBOutlet var primeFilePath: NSTextField!
     @IBOutlet var runButton: NSButton!
     var primeFinder: HLPrime!
 
-    @IBAction func buttonPushed(sender: NSButton) {
-        print( "ViewController-  buttonPushed: \(sender.intValue)" )
+    @IBAction func primeStartAction(sender: NSButton) {
+        print( "ViewController-  primeStartAction: \(sender.intValue)" )
         
         let value = runButton.state == .on
         if value {
@@ -38,11 +41,17 @@ class ViewController: NSViewController {
         }
     }
     
-/*    override func viewDidLoad() {
+    @IBAction func factorStartAction(sender: NSButton) {
+        print( "ViewController-  factorStartAction: \(sender.intValue)" )
+    }
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
+        lastLinePrime.stringValue = "?"
+        lastLineFactor.stringValue = "?"
     }
 
-    override var representedObject: Any? {
+/*    override var representedObject: Any? {
         didSet {
             print( "ViewController-  representedObject-  didSet: \(String(describing: representedObject))" )
         }

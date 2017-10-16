@@ -15,7 +15,7 @@ FILE *inFile, *outFile;
 FILE *readFile;
 NSString *filePath;
 NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
-int kMOD_SIZE = 10000;
+int kMOD_SIZE = 100000;
 
 
 -(void)openForRead  {
