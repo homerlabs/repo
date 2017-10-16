@@ -14,6 +14,8 @@
 FILE *inFile, *outFile;
 FILE *readFile;
 NSString *filePath;
+NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
+int kMOD_SIZE = 10000;
 
 
 -(void)openForRead  {
@@ -37,8 +39,7 @@ NSString *filePath;
     if ( !inFile )
     {
         FILE *tempFile = fopen(path.UTF8String, "w");
-        NSString *tempString = [NSString stringWithFormat:@"1\t2\n2\t3\n3\t5\n4\t7\n"];
-        fprintf(tempFile, "%s", tempString.UTF8String);
+        fprintf(tempFile, "%s", initialPrimeFile.UTF8String);
         fclose( tempFile );
         //  try now ...
         inFile = fopen(filePath.UTF8String, "r");
@@ -70,7 +71,10 @@ NSString *filePath;
 
 -(void)writeLine:(NSString *)line
 {
-    NSLog( @"HLFileManager-  writeLine: %@", line );
+    int n = line.intValue;
+    if ( n % kMOD_SIZE == 0 )
+        NSLog( @"writeLine: %@", line );
+    
     fputs(line.UTF8String, outFile);
 }
 
@@ -79,7 +83,7 @@ NSString *filePath;
     int num = 0;
     long prime = 0;
     int items = fscanf(readFile, "%d\t%ld\n", &num, &prime );
-    NSLog( @"items: %d   num: %d    prime: %ld", items, num, prime );
+//    NSLog( @"items: %d   num: %d    prime: %ld", items, num, prime );
     
     if ( items == 2 )
         return [NSString stringWithFormat:@"%d\t%ld",num, prime];

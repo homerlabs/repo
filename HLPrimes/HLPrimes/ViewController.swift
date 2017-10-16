@@ -13,7 +13,7 @@ class ViewController: NSViewController {
     @IBOutlet var terminalPrime: NSTextField!
     @IBOutlet var primeFilePath: NSTextField!
     @IBOutlet var runButton: NSButton!
-    var prime: HLPrime!
+    var primeFinder: HLPrime!
 
     @IBAction func buttonPushed(sender: NSButton) {
         print( "ViewController-  buttonPushed: \(sender.intValue)" )
@@ -23,23 +23,29 @@ class ViewController: NSViewController {
             runButton.title = "Running"
             print( "terminalPrime: \(terminalPrime.intValue)  primeFilePath: \(primeFilePath.stringValue)" )
 
-            prime = HLPrime(path: primeFilePath.stringValue)
-            let lastPrime: HLPrimeType = Int64(terminalPrime.intValue)
-            prime.makePrimes(largestPrime: lastPrime)
+            primeFinder = HLPrime(path: primeFilePath.stringValue)
+            let lastPrime: HLPrimeType = Int64(terminalPrime.stringValue)!
+            primeFinder.makePrimes(largestPrime: lastPrime)
+
+            print( "    *********   makePrimes completed    *********" )
+            runButton.title = "Completed"
+            runButton.isEnabled = false
         }
         else    {
             runButton.title = "Stopped"
             runButton.isEnabled = false
-            prime.active = value
+            primeFinder.active = value
         }
+    }
+    
+/*    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     override var representedObject: Any? {
         didSet {
             print( "ViewController-  representedObject-  didSet: \(String(describing: representedObject))" )
         }
-    }
-
-
+    }   */
 }
 

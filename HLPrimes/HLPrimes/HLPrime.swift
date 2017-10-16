@@ -87,10 +87,8 @@ class HLPrime: NSObject {
     func makePrimes(largestPrime: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
         
-        //  find out where we left off and continue from there
-
-        var n = Int(lastN)
-        var nextPrime = Int64(lastP) + 2
+        var n = lastN
+        var nextPrime = lastP + 2
         setupBufFor(prime: largestPrime)
  //       print( "buf: \(buf)" )
 
@@ -112,7 +110,7 @@ class HLPrime: NSObject {
         fileManager.cleanup()
     }
     
-    func makePrimes(numberOfPrimes: HLPrimeType)  {
+ /*   func makePrimes(numberOfPrimes: HLPrimeType)  {
         print( "HLPrime-  makePrimes-  numberOfPrimes: \(numberOfPrimes)" )
         
         //  find out where we left off and continue from there
@@ -135,7 +133,7 @@ class HLPrime: NSObject {
         }
         
         fileManager.cleanup()
-    }
+    }   */
     
     func parseLine(line: String) -> (index: Int, prime: Int64)  {
         let index = line.index(of: "\t")!
