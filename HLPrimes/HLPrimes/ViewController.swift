@@ -53,6 +53,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             primeFinder.factorPrimes(largestPrime: lastPrime)
             
             print( "    *********   factorPrimes completed    *********" )
+            lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
             factorStartButton.title = "Completed"
             factorStartButton.isEnabled = false
         }

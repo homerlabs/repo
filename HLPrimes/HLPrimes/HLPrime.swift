@@ -111,21 +111,16 @@ class HLPrime: NSObject {
         var testPrime = buf[index]
         
         repeat  {
-   //         print( "prime: \(prime)    testPrime: \(testPrime)" )
             var q_r = lldiv(value, testPrime)
             while q_r.rem == 0 {
                 value /= testPrime
-                
                 result.append("\t" + String(testPrime))
-                
-  //          print( "testPrime: \(testPrime)    value: \(value)" )
                 q_r = lldiv(value, testPrime)
             }
             
             index += 1
             testPrime = buf[index]
-   //         print( "next testPrime: \(testPrime)    value: \(value)" )
-        } while testPrime < largestTestPrime
+        } while testPrime < largestTestPrime && value > 1
         
 //        print( "final: \(result)" )
         return result
@@ -172,6 +167,7 @@ class HLPrime: NSObject {
         fileManager.closeFactorFileForAppend()
         fileManager.closePrimeFileForRead()
 
+        factorFileLastLine = fileManager.lastLine(forFile: factorFilePath)
         let deltaTime = startDate.timeIntervalSinceNow
         print( "HLPrime-  factorPrimes-  completed.  Time: \(-Int(deltaTime))" )
     }
