@@ -19,18 +19,24 @@ NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
 int kMOD_SIZE = 100000;
 
 
--(void)openPrimeFileForReadWith:(NSString *)path  {
+-(int)openPrimeFileForReadWith:(NSString *)path  {
     primeReadFile = fopen(path.UTF8String, "r");
     
     //  if open failed, create and open new file
     if ( !primeReadFile )
     {
         FILE *tempFile = fopen(path.UTF8String, "w");
+        if ( !tempFile ) {  //  can't use this path!
+            return -1;  //    error
+        }
+        
         fprintf(tempFile, "%s", initialPrimeFile.UTF8String);
         fclose( tempFile );
         //  try now ...
         primeReadFile = fopen(path.UTF8String, "r");
     }
+    
+    return 0;   //  no error
 }
 -(void)closePrimeFileForRead
 {

@@ -12,7 +12,7 @@
 
 -(NSString *)lastLineForFile:(NSString *)path;
 
--(void)openPrimeFileForReadWith:(NSString *)path;
+-(int)openPrimeFileForReadWith:(NSString *)path;
 -(NSString *)readPrimeFileLine;
 -(void)closePrimeFileForRead;
 

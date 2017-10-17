@@ -61,8 +61,12 @@ class HLPrime: NSObject {
         return isPrime
     }
     
-    func loadBufFor(prime: HLPrimeType)   {
-        fileManager.openPrimeFileForRead(with: primeFilePath)     //  creates one if needed
+    func loadBufFor(prime: HLPrimeType) -> Int   {
+        let openResult = fileManager.openPrimeFileForRead(with: primeFilePath)     //  creates one if needed
+        if openResult != 0  {   //  BAIL!
+            return -1
+        }
+        
         let largestTestPrime = Int(sqrt(Double(prime)))
 
         repeat  {
@@ -84,6 +88,8 @@ class HLPrime: NSObject {
         if primeFileLastLine == nil {
             primeFileLastLine = fileManager.lastLine(forFile: primeFilePath)
         }
+        
+        return 0
     }
     
     func getPrimeInBufAt(index: Int) -> HLPrimeType   {
