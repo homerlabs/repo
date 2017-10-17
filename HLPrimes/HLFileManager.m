@@ -55,7 +55,8 @@ int kMOD_SIZE = 100000;
     }
     fclose( factorAppendFile );
     
-    factorAppendFile = fopen(path.UTF8String, "r");
+    factorAppendFile = fopen(path.UTF8String, "a");
+    assert( factorAppendFile );
 }
 -(void)closeFactorFileForAppend
 {
@@ -109,13 +110,22 @@ int kMOD_SIZE = 100000;
         return nil;
 }
 
--(void)writeLine:(NSString *)line
+-(void)appendPrimeLine:(NSString *)line
 {
     int n = line.intValue;
     if ( n % kMOD_SIZE == 0 )
-        NSLog( @"writeLine: %@", line );
+        NSLog( @"** new prime: %@", line );
     
     fputs(line.UTF8String, primeAppendFile);
+}
+
+-(void)appendFactorLine:(NSString *)line
+{
+//    int n = line.intValue;
+//    if ( n % kMOD_SIZE == 0 )
+    
+    fprintf(factorAppendFile, "%s\n", line.UTF8String);
+    NSLog( @"  ** prime factored: %@", line );
 }
 
 -(NSString *)readPrimeFileLine
