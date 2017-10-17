@@ -26,7 +26,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         if value {
             primeStartButton.title = "Running"
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
-  //          print( "terminalPrime: \(terminalPrimeTextField.intValue)  primeFilePath: \(primeFilePathTextField.stringValue)" )
 
             primeFinder.loadBufFor(prime: lastPrime)
             primeFinder.makePrimes(largestPrime: lastPrime)
@@ -48,9 +47,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         let value = factorStartButton.state == .on
         if value {
             factorStartButton.title = "Running"
-            print( "terminalPrime: \(terminalPrimeTextField.intValue)  factorFilePath: \(factorFilePathTextField.stringValue)" )
-
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
+
+            primeFinder.loadBufFor(prime: lastPrime)
             primeFinder.factorPrimes(largestPrime: lastPrime)
             
             print( "    *********   factorPrimes completed    *********" )

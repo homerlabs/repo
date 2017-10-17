@@ -22,10 +22,13 @@
 -(void)openPrimeFileForAppendWith:(NSString *)path;
 -(void)closePrimeFileForAppend;
 
+-(void)openFactorFileForAppendWith:(NSString *)path;
+-(void)closeFactorFileForAppend;
+
 -(void)openTempFileForReadWith:(NSString *)path;
 -(void)closeTempFileForRead;
 
--(void)openFactorFileForReadWith:(NSString *)path;
--(void)closeFactorFileForRead;
+//-(void)openFactorFileForReadWith:(NSString *)path;
+//-(void)closeFactorFileForRead;
 
 @end

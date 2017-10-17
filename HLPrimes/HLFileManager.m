@@ -12,7 +12,7 @@
 @implementation HLFileManager
 
 FILE *primeReadFile, *primeAppendFile;
-FILE *factorReadFile, *factorAppendFile;
+FILE *factorAppendFile;
 FILE *readTempFile;
 NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
 NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
@@ -45,7 +45,24 @@ int kMOD_SIZE = 100000;
     fclose( primeAppendFile );
 }
 
--(void)openFactorFileForReadWith:(NSString *)path  {
+-(void)openFactorFileForAppendWith:(NSString *)path  {
+    //  make sure file already exists
+    factorAppendFile = fopen(path.UTF8String, "r");
+    if ( !factorAppendFile )
+    {
+        factorAppendFile = fopen(path.UTF8String, "w");
+        fprintf(factorAppendFile, "%s", initialFactorFile.UTF8String);
+    }
+    fclose( factorAppendFile );
+    
+    factorAppendFile = fopen(path.UTF8String, "r");
+}
+-(void)closeFactorFileForAppend
+{
+    fclose( factorAppendFile );
+}
+
+/*-(void)openFactorFileForReadWith:(NSString *)path  {
     factorReadFile = fopen(path.UTF8String, "r");
     
     //  if open failed, create and open new file
@@ -61,7 +78,7 @@ int kMOD_SIZE = 100000;
 -(void)closeFactorFileForRead
 {
     fclose( factorReadFile );
-}
+}   */
 
 -(void)openTempFileForReadWith:(NSString *)path  {
     readTempFile = fopen(path.UTF8String, "r");

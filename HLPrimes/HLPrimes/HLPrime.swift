@@ -103,21 +103,41 @@ class HLPrime: NSObject {
     }
     
     func factorPrimes(largestPrime: HLPrimeType)  {
-        print( "HLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
+        print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
         let startDate = Date()
-        fileManager.openFactorFileForRead(with: primeFilePath)
         
-        fileManager.closeFactorFileForRead()
-        let time = startDate.timeIntervalSinceNow
-        print( "HLPrime-  factorPrimes-  completed.  Time: \(time)" )
+        fileManager.openFactorFileForAppend(with: factorFilePath)     //  creates one if needed
+        let lastLine = fileManager.lastLine(forFile: factorFilePath)!
+        print( "HLPrime-  factorPrimes-  lastLine: '\(lastLine)'" )
+
+        let index = lastLine.index(of: "\t")!
+        let lastF = lastLine.prefix(upTo: index)
+        let lastPrime = Int64(lastF)!
+        print( "HLPrime-  factorPrimes-  lastPrime: \(lastPrime)" )
+        
+//        let line = fileManager.readPrimeFileLine()
+//        let (lastN, lastP) = parseLine(line: line!)
+//        print( "factorPrimes-  lastN: \(lastN)    lastP: \(lastP)" )
+       
+ //      repeat {
+        
+ //       } while lastP != lastPrime
+
+        print( "factorPrimes- DO THE REAL WORK HERE!" )
+
+        fileManager.closeFactorFileForAppend()
+        
+        
+        let deltaTime = startDate.timeIntervalSinceNow
+        print( "HLPrime-  factorPrimes-  completed.  Time: \(deltaTime)" )
     }
     
     func makePrimes(largestPrime: HLPrimeType)  {
-        print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
+        print( "\nHLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
         
          //  find out where we left off and continue from there
         let (lastN, lastP) = parseLine(line: primeFileLastLine!)
-        print( "lastN: \(lastN)    lastP: \(lastP)" )
+        print( "makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
 
         var nextN = lastN + 1
         var nextP = lastP + 2
@@ -145,6 +165,8 @@ class HLPrime: NSObject {
         fileManager.closePrimeFileForAppend()
         
         primeFileLastLine = fileManager.lastLine(forFile: primeFilePath)
+        let (newLastN, newLastP) = parseLine(line: primeFileLastLine!)
+        print( "makePrimes-  lastN: \(newLastN)    lastP: \(newLastP)" )
     }
 
  /*   func makePrimes(numberOfPrimes: HLPrimeType)  {
@@ -185,14 +207,18 @@ class HLPrime: NSObject {
         super.init()
         
         self.primeFilePath = primeFilePath
-        
+        self.factorFilePath = factorFilePath
+
         if let primeFileLastLine = fileManager.lastLine(forFile: primeFilePath) {
             self.primeFileLastLine = primeFileLastLine
             (lastN, lastP) = parseLine(line: primeFileLastLine)
             print( "HLPrime.init-  lastN: \(lastN)    lastP: \(lastP)" )
         }
-        
-//        factorFileLastLine = fileManager.lastLine(forFile: factorFilePath)
+
+        if let factorFileLastLine = fileManager.lastLine(forFile: factorFilePath) {
+            self.factorFileLastLine = factorFileLastLine
+            print( "HLPrime.init-  factorFileLastLine: \(factorFileLastLine)" )
+        }
     }
 }
 
