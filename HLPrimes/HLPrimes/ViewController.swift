@@ -20,10 +20,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     var primeFinder: HLPrime!
     let HLDefaultPrimeFilePathKey = "PrimeFilePathKey"
-    let HLDefaultFactorFilePathKey = "FactorFilePathKey"
     let HLDefaultTerminalPrimeKey = "TerminalPrimeKey"
     
-    let homeDir = FileManager.default.homeDirectoryForCurrentUser.absoluteString
+    let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
     var errorCode = 0
 
     @IBAction func primeStartAction(sender: NSButton) {
@@ -72,7 +71,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             }
             
             errorCode = primeFinder.factorPrimes(largestPrime: lastPrime)
-            if errorCode != 0   {   //  serious error
+            if errorCode == 0   {
                 print( "    *********   factorPrimes completed    *********" )
                 lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
                 factorStartButton.title = "Completed"
@@ -91,9 +90,10 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
 	func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
+        
         var newValue = control.stringValue
         if !newValue.hasPrefix("/")  {
-            newValue += homeDir
+            newValue = homeDir + "/" + newValue
         }
         
         if control == primeFilePathTextField    {
@@ -106,18 +106,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             
             UserDefaults.standard.set(newValue, forKey:HLDefaultPrimeFilePathKey)
         }
-        
-        else if control == factorFilePathTextField  {
-            if let lastLine = primeFinder.lastLineFor(path: newValue) {
-                lastLineFactorTextField.stringValue = lastLine
-           }
-            else    {
-                lastLineFactorTextField.stringValue = "FILE NOT FOUND"
-            }
-            
-            UserDefaults.standard.set(newValue, forKey:HLDefaultFactorFilePathKey)
-        }
-        
+
         else    {   assert( false )     }
         
         UserDefaults.standard.synchronize()
@@ -133,14 +122,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             primeFilePathTextField.stringValue = primeFilePath
         }
         else    {
-            primeFilePathTextField.stringValue = "/Users/YourHomeDirectory/Desktop/Primes.txt"
-        }
-        
-        if let factorFilePath = UserDefaults.standard.string(forKey: HLDefaultFactorFilePathKey)  {
-            factorFilePathTextField.stringValue = factorFilePath
-        }
-        else    {
-            factorFilePathTextField.stringValue = "/Users/YourHomeDirectory/Desktop/FactoredPrimes.txt"
+            primeFilePathTextField.stringValue = "Desktop/Primes"
         }
         
         if let terminalPrime = UserDefaults.standard.string(forKey: HLDefaultTerminalPrimeKey)  {
@@ -150,7 +132,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             terminalPrimeTextField.stringValue = "169"
         }
 
-        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, factorFilePath: factorFilePathTextField.stringValue)
+        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue)
         
         if let primeLastLine = primeFinder.primeFileLastLine {
             lastLinePrimeTextField.stringValue = primeLastLine

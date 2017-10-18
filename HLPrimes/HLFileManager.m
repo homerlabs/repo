@@ -18,14 +18,17 @@ NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
 NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
 int kMOD_SIZE = 100000;
 
+NSString *fileExtension = @"txt";
+
 
 -(int)openPrimeFileForReadWith:(NSString *)path  {
-    primeReadFile = fopen(path.UTF8String, "r");
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    primeReadFile = fopen(pathWithExtension.UTF8String, "r");
     
     //  if open failed, create and open new file
     if ( !primeReadFile )
     {
-        FILE *tempFile = fopen(path.UTF8String, "w");
+        FILE *tempFile = fopen(pathWithExtension.UTF8String, "w");
         if ( !tempFile ) {  //  can't use this path!
             return -1;  //    error
         }
@@ -33,7 +36,7 @@ int kMOD_SIZE = 100000;
         fprintf(tempFile, "%s", initialPrimeFile.UTF8String);
         fclose( tempFile );
         //  try now ...
-        primeReadFile = fopen(path.UTF8String, "r");
+        primeReadFile = fopen(pathWithExtension.UTF8String, "r");
     }
     
     return 0;   //  no error
@@ -44,7 +47,8 @@ int kMOD_SIZE = 100000;
 }
 
 -(void)openPrimeFileForAppendWith:(NSString *)path  {
-     primeAppendFile = fopen(path.UTF8String, "a");
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+     primeAppendFile = fopen(pathWithExtension.UTF8String, "a");
 }
 -(void)closePrimeFileForAppend
 {
@@ -52,11 +56,12 @@ int kMOD_SIZE = 100000;
 }
 
 -(int)openFactorFileForAppendWith:(NSString *)path  {
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     //  make sure file already exists
-    factorAppendFile = fopen(path.UTF8String, "r");
+    factorAppendFile = fopen(pathWithExtension.UTF8String, "r");
     if ( !factorAppendFile )
     {
-        FILE *tempFile = factorAppendFile = fopen(path.UTF8String, "w");
+        FILE *tempFile = factorAppendFile = fopen(pathWithExtension.UTF8String, "w");
         if ( !tempFile ) {  //  can't use this path!
             return -1;  //    error
         }
@@ -64,7 +69,7 @@ int kMOD_SIZE = 100000;
     }
     fclose( factorAppendFile );
     
-    factorAppendFile = fopen(path.UTF8String, "a");
+    factorAppendFile = fopen(pathWithExtension.UTF8String, "a");
     assert( factorAppendFile );
     return 0;   //  no error
 }
@@ -74,16 +79,16 @@ int kMOD_SIZE = 100000;
 }
 
 /*-(void)openFactorFileForReadWith:(NSString *)path  {
-    factorReadFile = fopen(path.UTF8String, "r");
+    factorReadFile = fopen(pathWithExtension.UTF8String, "r");
     
     //  if open failed, create and open new file
     if ( !factorReadFile )
     {
-        FILE *tempFile = fopen(path.UTF8String, "w");
+        FILE *tempFile = fopen(pathWithExtension.UTF8String, "w");
         fprintf(tempFile, "%s", initialFactorFile.UTF8String);
         fclose( tempFile );
         //  try now ...
-        factorReadFile = fopen(path.UTF8String, "r");
+        factorReadFile = fopen(pathWithExtension.UTF8String, "r");
     }
 }
 -(void)closeFactorFileForRead
@@ -92,7 +97,8 @@ int kMOD_SIZE = 100000;
 }   */
 
 -(void)openTempFileForReadWith:(NSString *)path  {
-    readTempFile = fopen(path.UTF8String, "r");
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    readTempFile = fopen(pathWithExtension.UTF8String, "r");
 }
 -(void)closeTempFileForRead
 {
@@ -101,7 +107,8 @@ int kMOD_SIZE = 100000;
 
 -(NSString *)lastLineForFile:(NSString *)path
 {
-    readTempFile = fopen(path.UTF8String, "r");
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    readTempFile = fopen(pathWithExtension.UTF8String, "r");
     
     if ( readTempFile )  {
         NSString *temp = @"";
