@@ -681,16 +681,16 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--HLPrimes-->
+        <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController title="HLPrimes" id="XfG-lQ-9wD" customClass="ViewController" customModule="HLPrimes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="HLPrimes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jc-mA-FTV">
-                                <rect key="frame" x="46" y="233" width="106" height="17"/>
+                                <rect key="frame" x="22" y="233" width="106" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Prime File Path:" id="sK4-lM-7sE">
                                     <font key="font" metaFont="system"/>
@@ -726,7 +726,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oYH-X3-YZn">
-                                <rect key="frame" x="46" y="201" width="106" height="17"/>
+                                <rect key="frame" x="22" y="201" width="106" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Terminal Prime:" id="wKN-bX-gNq">
                                     <font key="font" metaFont="system"/>
@@ -735,7 +735,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="omV-qV-Ric">
-                                <rect key="frame" x="158" y="233" width="291" height="17"/>
+                                <rect key="frame" x="134" y="233" width="322" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="/Users/mhomer/Desktop/Primes.txt" drawsBackground="YES" usesSingleLineMode="YES" id="sKR-Oj-Taa">
                                     <font key="font" metaFont="system"/>
@@ -747,7 +747,7 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2e-J5-b88">
-                                <rect key="frame" x="59" y="26" width="115" height="32"/>
+                                <rect key="frame" x="67" y="48" width="115" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Prime Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ibX-ew-qCe">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -758,7 +758,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flh-Gv-mea">
-                                <rect key="frame" x="286" y="26" width="112" height="32"/>
+                                <rect key="frame" x="274" y="48" width="112" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Factor Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tve-5A-zGN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -769,7 +769,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upz-zn-Oqs">
-                                <rect key="frame" x="158" y="201" width="102" height="17"/>
+                                <rect key="frame" x="134" y="201" width="102" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="169" drawsBackground="YES" usesSingleLineMode="YES" id="y7o-XY-RwE">
                                     <font key="font" metaFont="system"/>
@@ -778,6 +778,18 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="xoi-yY-i1O"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZr-aH-owo">
+                                <rect key="frame" x="354" y="201" width="102" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="10" drawsBackground="YES" usesSingleLineMode="YES" id="2XX-EF-gZx">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="rIb-GU-rao"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6aV-tO-GYK">
@@ -789,12 +801,22 @@
                                     <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0oM-Kh-YdF">
+                                <rect key="frame" x="266" y="201" width="82" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Mod Count:" id="YBI-bu-h4K">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="factorStartButton" destination="flh-Gv-mea" id="LFP-c9-r7J"/>
                         <outlet property="lastLineFactorTextField" destination="6aV-tO-GYK" id="vJj-f5-rkh"/>
                         <outlet property="lastLinePrimeTextField" destination="hi3-o6-VKI" id="oMx-Ud-cFy"/>
+                        <outlet property="modCountTextField" destination="hZr-aH-owo" id="1b7-Bi-asV"/>
                         <outlet property="primeFilePathTextField" destination="omV-qV-Ric" id="K0n-rM-ANd"/>
                         <outlet property="primeStartButton" destination="l2e-J5-b88" id="1ew-k4-Our"/>
                         <outlet property="terminalPrimeTextField" destination="upz-zn-Oqs" id="gAH-cc-VPQ"/>

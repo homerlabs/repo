@@ -15,13 +15,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBOutlet var lastLinePrimeTextField: NSTextField!
     @IBOutlet var lastLineFactorTextField: NSTextField!
     @IBOutlet var terminalPrimeTextField: NSTextField!
+    @IBOutlet var modCountTextField: NSTextField!
+
     @IBOutlet var primeStartButton: NSButton!
     @IBOutlet var factorStartButton: NSButton!
 
     var primeFinder: HLPrime!
     let HLDefaultPrimeFilePathKey = "PrimeFilePathKey"
     let HLDefaultTerminalPrimeKey = "TerminalPrimeKey"
-    
+    let HLDefaultModCountKey = "ModCountKey"
+
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
     var errorCode = 0
 
@@ -91,12 +94,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
-        var newValue = control.stringValue
-        if !newValue.hasPrefix("/")  {
-            newValue = homeDir + "/" + newValue
-        }
-        
         if control == primeFilePathTextField    {
+            var newValue = control.stringValue
+            if !newValue.hasPrefix("/")  {
+                newValue = homeDir + "/" + newValue
+            }
+        
             if let lastLine = primeFinder.lastLineFor(path: newValue) {
                 lastLinePrimeTextField.stringValue = lastLine
             }
@@ -110,6 +113,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         else if control == terminalPrimeTextField    {
             terminalPrimeTextField.stringValue = control.stringValue
             UserDefaults.standard.set(control.stringValue, forKey:HLDefaultTerminalPrimeKey)
+        }
+
+        else if control == modCountTextField    {
+            modCountTextField.stringValue = control.stringValue
+            UserDefaults.standard.set(control.stringValue, forKey:HLDefaultModCountKey)
         }
 
         else    {   assert( false )     }
@@ -135,6 +143,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
         else    {
             terminalPrimeTextField.stringValue = "169"
+        }
+
+        if let modCount = UserDefaults.standard.string(forKey: HLDefaultModCountKey)  {
+            modCountTextField.stringValue = modCount
+        }
+        else    {
+            modCountTextField.stringValue = "10"
         }
 
         primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue)
