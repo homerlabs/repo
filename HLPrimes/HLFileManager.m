@@ -51,18 +51,22 @@ int kMOD_SIZE = 100000;
     fclose( primeAppendFile );
 }
 
--(void)openFactorFileForAppendWith:(NSString *)path  {
+-(int)openFactorFileForAppendWith:(NSString *)path  {
     //  make sure file already exists
     factorAppendFile = fopen(path.UTF8String, "r");
     if ( !factorAppendFile )
     {
-        factorAppendFile = fopen(path.UTF8String, "w");
+        FILE *tempFile = factorAppendFile = fopen(path.UTF8String, "w");
+        if ( !tempFile ) {  //  can't use this path!
+            return -1;  //    error
+        }
         fprintf(factorAppendFile, "%s", initialFactorFile.UTF8String);
     }
     fclose( factorAppendFile );
     
     factorAppendFile = fopen(path.UTF8String, "a");
     assert( factorAppendFile );
+    return 0;   //  no error
 }
 -(void)closeFactorFileForAppend
 {

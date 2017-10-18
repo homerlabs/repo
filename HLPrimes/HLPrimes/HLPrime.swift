@@ -27,8 +27,9 @@ class HLPrime: NSObject {
     var factorFileLastLine: String?
 
     func lastLineFor(path: String) -> String?   {
-        print( "lastLineFor: \(path)" )
-        return nil
+        let lastLine = fileManager.lastLine(forFile: path)
+//        print( "lastLineFor: \(path)   \(lastLine)" )
+        return lastLine
     }
 
     func isPrime(n: HLPrimeType) -> Bool    {
@@ -132,11 +133,14 @@ class HLPrime: NSObject {
         return result
     }
     
-    func factorPrimes(largestPrime: HLPrimeType)  {
+    func factorPrimes(largestPrime: HLPrimeType) -> Int  {
         print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
         let startDate = Date()
         
-        fileManager.openFactorFileForAppend(with: factorFilePath)     //  creates one if needed
+        let errorCode = fileManager.openFactorFileForAppend(with: factorFilePath)
+        if errorCode != 0   {
+            return -1
+        }
         fileManager.closeFactorFileForAppend()
 
         let lastLine = fileManager.lastLine(forFile: factorFilePath)!
@@ -176,6 +180,7 @@ class HLPrime: NSObject {
         factorFileLastLine = fileManager.lastLine(forFile: factorFilePath)
         let deltaTime = startDate.timeIntervalSinceNow
         print( "HLPrime-  factorPrimes-  completed.  Time: \(-Int(deltaTime))" )
+        return 0
     }
     
     func makePrimes(largestPrime: HLPrimeType)  {

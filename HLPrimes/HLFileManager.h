@@ -20,7 +20,7 @@
 -(void)appendPrimeLine:(NSString *)line;
 -(void)closePrimeFileForAppend;
 
--(void)openFactorFileForAppendWith:(NSString *)path;
+-(int)openFactorFileForAppendWith:(NSString *)path;
 -(void)appendFactorLine:(NSString *)line;
 -(void)closeFactorFileForAppend;
 
