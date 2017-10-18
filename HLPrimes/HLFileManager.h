@@ -12,17 +12,21 @@
 
 -(NSString *)lastLineForFile:(NSString *)path;
 
--(int)openPrimeFileForReadWith:(NSString *)path;
--(NSString *)readPrimeFileLine;
--(void)closePrimeFileForRead;
+-(int)openPrimesFileForReadWith:(NSString *)path;
+-(NSString *)readPrimesFileLine;
+-(void)closePrimesFileForRead;
 
--(void)openPrimeFileForAppendWith:(NSString *)path;
--(void)appendPrimeLine:(NSString *)line;
--(void)closePrimeFileForAppend;
+-(void)openPrimesFileForAppendWith:(NSString *)path;
+-(void)appendPrimesLine:(NSString *)line;
+-(void)closePrimesFileForAppend;
 
--(int)openFactorFileForAppendWith:(NSString *)path;
--(void)appendFactorLine:(NSString *)line;
--(void)closeFactorFileForAppend;
+-(int)openFactoredFileForAppendWith:(NSString *)path;
+-(void)appendFactoredLine:(NSString *)line;
+-(void)closeFactoredFileForAppend;
+
+-(int)openNicePrimesFileForWriteWith:(NSString *)path;
+-(void)writeNicePrimesFile:(NSString *)line;;
+-(void)closeNicePrimesFileForWrite;
 
 -(void)openTempFileForReadWith:(NSString *)path;
 -(NSString *)readTempFileLine;

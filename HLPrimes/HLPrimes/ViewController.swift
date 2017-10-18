@@ -87,8 +87,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             factorStartButton.isEnabled = false
         }
    }
-    
-	func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
+   
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
         var newValue = control.stringValue

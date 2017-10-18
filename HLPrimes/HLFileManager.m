@@ -11,8 +11,9 @@
 
 @implementation HLFileManager
 
-FILE *primeReadFile, *primeAppendFile;
+FILE *primesReadFile, *primesAppendFile;
 FILE *factorAppendFile;
+FILE *nicePrimesWriteFile;
 FILE *readTempFile;
 NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
 NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
@@ -20,13 +21,13 @@ int kMOD_SIZE = 100000;
 
 NSString *fileExtension = @"txt";
 
-
--(int)openPrimeFileForReadWith:(NSString *)path  {
+//************************************************      primes file read        ****************
+-(int)openPrimesFileForReadWith:(NSString *)path  {
     NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    primeReadFile = fopen(pathWithExtension.UTF8String, "r");
+    primesReadFile = fopen(pathWithExtension.UTF8String, "r");
     
     //  if open failed, create and open new file
-    if ( !primeReadFile )
+    if ( !primesReadFile )
     {
         FILE *tempFile = fopen(pathWithExtension.UTF8String, "w");
         if ( !tempFile ) {  //  can't use this path!
@@ -36,26 +37,56 @@ NSString *fileExtension = @"txt";
         fprintf(tempFile, "%s", initialPrimeFile.UTF8String);
         fclose( tempFile );
         //  try now ...
-        primeReadFile = fopen(pathWithExtension.UTF8String, "r");
+        primesReadFile = fopen(pathWithExtension.UTF8String, "r");
     }
     
     return 0;   //  no error
 }
--(void)closePrimeFileForRead
+-(void)closePrimesFileForRead
 {
-    fclose( primeReadFile );
+    fclose( primesReadFile );
 }
 
--(void)openPrimeFileForAppendWith:(NSString *)path  {
+-(NSString *)readPrimesFileLine
+{
+    int lineSize = 1000;
+    char lineBuf[lineSize];
+    char *result = fgets(lineBuf, lineSize, primesReadFile);
+    if ( result )
+    {
+        unsigned long len = strlen(result);
+        result[len-1] = '\0';       //  need to remove '\n'
+       return [NSString stringWithUTF8String:result];
+    }
+    else
+        return nil;
+}
+//************************************************      primes file read        ****************
+
+
+//************************************************      primes file append      ****************
+-(void)openPrimesFileForAppendWith:(NSString *)path  {
     NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-     primeAppendFile = fopen(pathWithExtension.UTF8String, "a");
+     primesAppendFile = fopen(pathWithExtension.UTF8String, "a");
 }
--(void)closePrimeFileForAppend
+-(void)closePrimesFileForAppend
 {
-    fclose( primeAppendFile );
+    fclose( primesAppendFile );
 }
 
--(int)openFactorFileForAppendWith:(NSString *)path  {
+-(void)appendPrimesLine:(NSString *)line
+{
+    int n = line.intValue;
+    if ( n % kMOD_SIZE == 0 )
+        NSLog( @"** new prime: %@", line );
+    
+    fputs(line.UTF8String, primesAppendFile);
+}
+//************************************************      primes file append      ****************
+
+
+//************************************************      factored file append    ****************
+-(int)openFactoredFileForAppendWith:(NSString *)path  {
     NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     //  make sure file already exists
     factorAppendFile = fopen(pathWithExtension.UTF8String, "r");
@@ -73,10 +104,46 @@ NSString *fileExtension = @"txt";
     assert( factorAppendFile );
     return 0;   //  no error
 }
--(void)closeFactorFileForAppend
+-(void)closeFactoredFileForAppend
 {
     fclose( factorAppendFile );
 }
+
+-(void)appendFactoredLine:(NSString *)line
+{
+//    int n = line.intValue;
+//    if ( n % kMOD_SIZE == 0 )
+    
+    fprintf(factorAppendFile, "%s\n", line.UTF8String);
+    NSLog( @"  ** prime factored: %@", line );
+}
+//************************************************      factored file append    ****************
+
+
+//************************************************      nice primes file write  ****************
+-(int)openNicePrimesFileForWriteWith:(NSString *)path
+{
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    //  make sure file already exists
+    nicePrimesWriteFile = fopen(pathWithExtension.UTF8String, "w");
+    assert( nicePrimesWriteFile );
+    return 0;   //  no error
+}
+-(void)closeNicePrimesFileForWrite
+{
+    fclose( nicePrimesWriteFile );
+}
+
+-(void)writeNicePrimesFile:(NSString *)line
+{
+//    int n = line.intValue;
+//    if ( n % kMOD_SIZE == 0 )
+    
+    fprintf(nicePrimesWriteFile, "%s\n", line.UTF8String);
+    NSLog( @"  ** nice prime: %@", line );
+}
+//************************************************      nice primes file write  ****************
+
 
 /*-(void)openFactorFileForReadWith:(NSString *)path  {
     factorReadFile = fopen(pathWithExtension.UTF8String, "r");
@@ -123,39 +190,6 @@ NSString *fileExtension = @"txt";
         return previous;
     }
     
-    else
-        return nil;
-}
-
--(void)appendPrimeLine:(NSString *)line
-{
-    int n = line.intValue;
-    if ( n % kMOD_SIZE == 0 )
-        NSLog( @"** new prime: %@", line );
-    
-    fputs(line.UTF8String, primeAppendFile);
-}
-
--(void)appendFactorLine:(NSString *)line
-{
-//    int n = line.intValue;
-//    if ( n % kMOD_SIZE == 0 )
-    
-    fprintf(factorAppendFile, "%s\n", line.UTF8String);
-    NSLog( @"  ** prime factored: %@", line );
-}
-
--(NSString *)readPrimeFileLine
-{
-    int lineSize = 1000;
-    char lineBuf[lineSize];
-    char *result = fgets(lineBuf, lineSize, primeReadFile);
-    if ( result )
-    {
-        unsigned long len = strlen(result);
-        result[len-1] = '\0';       //  need to remove '\n'
-       return [NSString stringWithUTF8String:result];
-    }
     else
         return nil;
 }

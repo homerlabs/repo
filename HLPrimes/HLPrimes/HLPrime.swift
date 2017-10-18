@@ -64,7 +64,7 @@ class HLPrime: NSObject {
     }
     
     func loadBufFor(prime: HLPrimeType) -> Int   {
-        let openResult = fileManager.openPrimeFileForRead(with: primesFileURL.path)     //  creates one if needed
+        let openResult = fileManager.openPrimesFileForRead(with: primesFileURL.path)     //  creates one if needed
         if openResult != 0  {   //  BAIL!
             return -1
         }
@@ -72,7 +72,7 @@ class HLPrime: NSObject {
         let largestTestPrime = Int(sqrt(Double(prime)))
 
         repeat  {
-            if let nextLine = fileManager.readPrimeFileLine()    {
+            if let nextLine = fileManager.readPrimesFileLine()    {
                 let (_, valueP) = parseLine(line: nextLine)
                 let prime = Int64(valueP)
                 buf.append(prime)
@@ -83,7 +83,7 @@ class HLPrime: NSObject {
             }
         } while largestBufPrime < largestTestPrime
         
-        fileManager.closePrimeFileForRead()
+        fileManager.closePrimesFileForRead()
  //       print( "loadBuf: \(buf)" )
  
         //  this will be nil if prime file didn't exist
@@ -134,28 +134,53 @@ class HLPrime: NSObject {
         return result
     }
     
+   func makeNicePrimesFile()    {
+        fileManager.openPrimesFileForRead(with: primesFileURL.path)
+        fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
+    
+        var line: String?
+    
+        repeat  {
+            line = nil
+        }   while line != nil
+
+    
+        fileManager.closeNicePrimesFileForWrite()
+        fileManager.closePrimesFileForRead()
+    }
+
+    
     func factorPrimes(largestPrime: HLPrimeType) -> Int  {
         print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
         let startDate = Date()
         
-        let errorCode = fileManager.openFactorFileForAppend(with: factoredFileURL.path)
+        let errorCode = fileManager.openFactoredFileForAppend(with: factoredFileURL.path)
         if errorCode != 0   {
             return -1
         }
-        fileManager.closeFactorFileForAppend()
+        fileManager.closeFactoredFileForAppend()
 
-        let lastLine = fileManager.lastLine(forFile: factoredFileURL.path)!
-        let index = lastLine.index(of: "\t")!
-        let lastF = lastLine.prefix(upTo: index)
-        let lastfactor = Int64(lastF)!
+        var lastLine = fileManager.lastLine(forFile: factoredFileURL.path)!
+        
+        if let index = lastLine.index(of: "\t") {
+            lastLine = String(lastLine.prefix(upTo: index))
+        }
+        
+        let lastfactor = Int64(lastLine)!
  //       print( "HLPrime-  factorPrimes-  lastfactor: \(lastfactor)" )
         
-        fileManager.openPrimeFileForRead(with: primesFileURL.path)
-        fileManager.openFactorFileForAppend(with: factoredFileURL.path)
+        let primesErrorCode = fileManager.openPrimesFileForRead(with: primesFileURL.path)
+        let factoredErrorCode = fileManager.openFactoredFileForAppend(with: factoredFileURL.path)
+        assert( primesErrorCode == 0 )
+        assert( factoredErrorCode == 0 )
 
         var nextP: HLPrimeType = 0
         repeat {    //  advance to the next prime to factor
-            let line = fileManager.readPrimeFileLine()
+            let line = fileManager.readPrimesFileLine()
+   /*     print( "HLPrime-  factorPrimes-  line: \(line)" )
+            if line == nil  {
+                print( "HLPrime-  factorPrimes-  lastP: \(nextP)" )
+            }   */
             (_, nextP) = parseLine(line: line!)
         } while nextP != lastfactor
 
@@ -163,20 +188,19 @@ class HLPrime: NSObject {
 
         let lastPrimeLine = fileManager.lastLine(forFile: primesFileURL.path)!
         (lastN, lastP) = parseLine(line: lastPrimeLine)
-        print( "factorPrimes-  lastN: \(lastN)    lastP: \(lastP)" )
+        print( "factorPrimes-  Starting at-  lastN: \(lastN)    lastP: \(lastP)" )
        
         repeat {
-            let line = fileManager.readPrimeFileLine()
-            (_, nextP) = parseLine(line: line!)
+            let line = fileManager.readPrimesFileLine()
+            if line == nil  {   break   }   //  watch for end of file
             
+            (_, nextP) = parseLine(line: line!)
             let factoredPrime = factor(prime: nextP)
-            fileManager.appendFactorLine(factoredPrime)
-
-  //         print( "HLPrime-  factorPrimes-  factoredPrime: \(factoredPrime)" )
+            fileManager.appendFactoredLine(factoredPrime)
         } while nextP != min(largestPrime, lastP)
 
-        fileManager.closeFactorFileForAppend()
-        fileManager.closePrimeFileForRead()
+        fileManager.closeFactoredFileForAppend()
+        fileManager.closePrimesFileForRead()
 
         factorFileLastLine = fileManager.lastLine(forFile: factoredFileURL.path)
         let deltaTime = startDate.timeIntervalSinceNow
@@ -194,14 +218,13 @@ class HLPrime: NSObject {
         var nextN = lastN + 1
         var nextP = lastP + 2
 
-        fileManager.openPrimeFileForRead(with: primesFileURL.path)
-        fileManager.openPrimeFileForAppend(with: primesFileURL.path)
+        fileManager.openPrimesFileForAppend(with: primesFileURL.path)
 
         while( largestPrime > nextP ) {
             
             if isPrime(n: nextP)    {
                 let output = String(format: "%d\t%ld\n", nextN, nextP)
-                fileManager.appendPrimeLine(output)
+                fileManager.appendPrimesLine(output)
                 nextN += 1
             }
             
@@ -213,8 +236,7 @@ class HLPrime: NSObject {
             }
         }
         
-        fileManager.closePrimeFileForRead()
-        fileManager.closePrimeFileForAppend()
+        fileManager.closePrimesFileForAppend()
         
         primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
         let (newLastN, newLastP) = parseLine(line: primeFileLastLine!)
