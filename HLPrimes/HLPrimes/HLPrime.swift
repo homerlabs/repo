@@ -135,18 +135,24 @@ class HLPrime: NSObject {
     }
     
    func makeNicePrimesFile()    {
-        fileManager.openPrimesFileForRead(with: primesFileURL.path)
+        print( "\nHLPrime-  makeNicePrimesFile" )
+        fileManager.openFactoredFileForRead(with: factoredFileURL.path)
         fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
     
-        var line: String?
+        var line = fileManager.readPrimesFileLine()
     
         repeat  {
-            line = nil
+            let index = line!.index(of: "\t")
+            if index == nil {
+                fileManager.writeNicePrimesFile(line)
+            }
+
+            line = fileManager.readFactoredFileLine()
         }   while line != nil
 
     
         fileManager.closeNicePrimesFileForWrite()
-        fileManager.closePrimesFileForRead()
+        fileManager.closeFactoredFileForRead()
     }
 
     
@@ -205,6 +211,8 @@ class HLPrime: NSObject {
         factorFileLastLine = fileManager.lastLine(forFile: factoredFileURL.path)
         let deltaTime = startDate.timeIntervalSinceNow
         print( "HLPrime-  factorPrimes-  completed.  Time: \(-Int(deltaTime))" )
+        
+        makeNicePrimesFile()
         return 0
     }
     
@@ -213,7 +221,7 @@ class HLPrime: NSObject {
         
          //  find out where we left off and continue from there
         let (lastN, lastP) = parseLine(line: primeFileLastLine!)
-        print( "makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
+        print( "current makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
 
         var nextN = lastN + 1
         var nextP = lastP + 2
@@ -240,7 +248,7 @@ class HLPrime: NSObject {
         
         primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
         let (newLastN, newLastP) = parseLine(line: primeFileLastLine!)
-        print( "makePrimes-  lastN: \(newLastN)    lastP: \(newLastP)" )
+        print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP)" )
     }
 
  /*   func makePrimes(numberOfPrimes: HLPrimeType)  {

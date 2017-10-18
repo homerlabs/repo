@@ -107,6 +107,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             UserDefaults.standard.set(newValue, forKey:HLDefaultPrimeFilePathKey)
         }
 
+        else if control == terminalPrimeTextField    {
+            terminalPrimeTextField.stringValue = control.stringValue
+            UserDefaults.standard.set(control.stringValue, forKey:HLDefaultTerminalPrimeKey)
+        }
+
         else    {   assert( false )     }
         
         UserDefaults.standard.synchronize()

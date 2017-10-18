@@ -20,6 +20,10 @@
 -(void)appendPrimesLine:(NSString *)line;
 -(void)closePrimesFileForAppend;
 
+-(int)openFactoredFileForReadWith:(NSString *)path;
+-(NSString *)readFactoredFileLine;
+-(void)closeFactoredFileForRead;
+
 -(int)openFactoredFileForAppendWith:(NSString *)path;
 -(void)appendFactoredLine:(NSString *)line;
 -(void)closeFactoredFileForAppend;
