@@ -36,4 +36,7 @@
 -(NSString *)readTempFileLine;
 -(void)closeTempFileForRead;
 
+-(void)setModSize:(int)size;
+-(instancetype)init:(int)modulasSize;
+
 @end

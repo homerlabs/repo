@@ -116,6 +116,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
 
         else if control == modCountTextField    {
+            primeFinder.fileManager.setModSize(control.intValue)
             modCountTextField.stringValue = control.stringValue
             UserDefaults.standard.set(control.stringValue, forKey:HLDefaultModCountKey)
         }
@@ -152,7 +153,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             modCountTextField.stringValue = "10"
         }
 
-        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue)
+        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue)
         
         if let primeLastLine = primeFinder.primeFileLastLine {
             lastLinePrimeTextField.stringValue = primeLastLine

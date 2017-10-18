@@ -228,7 +228,7 @@ class HLPrime: NSObject {
 
         fileManager.openPrimesFileForAppend(with: primesFileURL.path)
 
-        while( largestPrime > nextP ) {
+        while( largestPrime >= nextP ) {
             
             if isPrime(n: nextP)    {
                 let output = String(format: "%d\t%ld\n", nextN, nextP)
@@ -284,8 +284,8 @@ class HLPrime: NSObject {
         return (Int(lastN)!, Int64(lastP)!)
     }
     
-    init(primeFilePath: String)  {
-        fileManager = HLFileManager()
+    init(primeFilePath: String, modCount: Int32)  {
+        fileManager = HLFileManager(modCount)
         super.init()
          print( "HLPrime.init-  primeFilePath: \(primeFilePath)" )
 

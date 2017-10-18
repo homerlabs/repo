@@ -17,7 +17,7 @@ FILE *nicePrimesWriteFile;
 FILE *readTempFile;
 NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
 NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
-int kMOD_SIZE = 10;
+int modSize = 1;
 int modCounter = 0;
 
 NSString *fileExtension = @"txt";
@@ -109,7 +109,7 @@ NSString *fileExtension = @"txt";
 -(void)appendPrimesLine:(NSString *)line
 {
     int n = line.intValue;
-    if ( n % kMOD_SIZE == 0 )
+    if ( n % modSize == 0 )
         NSLog( @"** new prime: %@", line );
     
     fputs(line.UTF8String, primesAppendFile);
@@ -148,7 +148,7 @@ NSString *fileExtension = @"txt";
 //    if ( n % kMOD_SIZE == 0 )
     
     fprintf(factoredAppendFile, "%s\n", line.UTF8String);
-    if ( modCounter++ % kMOD_SIZE == 0 )
+    if ( modCounter++ % modSize == 0 )
         NSLog( @"  ** prime factored: %@", line );
 }
 //************************************************      factored file append    ****************
@@ -175,7 +175,7 @@ NSString *fileExtension = @"txt";
 //    if ( n % kMOD_SIZE == 0 )
     
     fprintf(nicePrimesWriteFile, "%s\n", line.UTF8String);
-    if ( modCounter++ % kMOD_SIZE == 0 )
+    if ( modCounter++ % modSize == 0 )
         NSLog( @"  ** nice prime: %@", line );
 }
 //************************************************      nice primes file write  ****************
@@ -223,6 +223,18 @@ NSString *fileExtension = @"txt";
     
     else
         return nil;
+}
+
+-(void)setModSize:(int)size
+{
+    modSize = size;
+}
+
+-(instancetype)init:(int)modulasSize
+{
+    self = [super init];
+    modSize = modulasSize;
+    return self;
 }
 
 @end
