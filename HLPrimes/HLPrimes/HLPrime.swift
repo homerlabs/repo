@@ -10,6 +10,11 @@ import Foundation
 
 typealias HLPrimeType = Int64
 
+protocol HLPrimesProtocol {
+    func makePrimesCompleted()
+    func factorPrimesCompleted()
+}
+
 
 class HLPrime: NSObject {
 
@@ -26,6 +31,7 @@ class HLPrime: NSObject {
     var lastP: HLPrimeType = 0
     var primeFileLastLine: String?
     var factorFileLastLine: String?
+    var primesDelegate: HLPrimesProtocol?
     
 
     func lastLineFor(path: String) -> String?   {
@@ -91,10 +97,6 @@ class HLPrime: NSObject {
         let largestTestPrime = prime / 2    //  not sqrt()
         var index = 0   //  start with testPrime = 2
         var testPrime = buf[index]
-        
-        if prime == 337 {
-            print( "final: \(result)" )
-        }
         
         repeat  {
             var q_r = lldiv(value, testPrime)
@@ -202,68 +204,50 @@ class HLPrime: NSObject {
     }
     
     func makePrimes(largestPrime: HLPrimeType)  {
-        print( "\nHLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
-        let startDate = Date()
+        DispatchQueue.global(qos: .background).async {
+            print( "\nHLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
+            let startDate = Date()
 
-         //  find out where we left off and continue from there
-        let (lastN, lastP) = parseLine(line: primeFileLastLine!)
-        print( "current makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
+             //  find out where we left off and continue from there
+            let (lastN, lastP) = self.parseLine(line: self.primeFileLastLine!)
+            print( "current makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
 
-        var nextN = lastN + 1
-        var nextP = lastP + 2
+            var nextN = lastN + 1
+            var nextP = lastP + 2
 
-        fileManager.openPrimesFileForAppend(with: primesFileURL.path)
+            self.fileManager.openPrimesFileForAppend(with: self.primesFileURL.path)
 
-        while( largestPrime >= nextP ) {
-            
-            if isPrime(n: nextP)    {
-                let output = String(format: "%d\t%ld\n", nextN, nextP)
-                fileManager.appendPrimesLine(output)
-                nextN += 1
+            while( largestPrime >= nextP ) {
+                
+                if self.isPrime(n: nextP)    {
+                    let output = String(format: "%d\t%ld\n", nextN, nextP)
+                    self.fileManager.appendPrimesLine(output)
+                    nextN += 1
+                }
+                
+                nextP += 2
+
+                //  yikes!  not working
+                if !self.active   {
+                    break
+                }
             }
             
-            nextP += 2
+            self.fileManager.closePrimesFileForAppend()
 
-            //  yikes!  not working
-            if !active   {
-                break
+            DispatchQueue.main.async {
+                self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
+                let (newLastN, newLastP) = self.parseLine(line: self.primeFileLastLine!)
+                print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP). " )
+                let deltaTime = startDate.timeIntervalSinceNow
+                print( "HLPrime-  makePrimes-  completed.  Time: \(-Int(deltaTime))" )
+
+                self.primesDelegate?.makePrimesCompleted()
             }
         }
         
-        fileManager.closePrimesFileForAppend()
-        
-        primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
-        let (newLastN, newLastP) = parseLine(line: primeFileLastLine!)
-        print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP). " )
-        let deltaTime = startDate.timeIntervalSinceNow
-        print( "HLPrime-  makePrimes-  completed.  Time: \(-Int(deltaTime))" )
     }
 
- /*   func makePrimes(numberOfPrimes: HLPrimeType)  {
-        print( "HLPrime-  makePrimes-  numberOfPrimes: \(numberOfPrimes)" )
-        
-        //  find out where we left off and continue from there
-        let (lastN, lastP) = parseLine(line: fileManager.getLastLine()!)
-        print( "lastN: \(lastN)    lastP: \(lastP)" )
-
-        var n = Int(lastN)
-        var nextPrime = Int64(lastP)
-        setupBufFor(prime: nextPrime)
-        print( "buf: \(buf)" )
-
-        while( numberOfPrimes > n ) {
-            
-            nextPrime += 2
-            if isPrime(n: nextPrime)    {
-                n += 1
-                let output = String(format: "%d\t%ld\n", n, nextPrime)
-                fileManager.writeLine(output)
-            }
-        }
-        
-        fileManager.cleanup()
-    }   */
-    
     func parseLine(line: String) -> (index: Int, prime: Int64)  {
         let index = line.index(of: "\t")!
         let index2 = line.index(after: index)
@@ -272,8 +256,9 @@ class HLPrime: NSObject {
         return (Int(lastN)!, Int64(lastP)!)
     }
     
-    init(primeFilePath: String, modCount: Int32)  {
+    init(primeFilePath: String, modCount: Int32, delegate: HLPrimesProtocol)  {
         fileManager = HLFileManager(modCount)
+        primesDelegate = delegate
         super.init()
          print( "HLPrime.init-  primeFilePath: \(primeFilePath)" )
 

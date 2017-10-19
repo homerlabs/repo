@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSControlTextEditingDelegate {
+class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesProtocol {
 
     @IBOutlet var primeFilePathTextField: NSTextField!
     @IBOutlet var factorFilePathTextField: NSTextField!
@@ -24,6 +24,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let HLDefaultPrimeFilePathKey = "PrimeFilePathKey"
     let HLDefaultTerminalPrimeKey = "TerminalPrimeKey"
     let HLDefaultModCountKey = "ModCountKey"
+    
+    let defaultTerminalPrime = "169"  //  13 squared
+    let defaultModSize = "10"
 
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
     var errorCode = 0
@@ -44,17 +47,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
                 primeStartButton.state = .off
                 return
             }
+            
             primeFinder.makePrimes(largestPrime: lastPrime)
-
-            print( "    *********   makePrimes completed    *********" )
-            lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-            primeStartButton.title = "Completed"
-            primeStartButton.isEnabled = false
         }
         else    {
-            primeStartButton.title = "Stopped"
-            primeStartButton.isEnabled = false
-            primeFinder.active = value
+            primeStartButton.title = "Paused"
+  //          primeStartButton.isEnabled = false
+            primeFinder.active = false
         }
     }
     
@@ -83,7 +82,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
                 factorStartButton.isEnabled = false
             }
             else    {   //  serious error
-                factorStartButton.title = "Fator Start"
+                factorStartButton.title = "Factor Start"
                 factorStartButton.state = .off
             }
         }
@@ -93,6 +92,21 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
    }
    
+   
+    //*************   HLPrimeProtocol     *********************************************************
+    func makePrimesCompleted()  {
+        print( "    *********   makePrimes completed    *********" )
+        lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
+        primeStartButton.title = "Completed"
+        primeStartButton.isEnabled = false
+    }
+    
+    func factorPrimesCompleted()    {
+    
+    }
+    //*************   HLPrimeProtocol     *********************************************************
+
+
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
@@ -155,10 +169,18 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             modCountTextField.stringValue = "10"
         }
 
-        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue)
+        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
         
         if let primeLastLine = primeFinder.primeFileLastLine {
             lastLinePrimeTextField.stringValue = primeLastLine
+        }
+        else    {
+            terminalPrimeTextField.stringValue = defaultTerminalPrime
+            UserDefaults.standard.set(defaultTerminalPrime, forKey:HLDefaultTerminalPrimeKey)
+
+            primeFinder.fileManager.setModSize(Int32(defaultModSize)!)
+            modCountTextField.stringValue = defaultModSize
+            UserDefaults.standard.set(defaultModSize, forKey:HLDefaultModCountKey)
         }
         
         if let factorLastLine = primeFinder.factorFileLastLine {
