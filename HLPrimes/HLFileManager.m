@@ -158,7 +158,6 @@ NSString *fileExtension = @"txt";
 -(int)openNicePrimesFileForWriteWith:(NSString *)path
 {
     NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    //  make sure file already exists
     nicePrimesWriteFile = fopen(pathWithExtension.UTF8String, "w");
     assert( nicePrimesWriteFile );
     modCounter = 0;

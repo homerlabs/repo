@@ -34,8 +34,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         if value {
             primeStartButton.title = "Running"
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
-
-            errorCode = primeFinder.loadBufFor(prime: lastPrime)
+            
+            let largestTestPrime = Int64(sqrt(Double(lastPrime)))
+            errorCode = primeFinder.loadBufFor(largestPrime: largestTestPrime)
             if errorCode != 0   {   //  serious error
                 //  alert user with some kind of hint?
                 print( "    *********   Serious Error-  Bad File Path    *********" )
@@ -64,7 +65,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             factorStartButton.title = "Running"
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
 
-            errorCode = primeFinder.loadBufFor(prime: lastPrime)
+            let largestTestPrime = lastPrime / 2
+            errorCode = primeFinder.loadBufFor(largestPrime: largestTestPrime)
             if errorCode != 0   {   //  serious error
                 //  alert user with some kind of hint?
                 print( "    *********   Serious Error-  Bad File Path    *********" )

@@ -26,6 +26,7 @@ class HLPrime: NSObject {
     var lastP: HLPrimeType = 0
     var primeFileLastLine: String?
     var factorFileLastLine: String?
+    
 
     func lastLineFor(path: String) -> String?   {
         let lastLine = fileManager.lastLine(forFile: path)
@@ -37,11 +38,6 @@ class HLPrime: NSObject {
         var isPrime = true
         let largestTestPrime = Int(sqrt(Double(n)))
         
- /*       if largestTestPrime > largestBufPrime   {
-            print( "HLPrime-  isPrime-  largestTestPrime: \(largestTestPrime)  largestBufPrime: \(largestBufPrime)" )
-            assert( false )
-        }   */
-        
         var index = 1   //  we don't try the value in [0] == 2
         var testPrime = buf[index]
         while testPrime <= largestTestPrime {
@@ -52,25 +48,19 @@ class HLPrime: NSObject {
             }
             
             index += 1
-            testPrime = getPrimeInBufAt(index: index)
-            if testPrime == 0   {
-                active = false
-                break
-            }
+            testPrime = buf[index]
         }
         
 //        print( "HLPrime-  isPrime-  n: \(n)   isPrime: \(isPrime)" )
         return isPrime
     }
     
-    func loadBufFor(prime: HLPrimeType) -> Int   {
+    func loadBufFor(largestPrime: HLPrimeType) -> Int   {
         let openResult = fileManager.openPrimesFileForRead(with: primesFileURL.path)     //  creates one if needed
         if openResult != 0  {   //  BAIL!
             return -1
         }
         
-        let largestTestPrime = Int(sqrt(Double(prime)))
-
         repeat  {
             if let nextLine = fileManager.readPrimesFileLine()    {
                 let (_, valueP) = parseLine(line: nextLine)
@@ -81,12 +71,12 @@ class HLPrime: NSObject {
             else    {
                 break
             }
-        } while largestBufPrime < largestTestPrime
+        } while largestBufPrime < largestPrime
         
         fileManager.closePrimesFileForRead()
  //       print( "loadBuf: \(buf)" )
  
-        //  this will be nil if prime file didn't exist
+        //  this will be nil if prime file doesn't exist
         if primeFileLastLine == nil {
             primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
         }
@@ -94,29 +84,17 @@ class HLPrime: NSObject {
         return 0
     }
     
-    func getPrimeInBufAt(index: Int) -> HLPrimeType   {
-        if index >= buf.count   {
-            assert( false )
-  /*          if let nextLine = fileManager.readLine()    {
-                let (_, lastP) = parseLine(line: nextLine)
-                let prime = Int64(lastP)
-                buf.append(prime)
-                largestBufPrime = prime
-            }
-            else    {
-                return 0
-            }   */
-        }
-        return buf[index]
-    }
-    
     func factor(prime: HLPrimeType) -> String   {
         var value = (prime - 1)/2
         var result = String(prime)
         
-        let largestTestPrime = Int64(sqrt(Double(prime)))
+        let largestTestPrime = prime / 2    //  not sqrt()
         var index = 0   //  start with testPrime = 2
         var testPrime = buf[index]
+        
+        if prime == 337 {
+            print( "final: \(result)" )
+        }
         
         repeat  {
             var q_r = lldiv(value, testPrime)
@@ -128,7 +106,7 @@ class HLPrime: NSObject {
             
             index += 1
             testPrime = buf[index]
-        } while testPrime < largestTestPrime && value > 1
+        } while testPrime <= largestTestPrime && value > 1
         
 //        print( "final: \(result)" )
         return result
@@ -139,11 +117,23 @@ class HLPrime: NSObject {
         fileManager.openFactoredFileForRead(with: factoredFileURL.path)
         fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
     
-        var line = fileManager.readPrimesFileLine()
+        var line = fileManager.readFactoredFileLine()
+    
     
         repeat  {
-            let index = line!.index(of: "\t")
-            if index == nil {
+            var tabCount = 0
+            let tab = 9   //  ascii tab
+            let charCount = line!.characters.count
+            let cString = line!.utf8CString
+            
+            for index in 0..<charCount {
+                let charValue = cString[index]
+                if charValue == tab    {
+                    tabCount += 1
+                }
+            }
+            
+            if tabCount == 1 {
                 fileManager.writeNicePrimesFile(line)
             }
 
@@ -155,7 +145,6 @@ class HLPrime: NSObject {
         fileManager.closeFactoredFileForRead()
     }
 
-    
     func factorPrimes(largestPrime: HLPrimeType) -> Int  {
         print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
         let startDate = Date()
@@ -183,10 +172,6 @@ class HLPrime: NSObject {
         var nextP: HLPrimeType = 0
         repeat {    //  advance to the next prime to factor
             let line = fileManager.readPrimesFileLine()
-   /*     print( "HLPrime-  factorPrimes-  line: \(line)" )
-            if line == nil  {
-                print( "HLPrime-  factorPrimes-  lastP: \(nextP)" )
-            }   */
             (_, nextP) = parseLine(line: line!)
         } while nextP != lastfactor
 
