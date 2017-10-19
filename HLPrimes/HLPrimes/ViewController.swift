@@ -51,8 +51,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             primeFinder.makePrimes(largestPrime: lastPrime)
         }
         else    {
-            primeStartButton.title = "Paused"
-  //          primeStartButton.isEnabled = false
+            primeStartButton.title = "Stopped"
+            primeStartButton.isEnabled = false
             primeFinder.active = false
         }
     }
@@ -75,20 +75,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             }
             
             errorCode = primeFinder.factorPrimes(largestPrime: lastPrime)
-            if errorCode == 0   {
-                print( "    *********   factorPrimes completed    *********" )
-                lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
-                factorStartButton.title = "Completed"
-                factorStartButton.isEnabled = false
-            }
-            else    {   //  serious error
-                factorStartButton.title = "Factor Start"
-                factorStartButton.state = .off
-            }
         }
         else    {
             factorStartButton.title = "Stopped"
             factorStartButton.isEnabled = false
+            primeFinder.active = false
         }
    }
    
@@ -102,7 +93,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func factorPrimesCompleted()    {
-    
+        print( "    *********   makePrimes completed    *********" )
+        lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
+        factorStartButton.title = "Completed"
+        factorStartButton.isEnabled = false
+
+        primeFinder.makeNicePrimesFile()
     }
     //*************   HLPrimeProtocol     *********************************************************
 
@@ -142,7 +138,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         UserDefaults.standard.synchronize()
         return true
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         lastLinePrimeTextField.stringValue = "?"

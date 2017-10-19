@@ -699,7 +699,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ux-r4-xmz">
-                                <rect key="frame" x="46" y="158" width="138" height="17"/>
+                                <rect key="frame" x="30" y="158" width="138" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Prime File Last Line:" id="RlL-el-O1H">
                                     <font key="font" metaFont="system"/>
@@ -708,7 +708,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LSF-FA-uZr">
-                                <rect key="frame" x="34" y="133" width="150" height="17"/>
+                                <rect key="frame" x="18" y="133" width="150" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Factored File Last Line:" id="Cb1-Su-aZl">
                                     <font key="font" metaFont="system"/>
@@ -717,7 +717,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hi3-o6-VKI">
-                                <rect key="frame" x="190" y="158" width="177" height="17"/>
+                                <rect key="frame" x="174" y="158" width="286" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="LastLinePrime" drawsBackground="YES" id="Q2s-1E-Pff">
                                     <font key="font" metaFont="system"/>
@@ -757,17 +757,6 @@
                                     <action selector="primeStartActionWithSender:" target="XfG-lQ-9wD" id="ZYs-T3-pe5"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flh-Gv-mea">
-                                <rect key="frame" x="274" y="48" width="112" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Factor Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tve-5A-zGN">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="factorStartActionWithSender:" target="XfG-lQ-9wD" id="b0l-uH-yjF"/>
-                                </connections>
-                            </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upz-zn-Oqs">
                                 <rect key="frame" x="134" y="201" width="102" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -793,7 +782,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6aV-tO-GYK">
-                                <rect key="frame" x="190" y="133" width="177" height="17"/>
+                                <rect key="frame" x="174" y="133" width="286" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="LastLineFactor" drawsBackground="YES" id="ArB-bN-BlR">
                                     <font key="font" metaFont="system"/>
@@ -810,6 +799,17 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flh-Gv-mea">
+                                <rect key="frame" x="295" y="48" width="112" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Factor Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tve-5A-zGN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="factorStartActionWithSender:" target="XfG-lQ-9wD" id="b0l-uH-yjF"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
