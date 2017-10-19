@@ -1,7 +1,7 @@
 *.DS_Store
 
-PrimeToolCPP/PrimeTool.xcodeproj/xcuserdata
-PrimeToolCPP/PrimeTool.xcodeproj/project.xcworkspace/xcuserdata
+Crypto/PrimeToolCPP/PrimeTool.xcodeproj/xcuserdata
+Crypto/PrimeToolCPP/PrimeTool.xcodeproj/project.xcworkspace/xcuserdata
 
 Phidget1018/Phidget1018.xcodeproj/xcuserdata
 Phidget1018/Phidget1018.xcodeproj/project.xcworkspace/xcuserdata
@@ -9,8 +9,8 @@ Phidget1018/Phidget1018.xcodeproj/project.xcworkspace/xcuserdata
 HLPong/HLPong.xcodeproj/xcuserdata
 HLPong/HLPong.xcodeproj/project.xcworkspace/xcuserdata
 
-HLPrimes/HLPrimes.xcodeproj/xcuserdata
-HLPrimes/HLPrimes.xcodeproj/project.xcworkspace/xcuserdata
+Crypto/HLPrimes/HLPrimes.xcodeproj/xcuserdata
+Crypto/HLPrimes/HLPrimes.xcodeproj/project.xcworkspace/xcuserdata
 
 Sudoku\ Solver/Sudoku\ Solver.xcodeproj/xcuserdata
 Sudoku\ Solver/Sudoku\ Solver.xcodeproj/project.xcworkspace/xcuserdata

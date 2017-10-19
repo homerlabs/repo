@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B049FC471F92CCC000714FA7 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0457C0F1F92CACF00002007 /* HLFileManager.m */; };
+		B0294D921F99410A000D1AD9 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0294D901F99410A000D1AD9 /* HLFileManager.m */; };
 		B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */; };
 		B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1E1EDB17FC00564DDB /* ViewController.swift */; };
 		B09FBB211EDB17FC00564DDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09FBB201EDB17FC00564DDB /* Assets.xcassets */; };
 		B09FBB241EDB17FC00564DDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09FBB221EDB17FC00564DDB /* Main.storyboard */; };
 		B09FBB2F1EDB17FC00564DDB /* HLPrimesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB2E1EDB17FC00564DDB /* HLPrimesTests.swift */; };
-		B09FBB3A1EDB19AA00564DDB /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB391EDB19AA00564DDB /* HLPrime.swift */; };
+		B0CDC68E1F9940AD00FEFA09 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CDC68D1F9940AD00FEFA09 /* HLPrime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B0457C0F1F92CACF00002007 /* HLFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
-		B0457C101F92CACF00002007 /* HLFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
+		B0294D901F99410A000D1AD9 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
+		B0294D911F99410A000D1AD9 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B09FBB191EDB17FC00564DDB /* HLPrimes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLPrimes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09FBB1E1EDB17FC00564DDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,8 +38,8 @@
 		B09FBB2A1EDB17FC00564DDB /* HLPrimesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLPrimesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09FBB2E1EDB17FC00564DDB /* HLPrimesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPrimesTests.swift; sourceTree = "<group>"; };
 		B09FBB301EDB17FC00564DDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B09FBB391EDB19AA00564DDB /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
 		B0C8D5B71F92D53500F1E277 /* HLPrimes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HLPrimes-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0CDC68D1F9940AD00FEFA09 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +63,8 @@
 		B09FBB101EDB17FC00564DDB = {
 			isa = PBXGroup;
 			children = (
+				B0CDC68C1F9940AD00FEFA09 /* Common */,
 				B0C8D5B71F92D53500F1E277 /* HLPrimes-Bridging-Header.h */,
-				B0457C101F92CACF00002007 /* HLFileManager.h */,
-				B0457C0F1F92CACF00002007 /* HLFileManager.m */,
 				B09FBB1B1EDB17FC00564DDB /* HLPrimes */,
 				B09FBB2D1EDB17FC00564DDB /* HLPrimesTests */,
 				B09FBB1A1EDB17FC00564DDB /* Products */,
@@ -85,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				B09FBB221EDB17FC00564DDB /* Main.storyboard */,
-				B09FBB391EDB19AA00564DDB /* HLPrime.swift */,
 				B09FBB1E1EDB17FC00564DDB /* ViewController.swift */,
 				B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */,
 				B09FBB201EDB17FC00564DDB /* Assets.xcassets */,
@@ -101,6 +99,17 @@
 				B09FBB301EDB17FC00564DDB /* Info.plist */,
 			);
 			path = HLPrimesTests;
+			sourceTree = "<group>";
+		};
+		B0CDC68C1F9940AD00FEFA09 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B0CDC68D1F9940AD00FEFA09 /* HLPrime.swift */,
+				B0294D911F99410A000D1AD9 /* HLFileManager.h */,
+				B0294D901F99410A000D1AD9 /* HLFileManager.m */,
+			);
+			name = Common;
+			path = ../Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,9 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */,
-				B049FC471F92CCC000714FA7 /* HLFileManager.m in Sources */,
+				B0294D921F99410A000D1AD9 /* HLFileManager.m in Sources */,
+				B0CDC68E1F9940AD00FEFA09 /* HLPrime.swift in Sources */,
 				B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */,
-				B09FBB3A1EDB19AA00564DDB /* HLPrime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
