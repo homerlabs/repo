@@ -218,7 +218,8 @@ class HLPrime: NSObject {
     
     func makePrimes(largestPrime: HLPrimeType)  {
         print( "\nHLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
-        
+        let startDate = Date()
+
          //  find out where we left off and continue from there
         let (lastN, lastP) = parseLine(line: primeFileLastLine!)
         print( "current makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
@@ -248,7 +249,9 @@ class HLPrime: NSObject {
         
         primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
         let (newLastN, newLastP) = parseLine(line: primeFileLastLine!)
-        print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP)" )
+        print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP). " )
+        let deltaTime = startDate.timeIntervalSinceNow
+        print( "HLPrime-  makePrimes-  completed.  Time: \(-Int(deltaTime))" )
     }
 
  /*   func makePrimes(numberOfPrimes: HLPrimeType)  {
