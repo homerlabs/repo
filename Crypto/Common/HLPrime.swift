@@ -22,7 +22,6 @@ class HLPrime: NSObject {
     var primesFileURL: URL!
     var factoredFileURL: URL!
     var nicePrimesFileURL: URL!
-    let bufSize = 100
     var buf: [HLPrimeType] = []
     var largestBufPrime: HLPrimeType = 0
     var active = true

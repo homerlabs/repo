@@ -27,6 +27,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     let defaultTerminalPrime = "169"  //  13 squared
     let defaultModSize = "10"
+    
+    var primeLastLine: String?
+    var factoredLastLine: String?
 
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
     var errorCode = 0
@@ -36,6 +39,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         let value = primeStartButton.state == .on
         if value {
             primeStartButton.title = "Running"
+            
+            let _ = checkLargestPrimeSizeIsOk(largestPrimeToFind: terminalPrimeTextField.stringValue, primeFileLastLine: primeLastLine!)
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
             
             let largestTestPrime = Int64(sqrt(Double(lastPrime)))
@@ -139,6 +144,21 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         return true
     }
     
+    func checkLargestPrimeSizeIsOk(largestPrimeToFind: String, primeFileLastLine: String) -> Bool   {
+        var isOk = true
+        let (_, lastP) = primeFinder.parseLine(line: primeFileLastLine)
+        let terminalPrime = terminalPrimeTextField.stringValue
+        let largestPrimeNeeded = Int64(sqrt(Double(terminalPrime)!))
+        if largestPrimeNeeded > lastP   {
+            isOk = false
+            let largestPossibleTestPrime = lastP * lastP
+            terminalPrimeTextField.stringValue = String(largestPossibleTestPrime)
+            UserDefaults.standard.set(largestPossibleTestPrime, forKey:HLDefaultTerminalPrimeKey)
+        }
+        
+        return isOk
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         lastLinePrimeTextField.stringValue = "?"
@@ -167,8 +187,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
         primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
         
-        if let primeLastLine = primeFinder.primeFileLastLine {
-            lastLinePrimeTextField.stringValue = primeLastLine
+        primeLastLine = primeFinder.primeFileLastLine
+        if primeLastLine != nil  {
+            lastLinePrimeTextField.stringValue = primeLastLine!
+            let _ = checkLargestPrimeSizeIsOk(largestPrimeToFind: terminalPrimeTextField.stringValue, primeFileLastLine: primeLastLine!)
+
         }
         else    {
             terminalPrimeTextField.stringValue = defaultTerminalPrime
@@ -179,8 +202,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             UserDefaults.standard.set(defaultModSize, forKey:HLDefaultModCountKey)
         }
         
-        if let factorLastLine = primeFinder.factorFileLastLine {
-            lastLineFactorTextField.stringValue = factorLastLine
+        factoredLastLine = primeFinder.factorFileLastLine
+        if factoredLastLine != nil  {
+            lastLineFactorTextField.stringValue = factoredLastLine!
         }
     }
 
