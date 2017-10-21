@@ -46,7 +46,7 @@ class HLPrime: NSObject {
         
         var index = 1   //  we don't try the value in [0] == 2
         var testPrime = buf[index]
-        while testPrime <= largestTestPrime {
+        while testPrime < largestTestPrime {
             let q_r = lldiv(n, testPrime)
             if q_r.rem == 0 {
                 isPrime = false
@@ -257,11 +257,15 @@ class HLPrime: NSObject {
     }
 
     func parseLine(line: String) -> (index: Int, prime: Int64)  {
-        let index = line.index(of: "\t")!
-        let index2 = line.index(after: index)
-        let lastN = line.prefix(upTo: index)
-        let lastP = line.suffix(from: index2)
-        return (Int(lastN)!, Int64(lastP)!)
+        if let index = line.index(of: "\t") {
+            let index2 = line.index(after: index)
+            let lastN = line.prefix(upTo: index)
+            let lastP = line.suffix(from: index2)
+            return (Int(lastN)!, Int64(lastP)!)
+        }
+        else    {
+            return (0, 0)
+        }
     }
     
     func formatTime(timeInSeconds: Int) -> String   {
