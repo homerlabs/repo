@@ -269,7 +269,7 @@ class HLPrime: NSObject {
     
     func formatTime(timeInSeconds: Int) -> String   {
         let hours = timeInSeconds / 3600
-        let mintues = timeInSeconds / 60 - hours * 3600
+        let mintues = timeInSeconds / 60 - hours * 60
         let seconds = timeInSeconds - hours * 3600 - mintues * 60
         return String(format: "%02d:%02d:%02d", hours, mintues, seconds)
     }
