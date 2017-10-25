@@ -229,23 +229,23 @@ class HLPrime: NSObject {
             self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
 
              //  find out where we left off and continue from there
-            let (lastN, lastP) = self.parseLine(line: self.primeFileLastLine!)
-            print( "current makePrimes-  lastN: \(lastN)    lastP: \(lastP)" )
+            (self.lastN, self.lastP) = self.parseLine(line: self.primeFileLastLine!)
+            print( "current makePrimes-  lastN: \(self.lastN)    lastP: \(self.lastP)" )
 
-            var nextN = lastN + 1
-            var nextP = lastP + 2
+            self.lastN += 1
+            self.lastP += 2
 
             self.fileManager.openPrimesFileForAppend(with: self.primesFileURL.path)
 
-            while( largestPrime >= nextP ) {
+            while( largestPrime >= self.lastP ) {
                 
-                if self.isPrime(n: nextP)    {
-                    let output = String(format: "%d\t%ld\n", nextN, nextP)
+                if self.isPrime(n: self.lastP)    {
+                    let output = String(format: "%d\t%ld\n", self.lastN, self.lastP)
                     self.fileManager.appendPrimesLine(output)
-                    nextN += 1
+                    self.lastN += 1
                 }
                 
-                nextP += 2
+                self.lastP += 2
 
                 if !self.active   {
                     break
