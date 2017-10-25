@@ -39,7 +39,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var errorCode = 0
 
     @IBAction func checkProgressAction(sender: NSButton) {
-            print( "    *********   checkProgressAction    lastP: \(primeFinder.lastP)" )
+     //       print( "    *********   checkProgressAction    lastP: \(primeFinder.lastP)" )
             progressTextField.stringValue = String(primeFinder.lastP)
     }
     
@@ -120,7 +120,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     func loadBufCompleted()    {
         let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
-        print( "    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)  in \(elaspsedTime)   *********" )
+        print( "\n    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)  in \(elaspsedTime)   *********" )
         
         let terminalPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
         

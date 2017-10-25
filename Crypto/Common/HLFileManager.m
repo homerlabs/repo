@@ -144,9 +144,6 @@ NSString *fileExtension = @"txt";
 
 -(void)appendFactoredLine:(NSString *)line
 {
-//    int n = line.intValue;
-//    if ( n % kMOD_SIZE == 0 )
-    
     fprintf(factoredAppendFile, "%s\n", line.UTF8String);
     if ( modCounter++ % modSize == 0 )
         NSLog( @"  ** prime factored: %@", line );
