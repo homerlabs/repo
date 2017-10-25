@@ -180,13 +180,13 @@ class HLPrime: NSObject {
                     assert( primesErrorCode == 0 )
                     assert( factoredErrorCode == 0 )
 
-                    var nextP: HLPrimeType = 0
+                    self.lastP = 0
                     repeat {    //  advance to the next prime to factor
                         let line = self.fileManager.readPrimesFileLine()
-                        (_, nextP) = self.parseLine(line: line!)
-                    } while nextP != lastfactor
+                        (_, self.lastP) = self.parseLine(line: line!)
+                    } while self.lastP != lastfactor
 
-                    print( "HLPrime-  factorPrimes-  lastP: \(nextP)" )
+                    print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
 
                     let lastPrimeLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
                     (self.lastN, self.lastP) = self.parseLine(line: lastPrimeLine)
@@ -196,14 +196,14 @@ class HLPrime: NSObject {
                         let line = self.fileManager.readPrimesFileLine()
                         if line == nil  {   break   }   //  watch for end of file
                         
-                        (_, nextP) = self.parseLine(line: line!)
-                        let factoredPrime = self.factor(prime: nextP)
+                        (_, self.lastP) = self.parseLine(line: line!)
+                        let factoredPrime = self.factor(prime: self.lastP)
                         self.fileManager.appendFactoredLine(factoredPrime)
  
                         if !self.active   {
                             break
                         }
-                   } while nextP != min(largestPrime, self.lastP)
+                   } while self.lastP != min(largestPrime, self.lastP)
                 }
 
                 self.fileManager.closeFactoredFileForAppend()
