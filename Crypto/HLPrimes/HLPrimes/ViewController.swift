@@ -26,7 +26,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     let HLDefaultTerminalPrimeKey = "TerminalPrimeKey"
     let HLDefaultModCountKey = "ModCountKey"
     
-    let defaultTerminalPrime = "10000"  //  approx. 101 squared
+    let defaultTerminalPrime = "44521"  //  211 squared
     let defaultModSize = "1000"
     
     var primeLastLine: String?

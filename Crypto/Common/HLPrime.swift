@@ -47,7 +47,7 @@ class HLPrime: NSObject {
         
         var index = 1   //  we don't try the value in [0] == 2
         var testPrime = buf[index]
-        while testPrime < largestTestPrime {
+        while testPrime <= largestTestPrime {
             let q_r = lldiv(n, testPrime)
             if q_r.rem == 0 {
                 isPrime = false
