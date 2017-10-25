@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B0294D921F99410A000D1AD9 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0294D901F99410A000D1AD9 /* HLFileManager.m */; };
+		B08742951F9FB27200958468 /* HLPrimes.txt in Resources */ = {isa = PBXBuildFile; fileRef = B08742941F9FB27200958468 /* HLPrimes.txt */; };
 		B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */; };
 		B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1E1EDB17FC00564DDB /* ViewController.swift */; };
 		B09FBB211EDB17FC00564DDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09FBB201EDB17FC00564DDB /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		B0294D901F99410A000D1AD9 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
 		B0294D911F99410A000D1AD9 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
+		B08742941F9FB27200958468 /* HLPrimes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HLPrimes.txt; sourceTree = "<group>"; };
 		B09FBB191EDB17FC00564DDB /* HLPrimes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLPrimes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09FBB1E1EDB17FC00564DDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		B0CDC68C1F9940AD00FEFA09 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B08742941F9FB27200958468 /* HLPrimes.txt */,
 				B0CDC68D1F9940AD00FEFA09 /* HLPrime.swift */,
 				B0294D911F99410A000D1AD9 /* HLFileManager.h */,
 				B0294D901F99410A000D1AD9 /* HLFileManager.m */,
@@ -200,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09FBB211EDB17FC00564DDB /* Assets.xcassets in Resources */,
+				B08742951F9FB27200958468 /* HLPrimes.txt in Resources */,
 				B09FBB241EDB17FC00564DDB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

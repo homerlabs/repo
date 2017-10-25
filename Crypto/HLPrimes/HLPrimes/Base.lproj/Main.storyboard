@@ -747,7 +747,7 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2e-J5-b88">
-                                <rect key="frame" x="67" y="48" width="115" height="32"/>
+                                <rect key="frame" x="57" y="74" width="115" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Prime Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ibX-ew-qCe">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -768,6 +768,15 @@
                                 <connections>
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="xoi-yY-i1O"/>
                                 </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52C-Z8-vfY">
+                                <rect key="frame" x="274" y="45" width="160" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="center" title="Progress" drawsBackground="YES" usesSingleLineMode="YES" id="O9g-Dc-M1B">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZr-aH-owo">
                                 <rect key="frame" x="354" y="201" width="102" height="17"/>
@@ -800,7 +809,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flh-Gv-mea">
-                                <rect key="frame" x="295" y="48" width="112" height="32"/>
+                                <rect key="frame" x="58" y="34" width="112" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Factor Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tve-5A-zGN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -808,6 +817,17 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="factorStartActionWithSender:" target="XfG-lQ-9wD" id="b0l-uH-yjF"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d7v-Uy-Gh9">
+                                <rect key="frame" x="297" y="63" width="115" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Ping" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v1I-hr-UbF">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="checkProgressActionWithSender:" target="XfG-lQ-9wD" id="cBs-2y-j3T"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -819,6 +839,7 @@
                         <outlet property="modCountTextField" destination="hZr-aH-owo" id="1b7-Bi-asV"/>
                         <outlet property="primeFilePathTextField" destination="omV-qV-Ric" id="K0n-rM-ANd"/>
                         <outlet property="primeStartButton" destination="l2e-J5-b88" id="1ew-k4-Our"/>
+                        <outlet property="progressTextField" destination="52C-Z8-vfY" id="Xg0-Rd-uAY"/>
                         <outlet property="terminalPrimeTextField" destination="upz-zn-Oqs" id="gAH-cc-VPQ"/>
                     </connections>
                 </viewController>

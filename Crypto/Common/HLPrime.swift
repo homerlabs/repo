@@ -13,6 +13,7 @@ typealias HLPrimeType = Int64
 protocol HLPrimesProtocol {
     func makePrimesCompleted()
     func factorPrimesCompleted()
+    func loadBufCompleted()
 }
 
 
@@ -61,29 +62,38 @@ class HLPrime: NSObject {
     }
     
     func loadBufFor(largestPrime: HLPrimeType) -> Int   {
-        let openResult = fileManager.openPrimesFileForRead(with: primesFileURL.path)     //  creates one if needed
-        if openResult != 0  {   //  BAIL!
-            return -1
-        }
-        
-        repeat  {
-            if let nextLine = fileManager.readPrimesFileLine()    {
-                let (_, valueP) = parseLine(line: nextLine)
-                let prime = Int64(valueP)
-                buf.append(prime)
-                largestBufPrime = prime
+        DispatchQueue.global(qos: .background).async {
+            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
+
+            let startDate = Date()
+            let openResult = self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
+            if openResult == 0  {
+                repeat  {
+                    if let nextLine = self.fileManager.readPrimesFileLine()    {
+                        (self.lastN, self.lastP) = self.parseLine(line: nextLine)
+                        self.buf.append(self.lastP)
+                    }
+                    else    {
+                        break
+                    }
+                } while self.largestBufPrime < largestPrime
+                
+                self.largestBufPrime = self.lastP
+                self.fileManager.closePrimesFileForRead()
+         
+                //  this will be nil if prime file doesn't exist
+                if self.primeFileLastLine == nil {
+                    self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
+                }
             }
-            else    {
-                break
+            
+            
+            DispatchQueue.main.async {
+                let deltaTime = -Int(startDate.timeIntervalSinceNow)
+                print( "HLPrime-  loadBuf-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
+
+                self.primesDelegate?.loadBufCompleted()
             }
-        } while largestBufPrime < largestPrime
-        
-        fileManager.closePrimesFileForRead()
- //       print( "loadBuf: \(buf)" )
- 
-        //  this will be nil if prime file doesn't exist
-        if primeFileLastLine == nil {
-            primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
         }
         
         return 0
@@ -145,11 +155,13 @@ class HLPrime: NSObject {
         }
     }
 
-    func factorPrimes(largestPrime: HLPrimeType) -> Int  {
+    func factorPrimes(largestPrime: HLPrimeType)  {
         DispatchQueue.global(qos: .background).async {
+            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
+
             print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
             let startDate = Date()
-            
+
             let errorCode = self.fileManager.openFactoredFileForAppend(with: self.factoredFileURL.path)
             if errorCode == 0   {
                 self.fileManager.closeFactoredFileForAppend()
@@ -199,7 +211,6 @@ class HLPrime: NSObject {
                 self.fileManager.closePrimesFileForRead()
             }
             
-
             DispatchQueue.main.async {
                 self.factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path)
                 let deltaTime = -Int(startDate.timeIntervalSinceNow)
@@ -208,14 +219,15 @@ class HLPrime: NSObject {
                 self.primesDelegate?.factorPrimesCompleted()
             }
         }
-        
-        return 0
     }
     
     func makePrimes(largestPrime: HLPrimeType)  {
         DispatchQueue.global(qos: .background).async {
+            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
+            
             print( "\nHLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
             let startDate = Date()
+            self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
 
              //  find out where we left off and continue from there
             let (lastN, lastP) = self.parseLine(line: self.primeFileLastLine!)

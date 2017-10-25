@@ -10,7 +10,9 @@
 
 @interface HLFileManager : NSObject
 
+-(int)createPrimeFileIfNeeded:(NSURL *)primeURL;
 -(NSString *)lastLineForFile:(NSString *)path;
+-(NSString *)readLineFromFile:(FILE *)file;
 
 -(int)openPrimesFileForReadWith:(NSString *)path;
 -(NSString *)readPrimesFileLine;
@@ -33,7 +35,6 @@
 -(void)closeNicePrimesFileForWrite;
 
 -(void)openTempFileForReadWith:(NSString *)path;
--(NSString *)readTempFileLine;
 -(void)closeTempFileForRead;
 
 -(void)setModSize:(int)size;

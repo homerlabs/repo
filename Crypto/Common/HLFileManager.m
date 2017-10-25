@@ -15,33 +15,45 @@ FILE *primesReadFile, *primesAppendFile;
 FILE *factoredReadFile, *factoredAppendFile;
 FILE *nicePrimesWriteFile;
 FILE *readTempFile;
-NSString *initialPrimeFile = @"1\t2\n2\t3\n3\t5\n4\t7\n5\t11\n6\t13\n";
 NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
 int modSize = 1;
 int modCounter = 0;
 
 NSString *fileExtension = @"txt";
 
+
+-(int)createPrimeFileIfNeeded:(NSURL *)primeURL {
+    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",primeURL.path , fileExtension];
+    FILE *primeFile = fopen(pathWithExtension.UTF8String, "r");
+    
+    //  if open failed, create new file
+    if ( !primeFile )
+    {
+        NSURL *url = [NSBundle.mainBundle URLForResource:@"HLPrimes" withExtension:@"txt"];
+        FILE *primeSourceFile = fopen(url.path.UTF8String, "r");
+        FILE *primeFile = fopen(pathWithExtension.UTF8String, "w");
+        int prime = 0, index = 1;
+        int result = fscanf(primeSourceFile, "%d\n", &prime );
+        
+        while ( result == 1 )   {
+            NSString* output = [NSString stringWithFormat: @"%d\t%d\n", index++, prime];
+            fputs(output.UTF8String, primeFile);
+            
+            result = fscanf(primeSourceFile, "%d\n", &prime );
+        }
+
+        fclose(primeSourceFile);
+        fclose(primeFile);
+    }
+
+    return 0;
+}
+
 //************************************************      primes file read        ****************
 -(int)openPrimesFileForReadWith:(NSString *)path  {
     NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     primesReadFile = fopen(pathWithExtension.UTF8String, "r");
-    
-    //  if open failed, create and open new file
-    if ( !primesReadFile )
-    {
-        FILE *tempFile = fopen(pathWithExtension.UTF8String, "w");
-        if ( !tempFile ) {  //  can't use this path!
-            return -1;  //    error
-        }
-        
-        fprintf(tempFile, "%s", initialPrimeFile.UTF8String);
-        fclose( tempFile );
-        //  try now ...
-        primesReadFile = fopen(pathWithExtension.UTF8String, "r");
-    }
-    
-    return 0;   //  no error
+    return (primesReadFile == nil); //  return 0 for no error
 }
 -(void)closePrimesFileForRead
 {
@@ -50,13 +62,7 @@ NSString *fileExtension = @"txt";
 
 -(NSString *)readPrimesFileLine
 {
-    int lineSize = 1000;
-    char lineBuf[lineSize];
-    char *result = fgets(lineBuf, lineSize, primesReadFile);
-    if ( result )
-        return [NSString stringWithUTF8String:[self trimLineEnding: result]];
-    else
-        return nil;
+    return [self readLineFromFile:primesReadFile];
 }
 //************************************************      primes file read        ****************
 
@@ -86,13 +92,7 @@ NSString *fileExtension = @"txt";
 
 -(NSString *)readFactoredFileLine
 {
-    int lineSize = 1000;
-    char lineBuf[lineSize];
-    char *result = fgets(lineBuf, lineSize, factoredReadFile);
-    if ( result )
-        return [NSString stringWithUTF8String:[self trimLineEnding: result]];
-    else
-        return nil;
+    return [self readLineFromFile:factoredReadFile];
 }
 //************************************************      factored file read      ****************
 
@@ -190,11 +190,11 @@ NSString *fileExtension = @"txt";
     fclose( readTempFile );
 }
 
--(NSString *)readTempFileLine
+-(NSString *)readLineFromFile:(FILE *)file
 {
     int lineSize = 1000;
     char lineBuf[lineSize];
-    char *result = fgets(lineBuf, lineSize, readTempFile);
+    char *result = fgets(lineBuf, lineSize, file);
     if ( result )
         return [NSString stringWithUTF8String:[self trimLineEnding: result]];
     else
@@ -213,7 +213,7 @@ NSString *fileExtension = @"txt";
 
         do  {
             previous = temp;
-            temp = [self readTempFileLine];
+            temp = [self readLineFromFile:readTempFile];
         } while (temp);
         
         fclose( readTempFile );
