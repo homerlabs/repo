@@ -186,6 +186,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
                 let largestPossibleTestPrime = lastP * lastP
                 terminalPrimeTextField.stringValue = String(largestPossibleTestPrime)
                 UserDefaults.standard.set(largestPossibleTestPrime, forKey:HLDefaultTerminalPrimeKey)
+                UserDefaults.standard.synchronize()
             }
         }
         
@@ -211,14 +212,14 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             terminalPrimeTextField.stringValue = terminalPrime
         }
         else    {
-            terminalPrimeTextField.stringValue = "169"
+            terminalPrimeTextField.stringValue = defaultTerminalPrime
         }
 
         if let modCount = UserDefaults.standard.string(forKey: HLDefaultModCountKey)  {
             modCountTextField.stringValue = modCount
         }
         else    {
-            modCountTextField.stringValue = "10"
+            modCountTextField.stringValue = defaultModSize
         }
 
         primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
@@ -243,11 +244,5 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             lastLineFactorTextField.stringValue = factoredLastLine!
         }
     }
-
-/*    override var representedObject: Any? {
-        didSet {
-            print( "ViewController-  representedObject-  didSet: \(String(describing: representedObject))" )
-        }
-    }   */
 }
 
