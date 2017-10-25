@@ -31,6 +31,7 @@ class HLPrime: NSObject {
     var lastP: HLPrimeType = 0
     var primeFileLastLine: String?
     var factorFileLastLine: String?
+    var actionTimeInSeconds = 0     //  time for makePrimes, factorPrimes, or loadBuf to run
     var primesDelegate: HLPrimesProtocol?
     
 
@@ -89,9 +90,7 @@ class HLPrime: NSObject {
             
             
             DispatchQueue.main.async {
-                let deltaTime = -Int(startDate.timeIntervalSinceNow)
-                print( "HLPrime-  loadBuf-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
-
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
                 self.primesDelegate?.loadBufCompleted()
             }
         }
@@ -213,8 +212,8 @@ class HLPrime: NSObject {
             
             DispatchQueue.main.async {
                 self.factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path)
-                let deltaTime = -Int(startDate.timeIntervalSinceNow)
-                print( "HLPrime-  factorPrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+  //              print( "HLPrime-  factorPrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
                 self.primesDelegate?.factorPrimesCompleted()
             }
@@ -259,8 +258,8 @@ class HLPrime: NSObject {
                 self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
                 let (newLastN, newLastP) = self.parseLine(line: self.primeFileLastLine!)
                 print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP)" )
-                let deltaTime = -Int(startDate.timeIntervalSinceNow)
-                print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+ //               print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
                 self.primesDelegate?.makePrimesCompleted()
             }
@@ -279,13 +278,6 @@ class HLPrime: NSObject {
         }
     }
     
-    func formatTime(timeInSeconds: Int) -> String   {
-        let hours = timeInSeconds / 3600
-        let mintues = timeInSeconds / 60 - hours * 60
-        let seconds = timeInSeconds - hours * 3600 - mintues * 60
-        return String(format: "%02d:%02d:%02d", hours, mintues, seconds)
-    }
-
     init(primeFilePath: String, modCount: Int32, delegate: HLPrimesProtocol)  {
         fileManager = HLFileManager(modCount)
         primesDelegate = delegate

@@ -99,7 +99,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
    
     //*************   HLPrimeProtocol     *********************************************************
     func makePrimesCompleted()  {
-        print( "    *********   makePrimes completed    *********" )
+        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        print( "    *********   makePrimes completed in \(elaspsedTime)    *********" )
         findPrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         primeStartButton.title = "Completed"
@@ -107,7 +108,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func factorPrimesCompleted()    {
-        print( "    *********   makePrimes completed    *********" )
+        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        print( "    *********   makePrimes completed  in \(elaspsedTime)    *********" )
         factorPrimesInProgress = false
         lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
         factorStartButton.title = "Completed"
@@ -117,13 +119,19 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func loadBufCompleted()    {
-        print( "    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)   *********" )
+        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        print( "    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)  in \(elaspsedTime)   *********" )
         
         let terminalPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
         
         if findPrimesInProgress   {
-            let largestTestPrime = Int64(sqrt(Double(terminalPrime)))
-            primeFinder.makePrimes(largestPrime: largestTestPrime)
+            let largestPossiblePrimeToFactor = primeFinder.largestBufPrime * primeFinder.largestBufPrime
+            if largestPossiblePrimeToFactor < terminalPrime  {
+                print( "terminalPrime: \(terminalPrime)    largestPossiblePrimeToFactor: \(largestPossiblePrimeToFactor)" )
+                terminalPrimeTextField.stringValue = String(largestPossiblePrimeToFactor)
+            }
+            
+            primeFinder.makePrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
         }
         
         if factorPrimesInProgress   {
@@ -195,6 +203,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         return isOk
     }
     
+    func formatTime(timeInSeconds: Int) -> String   {
+        let hours = timeInSeconds / 3600
+        let mintues = timeInSeconds / 60 - hours * 60
+        let seconds = timeInSeconds - hours * 3600 - mintues * 60
+        return String(format: "%02d:%02d:%02d", hours, mintues, seconds)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         lastLinePrimeTextField.stringValue = "?"
