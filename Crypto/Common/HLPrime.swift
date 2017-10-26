@@ -203,7 +203,7 @@ class HLPrime: NSObject {
                         if !self.active   {
                             break
                         }
-                   } while self.lastP != min(largestPrime, self.lastP)
+                   } while self.lastP <= largestPrime
                 }
 
                 self.fileManager.closeFactoredFileForAppend()
