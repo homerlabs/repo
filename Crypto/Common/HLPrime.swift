@@ -123,7 +123,7 @@ class HLPrime: NSObject {
     }
     
    func makeNicePrimesFile()    {
-        print( "\nHLPrime-  makeNicePrimesFile" )
+        print( "HLPrime-  makeNicePrimesFile" )
         fileManager.openFactoredFileForRead(with: factoredFileURL.path)
         fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
     
@@ -158,7 +158,7 @@ class HLPrime: NSObject {
         DispatchQueue.global(qos: .background).async {
             guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
 
-            print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
+            print( "HLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
             let startDate = Date()
 
             let errorCode = self.fileManager.openFactoredFileForAppend(with: self.factoredFileURL.path)
@@ -224,7 +224,7 @@ class HLPrime: NSObject {
         DispatchQueue.global(qos: .background).async {
             guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
             
-            print( "\nHLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
+            print( "HLPrime-  makePrimes-  largestPrime: \(largestPrime)" )
             let startDate = Date()
             self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
 
@@ -291,12 +291,12 @@ class HLPrime: NSObject {
         if let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path) {
             self.primeFileLastLine = primeFileLastLine
             (lastN, lastP) = parseLine(line: primeFileLastLine)
-            print( "HLPrime.init-  lastN: \(lastN)    lastP: \(lastP)" )
+            print( "\(primesFileURL.path) found. last line:  lastN: \(lastN)    lastP: \(lastP)" )
         }
 
         if let factorFileLastLine = fileManager.lastLine(forFile: factoredFileURL.path) {
             self.factorFileLastLine = factorFileLastLine
-            print( "HLPrime.init-  factorFileLastLine: \(factorFileLastLine)" )
+            print( "\(factoredFileURL.path) found. last line: \(factorFileLastLine)" )
         }
     }
 }

@@ -45,8 +45,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     @IBAction func primeStartAction(sender: NSButton) {
         
-        let value = primeStartButton.state == .on
-        if value {
+        if primeStartButton.state == .on {
+            print( "\n    *********   Loading buffer to begin finding primes                *********" )
             primeStartButton.title = "Running"
             
             let _ = checkLargestPrimeSizeIsOk(largestPrimeToFind: terminalPrimeTextField.stringValue, primeFileLastLine: primeLastLine)
@@ -72,8 +72,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     @IBAction func factorStartAction(sender: NSButton) {
         
-        let value = factorStartButton.state == .on
-        if value {
+        if factorStartButton.state == .on {
+            print( "\n    *********   Loading buffer to begin factoring primes                   *********" )
             factorStartButton.title = "Running"
             let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
 
@@ -100,7 +100,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     //*************   HLPrimeProtocol     *********************************************************
     func makePrimesCompleted()  {
         let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
-        print( "    *********   makePrimes completed in \(elaspsedTime)    *********" )
+        print( "    *********   makePrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         primeStartButton.title = "Completed"
@@ -109,7 +109,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     func factorPrimesCompleted()    {
         let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
-        print( "    *********   makePrimes completed  in \(elaspsedTime)    *********" )
+        print( "    *********   makePrimes completed  in \(elaspsedTime)    *********\n" )
         factorPrimesInProgress = false
         lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
         factorStartButton.title = "Completed"
@@ -120,7 +120,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     func loadBufCompleted()    {
         let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
-        print( "\n    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)  in \(elaspsedTime)   *********" )
+        print( "    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)  in \(elaspsedTime)   *********" )
         
         let terminalPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
         
