@@ -10,6 +10,7 @@
 		B0439C121FA4063800EC83A0 /* HLPrimes.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */; };
 		B0439C131FA4063800EC83A0 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0439C0F1FA4063800EC83A0 /* HLFileManager.m */; };
 		B0439C141FA4063800EC83A0 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0439C101FA4063800EC83A0 /* HLPrime.swift */; };
+		B04CBCDB1FA7B02C00D02AC9 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */; };
 		B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765D1F993D2B00772AFC /* AppDelegate.swift */; };
 		B08176601F993D2B00772AFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765F1F993D2B00772AFC /* ViewController.swift */; };
 		B08176621F993D2B00772AFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B08176611F993D2B00772AFC /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		B0439C101FA4063800EC83A0 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
 		B0439C111FA4063800EC83A0 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B0439C151FA4077F00EC83A0 /* RSATool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSATool-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
 		B081765A1F993D2B00772AFC /* RSATool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSATool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B081765D1F993D2B00772AFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B081765F1F993D2B00772AFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 		B0439C0D1FA4063800EC83A0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */,
 				B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */,
 				B0439C0F1FA4063800EC83A0 /* HLFileManager.m */,
 				B0439C101FA4063800EC83A0 /* HLPrime.swift */,
@@ -159,6 +162,7 @@
 			files = (
 				B08176601F993D2B00772AFC /* ViewController.swift in Sources */,
 				B0439C141FA4063800EC83A0 /* HLPrime.swift in Sources */,
+				B04CBCDB1FA7B02C00D02AC9 /* HLRSA.swift in Sources */,
 				B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */,
 				B0439C131FA4063800EC83A0 /* HLFileManager.m in Sources */,
 			);
