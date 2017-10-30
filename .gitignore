@@ -1,5 +1,8 @@
 *.DS_Store
 
+Crypto/RSATool/RSATool.xcodeproj/xcuserdata
+Crypto/RSATool/RSATool.xcodeproj/project.xcworkspace/xcuserdata
+
 Crypto/HLPrimes/HLPrimes.xcodeproj/xcuserdata
 Crypto/HLPrimes/HLPrimes.xcodeproj/project.xcworkspace/xcuserdata
 
