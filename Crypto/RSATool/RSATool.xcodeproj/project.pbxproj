@@ -22,8 +22,8 @@
 		B0439C0F1FA4063800EC83A0 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
 		B0439C101FA4063800EC83A0 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
 		B0439C111FA4063800EC83A0 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
-		B0439C151FA4077F00EC83A0 /* RSATool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSATool-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
+		B056E5911FA8DB8F0078D728 /* RSATool-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSATool-Bridging-Header.h"; sourceTree = "<group>"; };
 		B081765A1F993D2B00772AFC /* RSATool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSATool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B081765D1F993D2B00772AFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B081765F1F993D2B00772AFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,8 +77,8 @@
 		B081765C1F993D2B00772AFC /* RSATool */ = {
 			isa = PBXGroup;
 			children = (
+				B056E5911FA8DB8F0078D728 /* RSATool-Bridging-Header.h */,
 				B08176631F993D2B00772AFC /* Main.storyboard */,
-				B0439C151FA4077F00EC83A0 /* RSATool-Bridging-Header.h */,
 				B081765D1F993D2B00772AFC /* AppDelegate.swift */,
 				B081765F1F993D2B00772AFC /* ViewController.swift */,
 				B08176611F993D2B00772AFC /* Assets.xcassets */,
@@ -300,7 +300,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.RSATool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RSATool-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RSATool/RSATool-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -317,7 +317,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.RSATool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "RSATool-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RSATool/RSATool-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
