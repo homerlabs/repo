@@ -6,6 +6,15 @@
 //  Copyright © 2017 Matthew Homer. All rights reserved.
 //
 
+//************************************************************************
+//        Z(N) = { 1, 2, ... N-1 } but I don't use '1' so it is really
+//        Z(N) = { 2, 3, ... N-1 }
+//        N = RSA_P * RSA_Q
+//        Gamma = lcm( RSA_P-1, RSA_Q-1 )
+//        RSA_KeyPublic * RSA_KeyPrivate is congruant to 1 mod( Gamma )
+//        C = M**RSA_KeyPublic  % N
+//        M = C**RSA_KeyPrivate % N
+//************************************************************************
 import Cocoa
 
 class HLRSA: NSObject {

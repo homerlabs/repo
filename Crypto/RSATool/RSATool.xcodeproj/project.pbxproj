@@ -77,11 +77,11 @@
 		B081765C1F993D2B00772AFC /* RSATool */ = {
 			isa = PBXGroup;
 			children = (
+				B08176631F993D2B00772AFC /* Main.storyboard */,
 				B0439C151FA4077F00EC83A0 /* RSATool-Bridging-Header.h */,
 				B081765D1F993D2B00772AFC /* AppDelegate.swift */,
 				B081765F1F993D2B00772AFC /* ViewController.swift */,
 				B08176611F993D2B00772AFC /* Assets.xcassets */,
-				B08176631F993D2B00772AFC /* Main.storyboard */,
 				B08176661F993D2B00772AFC /* Info.plist */,
 				B08176671F993D2B00772AFC /* RSATool.entitlements */,
 			);

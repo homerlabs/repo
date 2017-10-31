@@ -11,7 +11,6 @@ import Cocoa
 class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesProtocol {
 
     @IBOutlet var primeFilePathTextField: NSTextField!
-    @IBOutlet var factorFilePathTextField: NSTextField!
     @IBOutlet var lastLinePrimeTextField: NSTextField!
     @IBOutlet var lastLineFactorTextField: NSTextField!
     @IBOutlet var terminalPrimeTextField: NSTextField!
