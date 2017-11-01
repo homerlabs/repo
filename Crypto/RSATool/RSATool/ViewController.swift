@@ -28,6 +28,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     @IBAction func encodeAction(sender: NSButton) {
         print( "ViewController-  encodeAction" )
+        let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
+        rsa.encode(plaintextURL: url)
     }
 
 
@@ -53,6 +55,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
 
         else if control == publicKeyTextField    {
+            let publicKey = Int64(publicKeyTextField.stringValue)!
+            let key = rsa.calculateKey(publicKey: publicKey)
+            privateKeyTextField.stringValue = String(key)
             UserDefaults.standard.set(publicKeyTextField.stringValue, forKey:HLDefaultPublicKeyKey)
         }
 
@@ -78,6 +83,34 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
+            plaintextFilePathTextField.stringValue = plaintextFilePath
+        }
+        else    {
+            plaintextFilePathTextField.stringValue = "Desktop/Plaintext"
+        }
+
+        if let primeP = UserDefaults.standard.string(forKey: HLDefaultPrimePKey)  {
+            primePPathTextField.stringValue = primeP
+        }
+        else    {
+            primePPathTextField.stringValue = "13"
+        }
+
+        if let primeQ = UserDefaults.standard.string(forKey: HLDefaultPrimeQKey)  {
+            primeQPathTextField.stringValue = primeQ
+        }
+        else    {
+            primeQPathTextField.stringValue = "17"
+        }
+
+        if let publicKey = UserDefaults.standard.string(forKey: HLDefaultPublicKeyKey)  {
+            publicKeyTextField.stringValue = publicKey
+        }
+        else    {
+            publicKeyTextField.stringValue = "107"
+        }
+
         setupRSA()
  //       let lcm = LCM(lcmA: 10, lcmB: 20)
         let result = rsa.fastExpOf(a: 7, exp: 560, mod: 561)

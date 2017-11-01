@@ -132,7 +132,7 @@ class HLPrime: NSObject {
             repeat  {
                 var tabCount = 0
                 let tab = 9   //  ascii tab
-                let charCount = line!.characters.count
+                let charCount = line!.count
                 let cString = line!.utf8CString
                 
                 for index in 0..<charCount {

@@ -25,16 +25,19 @@ class HLRSA: NSObject {
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
-    init(p: Int64, q: Int64) {
-    
-    N = p * q
-    Gamma = (p-1) * (q-1)
-    
-    super.init()
+    func encode(plaintextURL: URL)  {
+        print( "HLRSA-  encode: \(plaintextURL.path)" )
+        do {
+      //      let data = try? String(contentsOfFile: plaintextURL.path, encoding: String.Encoding.utf8)
 
-    print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    CharSet size: \(charSet.count)" )
-}
-
+            let data = try String(contentsOfFile: plaintextURL.path, encoding: .utf8)
+            print( "HLRSA-  encode-  data: \(data)" )
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
         var s: [HLPrimeType] = Array(repeating: 0, count: arraySize)
@@ -48,7 +51,7 @@ class HLRSA: NSObject {
         r[1] = publicKey
         var i = 1
         
-        while r[1] != 1 && r[i] != 0    {
+        while r[i] != 1 && r[i] != 0    {
             i += 1
             let q = r[i-2] / r[i-1]
             s[i] = s[i-2] - q * s[i-1]
@@ -114,4 +117,11 @@ class HLRSA: NSObject {
         return 0
     }
 
+    init(p: Int64, q: Int64) {
+        N = p * q
+        Gamma = (p-1) * (q-1)
+        
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    CharSet size: \(charSet.count)" )
+        super.init()
+    }
 }

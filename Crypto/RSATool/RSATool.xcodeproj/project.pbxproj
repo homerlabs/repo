@@ -49,9 +49,9 @@
 			children = (
 				B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */,
 				B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */,
-				B0439C0F1FA4063800EC83A0 /* HLFileManager.m */,
 				B0439C101FA4063800EC83A0 /* HLPrime.swift */,
 				B0439C111FA4063800EC83A0 /* HLFileManager.h */,
+				B0439C0F1FA4063800EC83A0 /* HLFileManager.m */,
 			);
 			name = Common;
 			path = ../Common;
@@ -121,6 +121,11 @@
 					B08176591F993D2B00772AFC = {
 						CreatedOnToolsVersion = 9.0.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -292,7 +297,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RSATool/RSATool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -309,7 +313,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RSATool/RSATool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
