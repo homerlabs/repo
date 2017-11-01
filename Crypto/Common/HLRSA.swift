@@ -19,22 +19,71 @@ import Cocoa
 
 class HLRSA: NSObject {
 
-    let N: Int64
-    let Gamma: Int64
-    let charSet: [String] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
+    let N: HLPrimeType
+    let Gamma: HLPrimeType
+    var keyPrivate: HLPrimeType = 0
+    var keyPublic: HLPrimeType = 0
+    let chuckSize = 3
+    let paddingChar = "`"
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
-    func encode(plaintextURL: URL)  {
+    
+    
+    func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
+        let result = fastExpOf(a: m, exp: key, mod: N)
+        return result
+    }
+    
+    
+    func encodeFile(plaintextURL: URL)  {
         print( "HLRSA-  encode: \(plaintextURL.path)" )
         do {
       //      let data = try? String(contentsOfFile: plaintextURL.path, encoding: String.Encoding.utf8)
 
-            let data = try String(contentsOfFile: plaintextURL.path, encoding: .utf8)
+            var data = try String(contentsOfFile: plaintextURL.path, encoding: .utf8)
             print( "HLRSA-  encode-  data: \(data)" )
+            
+            while data.count > 0 {
+                var chunk = ""
+                var m: HLPrimeType = 0
+                var weight: HLPrimeType = 1
+
+                for _ in 0..<chuckSize  {
+                    if data.count > 0   {
+                        let singleChar = data.removeFirst()
+                        chunk.append(singleChar)
+                        let x = Int64(indexForChar(c: singleChar)) * weight
+                        m += x
+                        weight *= Int64(charSet.count)
+                    }
+                    else    {
+                        chunk.append(paddingChar)
+                    }
+                }
+                
+                let cypher = encode(m: m, key: keyPublic)
+                let deCypher = encode(m: cypher, key: keyPrivate)
+                print( "chunk: \(chunk)    data: \(data)    m: \(m)    cypher: \(cypher)    deCypher: \(deCypher)" )
+            }
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    
+    func indexForChar( c: Character) -> Int {
+        var index = charSet.count - 1
+        while index > 0  {
+            let d = charSet[index]
+            if c == d   {
+                break
+            }
+            
+            index -= 1
+        }
+        
+        return index
     }
     
     
@@ -120,8 +169,9 @@ class HLRSA: NSObject {
     init(p: Int64, q: Int64) {
         N = p * q
         Gamma = (p-1) * (q-1)
+//        charSetSize = charSet.count + 1
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    CharSet size: \(charSet.count)" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSet.count)" )
         super.init()
     }
 }
