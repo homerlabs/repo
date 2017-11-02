@@ -25,6 +25,7 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize = 3
     let paddingChar = "`"
+    let charSetSize: Int
     let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -32,39 +33,67 @@ class HLRSA: NSObject {
     
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
         let result = fastExpOf(a: m, exp: key, mod: N)
+  //      let result2 = slowExpOf(a: m, exp: key, mod: N)
+  //      assert(result == result2 )
+        return result
+    }
+    
+    
+    func stringToInt(text: String) -> HLPrimeType {
+        var result: HLPrimeType = 0
+        var power: HLPrimeType = 1
+        
+        for char in text    {
+            result += Int64(indexForChar(c: char)) * power
+            power *= Int64(charSetSize)
+        }
+        
+        return result
+    }
+    
+    func intToString( n: HLPrimeType) -> String {
+        var result = ""
+        var workingN = n
+        var power = Int64(pow(Double(charSetSize), Double(chuckSize)))
+        
+        while power > 1 {
+            power /= Int64(charSetSize)
+            let index = Int(workingN / power)
+            result.append(charSet[index])
+            workingN %= power
+//            print( "intToString-  result: \(result)" )
+        }
+        
         return result
     }
     
     
     func encodeFile(plaintextURL: URL)  {
-        print( "HLRSA-  encode: \(plaintextURL.path)" )
+//        print( "HLRSA-  encode: \(plaintextURL.path)" )
         do {
-      //      let data = try? String(contentsOfFile: plaintextURL.path, encoding: String.Encoding.utf8)
-
             var data = try String(contentsOfFile: plaintextURL.path, encoding: .utf8)
             print( "HLRSA-  encode-  data: \(data)" )
             
             while data.count > 0 {
                 var chunk = ""
-                var m: HLPrimeType = 0
-                var weight: HLPrimeType = 1
 
                 for _ in 0..<chuckSize  {
                     if data.count > 0   {
                         let singleChar = data.removeFirst()
                         chunk.append(singleChar)
-                        let x = Int64(indexForChar(c: singleChar)) * weight
-                        m += x
-                        weight *= Int64(charSet.count)
-                    }
-                    else    {
+                     }
+/*                    else    {
                         chunk.append(paddingChar)
-                    }
+                    }   */
                 }
                 
-                let cypher = encode(m: m, key: keyPublic)
-                let deCypher = encode(m: cypher, key: keyPrivate)
-                print( "chunk: \(chunk)    data: \(data)    m: \(m)    cypher: \(cypher)    deCypher: \(deCypher)" )
+                let plaintextInt = stringToInt(text: chunk)
+                let cypher = encode(m: plaintextInt, key: keyPublic)
+                let cypherString = intToString(n: cypher)
+                
+                let deCypherInt = encode(m: cypher, key: keyPrivate)
+                let deCypherString = intToString(n: deCypherInt)
+                print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypher: \(cypher)    cypherString: \(cypherString)    deCypher: \(deCypherString)" )
             }
         } catch {
             print(error.localizedDescription)
@@ -73,7 +102,7 @@ class HLRSA: NSObject {
     
     
     func indexForChar( c: Character) -> Int {
-        var index = charSet.count - 1
+        var index = charSetSize - 1
         while index > 0  {
             let d = charSet[index]
             if c == d   {
@@ -106,12 +135,15 @@ class HLRSA: NSObject {
             s[i] = s[i-2] - q * s[i-1]
             t[i] = t[i-2] - q * t[i-1]
             r[i] = r[i-2] - q * r[i-1]
-            print( "i: \(i)    r[i]: \(r[i])" )
+  //          print( "i: \(i)    r[i]: \(r[i])" )
         }
 
         if r[i] == 1        {
-            if t[i] > 0     {   return t[i]          }
-            else            {   return t[i] + Gamma  }
+            var privateKey = t[i]
+            if privateKey <= 0     {   privateKey += Gamma       }
+            let keyVerify = (publicKey * privateKey) % Gamma
+            assert( keyVerify == 1 )
+            return privateKey
         }
         
         else                {   return -1            }
@@ -125,7 +157,7 @@ class HLRSA: NSObject {
         var i: Int = 62
         var bitIndex = Int64(pow(2.0, Double(i)))
 
-        print( "fastExpOf: \(a)   exp: \(exp)   mod: \(mod)" )
+ //       print( "fastExpOf: \(a)   exp: \(exp)   mod: \(mod)" )
 
         while i >= 0 {
         
@@ -160,18 +192,12 @@ class HLRSA: NSObject {
         return c
     }
 
-    func LCM(lcmA: Int64, lcmB: Int64) -> Int64 {
-        print( "lcmA: \(lcmA)   lcmB: \(lcmB)" )
-    
-        return 0
-    }
-
     init(p: Int64, q: Int64) {
         N = p * q
         Gamma = (p-1) * (q-1)
-//        charSetSize = charSet.count + 1
+        charSetSize = charSet.count
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSet.count)" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)" )
         super.init()
     }
 }

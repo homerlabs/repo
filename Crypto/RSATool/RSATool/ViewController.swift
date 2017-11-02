@@ -27,7 +27,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
 
     @IBAction func encodeAction(sender: NSButton) {
-        print( "ViewController-  encodeAction" )
+ //       print( "ViewController-  encodeAction" )
         let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
         rsa.encodeFile(plaintextURL: url)
     }
@@ -55,18 +55,22 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
 
         else if control == publicKeyTextField    {
-            let publicKey = Int64(publicKeyTextField.stringValue)!
-            let privateKey = rsa.calculateKey(publicKey: publicKey)
-            privateKeyTextField.stringValue = String(privateKey)
-            UserDefaults.standard.set(publicKeyTextField.stringValue, forKey:HLDefaultPublicKeyKey)
-            rsa.keyPublic = publicKey
-            rsa.keyPrivate = privateKey
+            setupKeys()
         }
 
         else    {   assert( false )     }
         
         UserDefaults.standard.synchronize()
         return true
+    }
+    
+    func setupKeys()    {
+        let publicKey = Int64(publicKeyTextField.stringValue)!
+        let privateKey = rsa.calculateKey(publicKey: publicKey)
+        privateKeyTextField.stringValue = String(privateKey)
+        UserDefaults.standard.set(publicKeyTextField.stringValue, forKey:HLDefaultPublicKeyKey)
+        rsa.keyPublic = publicKey
+        rsa.keyPrivate = privateKey
     }
     
     
@@ -78,6 +82,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         nTextField.stringValue = String(n)
         gammaTextField.stringValue = String(gamma)
         rsa = HLRSA(p: p, q: q)
+        setupKeys()
     }
     
 
@@ -113,6 +118,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
 
         setupRSA()
-    }
+   }
 }
 
