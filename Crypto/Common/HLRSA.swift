@@ -46,7 +46,7 @@ class HLRSA: NSObject {
         for char in text    {
             result += Int64(indexForChar(c: char)) * power  //  indexForChar never returns 0
             power *= charSetSize
-            print( "stringToInt-  char: \(char)  result: \(result)" )
+ //           print( "stringToInt-  char: \(char)  result: \(result)" )
        }
         
         //  add 1 so that we never return 0 or 1
@@ -64,13 +64,12 @@ class HLRSA: NSObject {
             if workingN >= power {
                 let index = Int(workingN / power)
                 
-         //       if power == 1   {   index -= 1  }
-                
-                print( "intToString-  workingN: \(workingN)  power: \(power)" )
-                result.append(charSet[index])
+ //               print( "intToString-  workingN: \(workingN)  power: \(power)" )
+                let c = String(charSet[index])
+                result = String(format: "%@%@", c, result)
            }
             workingN %= power
-            print( "intToString-  result: \(result)" )
+ //           print( "intToString-  result: \(result)" )
         }
         
         return result
