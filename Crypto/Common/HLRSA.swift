@@ -24,9 +24,8 @@ class HLRSA: NSObject {
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize = 3
-    let paddingChar = "`"
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",   //  can't use value at index 0
+    let charSet: [Character] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -41,21 +40,21 @@ class HLRSA: NSObject {
     
     func stringToInt(text: String) -> HLPrimeType {
         var result: HLPrimeType = 0
-        var power: HLPrimeType = 1
+//        var power: HLPrimeType = charSetSize
         
         for char in text    {
-            result += Int64(indexForChar(c: char)) * power  //  indexForChar never returns 0
-            power *= charSetSize
- //           print( "stringToInt-  char: \(char)  result: \(result)" )
+            result *= charSetSize
+            result += Int64(indexForChar(c: char)+1)
+//            power /= charSetSize
+            print( "stringToInt-  char: \(char)  result: \(result)" )
        }
         
-        //  add 1 so that we never return 0 or 1
-        return result + 1
+        return result
     }
     
     func intToString( n: HLPrimeType) -> String {
         var result = ""
-        var workingN = n - 1    //  to make up for adding 1 in stringToInt()
+        var workingN = n
         var power = charSetSize
         while power < n {   power *= charSetSize}
         
@@ -65,8 +64,7 @@ class HLRSA: NSObject {
                 let index = Int(workingN / power)
                 
  //               print( "intToString-  workingN: \(workingN)  power: \(power)" )
-                let c = String(charSet[index])
-                result = String(format: "%@%@", c, result)
+                result.append(charSet[index-1])
            }
             workingN %= power
  //           print( "intToString-  result: \(result)" )
@@ -93,7 +91,9 @@ class HLRSA: NSObject {
                 }
                 
                 let plaintextInt = stringToInt(text: chunk)
+                let pString = intToString(n: plaintextInt)
                 let cypher = encode(m: plaintextInt, key: keyPublic)
+                print( "chunk: \(chunk)    pString: \(pString)" )
                 let cypherString = intToString(n: cypher)
                 
                 let deCypherInt = encode(m: cypher, key: keyPrivate)
@@ -108,7 +108,7 @@ class HLRSA: NSObject {
     
     func indexForChar( c: Character) -> Int {
         var index = Int(charSetSize - 1)
-        while index > 0  {
+        while index >= 0  {
             let d = charSet[index]
             if c == d   {
                 break
@@ -200,7 +200,7 @@ class HLRSA: NSObject {
     init(p: Int64, q: Int64) {
         N = p * q
         Gamma = (p-1) * (q-1)
-        charSetSize = Int64(charSet.count)   //  don't use value at index 0
+        charSetSize = Int64(charSet.count)
         
         print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)" )
         super.init()
