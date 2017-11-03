@@ -10,12 +10,13 @@ import XCTest
 
 class RSAToolTests: XCTestCase {
 
-    let rsa = HLRSA(p: 5087, q: 4547)
+    var rsa: HLRSA!
     let kPublic = Int64(72167)
     let kPrivate = Int64(2913227)
 
     override func setUp() {
         super.setUp()
+        rsa = HLRSA(p: 5087, q: 4547)
         rsa.keyPublic = kPublic
         rsa.keyPrivate = kPrivate
     }
@@ -34,11 +35,14 @@ class RSAToolTests: XCTestCase {
     }
     
     func testEncodeDecode() {
-        let plaintextInt = Int64(10)
-        let cypherInt = rsa.encode(m: plaintextInt, key: rsa.keyPublic)
-        let decypherInt = rsa.encode(m: cypherInt, key: rsa.keyPrivate)
-        print( "plaintextInt: \(plaintextInt)    cypherInt: \(cypherInt)    decypherInt: \(decypherInt)" )
-        XCTAssertEqual(plaintextInt, decypherInt, "\(plaintextInt) does not equal \(decypherInt)")
+        for testInt in 1...1000 {
+     //       let plaintextInt = Int64(23130590)
+            let plaintextInt = Int64(testInt)
+            let cypherInt = rsa.encode(m: plaintextInt, key: rsa.keyPublic)
+            let decypherInt = rsa.encode(m: cypherInt, key: rsa.keyPrivate)
+            print( "plaintextInt: \(plaintextInt)    cypherInt: \(cypherInt)    decypherInt: \(decypherInt)" )
+            XCTAssertEqual(plaintextInt, decypherInt, "\(plaintextInt) does not equal \(decypherInt)")
+        }
     }
     
     func testPerformanceExample() {
