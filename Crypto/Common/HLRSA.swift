@@ -25,7 +25,7 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize = 3
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -40,13 +40,12 @@ class HLRSA: NSObject {
     
     func stringToInt(text: String) -> HLPrimeType {
         var result: HLPrimeType = 0
-//        var power: HLPrimeType = charSetSize
         
         for char in text    {
             result *= charSetSize
-            result += Int64(indexForChar(c: char)+1)
-//            power /= charSetSize
-            print( "stringToInt-  char: \(char)  result: \(result)" )
+            let n = Int64(indexForChar(c: char))
+            print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
+            result += n
        }
         
         return result
@@ -64,7 +63,7 @@ class HLRSA: NSObject {
                 let index = Int(workingN / power)
                 
  //               print( "intToString-  workingN: \(workingN)  power: \(power)" )
-                result.append(charSet[index-1])
+                result.append(charSet[index])
            }
             workingN %= power
  //           print( "intToString-  result: \(result)" )
