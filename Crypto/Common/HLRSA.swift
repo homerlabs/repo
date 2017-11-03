@@ -23,7 +23,7 @@ class HLRSA: NSObject {
     let Gamma: HLPrimeType
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
-    let chuckSize = 5
+    let chuckSize: Int
     let charSetSize: HLPrimeType
     let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
@@ -198,8 +198,11 @@ class HLRSA: NSObject {
         N = p * q
         Gamma = (p-1) * (q-1)
         charSetSize = Int64(charSet.count)
+        let x = log(Double(N)) / log(Double(charSetSize))
+    //    print( "HLRSA-  init-  x: \(x)" )
+        chuckSize = Int(x)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)    chuckSize: \(chuckSize)" )
         super.init()
     }
 }
