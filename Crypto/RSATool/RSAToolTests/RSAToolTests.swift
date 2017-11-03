@@ -35,12 +35,16 @@ class RSAToolTests: XCTestCase {
     }
     
     func testEncodeDecode() {
-        for testInt in 1...1000 {
+        for testInt in 1...100000000 {
      //       let plaintextInt = Int64(23130590)
             let plaintextInt = Int64(testInt)
             let cypherInt = rsa.encode(m: plaintextInt, key: rsa.keyPublic)
             let decypherInt = rsa.encode(m: cypherInt, key: rsa.keyPrivate)
-            print( "plaintextInt: \(plaintextInt)    cypherInt: \(cypherInt)    decypherInt: \(decypherInt)" )
+            
+            if testInt % 10000 == 1  {
+                print( "plaintextInt: \(plaintextInt)    cypherInt: \(cypherInt)    decypherInt: \(decypherInt)" )
+            }
+            
             XCTAssertEqual(plaintextInt, decypherInt, "\(plaintextInt) does not equal \(decypherInt)")
         }
     }

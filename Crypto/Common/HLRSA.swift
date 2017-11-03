@@ -32,8 +32,8 @@ class HLRSA: NSObject {
     
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
         let result = fastExpOf(a: m, exp: key, mod: N)
-        let result2 = slowExpOf(a: m, exp: key, mod: N)
-        assert(result == result2 )
+//        let result2 = slowExpOf(a: m, exp: key, mod: N)
+//        assert(result == result2 )
         return result
     }
     
