@@ -15,7 +15,21 @@
 		B08176601F993D2B00772AFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765F1F993D2B00772AFC /* ViewController.swift */; };
 		B08176621F993D2B00772AFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B08176611F993D2B00772AFC /* Assets.xcassets */; };
 		B08176651F993D2B00772AFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B08176631F993D2B00772AFC /* Main.storyboard */; };
+		B0FC2FB91FACD1C50071DD9B /* RSAToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */; };
+		B0FC2FC01FACD25D0071DD9B /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */; };
+		B0FC2FC11FACD36A0071DD9B /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0439C101FA4063800EC83A0 /* HLPrime.swift */; };
+		B0FC2FC21FACD3B30071DD9B /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0439C0F1FA4063800EC83A0 /* HLFileManager.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0FC2FBB1FACD1C50071DD9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B08176521F993D2B00772AFC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B08176591F993D2B00772AFC;
+			remoteInfo = RSATool;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HLPrimes.txt; sourceTree = "<group>"; };
@@ -30,11 +44,20 @@
 		B08176611F993D2B00772AFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B08176641F993D2B00772AFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B08176661F993D2B00772AFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B08176671F993D2B00772AFC /* RSATool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSATool.entitlements; sourceTree = "<group>"; };
+		B0FC2FB61FACD1C50071DD9B /* RSAToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSAToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSAToolTests.swift; sourceTree = "<group>"; };
+		B0FC2FBA1FACD1C50071DD9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B08176571F993D2B00772AFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FC2FB31FACD1C50071DD9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -62,6 +85,7 @@
 			children = (
 				B0439C0D1FA4063800EC83A0 /* Common */,
 				B081765C1F993D2B00772AFC /* RSATool */,
+				B0FC2FB71FACD1C50071DD9B /* RSAToolTests */,
 				B081765B1F993D2B00772AFC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				B081765A1F993D2B00772AFC /* RSATool.app */,
+				B0FC2FB61FACD1C50071DD9B /* RSAToolTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,9 +108,17 @@
 				B081765F1F993D2B00772AFC /* ViewController.swift */,
 				B08176611F993D2B00772AFC /* Assets.xcassets */,
 				B08176661F993D2B00772AFC /* Info.plist */,
-				B08176671F993D2B00772AFC /* RSATool.entitlements */,
 			);
 			path = RSATool;
+			sourceTree = "<group>";
+		};
+		B0FC2FB71FACD1C50071DD9B /* RSAToolTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */,
+				B0FC2FBA1FACD1C50071DD9B /* Info.plist */,
+			);
+			path = RSAToolTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,13 +141,31 @@
 			productReference = B081765A1F993D2B00772AFC /* RSATool.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B0FC2FB51FACD1C50071DD9B /* RSAToolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FC2FBD1FACD1C50071DD9B /* Build configuration list for PBXNativeTarget "RSAToolTests" */;
+			buildPhases = (
+				B0FC2FB21FACD1C50071DD9B /* Sources */,
+				B0FC2FB31FACD1C50071DD9B /* Frameworks */,
+				B0FC2FB41FACD1C50071DD9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0FC2FBC1FACD1C50071DD9B /* PBXTargetDependency */,
+			);
+			name = RSAToolTests;
+			productName = RSAToolTests;
+			productReference = B0FC2FB61FACD1C50071DD9B /* RSAToolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B08176521F993D2B00772AFC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Matthew Homer";
 				TargetAttributes = {
@@ -126,6 +177,11 @@
 								enabled = 0;
 							};
 						};
+					};
+					B0FC2FB51FACD1C50071DD9B = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B08176591F993D2B00772AFC;
 					};
 				};
 			};
@@ -143,6 +199,7 @@
 			projectRoot = "";
 			targets = (
 				B08176591F993D2B00772AFC /* RSATool */,
+				B0FC2FB51FACD1C50071DD9B /* RSAToolTests */,
 			);
 		};
 /* End PBXProject section */
@@ -155,6 +212,13 @@
 				B08176621F993D2B00772AFC /* Assets.xcassets in Resources */,
 				B0439C121FA4063800EC83A0 /* HLPrimes.txt in Resources */,
 				B08176651F993D2B00772AFC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FC2FB41FACD1C50071DD9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +237,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0FC2FB21FACD1C50071DD9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FC2FC01FACD25D0071DD9B /* HLRSA.swift in Sources */,
+				B0FC2FC21FACD3B30071DD9B /* HLFileManager.m in Sources */,
+				B0FC2FB91FACD1C50071DD9B /* RSAToolTests.swift in Sources */,
+				B0FC2FC11FACD36A0071DD9B /* HLPrime.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0FC2FBC1FACD1C50071DD9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B08176591F993D2B00772AFC /* RSATool */;
+			targetProxy = B0FC2FBB1FACD1C50071DD9B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B08176631F993D2B00772AFC /* Main.storyboard */ = {
@@ -325,6 +408,40 @@
 			};
 			name = Release;
 		};
+		B0FC2FBE1FACD1C50071DD9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = RSAToolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.RSAToolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RSATool/RSATool-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RSATool.app/Contents/MacOS/RSATool";
+			};
+			name = Debug;
+		};
+		B0FC2FBF1FACD1C50071DD9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = RSAToolTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.RSAToolTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "RSATool/RSATool-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RSATool.app/Contents/MacOS/RSATool";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -342,6 +459,15 @@
 			buildConfigurations = (
 				B081766B1F993D2B00772AFC /* Debug */,
 				B081766C1F993D2B00772AFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FC2FBD1FACD1C50071DD9B /* Build configuration list for PBXNativeTarget "RSAToolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FC2FBE1FACD1C50071DD9B /* Debug */,
+				B0FC2FBF1FACD1C50071DD9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
