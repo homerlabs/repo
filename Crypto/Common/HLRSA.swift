@@ -23,7 +23,7 @@ class HLRSA: NSObject {
     let Gamma: HLPrimeType
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
-    let chuckSize = 3
+    let chuckSize = 4
     let charSetSize: HLPrimeType
     let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
@@ -32,8 +32,8 @@ class HLRSA: NSObject {
     
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
         let result = fastExpOf(a: m, exp: key, mod: N)
-  //      let result2 = slowExpOf(a: m, exp: key, mod: N)
-  //      assert(result == result2 )
+//        let result2 = slowExpOf(a: m, exp: key, mod: N)
+//        assert(result == result2 )
         return result
     }
     
@@ -44,7 +44,7 @@ class HLRSA: NSObject {
         for char in text    {
             result *= charSetSize
             let n = Int64(indexForChar(c: char))
-            print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
+     //       print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
             result += n
        }
         
@@ -90,9 +90,7 @@ class HLRSA: NSObject {
                 }
                 
                 let plaintextInt = stringToInt(text: chunk)
-                let pString = intToString(n: plaintextInt)
                 let cypher = encode(m: plaintextInt, key: keyPublic)
-                print( "chunk: \(chunk)    pString: \(pString)" )
                 let cypherString = intToString(n: cypher)
                 
                 let deCypherInt = encode(m: cypher, key: keyPrivate)
