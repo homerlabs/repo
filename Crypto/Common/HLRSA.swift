@@ -31,8 +31,8 @@ class HLRSA: NSObject {
     
     
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
-        let result = fastExpOf(a: m, exp: key, mod: N)
-//        let result2 = slowExpOf(a: m, exp: key, mod: N)
+//        let result = fastExpOf(a: m, exp: key, mod: N)
+        let result = slowExpOf(a: m, exp: key, mod: N)
 //        assert(result == result2 )
         return result
     }
@@ -165,13 +165,22 @@ class HLRSA: NSObject {
         
   //          print( "i: \(i)   bitIndex: \(bitIndex)" )
             c *= 2
-            d = (d * d) % mod
-            
+            let doubleD = Double(d)
+            let temp = doubleD * doubleD
+            let temp2 = temp.truncatingRemainder(dividingBy: Double(mod))
+  //          print( "temp2a: \(temp2)" )
+   //         d = (d * d) % mod
+            d = Int64(temp2)
+
            let testB = exp & bitIndex > 0
            
            if testB   {
                 c += 1
-                d = (d * a) % mod
+ //               d = (d * a) % mod
+                let temp = Double(d) * Double(a)
+                let temp2 = temp.truncatingRemainder(dividingBy: Double(mod))
+      //          print( "temp2b: \(temp2)" )
+                d = Int64(temp2)
             }
             
       //     print( "i: \(i)   testB: \(testB)    c: \(c)   d: \(d)   " )
@@ -184,14 +193,19 @@ class HLRSA: NSObject {
 
     func slowExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
         
-        var c: HLPrimeType = a
-        
+    //    var c: HLPrimeType = a
+        let doubleA = Double(a)
+        var doubleC = Double(a)
+
         for _ in 2...exp    {
-            c *= a
-            c %= mod
+        //    c *= a
+        //    c %= mod
+            
+            doubleC *= doubleA
+            doubleC = doubleC.truncatingRemainder(dividingBy: Double(mod))
         }
 
-        return c
+        return Int64(doubleC)
     }
 
     init(p: Int64, q: Int64) {
