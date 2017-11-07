@@ -17,6 +17,8 @@
 //************************************************************************
 import Cocoa
 
+typealias HLPrimeType = Int64
+
 class HLRSA: NSObject {
 
     let N: HLPrimeType
@@ -31,8 +33,8 @@ class HLRSA: NSObject {
     
     
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
-//        let result = fastExpOf(a: m, exp: key, mod: N)
-        let result = slowExpOf(a: m, exp: key, mod: N)
+        let result = fastExpOf(a: m, exp: key, mod: N)
+//        let result = slowExpOf(a: m, exp: key, mod: N)
 //        assert(result == result2 )
         return result
     }

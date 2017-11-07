@@ -7,19 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B0439C121FA4063800EC83A0 /* HLPrimes.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */; };
 		B0439C131FA4063800EC83A0 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0439C0F1FA4063800EC83A0 /* HLFileManager.m */; };
-		B0439C141FA4063800EC83A0 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0439C101FA4063800EC83A0 /* HLPrime.swift */; };
 		B04CBCDB1FA7B02C00D02AC9 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */; };
 		B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765D1F993D2B00772AFC /* AppDelegate.swift */; };
 		B08176601F993D2B00772AFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765F1F993D2B00772AFC /* ViewController.swift */; };
 		B08176621F993D2B00772AFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B08176611F993D2B00772AFC /* Assets.xcassets */; };
 		B08176651F993D2B00772AFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B08176631F993D2B00772AFC /* Main.storyboard */; };
 		B089FDF91FB1FD00006D45DA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B089FDF81FB1FD00006D45DA /* String+Extension.swift */; };
-		B089FDFB1FB1FE3A006D45DA /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B089FDFA1FB1FE3A006D45DA /* HLPrimeTable.swift */; };
 		B0FC2FB91FACD1C50071DD9B /* RSAToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */; };
 		B0FC2FC01FACD25D0071DD9B /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */; };
-		B0FC2FC11FACD36A0071DD9B /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0439C101FA4063800EC83A0 /* HLPrime.swift */; };
 		B0FC2FC21FACD3B30071DD9B /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0439C0F1FA4063800EC83A0 /* HLFileManager.m */; };
 /* End PBXBuildFile section */
 
@@ -34,9 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HLPrimes.txt; sourceTree = "<group>"; };
 		B0439C0F1FA4063800EC83A0 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
-		B0439C101FA4063800EC83A0 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
 		B0439C111FA4063800EC83A0 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
 		B056E5911FA8DB8F0078D728 /* RSATool-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSATool-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -47,7 +41,6 @@
 		B08176641F993D2B00772AFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B08176661F993D2B00772AFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B089FDF81FB1FD00006D45DA /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		B089FDFA1FB1FE3A006D45DA /* HLPrimeTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPrimeTable.swift; sourceTree = "<group>"; };
 		B0FC2FB61FACD1C50071DD9B /* RSAToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSAToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSAToolTests.swift; sourceTree = "<group>"; };
 		B0FC2FBA1FACD1C50071DD9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,10 +67,7 @@
 		B0439C0D1FA4063800EC83A0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B089FDFA1FB1FE3A006D45DA /* HLPrimeTable.swift */,
 				B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */,
-				B0439C0E1FA4063800EC83A0 /* HLPrimes.txt */,
-				B0439C101FA4063800EC83A0 /* HLPrime.swift */,
 				B0439C111FA4063800EC83A0 /* HLFileManager.h */,
 				B0439C0F1FA4063800EC83A0 /* HLFileManager.m */,
 				B089FDF81FB1FD00006D45DA /* String+Extension.swift */,
@@ -216,7 +206,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B08176621F993D2B00772AFC /* Assets.xcassets in Resources */,
-				B0439C121FA4063800EC83A0 /* HLPrimes.txt in Resources */,
 				B08176651F993D2B00772AFC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,9 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B08176601F993D2B00772AFC /* ViewController.swift in Sources */,
-				B0439C141FA4063800EC83A0 /* HLPrime.swift in Sources */,
 				B04CBCDB1FA7B02C00D02AC9 /* HLRSA.swift in Sources */,
-				B089FDFB1FB1FE3A006D45DA /* HLPrimeTable.swift in Sources */,
 				B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */,
 				B089FDF91FB1FD00006D45DA /* String+Extension.swift in Sources */,
 				B0439C131FA4063800EC83A0 /* HLFileManager.m in Sources */,
@@ -252,7 +239,6 @@
 				B0FC2FC01FACD25D0071DD9B /* HLRSA.swift in Sources */,
 				B0FC2FC21FACD3B30071DD9B /* HLFileManager.m in Sources */,
 				B0FC2FB91FACD1C50071DD9B /* RSAToolTests.swift in Sources */,
-				B0FC2FC11FACD36A0071DD9B /* HLPrime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
