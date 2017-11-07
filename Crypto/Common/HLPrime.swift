@@ -71,7 +71,7 @@ class HLPrime: NSObject {
             if openResult == 0  {
                 repeat  {
                     if let nextLine = self.fileManager.readPrimesFileLine()    {
-                        (self.lastN, self.lastP) = self.parseLine(line: nextLine)
+                        (self.lastN, self.lastP) = nextLine.parseLine()
                         self.buf.append(self.lastP)
                     }
                     else    {
@@ -183,20 +183,20 @@ class HLPrime: NSObject {
                     self.lastP = 0
                     repeat {    //  advance to the next prime to factor
                         let line = self.fileManager.readPrimesFileLine()
-                        (_, self.lastP) = self.parseLine(line: line!)
+                        (_, self.lastP) = line!.parseLine()
                     } while self.lastP != lastfactor
 
                     print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
 
                     let lastPrimeLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
-                    (self.lastN, self.lastP) = self.parseLine(line: lastPrimeLine)
+                    (self.lastN, self.lastP) = lastPrimeLine.parseLine()
                     print( "factorPrimes-  Starting at-  lastN: \(self.lastN)    lastP: \(self.lastP)" )
                    
                     repeat {
                         let line = self.fileManager.readPrimesFileLine()
                         if line == nil  {   break   }   //  watch for end of file
                         
-                        (_, self.lastP) = self.parseLine(line: line!)
+                        (_, self.lastP) = line!.parseLine()
                         let factoredPrime = self.factor(prime: self.lastP)
                         self.fileManager.appendFactoredLine(factoredPrime)
  
@@ -229,7 +229,7 @@ class HLPrime: NSObject {
             self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
 
              //  find out where we left off and continue from there
-            (self.lastN, self.lastP) = self.parseLine(line: self.primeFileLastLine!)
+            (self.lastN, self.lastP) = self.primeFileLastLine!.parseLine()
             print( "current makePrimes-  lastN: \(self.lastN)    lastP: \(self.lastP)" )
 
             self.lastN += 1
@@ -256,7 +256,7 @@ class HLPrime: NSObject {
 
             DispatchQueue.main.async {
                 self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
-                let (newLastN, newLastP) = self.parseLine(line: self.primeFileLastLine!)
+                let (newLastN, newLastP) = self.primeFileLastLine!.parseLine()
                 print( "new makePrimes-  lastN: \(newLastN)    lastP: \(newLastP)" )
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
  //               print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
@@ -266,18 +266,6 @@ class HLPrime: NSObject {
         }
     }
 
-    func parseLine(line: String) -> (index: Int, prime: Int64)  {
-        if let index = line.index(of: "\t") {
-            let index2 = line.index(after: index)
-            let lastN = line.prefix(upTo: index)
-            let lastP = line.suffix(from: index2)
-            return (Int(lastN)!, Int64(lastP)!)
-        }
-        else    {
-            return (0, 0)
-        }
-    }
-    
     init(primeFilePath: String, modCount: Int32, delegate: HLPrimesProtocol)  {
         fileManager = HLFileManager(modCount)
         primesDelegate = delegate
@@ -290,7 +278,7 @@ class HLPrime: NSObject {
 
         if let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path) {
             self.primeFileLastLine = primeFileLastLine
-            (lastN, lastP) = parseLine(line: primeFileLastLine)
+            (lastN, lastP) = primeFileLastLine.parseLine()
             print( "\(primesFileURL.path) found. last line:  lastN: \(lastN)    lastP: \(lastP)" )
         }
 

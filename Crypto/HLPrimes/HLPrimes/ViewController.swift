@@ -185,7 +185,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     func checkLargestPrimeSizeIsOk(largestPrimeToFind: String, primeFileLastLine: String?) -> Bool   {
         var isOk = true
         if let fileLastLine = primeFileLastLine     {
-            let (_, lastP) = primeFinder.parseLine(line: fileLastLine)
+            let (_, lastP) = fileLastLine.parseLine()
             let terminalPrime = terminalPrimeTextField.stringValue
             let largestPrimeNeeded = Int64(sqrt(Double(terminalPrime)!))
             if largestPrimeNeeded > lastP   {

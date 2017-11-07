@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B08742951F9FB27200958468 /* HLPrimes.txt in Resources */ = {isa = PBXBuildFile; fileRef = B08742941F9FB27200958468 /* HLPrimes.txt */; };
+		B089FDF71FB1FBF1006D45DA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B089FDF61FB1FBF1006D45DA /* String+Extension.swift */; };
 		B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */; };
 		B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBB1E1EDB17FC00564DDB /* ViewController.swift */; };
 		B09FBB211EDB17FC00564DDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B09FBB201EDB17FC00564DDB /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		B08742941F9FB27200958468 /* HLPrimes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HLPrimes.txt; sourceTree = "<group>"; };
+		B089FDF61FB1FBF1006D45DA /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B09FBB191EDB17FC00564DDB /* HLPrimes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLPrimes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B09FBB1C1EDB17FC00564DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B09FBB1E1EDB17FC00564DDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				B0EF7B241FA8DA4A000AC3A3 /* HLFileManager.m */,
 				B08742941F9FB27200958468 /* HLPrimes.txt */,
 				B0CDC68D1F9940AD00FEFA09 /* HLPrime.swift */,
+				B089FDF61FB1FBF1006D45DA /* String+Extension.swift */,
 			);
 			name = Common;
 			path = ../Common;
@@ -225,6 +228,7 @@
 				B09FBB1F1EDB17FC00564DDB /* ViewController.swift in Sources */,
 				B0EF7B261FA8DA4A000AC3A3 /* HLFileManager.m in Sources */,
 				B0CDC68E1F9940AD00FEFA09 /* HLPrime.swift in Sources */,
+				B089FDF71FB1FBF1006D45DA /* String+Extension.swift in Sources */,
 				B09FBB1D1EDB17FC00564DDB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
