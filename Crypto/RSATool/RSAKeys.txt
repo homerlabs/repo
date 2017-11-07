@@ -1,0 +1,7 @@
+P: 329027
+Q: 328103
+N: 107,954,745,781
+Public Key: 1431047
+Private Key: 106795902287
+CharSetSize: 69
+ChuckSize: 6
