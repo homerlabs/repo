@@ -45,21 +45,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBAction func primeStartAction(sender: NSButton) {
         
         if primeStartButton.state == .on {
-            print( "\n    *********   Loading buffer to begin finding primes                *********" )
             primeStartButton.title = "Running"
-            
-            let _ = checkLargestPrimeSizeIsOk(largestPrimeToFind: terminalPrimeTextField.stringValue, primeFileLastLine: primeLastLine)
-            let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
-            let largestTestPrime = Int64(sqrt(Double(lastPrime)))
-            errorCode = primeFinder.loadBufFor(largestPrime: largestTestPrime)
-            if errorCode != 0   {   //  serious error
-                //  alert user with some kind of hint?
-                print( "    *********   Serious Error-  Bad File Path    *********" )
-                primeStartButton.title = "Prime Start"
-                primeStartButton.state = .off
-                return
-            }
-            
+            primeFinder.findPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
             findPrimesInProgress = true
         }
         else    {
@@ -72,20 +59,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBAction func factorStartAction(sender: NSButton) {
         
         if factorStartButton.state == .on {
-            print( "\n    *********   Loading buffer to begin factoring primes                   *********" )
             factorStartButton.title = "Running"
-            let lastPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
-
-            let largestTestPrime = lastPrime / 2
-            errorCode = primeFinder.loadBufFor(largestPrime: largestTestPrime)
-            if errorCode != 0   {   //  serious error
-                //  alert user with some kind of hint?
-                print( "    *********   Serious Error-  Bad File Path    *********" )
-                factorStartButton.title = "Fator Start"
-                factorStartButton.state = .off
-                return
-            }
-            
+            primeFinder.factorPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
             factorPrimesInProgress = true
         }
         else    {
@@ -95,11 +70,10 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
    }
    
-   
     //*************   HLPrimeProtocol     *********************************************************
-    func makePrimesCompleted()  {
+    func findPrimesCompleted()  {
         let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
-        print( "    *********   makePrimes completed in \(elaspsedTime)    *********\n" )
+        print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         primeStartButton.title = "Completed"
@@ -114,34 +88,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         factorStartButton.title = "Completed"
         factorStartButton.isEnabled = false
 
-        primeFinder.makeNicePrimesFile()
-    }
-    
-    func loadBufCompleted()    {
-        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
-        print( "    *********   loadBuf completed with last prime = \(primeFinder.largestBufPrime)  in \(elaspsedTime)   *********" )
-        
-        let terminalPrime: HLPrimeType = Int64(terminalPrimeTextField.stringValue)!
-        
-        if findPrimesInProgress   {
-            let largestPossiblePrimeToFactor = primeFinder.largestBufPrime * primeFinder.largestBufPrime
-            if largestPossiblePrimeToFactor < terminalPrime  {
-                print( "terminalPrime: \(terminalPrime)    largestPossiblePrimeToFactor: \(largestPossiblePrimeToFactor)" )
-                terminalPrimeTextField.stringValue = String(largestPossiblePrimeToFactor)
-            }
-            
-            primeFinder.makePrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
-        }
-        
-        if factorPrimesInProgress   {
-            let largestPossiblePrimeToFactor = primeFinder.largestBufPrime * 2
-            if largestPossiblePrimeToFactor < terminalPrime  {
-                print( "terminalPrime: \(terminalPrime)    largestPossiblePrimeToFactor: \(largestPossiblePrimeToFactor)" )
-                terminalPrimeTextField.stringValue = String(largestPossiblePrimeToFactor)
-            }
-            
-            primeFinder.factorPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
-        }
+  //      primeFinder.makeNicePrimesFile()
     }
     //*************   HLPrimeProtocol     *********************************************************
 
@@ -180,26 +127,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         
         UserDefaults.standard.synchronize()
         return true
-    }
-    
-    func checkLargestPrimeSizeIsOk(largestPrimeToFind: String, primeFileLastLine: String?) -> Bool   {
-        var isOk = true
-        if let fileLastLine = primeFileLastLine     {
-            let (_, lastP) = fileLastLine.parseLine()
-            let terminalPrime = terminalPrimeTextField.stringValue
-            let largestPrimeNeeded = Int64(sqrt(Double(terminalPrime)!))
-            if largestPrimeNeeded > lastP   {
-                isOk = false
-                let largestPossibleTestPrime = lastP * lastP
-                terminalPrimeTextField.stringValue = String(largestPossibleTestPrime)
-                UserDefaults.standard.set(largestPossibleTestPrime, forKey:HLDefaultTerminalPrimeKey)
-                UserDefaults.standard.synchronize()
-            }
-        }
-        
-        else    {   isOk = false   }
-        
-        return isOk
     }
     
     func formatTime(timeInSeconds: Int) -> String   {
@@ -241,8 +168,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         primeLastLine = primeFinder.primeFileLastLine
         if primeLastLine != nil  {
             lastLinePrimeTextField.stringValue = primeLastLine!
-            let _ = checkLargestPrimeSizeIsOk(largestPrimeToFind: terminalPrimeTextField.stringValue, primeFileLastLine: primeLastLine!)
-
         }
         else    {
             terminalPrimeTextField.stringValue = defaultTerminalPrime
