@@ -88,7 +88,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         factorStartButton.title = "Completed"
         factorStartButton.isEnabled = false
 
-  //      primeFinder.makeNicePrimesFile()
+ //       primeFinder.makeNicePrimesFile()
     }
     //*************   HLPrimeProtocol     *********************************************************
 

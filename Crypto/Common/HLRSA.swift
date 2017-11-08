@@ -27,15 +27,16 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", "+", "=", "*", "/", " ",
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", "+", "=", "*",// "/", " ",
   //                           "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
         let result = fastExpOf(a: m, exp: key, mod: N)
-//        let result = slowExpOf(a: m, exp: key, mod: N)
+        let result2 = slowExpOf(a: m, exp: key, mod: N)
 //        assert(result == result2 )
+        print( "encode-  result: \(result)  result2: \(result2)" )
         return result
     }
     
@@ -122,6 +123,44 @@ class HLRSA: NSObject {
     
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
+        let bigGamma = Float80(exactly: Gamma)!
+        var s: [Float80] = Array(repeating: 0, count: arraySize)
+        var t: [Float80] = Array(repeating: 0, count: arraySize)
+        var r: [Float80] = Array(repeating: 0, count: arraySize)
+        s[0] = 1
+        s[1] = 0
+        t[0] = 0
+        t[1] = 1
+        r[0] = bigGamma
+        r[1] = Float80(exactly: publicKey)!
+        var i = 1
+        
+        while r[i].rounded() != 1 && r[i].rounded() != 0    {
+            i += 1
+            let bigQ = r[i-2] / r[i-1]
+            let bigInt = Int64(bigQ)
+            let q = Float80(exactly: bigInt)!
+            s[i] = s[i-2] - q * s[i-1]
+            t[i] = t[i-2] - q * t[i-1]
+            r[i] = r[i-2] - q * r[i-1]
+  //          print( "i: \(i)    r[i]: \(r[i])" )
+        }
+
+        if r[i].rounded() == 1        {
+            var privateKey = t[i]
+            if privateKey <= 0     {   privateKey += bigGamma       }
+            
+            let product = Float80(exactly: publicKey)! * Float80(exactly: privateKey)!
+            let keyVerify = product.truncatingRemainder(dividingBy: bigGamma)
+            assert( keyVerify.rounded() == 1 )
+            return Int64(exactly: privateKey)!
+        }
+        
+        else                {   return -1            }
+    }
+
+    func calculateKey2(publicKey: HLPrimeType) -> HLPrimeType  {
+        let arraySize = 50
         var s: [HLPrimeType] = Array(repeating: 0, count: arraySize)
         var t: [HLPrimeType] = Array(repeating: 0, count: arraySize)
         var r: [HLPrimeType] = Array(repeating: 0, count: arraySize)
@@ -146,7 +185,8 @@ class HLRSA: NSObject {
             var privateKey = t[i]
             if privateKey <= 0     {   privateKey += Gamma       }
             
-            let keyVerify = (publicKey * privateKey) % Gamma
+            let product = Float80(exactly: publicKey)! * Float80(exactly: privateKey)!
+            let keyVerify = product.truncatingRemainder(dividingBy: Float80(exactly: Gamma)!)
             assert( keyVerify == 1 )
             return privateKey
         }
@@ -168,7 +208,8 @@ class HLRSA: NSObject {
         
   //          print( "i: \(i)   bitIndex: \(bitIndex)" )
             c *= 2
-            let temp = Float80(d) * Float80(d)
+            let bigD = Float80(d)
+            let temp = Float80(exactly: (bigD * bigD))!
             let temp2 = temp.truncatingRemainder(dividingBy: Float80(mod))
   //          print( "temp2a: \(temp2)" )
   //          d = (d * d) % mod
@@ -179,7 +220,9 @@ class HLRSA: NSObject {
            if testB   {
                 c += 1
         //        d = (d * a) % mod
-                let temp = Float80(d) * Float80(a)
+                let bigD = Float80(d)
+                let bigA = Float80(a)
+                let temp = Float80(exactly: (bigD * bigA))!
                 let temp2 = temp.truncatingRemainder(dividingBy: Float80(mod))
       //          print( "temp2b: \(temp2)" )
                 d = Int64(temp2)
@@ -195,15 +238,16 @@ class HLRSA: NSObject {
 
     func slowExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
         
-        let doubleA = Float80(a)
-        var doubleC = Float80(a)
+        let bigMod = Float80(mod)
+        let bigA = Float80(a)
+        var bigC = bigA
 
         for _ in 2...exp    {
-            doubleC *= doubleA
-            doubleC = doubleC.truncatingRemainder(dividingBy: Float80(mod))
+            bigC *= bigA
+            bigC = bigC.truncatingRemainder(dividingBy: bigMod)
         }
 
-       return Int64(doubleC)
+       return Int64(bigC)
     }
 
     init(p: Int64, q: Int64) {

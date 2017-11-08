@@ -11,12 +11,12 @@ import XCTest
 class RSAToolTests: XCTestCase {
 
     var rsa: HLRSA!
-    let kPublic = Int64(36083)
-    let kPrivate = Int64(1087609427)
+    let kPublic = Int64(9999047)
+    let kPrivate = Int64(3935380523)
 
     override func setUp() {
         super.setUp()
-        rsa = HLRSA(p: 45503, q: 45707)
+        rsa = HLRSA(p: 91943, q: 90659)
         rsa.keyPublic = kPublic
         rsa.keyPrivate = kPrivate
     }
@@ -27,7 +27,7 @@ class RSAToolTests: XCTestCase {
     }
     
     func testStringToInt() {
-        let messageString = "12345"
+        let messageString = "1234567"
         let messageInt = rsa.stringToInt(text: messageString)
         let newString = rsa.intToString(n: messageInt)
         print( "messageString: \(messageString)    messageInt: \(messageInt)    newString: \(newString)" )

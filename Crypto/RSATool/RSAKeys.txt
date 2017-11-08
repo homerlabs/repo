@@ -24,7 +24,6 @@ CharSetSize: 73
 ChuckSize: 5
 
 
-Encode crashes
 for 2**32 = 4,294,967,296
 and 40**6 = 4,096,000,000
 
@@ -36,3 +35,64 @@ Public Key: 71999
 Private Key: 924860891
 CharSetSize: 40
 ChuckSize: 6
+
+
+doesn't work
+for 2**33 = 8,589,934,592
+and 45**6 = 8,303,765,625
+
+P: 91943
+Q: 90659
+N: 8335460437
+G: 8335277836
+Public Key: 9999047
+Private Key: 3935380523
+CharSetSize: 45
+ChuckSize: 6
+
+
+doesn't work
+for 2**36 = 68,719,476,736
+and 64**6 = 68,719,476,736
+
+P: 262643
+Q: 262127
+N: 68845821661
+G: 68845296892
+Public Key: 9999047
+Private Key: 21606188267
+CharSetSize: 64
+ChuckSize: 6
+
+
+doesn't work
+for 2**39 = 549,755,813,888
+and 47**7 = 506,623,120,463
+
+P: 711707
+Q: 712883
+N: 507363821281
+G: 507362396692
+Public Key: 9999047
+Private Key: 342111856399
+CharSetSize: 47
+ChuckSize: 7
+
+
+HLRSA-  init-  p: 91943    q: 90659    N: 8335460437    Gamma: 8335277836    charSetSize: 45    chuckSize: 6
+i: 2    r[i]: 6071685
+i: 3    r[i]: 3927362
+i: 4    r[i]: 2144323
+i: 5    r[i]: 1783039
+i: 6    r[i]: 361284
+i: 7    r[i]: 337903
+i: 8    r[i]: 23381
+i: 9    r[i]: 10569
+i: 10    r[i]: 2243
+i: 11    r[i]: 1597
+i: 12    r[i]: 646
+i: 13    r[i]: 305
+i: 14    r[i]: 36
+i: 15    r[i]: 17
+i: 16    r[i]: 2
+i: 17    r[i]: 1
