@@ -27,7 +27,7 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", " ",
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", "+", "=", "*", "/", " ",
                              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -145,6 +145,7 @@ class HLRSA: NSObject {
         if r[i] == 1        {
             var privateKey = t[i]
             if privateKey <= 0     {   privateKey += Gamma       }
+            
             let keyVerify = (publicKey * privateKey) % Gamma
             assert( keyVerify == 1 )
             return privateKey
@@ -167,22 +168,22 @@ class HLRSA: NSObject {
         
   //          print( "i: \(i)   bitIndex: \(bitIndex)" )
             c *= 2
-            let doubleD = Double(d)
-            let temp = doubleD * doubleD
-            let temp2 = temp.truncatingRemainder(dividingBy: Double(mod))
+       //     let doubleD = Double(d)
+       //     let temp = doubleD * doubleD
+       //     let temp2 = temp.truncatingRemainder(dividingBy: Double(mod))
   //          print( "temp2a: \(temp2)" )
-   //         d = (d * d) % mod
-            d = Int64(temp2)
+            d = (d * d) % mod
+   //         d = Int64(temp2)
 
            let testB = exp & bitIndex > 0
            
            if testB   {
                 c += 1
- //               d = (d * a) % mod
-                let temp = Double(d) * Double(a)
-                let temp2 = temp.truncatingRemainder(dividingBy: Double(mod))
+                d = (d * a) % mod
+       //         let temp = Double(d) * Double(a)
+       //         let temp2 = temp.truncatingRemainder(dividingBy: Double(mod))
       //          print( "temp2b: \(temp2)" )
-                d = Int64(temp2)
+      //          d = Int64(temp2)
             }
             
       //     print( "i: \(i)   testB: \(testB)    c: \(c)   d: \(d)   " )
@@ -195,19 +196,20 @@ class HLRSA: NSObject {
 
     func slowExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
         
-    //    var c: HLPrimeType = a
-        let doubleA = Double(a)
-        var doubleC = Double(a)
+        var c: HLPrimeType = a
+    //    let doubleA = Double(a)
+    //    var doubleC = Double(a)
 
         for _ in 2...exp    {
-        //    c *= a
-        //    c %= mod
+            c *= a
+            c %= mod
             
-            doubleC *= doubleA
-            doubleC = doubleC.truncatingRemainder(dividingBy: Double(mod))
+        //    doubleC *= doubleA
+        //    doubleC = doubleC.truncatingRemainder(dividingBy: Double(mod))
         }
 
-        return Int64(doubleC)
+//       return Int64(doubleC)
+        return c
     }
 
     init(p: Int64, q: Int64) {

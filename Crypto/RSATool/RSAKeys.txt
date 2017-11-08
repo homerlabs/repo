@@ -1,7 +1,24 @@
+Too BIG!!
 P: 329027
 Q: 328103
 N: 107,954,745,781
+G: 107,954,088,652
 Public Key: 1431047
 Private Key: 106795902287
 CharSetSize: 69
 ChuckSize: 6
+
+Note log(base 2) (N) = 37 (bits required)
+
+
+for 2**31 = 2,147,483,648
+and 73**5 = 2,073,071,593
+
+P: 45503
+Q: 45707
+N: 2079805621
+G: 2079714412
+Public Key: 36083
+Private Key: 1087609427
+CharSetSize: 73
+ChuckSize: 5
