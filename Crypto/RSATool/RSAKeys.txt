@@ -22,3 +22,17 @@ Public Key: 36083
 Private Key: 1087609427
 CharSetSize: 73
 ChuckSize: 5
+
+
+Encode crashes
+for 2**32 = 4,294,967,296
+and 40**6 = 4,096,000,000
+
+P: 64007
+Q: 64019
+N: 4097664133
+G: 4097536108
+Public Key: 71999
+Private Key: 924860891
+CharSetSize: 40
+ChuckSize: 6
