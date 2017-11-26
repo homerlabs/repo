@@ -39,5 +39,6 @@
 
 -(void)setModSize:(int)size;
 -(instancetype)init:(int)modulasSize;
++(instancetype)sharedManager;
 
 @end

@@ -12,35 +12,36 @@ class HLPrimeTable: NSObject {
 
     var buf: [HLPrimeType] = []
 
-    let fileManager: HLFileManager = HLFileManager(1000000)
+    let fileManager: HLFileManager = HLFileManager.shared()
     var primesFileURL: URL!
-
-    var lastN: Int = 0
-    var lastP: HLPrimeType = 0
-    var largestBufPrime: HLPrimeType
 
 
     init?(primeFileURL: URL, largestPrime: HLPrimeType)  {
-        largestBufPrime = largestPrime
         self.primesFileURL = primeFileURL
         
-        super.init()
-        print( "HLPrimeTable-  primeFileURL: \(primeFileURL)    largestPrime: \(largestPrime)" )
+        print( "HLPrimeTable-  init?-  primeFileURL: \(primeFileURL.path)    largestPrime: \(largestPrime)" )
         
         if self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) == 0  {
-            repeat  {
-                if let nextLine = self.fileManager.readPrimesFileLine()    {
-                    (self.lastN, self.lastP) = nextLine.parseLine()
-                    self.buf.append(self.lastP)
-                }
-                else    {
-                    break
-                }
-            } while self.lastP < self.largestBufPrime
+            var lastP: HLPrimeType = 0
             
-            self.largestBufPrime = self.lastP
+            if let nextLine = self.fileManager.readPrimesFileLine()    {
+                (_, lastP) = nextLine.parseLine()
+            }
+            else    {   return nil  }   //  file present but empty
+
+            while lastP <= largestPrime {
+                self.buf.append(lastP)
+
+                if let nextLine = self.fileManager.readPrimesFileLine()    {
+                    (_, lastP) = nextLine.parseLine()
+                }
+                else    {   break   }
+            }
+            
             self.fileManager.closePrimesFileForRead()
-        }
+         
+            super.init()
+       }
         
         //  was not able to open the prime file
         else    {   return nil  }

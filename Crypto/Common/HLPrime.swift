@@ -31,8 +31,7 @@ class HLPrime: NSObject {
     var primesDelegate: HLPrimesProtocol?
     var pTable: HLPrimeTable!
     var primesLastLine: String = ""
-    
-    
+
     func findPrimes(largestPrime: HLPrimeType)    {
         var largestPrimeToFind = largestPrime
         
@@ -93,6 +92,78 @@ class HLPrime: NSObject {
         }
     }
 
+    func factorPrimes(largestPrime: HLPrimeType)  {
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
+
+            print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
+            let startDate = Date()
+
+            let primesLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
+            let lastP = primesLastLine.prefixInt64()
+ 
+            var largestPrimeToFactor = largestPrime
+            var largestPrimeNeeded = (largestPrimeToFactor-1) / 2
+            
+            if lastP < largestPrimeNeeded  {
+                largestPrimeNeeded = lastP
+                largestPrimeToFactor = (lastP+1) * 2
+                print( "adjusted largestPrimeToFactor from: \(largestPrime) to: \(largestPrimeToFactor)" )
+            }
+
+            self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestPrimeNeeded)
+            print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
+            
+            var lastfactored: HLPrimeType = 5
+            if let factoredLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path) {
+                lastfactored = factoredLastLine.prefixInt64()
+                if lastfactored < 5     {   lastfactored = 5    }
+            }
+
+            let primesErrorCode = self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
+            let factoredErrorCode = self.fileManager.openFactoredFileForAppend(with: self.factoredFileURL.path)
+            assert( primesErrorCode == 0 )
+            assert( factoredErrorCode == 0 )
+
+            self.lastP = 0
+            while self.lastP != lastfactored {    //  advance to the next prime to factor
+                let line = self.fileManager.readPrimesFileLine()
+                (_, self.lastP) = line!.parseLine()
+            }
+
+            print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
+
+  //          let lastPrimeLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
+  //          (self.lastN, self.lastP) = lastPrimeLine.parseLine()
+  //          print( "factorPrimes-  Starting at-  lastN: \(self.lastN)    lastP: \(self.lastP)" )
+        
+            var lastPrimeLine = self.fileManager.readPrimesFileLine()
+            (_, self.lastP) = lastPrimeLine!.parseLine()
+
+            while self.lastP <= largestPrimeToFactor {
+                let factoredPrime = self.factor(prime: self.lastP)
+                self.fileManager.appendFactoredLine(factoredPrime)
+                
+                lastPrimeLine = self.fileManager.readPrimesFileLine()
+                if lastPrimeLine == nil     {   break   }   //  watch for end of file
+                if !self.active             {   break   }   //  watch for user stop action
+                (_, self.lastP) = lastPrimeLine!.parseLine()
+         }
+
+            self.fileManager.closeFactoredFileForAppend()
+            self.fileManager.closePrimesFileForRead()
+        
+            DispatchQueue.main.async {
+                self.factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path)
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+    //              print( "HLPrime-  factorPrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
+
+                self.primesDelegate?.factorPrimesCompleted()
+            }
+        }
+    }
+    
     func lastLineFor(path: String) -> String?   {
         let lastLine = fileManager.lastLine(forFile: path)
 //        print( "lastLineFor: \(path)   \(lastLine)" )
@@ -176,85 +247,6 @@ class HLPrime: NSObject {
         }
     }
 
-    func factorPrimes(largestPrime: HLPrimeType)  {
-        var largestPrimeToFactor = largestPrime
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
-
-            print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
-            let startDate = Date()
-
-            let errorCode = self.fileManager.openFactoredFileForAppend(with: self.factoredFileURL.path)
-            if errorCode == 0   {
-                self.fileManager.closeFactoredFileForAppend()
-
-                var lastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path)!
-                
-                let largestTestPrime = largestPrime / 2
-                var largestPrimeNeeded = largestTestPrime
-                
-                if self.lastP < largestPrimeNeeded    {
-                    largestPrimeNeeded = self.lastP
-                    largestPrimeToFactor = self.lastP * 2
-                }
-
-                self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestPrimeNeeded)
-                print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
-
-                if let index = lastLine.index(of: "\t") {
-                    lastLine = String(lastLine.prefix(upTo: index))
-                }
-                
-                let lastfactor = Int64(lastLine)
-                if lastfactor != nil {
-             //       print( "HLPrime-  factorPrimes-  lastfactor: \(lastfactor!)" )
-                    
-                    let primesErrorCode = self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
-                    let factoredErrorCode = self.fileManager.openFactoredFileForAppend(with: self.factoredFileURL.path)
-                    assert( primesErrorCode == 0 )
-                    assert( factoredErrorCode == 0 )
-
-                    self.lastP = 0
-                    repeat {    //  advance to the next prime to factor
-                        let line = self.fileManager.readPrimesFileLine()
-                        (_, self.lastP) = line!.parseLine()
-                    } while self.lastP != lastfactor
-
-                    print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
-
-                    let lastPrimeLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
-                    (self.lastN, self.lastP) = lastPrimeLine.parseLine()
-                    print( "factorPrimes-  Starting at-  lastN: \(self.lastN)    lastP: \(self.lastP)" )
-                   
-                    repeat {
-                        let line = self.fileManager.readPrimesFileLine()
-                        if line == nil  {   break   }   //  watch for end of file
-                        
-                        (_, self.lastP) = line!.parseLine()
-                        let factoredPrime = self.factor(prime: self.lastP)
-                        self.fileManager.appendFactoredLine(factoredPrime)
- 
-                        if !self.active   {
-                            break
-                        }
-                   } while self.lastP <= largestPrimeToFactor
-                }
-
-                self.fileManager.closeFactoredFileForAppend()
-                self.fileManager.closePrimesFileForRead()
-            }
-            
-            DispatchQueue.main.async {
-                self.factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path)
-                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
-  //              print( "HLPrime-  factorPrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
-
-                self.primesDelegate?.factorPrimesCompleted()
-            }
-        }
-    }
-    
     init(primeFilePath: String, modCount: Int32, delegate: HLPrimesProtocol)  {
         fileManager = HLFileManager(modCount)
         primesDelegate = delegate

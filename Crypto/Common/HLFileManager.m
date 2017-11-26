@@ -9,13 +9,14 @@
 #import "HLFileManager.h"
 #import <stdio.h>
 
+static HLFileManager *sharedManager = nil;
+
 @implementation HLFileManager
 
 FILE *primesReadFile, *primesAppendFile;
 FILE *factoredReadFile, *factoredAppendFile;
 FILE *nicePrimesWriteFile;
 FILE *readTempFile;
-NSString *initialFactorFile = @"5\t2\n7\t3\n11\t5\n13\t2\t3\n";
 int modSize = 1;
 int modCounter = 0;
 
@@ -120,18 +121,6 @@ NSString *fileExtension = @"txt";
 //************************************************      factored file append    ****************
 -(int)openFactoredFileForAppendWith:(NSString *)path  {
     NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    //  make sure file already exists
-    factoredAppendFile = fopen(pathWithExtension.UTF8String, "r");
-    if ( !factoredAppendFile )
-    {
-        FILE *tempFile = factoredAppendFile = fopen(pathWithExtension.UTF8String, "w");
-        if ( !tempFile ) {  //  can't use this path!
-            return -1;  //    error
-        }
-        fprintf(factoredAppendFile, "%s", initialFactorFile.UTF8String);
-    }
-    fclose( factoredAppendFile );
-    
     factoredAppendFile = fopen(pathWithExtension.UTF8String, "a");
     assert( factoredAppendFile );
     modCounter = 0;
@@ -230,7 +219,14 @@ NSString *fileExtension = @"txt";
 {
     self = [super init];
     modSize = modulasSize;
+    sharedManager = self;
     return self;
 }
+
++(instancetype)sharedManager
+{
+    return sharedManager;
+}
+
 
 @end
