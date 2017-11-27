@@ -24,18 +24,13 @@ class HLPrimeTable: NSObject {
         if self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) == 0  {
             var lastP: HLPrimeType = 0
             
-            if let nextLine = self.fileManager.readPrimesFileLine()    {
-                (_, lastP) = nextLine.parseLine()
-            }
-            else    {   return nil  }   //  file present but empty
-
-            while lastP <= largestPrime {
-                self.buf.append(lastP)
-
+            while largestPrime >= lastP     {
                 if let nextLine = self.fileManager.readPrimesFileLine()    {
                     (_, lastP) = nextLine.parseLine()
+                    self.buf.append(lastP)
+
                 }
-                else    {   break   }
+                else    {   return nil      }  //   not enough primes in file
             }
             
             self.fileManager.closePrimesFileForRead()

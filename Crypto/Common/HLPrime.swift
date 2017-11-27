@@ -132,12 +132,8 @@ class HLPrime: NSObject {
                 (_, self.lastP) = line!.parseLine()
             }
 
-            print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
+//            print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
 
-  //          let lastPrimeLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
-  //          (self.lastN, self.lastP) = lastPrimeLine.parseLine()
-  //          print( "factorPrimes-  Starting at-  lastN: \(self.lastN)    lastP: \(self.lastP)" )
-        
             var lastPrimeLine = self.fileManager.readPrimesFileLine()
             (_, self.lastP) = lastPrimeLine!.parseLine()
 
