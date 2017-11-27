@@ -179,6 +179,10 @@ class HLPrime: NSObject {
                 break
             }
             
+            if testPrime == largestTestPrime    {
+                break
+            }
+            
             index += 1
             testPrime = pTable.buf[index]
         }
@@ -188,7 +192,7 @@ class HLPrime: NSObject {
     }
     
     func factor(prime: HLPrimeType) -> String   {
-        var value = (prime - 1)/2
+        var value = (prime - 1) / 2
         var result = String(prime)
         
         let largestTestPrime = prime / 2    //  not sqrt()

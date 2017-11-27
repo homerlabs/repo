@@ -11,6 +11,7 @@ import Cocoa
 class HLPrimeTable: NSObject {
 
     var buf: [HLPrimeType] = []
+    let highestPrimeInTable: HLPrimeType    //  used for debugging only
 
     let fileManager: HLFileManager = HLFileManager.shared()
     var primesFileURL: URL!
@@ -24,16 +25,16 @@ class HLPrimeTable: NSObject {
         if self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) == 0  {
             var lastP: HLPrimeType = 0
             
-            while largestPrime >= lastP     {
-                if let nextLine = self.fileManager.readPrimesFileLine()    {
+            while largestPrime > lastP {
+                 if let nextLine = self.fileManager.readPrimesFileLine()    {
                     (_, lastP) = nextLine.parseLine()
                     self.buf.append(lastP)
-
                 }
-                else    {   return nil      }  //   not enough primes in file
+                else    {   break   }
             }
             
             self.fileManager.closePrimesFileForRead()
+            highestPrimeInTable = self.buf[self.buf.count-1]
          
             super.init()
        }
