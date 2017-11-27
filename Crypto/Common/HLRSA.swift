@@ -27,16 +27,69 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", "+", "=", "*",// "/", " ",
-  //                           "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",// ".", ",", "?", "-", "!", "+", "=", "*", "/", " ",
+                             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
+    func fastExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
+        
+        var weight: HLPrimeType = 0
+        var d: HLPrimeType = 1
+        var i: Int = 24
+        var bitIndex = Int64(pow(2.0, Double(i)))
+        let bigMod = Float80(mod)
+
+ //       print( "fastExpOf: \(a)   exp: \(exp)   mod: \(mod)" )
+
+        while i >= 0 {
+        
+            weight *= 2
+            let bigD = Float80(d)
+            let temp = Float80(exactly: (bigD * bigD))!
+            let temp2 = temp.truncatingRemainder(dividingBy: bigMod)
+            d = (d * d) % mod
+  //           d = Int64(temp2)
+
+            let testB = exp & bitIndex > 0
+//            print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)    testB: \(testB)   temp: \(temp.debugDescription)   temp: \(temp.isCanonical)" )
+
+           if testB   {
+                weight += 1
+                d = (d * a) % mod
+                let temp = Float80(exactly: (Float80(d) * Float80(a)))!
+                let temp2 = temp.truncatingRemainder(dividingBy: bigMod)
+      //          print( "temp2b: \(temp2)" )
+       //         d = Int64(temp2)
+            }
+            
+      //     print( "i: \(i)   testB: \(testB)    c: \(c)   d: \(d)   " )
+            bitIndex = bitIndex >> 1
+            i -= 1
+        }
+        
+        return d
+    }
+
+    func slowExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
+        
+        let bigMod = Float80(mod)
+        let bigA = Float80(a)
+        var bigC = bigA
+
+        for _ in 2...exp    {
+            bigC *= bigA
+            bigC = bigC.truncatingRemainder(dividingBy: bigMod)
+        }
+
+       return Int64(bigC)
+    }
+
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
         let result = fastExpOf(a: m, exp: key, mod: N)
-        let result2 = slowExpOf(a: m, exp: key, mod: N)
+//        let result2 = slowExpOf(a: m, exp: key, mod: N)
 //        assert(result == result2 )
-        print( "encode-  result: \(result)  result2: \(result2)" )
+//        print( "encode-  result: \(result)  result2: \(result2)" )
         return result
     }
     
@@ -94,9 +147,11 @@ class HLRSA: NSObject {
                 
                 let plaintextInt = stringToInt(text: chunk)
                 let cypher = encode(m: plaintextInt, key: keyPublic)
+     //           let cypher = encode(m: plaintextInt, key: keyPrivate)
                 let cypherString = intToString(n: cypher)
                 
                 let deCypherInt = encode(m: cypher, key: keyPrivate)
+    //            let deCypherInt = encode(m: cypher, key: keyPublic)
                 let deCypherString = intToString(n: deCypherInt)
                 print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypher: \(cypher)    cypherString: \(cypherString)    deCypher: \(deCypherString)" )
             }
@@ -194,67 +249,11 @@ class HLRSA: NSObject {
         else                {   return -1            }
     }
 
-
-    func fastExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
-        
-        var c: HLPrimeType = 0
-        var d: HLPrimeType = 1
-        var i: Int = 62
-        var bitIndex = Int64(pow(2.0, Double(i)))
-
- //       print( "fastExpOf: \(a)   exp: \(exp)   mod: \(mod)" )
-
-        while i >= 0 {
-        
-  //          print( "i: \(i)   bitIndex: \(bitIndex)" )
-            c *= 2
-            let bigD = Float80(d)
-            let temp = Float80(exactly: (bigD * bigD))!
-            let temp2 = temp.truncatingRemainder(dividingBy: Float80(mod))
-  //          print( "temp2a: \(temp2)" )
-  //          d = (d * d) % mod
-             d = Int64(temp2)
-
-           let testB = exp & bitIndex > 0
-           
-           if testB   {
-                c += 1
-        //        d = (d * a) % mod
-                let bigD = Float80(d)
-                let bigA = Float80(a)
-                let temp = Float80(exactly: (bigD * bigA))!
-                let temp2 = temp.truncatingRemainder(dividingBy: Float80(mod))
-      //          print( "temp2b: \(temp2)" )
-                d = Int64(temp2)
-            }
-            
-      //     print( "i: \(i)   testB: \(testB)    c: \(c)   d: \(d)   " )
-            bitIndex = bitIndex >> 1
-            i -= 1
-        }
-        
-        return d
-    }
-
-    func slowExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
-        
-        let bigMod = Float80(mod)
-        let bigA = Float80(a)
-        var bigC = bigA
-
-        for _ in 2...exp    {
-            bigC *= bigA
-            bigC = bigC.truncatingRemainder(dividingBy: bigMod)
-        }
-
-       return Int64(bigC)
-    }
-
     init(p: Int64, q: Int64) {
         N = p * q
         Gamma = (p-1) * (q-1)
         charSetSize = Int64(charSet.count)
-        let x = log(Double(N)) / log(Double(charSetSize))
+        let x = log(Double(N)) / log(Double(charSetSize)) + 0.000001    //  fudge factor due to Int() call below
     //    print( "HLRSA-  init-  x: \(x)" )
         chuckSize = Int(x)
         

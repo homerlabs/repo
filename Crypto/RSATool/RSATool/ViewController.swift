@@ -30,6 +30,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
  //       print( "ViewController-  encodeAction" )
         let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
         rsa.encodeFile(plaintextURL: url)
+        print( "rsa.encodeFile completed." )
     }
 
 

@@ -11,12 +11,12 @@ import XCTest
 class RSAToolTests: XCTestCase {
 
     var rsa: HLRSA!
-    let kPublic = Int64(9999047)
-    let kPrivate = Int64(3935380523)
+    let kPublic = Int64(72353)
+    let kPrivate = Int64(10880397)
 
     override func setUp() {
         super.setUp()
-        rsa = HLRSA(p: 91943, q: 90659)
+        rsa = HLRSA(p: 15971, q: 15959)
         rsa.keyPublic = kPublic
         rsa.keyPrivate = kPrivate
     }
@@ -35,15 +35,15 @@ class RSAToolTests: XCTestCase {
     }
     
     func testEncodeDecode() {
-        for testInt in 1..<10 {
+        for testInt in 1..<250000000 {
      //       let plaintextInt = Int64(23130590)
             let plaintextInt = Int64(testInt)
             let cypherInt = rsa.encode(m: plaintextInt, key: rsa.keyPublic)
             let decypherInt = rsa.encode(m: cypherInt, key: rsa.keyPrivate)
             
-     //       if testInt % 100000 == 1  {
+            if testInt % 1000000 == 1  {
                 print( "plaintextInt: \(plaintextInt)    cypherInt: \(cypherInt)    decypherInt: \(decypherInt)" )
-     //       }
+            }
             
             XCTAssertEqual(plaintextInt, decypherInt, "\(plaintextInt) does not equal \(decypherInt)")
         }

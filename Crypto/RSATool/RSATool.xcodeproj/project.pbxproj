@@ -98,10 +98,10 @@
 		B081765C1F993D2B00772AFC /* RSATool */ = {
 			isa = PBXGroup;
 			children = (
+				B081765F1F993D2B00772AFC /* ViewController.swift */,
 				B056E5911FA8DB8F0078D728 /* RSATool-Bridging-Header.h */,
 				B08176631F993D2B00772AFC /* Main.storyboard */,
 				B081765D1F993D2B00772AFC /* AppDelegate.swift */,
-				B081765F1F993D2B00772AFC /* ViewController.swift */,
 				B08176611F993D2B00772AFC /* Assets.xcassets */,
 				B08176661F993D2B00772AFC /* Info.plist */,
 			);
