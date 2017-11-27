@@ -27,43 +27,82 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",// ".", ",", "?", "-", "!", "+", "=", "*", "/", " ",
-                             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?",// "-", "!", "+", "=", "*", "/", " ",
+           //                  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
-    func fastExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
+    func fastExp2Of(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
+        let arraySize = 100
+        var value: [Float80] = Array(repeatElement(0, count: arraySize))
+        var weight: [HLPrimeType] = Array(repeatElement(0, count: arraySize))
+        var i = 0
+        var partialResult = Float80(a)
+        value[i] = Float80(a)
+        weight[i] = 1
+        let bigMod = Float80(mod)
         
+        let biggest = max(exp, mod)
+        while weight[i] < biggest   {
+            i += 1
+            let temp = partialResult * partialResult
+            partialResult = temp.truncatingRemainder(dividingBy: bigMod)
+            value[i] = partialResult
+            weight[i] = weight[i-1] * 2
+  //      print( "i: \(i)   weight[i]: \(weight[i])   partialResult: \(partialResult)" )
+       }
+       
+ //       print( "fastExp2Of: \(a)   exp: \(exp)   mod: \(mod)   i: \(i)" )
+       partialResult = 1
+       var count = exp
+       
+        while count > 0  {
+            var j = 0
+            while weight[j+1] < count   {
+                j += 1
+            }
+            
+            let temp = partialResult * value[j]
+            partialResult = temp.truncatingRemainder(dividingBy: bigMod)
+   //         print( "count: \(count)   j: \(j)" )
+            count -= weight[j]
+        }
+
+        return Int64(partialResult)
+    }
+    
+    
+    func fastExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
+
         var weight: HLPrimeType = 0
         var d: HLPrimeType = 1
-        var i: Int = 24
+        var i: Int = 25
         var bitIndex = Int64(pow(2.0, Double(i)))
         let bigMod = Float80(mod)
+        let bigA = Float80(a)
 
- //       print( "fastExpOf: \(a)   exp: \(exp)   mod: \(mod)" )
+//        print( "fastExpOf: \(a)   exp: \(exp)   mod: \(mod)" )
 
         while i >= 0 {
         
             weight *= 2
-            let bigD = Float80(d)
-            let temp = Float80(exactly: (bigD * bigD))!
-            let temp2 = temp.truncatingRemainder(dividingBy: bigMod)
-            d = (d * d) % mod
-  //           d = Int64(temp2)
+            var bigD = Float80(d)
+            bigD *= bigD
+            let temp = bigD.truncatingRemainder(dividingBy: bigMod)
+             d = Int64(temp)
 
             let testB = exp & bitIndex > 0
-//            print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)    testB: \(testB)   temp: \(temp.debugDescription)   temp: \(temp.isCanonical)" )
+ //           print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)    testB: \(testB)   d: \(d)   temp: \(temp.debugDescription)" )
 
            if testB   {
                 weight += 1
-                d = (d * a) % mod
-                let temp = Float80(exactly: (Float80(d) * Float80(a)))!
+                let temp = Float80(d) * bigA
                 let temp2 = temp.truncatingRemainder(dividingBy: bigMod)
-      //          print( "temp2b: \(temp2)" )
-       //         d = Int64(temp2)
-            }
+                d = Int64(temp2)
+  //           print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)    testB: \(testB)   d: \(d)   temp: \(temp.debugDescription)" )
+           }
             
-      //     print( "i: \(i)   testB: \(testB)    c: \(c)   d: \(d)   " )
+ //          print( "i: \(i)   testB: \(testB)    weight: \(weight)   d: \(d)   " )
             bitIndex = bitIndex >> 1
             i -= 1
         }
@@ -86,11 +125,12 @@ class HLRSA: NSObject {
     }
 
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
-        let result = fastExpOf(a: m, exp: key, mod: N)
-//        let result2 = slowExpOf(a: m, exp: key, mod: N)
-//        assert(result == result2 )
+ //       let result = fastExpOf(a: m, exp: key, mod: N)
+        let result2 = fastExp2Of(a: m, exp: key, mod: N)
+ //       let result2 = slowExpOf(a: m, exp: key, mod: N)
+  //      assert(result == result2 )
 //        print( "encode-  result: \(result)  result2: \(result2)" )
-        return result
+        return result2
     }
     
     
