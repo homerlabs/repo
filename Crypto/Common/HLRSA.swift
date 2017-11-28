@@ -27,7 +27,7 @@ class HLRSA: NSObject {
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
     let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?",// "-", "!", "+", "=", "*", "/", " ",
+    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", "+", "=", "*",// "/", " ",
            //                  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -42,8 +42,7 @@ class HLRSA: NSObject {
         weight[i] = 1
         let bigMod = Float80(mod)
         
-        let biggest = max(exp, mod)
-        while weight[i] < biggest   {
+        while weight[i] < exp   {
             i += 1
             let temp = partialResult * partialResult
             partialResult = temp.truncatingRemainder(dividingBy: bigMod)
@@ -125,12 +124,12 @@ class HLRSA: NSObject {
     }
 
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
- //       let result = fastExpOf(a: m, exp: key, mod: N)
+        let result = fastExpOf(a: m, exp: key, mod: N)
         let result2 = fastExp2Of(a: m, exp: key, mod: N)
- //       let result2 = slowExpOf(a: m, exp: key, mod: N)
+        let result3 = slowExpOf(a: m, exp: key, mod: N)
   //      assert(result == result2 )
-//        print( "encode-  result: \(result)  result2: \(result2)" )
-        return result2
+        print( "encode-  result: \(result)  result2: \(result2)  result3: \(result3)" )
+        return result3
     }
     
     

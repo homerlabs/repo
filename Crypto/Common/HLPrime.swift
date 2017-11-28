@@ -95,30 +95,26 @@ class HLPrime: NSObject {
     func factorPrimes(largestPrime: HLPrimeType)  {
 
         DispatchQueue.global(qos: .userInitiated).async {
-            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
-
             print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
+            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0     else    {   return     }
+            
             let startDate = Date()
-
-            let primesLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)!
-            let lastP = primesLastLine.prefixInt64()
- 
             var largestPrimeToFactor = largestPrime
             var largestPrimeNeeded = (largestPrimeToFactor-1) / 2
             
-            if lastP < largestPrimeNeeded  {
-                largestPrimeNeeded = lastP
-                largestPrimeToFactor = (lastP+1) * 2
-                print( "adjusted largestPrimeToFactor from: \(largestPrime) to: \(largestPrimeToFactor)" )
+            if self.lastP < largestPrimeNeeded  {
+                largestPrimeNeeded = self.lastP
+                largestPrimeToFactor = (self.lastP+1) * 2
+                print( "Adjusted largestPrimeToFactor from: \(largestPrime) to: \(largestPrimeToFactor)" )
             }
 
             self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestPrimeNeeded)
-            print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
+            print( "pTable loaded-  count: \(self.pTable.buf.count)    highest prime: \(self.pTable.buf[self.pTable.buf.count-1])" )
             
-            var lastfactored: HLPrimeType = 5
+            var lastfactored: HLPrimeType = 3
             if let factoredLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path) {
                 lastfactored = factoredLastLine.prefixInt64()
-                if lastfactored < 5     {   lastfactored = 5    }
+                if lastfactored < 3     {   lastfactored = 3    }
             }
 
             let primesErrorCode = self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
