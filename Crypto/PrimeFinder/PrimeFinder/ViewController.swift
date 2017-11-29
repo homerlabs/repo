@@ -146,7 +146,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             primeFilePathTextField.stringValue = primeFilePath
         }
         else    {
-            primeFilePathTextField.stringValue = "Desktop/Primes"
+            primeFilePathTextField.stringValue = homeDir  + "Desktop/Primes"
         }
         
         if let terminalPrime = UserDefaults.standard.string(forKey: HLDefaultTerminalPrimeKey)  {

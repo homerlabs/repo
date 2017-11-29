@@ -49,8 +49,8 @@
 		B032424A1FCDCC2B003B2265 = {
 			isa = PBXGroup;
 			children = (
-				B0DAFA231FCDCE7700017C90 /* Common */,
 				B03242551FCDCC2B003B2265 /* PrimeFinder */,
+				B0DAFA231FCDCE7700017C90 /* Common */,
 				B03242541FCDCC2B003B2265 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,9 +66,9 @@
 		B03242551FCDCC2B003B2265 /* PrimeFinder */ = {
 			isa = PBXGroup;
 			children = (
+				B03242581FCDCC2B003B2265 /* ViewController.swift */,
 				B0DAFA311FCDCF3B00017C90 /* PrimeFinder-Bridging-Header.h */,
 				B03242561FCDCC2B003B2265 /* AppDelegate.swift */,
-				B03242581FCDCC2B003B2265 /* ViewController.swift */,
 				B032425A1FCDCC2B003B2265 /* Assets.xcassets */,
 				B032425C1FCDCC2B003B2265 /* Main.storyboard */,
 				B032425F1FCDCC2B003B2265 /* Info.plist */,
