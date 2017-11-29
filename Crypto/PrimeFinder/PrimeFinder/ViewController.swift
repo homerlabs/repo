@@ -33,8 +33,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     var findPrimesInProgress = false
     var factorPrimesInProgress = false
-
-    let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
     var errorCode = 0
 
     @IBAction func checkProgressAction(sender: NSButton) {
@@ -99,7 +97,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         if control == primeFilePathTextField    {
             var newValue = control.stringValue
             if !newValue.hasPrefix("/")  {
-                newValue = homeDir + "/" + newValue
+                newValue = "/Users/" + NSUserName() + "/" + newValue
             }
         
             if let lastLine = primeFinder.lastLineFor(path: newValue) {
@@ -146,7 +144,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             primeFilePathTextField.stringValue = primeFilePath
         }
         else    {
-            primeFilePathTextField.stringValue = homeDir  + "Desktop/Primes"
+            primeFilePathTextField.stringValue = "/Users/" + NSUserName() + "/Desktop/Primes"
         }
         
         if let terminalPrime = UserDefaults.standard.string(forKey: HLDefaultTerminalPrimeKey)  {

@@ -80,12 +80,12 @@
 		B0DAFA231FCDCE7700017C90 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */,
-				B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */,
-				B0DAFA261FCDCE7700017C90 /* HLFileManager.m */,
 				B0DAFA271FCDCE7700017C90 /* HLPrime.swift */,
-				B0DAFA281FCDCE7700017C90 /* String+Extension.swift */,
+				B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */,
 				B0DAFA291FCDCE7700017C90 /* HLFileManager.h */,
+				B0DAFA261FCDCE7700017C90 /* HLFileManager.m */,
+				B0DAFA281FCDCE7700017C90 /* String+Extension.swift */,
+				B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */,
 			);
 			name = Common;
 			path = ../Common;
@@ -124,6 +124,11 @@
 					B03242521FCDCC2B003B2265 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -296,7 +301,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = PrimeFinder/PrimeFinder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -313,7 +317,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = PrimeFinder/PrimeFinder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
