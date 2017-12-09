@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -776,7 +776,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="primeStartActionWithSender:" target="XfG-lQ-9wD" id="Oey-Jf-8xd"/>
+                                    <action selector="primesStartActionWithSender:" target="XfG-lQ-9wD" id="Ffs-nf-tOw"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U82-QS-35Z">
@@ -852,10 +852,22 @@
                                     <action selector="checkProgressActionWithSender:" target="XfG-lQ-9wD" id="4Mc-pZ-DuJ"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UU-ee-UBx">
+                                <rect key="frame" x="58" y="24" width="112" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Filter Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pfH-V2-25l">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="filterActionWithSender:" target="XfG-lQ-9wD" id="dOu-3s-B9L"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="factorStartButton" destination="uIT-kN-6mk" id="4Wr-v6-Bib"/>
+                        <outlet property="filterStartButton" destination="0UU-ee-UBx" id="P62-Co-QFW"/>
                         <outlet property="lastLineFactorTextField" destination="Z6E-p5-WuO" id="Plm-rx-Rgf"/>
                         <outlet property="lastLinePrimeTextField" destination="CiX-b8-CgL" id="jpn-Fc-CTq"/>
                         <outlet property="modCountTextField" destination="0r3-f7-7EQ" id="hEs-23-cQZ"/>

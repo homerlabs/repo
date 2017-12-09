@@ -38,8 +38,8 @@ class HLRSA: NSObject {
         var weight: [HLPrimeType] = Array(repeatElement(0, count: arraySize))
         var i = 0
         var partialResult = Float80(a)
-        value[i] = Float80(a)
-        weight[i] = 1
+        value[0] = Float80(a)
+        weight[0] = 1
         let bigMod = Float80(mod)
         
         while weight[i] < exp   {
@@ -74,8 +74,8 @@ class HLRSA: NSObject {
     func fastExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
 
         var weight: HLPrimeType = 0
-        var d: HLPrimeType = 1
-        var i: Int = 25
+        var d: Float80 = 1
+        var i: Int = 60
         var bitIndex = Int64(pow(2.0, Double(i)))
         let bigMod = Float80(mod)
         let bigA = Float80(a)
@@ -84,21 +84,21 @@ class HLRSA: NSObject {
 
         while i >= 0 {
         
-            weight *= 2
-            var bigD = Float80(d)
+            weight = weight << 1
+            var bigD = d
             bigD *= bigD
-            let temp = bigD.truncatingRemainder(dividingBy: bigMod)
-             d = Int64(temp)
+            d = bigD.truncatingRemainder(dividingBy: bigMod)
+            d = Float80(Int64(d))
 
             let testB = exp & bitIndex > 0
  //           print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)    testB: \(testB)   d: \(d)   temp: \(temp.debugDescription)" )
 
            if testB   {
                 weight += 1
-                let temp = Float80(d) * bigA
-                let temp2 = temp.truncatingRemainder(dividingBy: bigMod)
-                d = Int64(temp2)
-  //           print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)    testB: \(testB)   d: \(d)   temp: \(temp.debugDescription)" )
+                let temp = d * bigA
+                d = temp.truncatingRemainder(dividingBy: bigMod)
+       //         d = Int64(temp2)
+             print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)   d: \(d)   temp: \(temp.debugDescription)" )
            }
             
  //          print( "i: \(i)   testB: \(testB)    weight: \(weight)   d: \(d)   " )
@@ -106,7 +106,7 @@ class HLRSA: NSObject {
             i -= 1
         }
         
-        return d
+        return Int64(d)
     }
 
     func slowExpOf(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
@@ -187,12 +187,12 @@ class HLRSA: NSObject {
                 let plaintextInt = stringToInt(text: chunk)
                 let cypher = encode(m: plaintextInt, key: keyPublic)
      //           let cypher = encode(m: plaintextInt, key: keyPrivate)
-                let cypherString = intToString(n: cypher)
+ /*               let cypherString = intToString(n: cypher)
                 
                 let deCypherInt = encode(m: cypher, key: keyPrivate)
     //            let deCypherInt = encode(m: cypher, key: keyPublic)
                 let deCypherString = intToString(n: deCypherInt)
-                print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypher: \(cypher)    cypherString: \(cypherString)    deCypher: \(deCypherString)" )
+                print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypher: \(cypher)    cypherString: \(cypherString)    deCypher: \(deCypherString)" )    */
             }
         } catch {
             print(error.localizedDescription)

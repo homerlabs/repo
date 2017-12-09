@@ -19,6 +19,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
     @IBOutlet var primeStartButton: NSButton!
     @IBOutlet var factorStartButton: NSButton!
+    @IBOutlet var filterStartButton: NSButton!
 
     var primeFinder: HLPrime!
     let HLDefaultPrimeFilePathKey = "PrimeFilePathKey"
@@ -40,7 +41,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             progressTextField.stringValue = String(primeFinder.lastP)
     }
     
-    @IBAction func primeStartAction(sender: NSButton) {
+    @IBAction func filterAction(sender: NSButton) {
+     //       print( "    *********   filterAction    lastP: \(primeFinder.lastP)" )
+            primeFinder.makeNicePrimesFile()
+    }
+    
+    @IBAction func primesStartAction(sender: NSButton) {
         
         if primeStartButton.state == .on {
             primeStartButton.title = "Running"
@@ -99,6 +105,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             if !newValue.hasPrefix("/")  {
                 newValue = "/Users/" + NSUserName() + "/" + newValue
             }
+            
+            primeFinder.setupFilePaths(basePath: newValue)
         
             if let lastLine = primeFinder.lastLineFor(path: newValue) {
                 lastLinePrimeTextField.stringValue = lastLine

@@ -242,16 +242,21 @@ class HLPrime: NSObject {
             fileManager.closeFactoredFileForRead()
         }
     }
+    
+    
+    func setupFilePaths(basePath: String)   {
+        print( "HLPrime.setupFilePaths-  basePath: \(basePath)" )
+        primesFileURL = URL(string: basePath)
+        factoredFileURL = URL(string: basePath + "-F")
+        nicePrimesFileURL = URL(string: basePath + "-N")
+    }
 
     init(primeFilePath: String, modCount: Int32, delegate: HLPrimesProtocol)  {
         fileManager = HLFileManager(modCount)
         primesDelegate = delegate
         super.init()
-         print( "HLPrime.init-  primeFilePath: \(primeFilePath)" )
-
-        primesFileURL = URL(string: primeFilePath)
-        factoredFileURL = URL(string: primeFilePath + "-F")
-        nicePrimesFileURL = URL(string: primeFilePath + "-N")
+        setupFilePaths(basePath: primeFilePath)
+        print( "HLPrime.init-  primeFilePath: \(primesFileURL.path)" )
 
         if let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path) {
             self.primeFileLastLine = primeFileLastLine
