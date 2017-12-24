@@ -11,12 +11,27 @@
 		B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03242581FCDCC2B003B2265 /* ViewController.swift */; };
 		B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B032425A1FCDCC2B003B2265 /* Assets.xcassets */; };
 		B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B032425C1FCDCC2B003B2265 /* Main.storyboard */; };
+		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
+		B0ADCE5F1FEEED2700EF7FDE /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA271FCDCE7700017C90 /* HLPrime.swift */; };
+		B0ADCE601FEEEEC500EF7FDE /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
+		B0ADCE611FEEEECA00EF7FDE /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA261FCDCE7700017C90 /* HLFileManager.m */; };
+		B0ADCE621FEEEEF000EF7FDE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA281FCDCE7700017C90 /* String+Extension.swift */; };
 		B0DAFA2B1FCDCE7700017C90 /* HLPrimes.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */; };
 		B0DAFA2C1FCDCE7700017C90 /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
 		B0DAFA2D1FCDCE7700017C90 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA261FCDCE7700017C90 /* HLFileManager.m */; };
 		B0DAFA2E1FCDCE7700017C90 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA271FCDCE7700017C90 /* HLPrime.swift */; };
 		B0DAFA2F1FCDCE7700017C90 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA281FCDCE7700017C90 /* String+Extension.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0ADCE5A1FEEEBAE00EF7FDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B032424B1FCDCC2B003B2265 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B03242521FCDCC2B003B2265;
+			remoteInfo = PrimeFinder;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B03242531FCDCC2B003B2265 /* PrimeFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrimeFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +41,9 @@
 		B032425D1FCDCC2B003B2265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B032425F1FCDCC2B003B2265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B03242601FCDCC2B003B2265 /* PrimeFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrimeFinder.entitlements; sourceTree = "<group>"; };
+		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
+		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HLPrimes.txt; sourceTree = "<group>"; };
 		B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrimeTable.swift; sourceTree = "<group>"; };
 		B0DAFA261FCDCE7700017C90 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
@@ -43,14 +61,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0ADCE521FEEEBAE00EF7FDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		B032424A1FCDCC2B003B2265 = {
 			isa = PBXGroup;
 			children = (
+				B0F2B7801FDDC3D200E42864 /* Resources */,
 				B03242551FCDCC2B003B2265 /* PrimeFinder */,
 				B0DAFA231FCDCE7700017C90 /* Common */,
+				B0ADCE561FEEEBAE00EF7FDE /* PrimeFinderTests */,
 				B03242541FCDCC2B003B2265 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				B03242531FCDCC2B003B2265 /* PrimeFinder.app */,
+				B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,6 +105,15 @@
 			path = PrimeFinder;
 			sourceTree = "<group>";
 		};
+		B0ADCE561FEEEBAE00EF7FDE /* PrimeFinderTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */,
+				B0ADCE591FEEEBAE00EF7FDE /* Info.plist */,
+			);
+			path = PrimeFinderTests;
+			sourceTree = "<group>";
+		};
 		B0DAFA231FCDCE7700017C90 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +126,13 @@
 			);
 			name = Common;
 			path = ../Common;
+			sourceTree = "<group>";
+		};
+		B0F2B7801FDDC3D200E42864 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,13 +155,31 @@
 			productReference = B03242531FCDCC2B003B2265 /* PrimeFinder.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B0ADCE541FEEEBAE00EF7FDE /* PrimeFinderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0ADCE5E1FEEEBAE00EF7FDE /* Build configuration list for PBXNativeTarget "PrimeFinderTests" */;
+			buildPhases = (
+				B0ADCE511FEEEBAE00EF7FDE /* Sources */,
+				B0ADCE521FEEEBAE00EF7FDE /* Frameworks */,
+				B0ADCE531FEEEBAE00EF7FDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0ADCE5B1FEEEBAE00EF7FDE /* PBXTargetDependency */,
+			);
+			name = PrimeFinderTests;
+			productName = PrimeFinderTests;
+			productReference = B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B032424B1FCDCC2B003B2265 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Matthew Homer";
 				TargetAttributes = {
@@ -129,6 +191,11 @@
 								enabled = 0;
 							};
 						};
+					};
+					B0ADCE541FEEEBAE00EF7FDE = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B03242521FCDCC2B003B2265;
 					};
 				};
 			};
@@ -146,6 +213,7 @@
 			projectRoot = "";
 			targets = (
 				B03242521FCDCC2B003B2265 /* PrimeFinder */,
+				B0ADCE541FEEEBAE00EF7FDE /* PrimeFinderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -158,6 +226,13 @@
 				B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */,
 				B0DAFA2B1FCDCE7700017C90 /* HLPrimes.txt in Resources */,
 				B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0ADCE531FEEEBAE00EF7FDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +252,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0ADCE511FEEEBAE00EF7FDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0ADCE601FEEEEC500EF7FDE /* HLPrimeTable.swift in Sources */,
+				B0ADCE611FEEEECA00EF7FDE /* HLFileManager.m in Sources */,
+				B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */,
+				B0ADCE621FEEEEF000EF7FDE /* String+Extension.swift in Sources */,
+				B0ADCE5F1FEEED2700EF7FDE /* HLPrime.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0ADCE5B1FEEEBAE00EF7FDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B03242521FCDCC2B003B2265 /* PrimeFinder */;
+			targetProxy = B0ADCE5A1FEEEBAE00EF7FDE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B032425C1FCDCC2B003B2265 /* Main.storyboard */ = {
@@ -329,6 +424,40 @@
 			};
 			name = Release;
 		};
+		B0ADCE5C1FEEEBAE00EF7FDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = PrimeFinderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.PrimeFinderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrimeFinder.app/Contents/MacOS/PrimeFinder";
+			};
+			name = Debug;
+		};
+		B0ADCE5D1FEEEBAE00EF7FDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = PrimeFinderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.PrimeFinderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrimeFinder.app/Contents/MacOS/PrimeFinder";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -346,6 +475,15 @@
 			buildConfigurations = (
 				B03242641FCDCC2B003B2265 /* Debug */,
 				B03242651FCDCC2B003B2265 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0ADCE5E1FEEEBAE00EF7FDE /* Build configuration list for PBXNativeTarget "PrimeFinderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0ADCE5C1FEEEBAE00EF7FDE /* Debug */,
+				B0ADCE5D1FEEEBAE00EF7FDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
