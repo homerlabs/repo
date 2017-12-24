@@ -53,7 +53,5 @@ class PrimeFinderTests: XCTestCase, HLPrimesProtocol {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         wait(for: [currentExpectation!], timeout: timeout)
         print( "    *********   testFactorer completed" )
-    }
-    }
-    
+    }    
 }
