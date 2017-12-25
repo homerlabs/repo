@@ -49,7 +49,7 @@ class PrimeFinderTests: XCTestCase, HLPrimesProtocol {
     
     func testFactorer() {
         currentExpectation = expectation(description: "Factorer passed")
-        primeFinder!.findPrimes(largestPrime: hightestPrime)
+        primeFinder!.factorPrimes(largestPrime: hightestPrime)
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         wait(for: [currentExpectation!], timeout: timeout)
         print( "    *********   testFactorer completed" )
