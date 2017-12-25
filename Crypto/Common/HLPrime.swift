@@ -217,6 +217,7 @@ class HLPrime: NSObject {
         fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
     
         var line = fileManager.readFactoredFileLine()
+        var lastN = 3   //  first prime in factored file is '5'
         if line != nil  {
             repeat  {
                 var tabCount = 0
@@ -232,10 +233,13 @@ class HLPrime: NSObject {
                 }
                 
                 if tabCount == 1 {
-                    fileManager.writeNicePrimesFile(line)
+                    let lastP = line!.prefixInt64()
+                    let outputLine = "\(lastN)\t\(lastP)"
+                    fileManager.writeNicePrimesFile(outputLine)
                 }
 
                 line = fileManager.readFactoredFileLine()
+                lastN += 1
             }   while line != nil
 
             fileManager.closeNicePrimesFileForWrite()
