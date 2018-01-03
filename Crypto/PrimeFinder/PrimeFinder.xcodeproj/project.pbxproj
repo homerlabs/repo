@@ -74,7 +74,6 @@
 		B032424A1FCDCC2B003B2265 = {
 			isa = PBXGroup;
 			children = (
-				B0F2B7801FDDC3D200E42864 /* Resources */,
 				B03242551FCDCC2B003B2265 /* PrimeFinder */,
 				B0DAFA231FCDCE7700017C90 /* Common */,
 				B0ADCE561FEEEBAE00EF7FDE /* PrimeFinderTests */,
@@ -126,13 +125,6 @@
 			);
 			name = Common;
 			path = ../Common;
-			sourceTree = "<group>";
-		};
-		B0F2B7801FDDC3D200E42864 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
