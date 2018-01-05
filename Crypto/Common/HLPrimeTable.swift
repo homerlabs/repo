@@ -18,10 +18,9 @@ class HLPrimeTable: NSObject {
 
 
     init?(primeFileURL: URL, largestPrime: HLPrimeType)  {
+//        print( "HLPrimeTable-  init?-  primeFileURL: \(primeFileURL.path)    largestPrime: \(largestPrime)" )
         self.primesFileURL = primeFileURL
-        
-        print( "HLPrimeTable-  init?-  primeFileURL: \(primeFileURL.path)    largestPrime: \(largestPrime)" )
-        
+
         if self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) == 0  {
             var lastP: HLPrimeType = 0
             

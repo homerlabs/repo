@@ -16,7 +16,6 @@
 		B0ADCE601FEEEEC500EF7FDE /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
 		B0ADCE611FEEEECA00EF7FDE /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA261FCDCE7700017C90 /* HLFileManager.m */; };
 		B0ADCE621FEEEEF000EF7FDE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA281FCDCE7700017C90 /* String+Extension.swift */; };
-		B0DAFA2B1FCDCE7700017C90 /* HLPrimes.txt in Resources */ = {isa = PBXBuildFile; fileRef = B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */; };
 		B0DAFA2C1FCDCE7700017C90 /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
 		B0DAFA2D1FCDCE7700017C90 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA261FCDCE7700017C90 /* HLFileManager.m */; };
 		B0DAFA2E1FCDCE7700017C90 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA271FCDCE7700017C90 /* HLPrime.swift */; };
@@ -44,7 +43,6 @@
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HLPrimes.txt; sourceTree = "<group>"; };
 		B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrimeTable.swift; sourceTree = "<group>"; };
 		B0DAFA261FCDCE7700017C90 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
 		B0DAFA271FCDCE7700017C90 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				B0DAFA291FCDCE7700017C90 /* HLFileManager.h */,
 				B0DAFA261FCDCE7700017C90 /* HLFileManager.m */,
 				B0DAFA281FCDCE7700017C90 /* String+Extension.swift */,
-				B0DAFA241FCDCE7700017C90 /* HLPrimes.txt */,
 			);
 			name = Common;
 			path = ../Common;
@@ -216,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */,
-				B0DAFA2B1FCDCE7700017C90 /* HLPrimes.txt in Resources */,
 				B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

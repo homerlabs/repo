@@ -23,31 +23,25 @@ int modCounter = 0;
 NSString *fileExtension = @"txt";
 
 
--(int)createPrimeFileIfNeeded:(NSURL *)primeURL {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",primeURL.path , fileExtension];
-    FILE *primeFile = fopen(pathWithExtension.UTF8String, "r");
-    
-    //  if open failed, create new file
-    if ( !primeFile )
-    {
-        NSURL *url = [NSBundle.mainBundle URLForResource:@"HLPrimes" withExtension:@"txt"];
-        FILE *primeSourceFile = fopen(url.path.UTF8String, "r");
-        FILE *primeFile = fopen(pathWithExtension.UTF8String, "w");
-        int prime = 0, index = 1;
-        int result = fscanf(primeSourceFile, "%d\n", &prime );
-        
-        while ( result == 1 )   {
-            NSString* output = [NSString stringWithFormat: @"%d\t%d\n", index++, prime];
-            fputs(output.UTF8String, primeFile);
-            
-            result = fscanf(primeSourceFile, "%d\n", &prime );
-        }
-
-        fclose(primeSourceFile);
-        fclose(primeFile);
+-(void)createPrimeFileIfNeededWith:(NSString *)path {
+    int result = [self openPrimesFileForReadWith: path];
+   
+    NSString *temp = nil;
+    if ( result == 0 )   {
+        temp = [self readPrimesFileLine];
+        NSLog( @"createPrimeFileIfNeededWith-  temp: %@", temp);
+        [self closePrimesFileForRead];
     }
+    BOOL isFirstLineValid = [temp isEqualToString: @"1\t2"];
 
-    return 0;
+    //  if open failed, create new file
+    if ( !isFirstLineValid )
+    {
+        [self openPrimesFileForAppendWith: path];
+        [self appendPrimesLine: @"1\t2\n"];
+        [self appendPrimesLine: @"2\t3\n"];
+        [self closePrimesFileForAppend];
+    }
 }
 
 //************************************************      primes file read        ****************

@@ -30,55 +30,69 @@ class HLPrime: NSObject {
     var actionTimeInSeconds = 0     //  time for makePrimes, factorPrimes, or loadBuf to run
     var primesDelegate: HLPrimesProtocol?
     var pTable: HLPrimeTable!
-    var primesLastLine: String = ""
+    
+    func findHighestPossiblePrime(terminalPrime: HLPrimeType) -> HLPrimeType    {
+        var largestPrimeToFind = terminalPrime
+        let largestTestPrime = Int64(sqrt(Double(largestPrimeToFind)))
+        var largestPrimeNeeded = largestTestPrime
+     
+        let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
+            self.primeFileLastLine = primeFileLastLine
+            let (_, lastP) = primeFileLastLine!.parseLine()
+
+        if lastP < largestPrimeNeeded    {
+            largestPrimeNeeded = lastP
+            largestPrimeToFind = lastP * lastP
+        }
+
+        return largestPrimeToFind
+    }
 
     func findPrimes(largestPrime: HLPrimeType)    {
-        var largestPrimeToFind = largestPrime
         
         DispatchQueue.global(qos: .userInitiated).async {
-            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0  else    {   return }
-            
-            print( "\nHLPrime-  findPrimes-  largestPrime: \(largestPrime)" )
             let startDate = Date()
+            self.fileManager.createPrimeFileIfNeeded(with: self.primesFileURL.path)
+
+            print( "\nHLPrime-  findPrimes-  largestPrime: \(largestPrime)" )
+            
             self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
             (self.lastN, self.lastP) = self.primeFileLastLine!.parseLine()
+            var highestPossiblePrime = self.findHighestPossiblePrime(terminalPrime: largestPrime)
             
-            let largestTestPrime = Int64(sqrt(Double(largestPrime)))
-            var largestPrimeNeeded = largestTestPrime
-            
-            if self.lastP < largestPrimeNeeded    {
-                largestPrimeNeeded = self.lastP
-                largestPrimeToFind = self.lastP * self.lastP
-            }
+            while self.lastP < largestPrime   {
+                let largestTestPrime = Int64(sqrt(Double(highestPossiblePrime)))
+                self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
+                print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
 
-            self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestPrimeNeeded)
-            print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
+                //  find out where we left off and continue from there
+                //        (self.lastN, self.lastP) = primeFileLastLine!.parseLine()
+                print( "findPrimes-  starting at lastN: \(self.lastN)    lastP: \(self.lastP)" )
+                self.fileManager.openPrimesFileForAppend(with: self.primesFileURL.path)
 
-             //  find out where we left off and continue from there
-            (self.lastN, self.lastP) = self.primeFileLastLine!.parseLine()
-            print( "findPrimes-  starting at lastN: \(self.lastN)    lastP: \(self.lastP)" )
-
-            self.lastN += 1
-            self.lastP += 2
-
-            self.fileManager.openPrimesFileForAppend(with: self.primesFileURL.path)
-
-            while( largestPrimeToFind >= self.lastP ) {
-                
-                if self.isPrime(n: self.lastP)    {
-                    let output = String(format: "%d\t%ld\n", self.lastN, self.lastP)
-                    self.fileManager.appendPrimesLine(output)
-                    self.lastN += 1
-                }
-                
+                self.lastN += 1
                 self.lastP += 2
 
-                if !self.active   {
-                    break
+                while( highestPossiblePrime >= self.lastP ) {
+
+                    if self.isPrime(n: self.lastP)    {
+                        let output = String(format: "%d\t%ld\n", self.lastN, self.lastP)
+                        self.fileManager.appendPrimesLine(output)
+                        self.lastN += 1
+                    }
+
+                    self.lastP += 2
+
+                    if !self.active   {
+                        break
+                    }
                 }
-            }
+ 
+                self.fileManager.closePrimesFileForAppend()
+                highestPossiblePrime = self.findHighestPossiblePrime(terminalPrime: largestPrime)
+           }
+
             
-            self.fileManager.closePrimesFileForAppend()
 
             DispatchQueue.main.async {
                 self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
@@ -96,7 +110,7 @@ class HLPrime: NSObject {
 
         DispatchQueue.global(qos: .userInitiated).async {
             print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
-            guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0     else    {   return     }
+    //        guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0     else    {   return     }
             
             let startDate = Date()
             var largestPrimeToFactor = largestPrime
@@ -158,7 +172,7 @@ class HLPrime: NSObject {
     
     func lastLineFor(path: String) -> String?   {
         let lastLine = fileManager.lastLine(forFile: path)
-//        print( "lastLineFor: \(path)   \(lastLine)" )
+ //       print( "HLPrime.lastLineFor: \(path)   \(String(describing: lastLine))" )
         return lastLine
     }
 
@@ -249,7 +263,7 @@ class HLPrime: NSObject {
     
     
     func setupFilePaths(basePath: String)   {
-        print( "HLPrime.setupFilePaths-  basePath: \(basePath)" )
+  //      print( "HLPrime.setupFilePaths-  basePath: \(basePath)" )
         primesFileURL = URL(string: basePath)
         factoredFileURL = URL(string: basePath + "-F")
         nicePrimesFileURL = URL(string: basePath + "-N")
