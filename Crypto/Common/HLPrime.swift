@@ -60,7 +60,7 @@ class HLPrime: NSObject {
             (self.lastN, self.lastP) = self.primeFileLastLine!.parseLine()
             var highestPossiblePrime = self.findHighestPossiblePrime(terminalPrime: largestPrime)
             
-            while self.lastP < largestPrime   {
+            while self.lastP<largestPrime && self.active   {
                 let largestTestPrime = Int64(sqrt(Double(highestPossiblePrime)))
                 self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
                 print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )

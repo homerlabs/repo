@@ -29,10 +29,9 @@ NSString *fileExtension = @"txt";
     NSString *temp = nil;
     if ( result == 0 )   {
         temp = [self readPrimesFileLine];
-        NSLog( @"createPrimeFileIfNeededWith-  temp: %@", temp);
         [self closePrimesFileForRead];
     }
-    BOOL isFirstLineValid = [temp isEqualToString: @"1\t2"];
+    BOOL isFirstLineValid = [temp isEqualToString: @"1\t2"];    //  '\n' has been removed
 
     //  if open failed, create new file
     if ( !isFirstLineValid )
