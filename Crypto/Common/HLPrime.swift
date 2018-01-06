@@ -31,23 +31,42 @@ class HLPrime: NSObject {
     var primesDelegate: HLPrimesProtocol?
     var pTable: HLPrimeTable!
     
-    func findHighestPossiblePrime(terminalPrime: HLPrimeType) -> HLPrimeType    {
-        var largestPrimeToFind = terminalPrime
-        let largestTestPrime = Int64(sqrt(Double(largestPrimeToFind)))
-        var largestPrimeNeeded = largestTestPrime
-     
-        let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
-            self.primeFileLastLine = primeFileLastLine
-            let (_, lastP) = primeFileLastLine!.parseLine()
+   func makeNicePrimesFile2(largestPrime: HLPrimeType)    {
+        print( "HLPrime-  makeNicePrimesFile2-  largestPrime: \(largestPrime)" )
+    
+        let largestTestPrime = Int64(sqrt(Double((largestPrime-1)/2)))
+        self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
+        print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
 
-        if lastP < largestPrimeNeeded    {
-            largestPrimeNeeded = lastP
-            largestPrimeToFind = lastP * lastP
-        }
+        fileManager.openPrimesFileForRead(with: primesFileURL.path)
+        fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
+    
+        var line = fileManager.readPrimesFileLine()
+        line = fileManager.readPrimesFileLine()
+        line = fileManager.readPrimesFileLine()
+    
+        if line == nil  {   return  }
+        (_, lastP) = line!.parseLine()
+    
+        while self.lastP<largestPrime && self.active   {
+            let possiblePrime = (lastP-1)/2
+            
+            if isPrime(n: possiblePrime) {
+                fileManager.writeNicePrimesFile(line)
+            }
 
-        return largestPrimeToFind
+            line = fileManager.readPrimesFileLine()
+            if line != nil  {
+                (_, lastP) = line!.parseLine()
+            }
+            else    {   break   }
+       }
+
+        fileManager.closeNicePrimesFileForWrite()
+        fileManager.closePrimesFileForRead()
     }
-
+    
+    
     func findPrimes(largestPrime: HLPrimeType)    {
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -170,6 +189,23 @@ class HLPrime: NSObject {
         }
     }
     
+    func findHighestPossiblePrime(terminalPrime: HLPrimeType) -> HLPrimeType    {
+        var largestPrimeToFind = terminalPrime
+        let largestTestPrime = Int64(sqrt(Double(largestPrimeToFind)))
+        var largestPrimeNeeded = largestTestPrime
+     
+        let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path)
+            self.primeFileLastLine = primeFileLastLine
+            let (_, lastP) = primeFileLastLine!.parseLine()
+
+        if lastP < largestPrimeNeeded    {
+            largestPrimeNeeded = lastP
+            largestPrimeToFind = lastP * lastP
+        }
+
+        return largestPrimeToFind
+    }
+
     func lastLineFor(path: String) -> String?   {
         let lastLine = fileManager.lastLine(forFile: path)
  //       print( "HLPrime.lastLineFor: \(path)   \(String(describing: lastLine))" )
@@ -180,7 +216,8 @@ class HLPrime: NSObject {
         var isPrime = true
         let largestTestPrime = Int(sqrt(Double(n)))
         
-        var index = 1   //  we don't try the value in [0] == 2
+//        var index = 1   //  we don't try the value in [0] == 2
+        var index = 0   //  we do try the value in [0] == 2
         var testPrime = pTable.buf[index]
         while testPrime <= largestTestPrime {
             let q_r = lldiv(n, testPrime)

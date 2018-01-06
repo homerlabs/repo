@@ -40,7 +40,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     @IBAction func filterAction(sender: NSButton) {
      //       print( "    *********   filterAction    lastP: \(primeFinder.lastP)" )
-            primeFinder.makeNicePrimesFile()
+            primeFinder.makeNicePrimesFile2(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
     }
     
     @IBAction func primesStartAction(sender: NSButton) {
