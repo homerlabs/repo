@@ -26,11 +26,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     let HLDefaultTerminalPrimeKey = "TerminalPrimeKey"
     let HLDefaultModCountKey = "ModCountKey"
     
-    let defaultTerminalPrime = "72361"  //  269 squared
-    let defaultModSize = "1000"
-    
-    var primeLastLine: String?
-    var factoredLastLine: String?
+    let defaultTerminalPrime = "1000000"
+    let defaultModSize = "100000"
     
     var findPrimesInProgress = false
     var factorPrimesInProgress = false
@@ -171,22 +168,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
         primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
         
-        primeLastLine = primeFinder.primeFileLastLine
-        if primeLastLine != nil  {
-            lastLinePrimeTextField.stringValue = primeLastLine!
-        }
-        else    {
-            terminalPrimeTextField.stringValue = defaultTerminalPrime
-            UserDefaults.standard.set(defaultTerminalPrime, forKey:HLDefaultTerminalPrimeKey)
-
-            primeFinder.fileManager.setModSize(Int32(defaultModSize)!)
-            modCountTextField.stringValue = defaultModSize
-            UserDefaults.standard.set(defaultModSize, forKey:HLDefaultModCountKey)
+        if let primeLastLine = primeFinder.primeFileLastLine    {
+            lastLinePrimeTextField.stringValue = primeLastLine
         }
         
-        factoredLastLine = primeFinder.factorFileLastLine
-        if factoredLastLine != nil  {
-            lastLineFactorTextField.stringValue = factoredLastLine!
+        if let factoredLastLine = primeFinder.factorFileLastLine    {
+            lastLineFactorTextField.stringValue = factoredLastLine
         }
     }
 }
