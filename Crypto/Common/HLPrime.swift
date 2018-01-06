@@ -60,7 +60,10 @@ class HLPrime: NSObject {
             (self.lastN, self.lastP) = self.primeFileLastLine!.parseLine()
             var highestPossiblePrime = self.findHighestPossiblePrime(terminalPrime: largestPrime)
             
-            while self.lastP<largestPrime && self.active   {
+            self.lastN += 1
+            self.lastP += 2
+
+           while self.lastP<largestPrime && self.active   {
                 let largestTestPrime = Int64(sqrt(Double(highestPossiblePrime)))
                 self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
                 print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
@@ -70,11 +73,8 @@ class HLPrime: NSObject {
                 print( "findPrimes-  starting at lastN: \(self.lastN)    lastP: \(self.lastP)" )
                 self.fileManager.openPrimesFileForAppend(with: self.primesFileURL.path)
 
-                self.lastN += 1
-                self.lastP += 2
-
                 while( highestPossiblePrime >= self.lastP ) {
-
+                
                     if self.isPrime(n: self.lastP)    {
                         let output = String(format: "%d\t%ld\n", self.lastN, self.lastP)
                         self.fileManager.appendPrimesLine(output)
