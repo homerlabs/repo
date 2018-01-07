@@ -12,8 +12,10 @@ typealias HLPrimeType = Int64
 
 protocol HLPrimesProtocol {
     func findPrimesCompleted()
+    func findNicePrimesCompleted()
     func factorPrimesCompleted()
 }
+
 
 class HLPrime: NSObject {
 
@@ -32,38 +34,48 @@ class HLPrime: NSObject {
     var pTable: HLPrimeTable!
     
    func makeNicePrimesFile2(largestPrime: HLPrimeType)    {
-        print( "HLPrime-  makeNicePrimesFile2-  largestPrime: \(largestPrime)" )
-    
-        let largestTestPrime = Int64(sqrt(Double((largestPrime-1)/2)))
-        self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
-        print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
 
-        fileManager.openPrimesFileForRead(with: primesFileURL.path)
-        fileManager.openNicePrimesFileForWrite(with: nicePrimesFileURL.path)
-    
-        var line = fileManager.readPrimesFileLine()
-        line = fileManager.readPrimesFileLine()
-        line = fileManager.readPrimesFileLine()
-    
-        if line == nil  {   return  }
-        (_, lastP) = line!.parseLine()
-    
-        while self.lastP<largestPrime && self.active   {
-            let possiblePrime = (lastP-1)/2
-            
-            if isPrime(n: possiblePrime) {
-                fileManager.writeNicePrimesFile(line)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let startDate = Date()
+            print( "HLPrime-  makeNicePrimesFile2-  largestPrime: \(largestPrime)" )
+        
+            let largestTestPrime = Int64(sqrt(Double((largestPrime-1)/2)))
+            self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
+            print( "pTable loaded-  lastN: \(self.pTable.buf.count)    lastP: \(self.pTable.buf[self.pTable.buf.count-1])" )
+
+            self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
+            self.fileManager.openNicePrimesFileForWrite(with: self.nicePrimesFileURL.path)
+        
+            var line = self.fileManager.readPrimesFileLine()
+            line = self.fileManager.readPrimesFileLine()
+            line = self.fileManager.readPrimesFileLine()
+        
+            if line == nil  {   return  }
+            (_, self.lastP) = line!.parseLine()
+        
+            while self.lastP<largestPrime && self.active   {
+                let possiblePrime = (self.lastP-1)/2
+                
+                if self.isPrime(n: possiblePrime) {
+                    self.fileManager.writeNicePrimesFile(line)
+                }
+
+                line = self.fileManager.readPrimesFileLine()
+                if line != nil  {
+                    (_, self.lastP) = line!.parseLine()
+                }
+                else    {   break   }
+           }
+
+            self.fileManager.closeNicePrimesFileForWrite()
+            self.fileManager.closePrimesFileForRead()
+
+            DispatchQueue.main.async {
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                self.primesDelegate?.findNicePrimesCompleted()
             }
 
-            line = fileManager.readPrimesFileLine()
-            if line != nil  {
-                (_, lastP) = line!.parseLine()
-            }
-            else    {   break   }
-       }
-
-        fileManager.closeNicePrimesFileForWrite()
-        fileManager.closePrimesFileForRead()
+        }
     }
     
     

@@ -30,6 +30,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     let defaultModSize = "100000"
     
     var findPrimesInProgress = false
+    var findNicePrimesInProgress = false
     var factorPrimesInProgress = false
     var errorCode = 0
 
@@ -39,8 +40,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     @IBAction func filterAction(sender: NSButton) {
-     //       print( "    *********   filterAction    lastP: \(primeFinder.lastP)" )
+        if filterStartButton.state == .on {
+            filterStartButton.title = "Running"
             primeFinder.makeNicePrimesFile2(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
+            findNicePrimesInProgress = true
+        }
+        else    {
+            filterStartButton.title = "Stopped"
+            filterStartButton.isEnabled = false
+            primeFinder.active = false
+        }
     }
     
     @IBAction func primesStartAction(sender: NSButton) {
@@ -79,6 +88,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         primeStartButton.title = "Completed"
         primeStartButton.isEnabled = false
+    }
+    
+    func findNicePrimesCompleted()  {
+        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
+        findNicePrimesInProgress = false
+        lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
+        filterStartButton.title = "Completed"
+        filterStartButton.isEnabled = false
     }
     
     func factorPrimesCompleted()    {
