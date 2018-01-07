@@ -11,6 +11,7 @@ import Foundation
 typealias HLPrimeType = Int64
 
 protocol HLPrimesProtocol {
+    func hlPrimeInitCompleted()
     func findPrimesCompleted()
     func findNicePrimesCompleted()
     func factorPrimesCompleted()
@@ -74,7 +75,6 @@ class HLPrime: NSObject {
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
                 self.primesDelegate?.findNicePrimesCompleted()
             }
-
         }
     }
     
@@ -324,16 +324,25 @@ class HLPrime: NSObject {
         super.init()
         setupFilePaths(basePath: primeFilePath)
         print( "HLPrime.init-  primeFilePath: \(primesFileURL.path)" )
+        let startDate = Date()
 
-        if let primeFileLastLine = fileManager.lastLine(forFile: primesFileURL.path) {
-            self.primeFileLastLine = primeFileLastLine
-            (lastN, lastP) = primeFileLastLine.parseLine()
-            print( "Primes file found: '\(primesFileURL.lastPathComponent)' last line:  lastN: \(lastN)    lastP: \(lastP)" )
-        }
+        DispatchQueue.global(qos: .userInitiated).async {
 
-        if let factorFileLastLine = fileManager.lastLine(forFile: factoredFileURL.path) {
-            self.factorFileLastLine = factorFileLastLine
-            print( "Factored file found: '\(factoredFileURL.lastPathComponent)' last line: \(factorFileLastLine)" )
+           if let primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path) {
+                self.primeFileLastLine = primeFileLastLine
+                (self.lastN, self.lastP) = primeFileLastLine.parseLine()
+                print( "Primes file found: '\(self.primesFileURL.lastPathComponent)' last line:  lastN: \(self.lastN)    lastP: \(self.lastP)" )
+            }
+
+            if let factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path) {
+                self.factorFileLastLine = factorFileLastLine
+                print( "Factored file found: '\(self.factoredFileURL.lastPathComponent)' last line: \(factorFileLastLine)" )
+            }
+
+            DispatchQueue.main.async {
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                self.primesDelegate?.hlPrimeInitCompleted()
+            }
         }
     }
 }

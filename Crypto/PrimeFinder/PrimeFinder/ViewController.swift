@@ -81,6 +81,27 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
    }
    
     //*************   HLPrimeProtocol     *********************************************************
+    func hlPrimeInitCompleted()  {
+        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        print( "    *********   HLPrime init completed in \(elaspsedTime)    *********\n" )
+        findPrimesInProgress = false
+        
+        if primeFinder.primeFileLastLine != nil {
+            lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
+            factorStartButton.isEnabled = true
+            filterStartButton.isEnabled = true
+        }
+        
+        if primeFinder.factorFileLastLine != nil {
+            lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
+        }
+        
+        primeStartButton.isEnabled = true
+        primeStartButton.title = "Prime Start"
+        factorStartButton.title = "Factor Start"
+        filterStartButton.title = "Filter Start"
+    }
+    
     func findPrimesCompleted()  {
         let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
