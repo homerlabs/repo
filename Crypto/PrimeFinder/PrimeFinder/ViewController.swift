@@ -35,7 +35,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var errorCode = 0
 
     @IBAction func checkProgressAction(sender: NSButton) {
-     //       print( "    *********   checkProgressAction    lastP: \(primeFinder.lastP)" )
             progressTextField.stringValue = String(primeFinder.lastP)
     }
     
@@ -82,7 +81,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
    
     //*************   HLPrimeProtocol     *********************************************************
     func hlPrimeInitCompleted()  {
-        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
         print( "    *********   HLPrime init completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         
@@ -103,7 +102,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func findPrimesCompleted()  {
-        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
@@ -112,7 +111,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func findNicePrimesCompleted()  {
-        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
         print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
         findNicePrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
@@ -121,14 +120,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func factorPrimesCompleted()    {
-        let elaspsedTime = formatTime(timeInSeconds: primeFinder.actionTimeInSeconds)
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
         print( "    *********   makePrimes completed  in \(elaspsedTime)    *********\n" )
         factorPrimesInProgress = false
         lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
         factorStartButton.title = "Completed"
         factorStartButton.isEnabled = false
-
- //       primeFinder.makeNicePrimesFile()
     }
     //*************   HLPrimeProtocol     *********************************************************
 
@@ -171,18 +168,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         return true
     }
     
-    func formatTime(timeInSeconds: Int) -> String   {
-        let hours = timeInSeconds / 3600
-        let mintues = timeInSeconds / 60 - hours * 60
-        let seconds = timeInSeconds - hours * 3600 - mintues * 60
-        return String(format: "%02d:%02d:%02d", hours, mintues, seconds)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         lastLinePrimeTextField.stringValue = "?"
         lastLineFactorTextField.stringValue = "?"
         progressTextField.stringValue = "?"
+
+        factorStartButton.isEnabled = false
+        factorStartButton.isEnabled = false
+        filterStartButton.isEnabled = false
 
         if let primeFilePath = UserDefaults.standard.string(forKey: HLDefaultPrimeFilePathKey)  {
             primeFilePathTextField.stringValue = primeFilePath
