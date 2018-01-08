@@ -81,7 +81,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
    
     //*************   HLPrimeProtocol     *********************************************************
     func hlPrimeInitCompleted()  {
-        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   HLPrime init completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         
@@ -102,7 +102,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func findPrimesCompleted()  {
-        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
@@ -111,7 +111,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func findNicePrimesCompleted()  {
-        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
         findNicePrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
@@ -174,7 +174,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         lastLineFactorTextField.stringValue = "?"
         progressTextField.stringValue = "?"
 
-        factorStartButton.isEnabled = false
+        primeStartButton.isEnabled = false
         factorStartButton.isEnabled = false
         filterStartButton.isEnabled = false
 
