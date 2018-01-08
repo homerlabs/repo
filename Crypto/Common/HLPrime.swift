@@ -147,8 +147,7 @@ class HLPrime: NSObject {
     func factorPrimes(largestPrime: HLPrimeType)  {
 
         DispatchQueue.global(qos: .userInitiated).async {
-            print( "\nHLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
-    //        guard self.fileManager.createPrimeFileIfNeeded(self.primesFileURL) == 0     else    {   return     }
+            print( "HLPrime-  factorPrimes-  largestPrime: \(largestPrime)" )
             
             let startDate = Date()
             var largestPrimeToFactor = largestPrime
@@ -183,17 +182,19 @@ class HLPrime: NSObject {
 //            print( "HLPrime-  factorPrimes-  lastP: \(self.lastP)" )
 
             var lastPrimeLine = self.fileManager.readPrimesFileLine()
-            (_, self.lastP) = lastPrimeLine!.parseLine()
-
-            while self.lastP <= largestPrimeToFactor {
-                let factoredPrime = self.factor(prime: self.lastP)
-                self.fileManager.appendFactoredLine(factoredPrime)
-                
-                lastPrimeLine = self.fileManager.readPrimesFileLine()
-                if lastPrimeLine == nil     {   break   }   //  watch for end of file
-                if !self.active             {   break   }   //  watch for user stop action
+            if lastPrimeLine != nil {
                 (_, self.lastP) = lastPrimeLine!.parseLine()
-         }
+
+                while self.lastP <= largestPrimeToFactor {
+                    let factoredPrime = self.factor(prime: self.lastP)
+                    self.fileManager.appendFactoredLine(factoredPrime)
+                    
+                    lastPrimeLine = self.fileManager.readPrimesFileLine()
+                    if lastPrimeLine == nil     {   break   }   //  watch for end of file
+                    if !self.active             {   break   }   //  watch for user stop action
+                    (_, self.lastP) = lastPrimeLine!.parseLine()
+                }
+            }
 
             self.fileManager.closeFactoredFileForAppend()
             self.fileManager.closePrimesFileForRead()

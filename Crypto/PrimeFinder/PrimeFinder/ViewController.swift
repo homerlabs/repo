@@ -123,7 +123,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
     
     func factorPrimesCompleted()    {
-        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime
+        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   makePrimes completed  in \(elaspsedTime)    *********\n" )
         factorPrimesInProgress = false
         lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
