@@ -10,7 +10,7 @@
 
 @interface HLFileManager : NSObject
 
--(void)createPrimeFileIfNeededWith:(NSString *)path;
+-(BOOL)createPrimeFileIfNeededWith:(NSString *)path;
 -(NSString *)lastLineForFile:(NSString *)path;
 -(NSString *)readLineFromFile:(FILE *)file;
 

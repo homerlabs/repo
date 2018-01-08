@@ -33,13 +33,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B03242531FCDCC2B003B2265 /* PrimeFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrimeFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B03242531FCDCC2B003B2265 /* PrimeFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PrimeFinder.app; path = "Prime Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B03242561FCDCC2B003B2265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B03242581FCDCC2B003B2265 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B032425A1FCDCC2B003B2265 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B032425D1FCDCC2B003B2265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B032425F1FCDCC2B003B2265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B03242601FCDCC2B003B2265 /* PrimeFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PrimeFinder.entitlements; sourceTree = "<group>"; };
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		B0DAFA281FCDCE7700017C90 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B0DAFA291FCDCE7700017C90 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B0DAFA311FCDCF3B00017C90 /* PrimeFinder-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrimeFinder-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0F7CF592004090200C4F159 /* Prime Finder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Prime Finder.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,13 +91,13 @@
 		B03242551FCDCC2B003B2265 /* PrimeFinder */ = {
 			isa = PBXGroup;
 			children = (
+				B0F7CF592004090200C4F159 /* Prime Finder.entitlements */,
 				B03242581FCDCC2B003B2265 /* ViewController.swift */,
 				B0DAFA311FCDCF3B00017C90 /* PrimeFinder-Bridging-Header.h */,
 				B03242561FCDCC2B003B2265 /* AppDelegate.swift */,
 				B032425A1FCDCC2B003B2265 /* Assets.xcassets */,
 				B032425C1FCDCC2B003B2265 /* Main.storyboard */,
 				B032425F1FCDCC2B003B2265 /* Info.plist */,
-				B03242601FCDCC2B003B2265 /* PrimeFinder.entitlements */,
 			);
 			path = PrimeFinder;
 			sourceTree = "<group>";
@@ -177,7 +177,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -386,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "PrimeFinder/Prime Finder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -402,6 +403,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "PrimeFinder/Prime Finder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;

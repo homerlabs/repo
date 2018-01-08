@@ -23,11 +23,12 @@ int modCounter = 0;
 NSString *fileExtension = @"txt";
 
 
--(void)createPrimeFileIfNeededWith:(NSString *)path {
+-(BOOL)createPrimeFileIfNeededWith:(NSString *)path {
     int result = [self openPrimesFileForReadWith: path];
    
     NSString *temp = nil;
-    if ( result == 0 )   {
+    if ( result == 0 )  //  file found, get first line
+    {
         temp = [self readPrimesFileLine];
         [self closePrimesFileForRead];
     }
@@ -36,11 +37,21 @@ NSString *fileExtension = @"txt";
     //  if open failed, create new file
     if ( !isFirstLineValid )
     {
-        [self openPrimesFileForAppendWith: path];
-        [self appendPrimesLine: @"1\t2\n"];
-        [self appendPrimesLine: @"2\t3\n"];
-        [self closePrimesFileForAppend];
+        NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+        primesAppendFile = fopen(pathWithExtension.UTF8String, "w");    //  create new file
+        
+        if ( primesAppendFile != nil )
+        {
+            [self appendPrimesLine: @"1\t2\n"];
+            [self appendPrimesLine: @"2\t3\n"];
+            [self closePrimesFileForAppend];
+            return 1;   //  sucess
+        }
     }
+    else
+        return 1;   //  sucess
+    
+    return 0;       //  createPrimeFile failed
 }
 
 //************************************************      primes file read        ****************

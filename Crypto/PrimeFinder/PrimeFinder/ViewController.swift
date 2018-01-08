@@ -108,6 +108,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         primeStartButton.title = "Completed"
         primeStartButton.isEnabled = false
+        
+        factorStartButton.isEnabled = true
+        filterStartButton.isEnabled = true
     }
     
     func findNicePrimesCompleted()  {

@@ -38,7 +38,7 @@ class HLPrime: NSObject {
 
         DispatchQueue.global(qos: .userInitiated).async {
             let startDate = Date()
-            print( "HLPrime-  makeNicePrimesFile2-  largestPrime: \(largestPrime)" )
+            print( "HLPrime-  makeNicePrimesFile-  largestPrime: \(largestPrime)" )
         
             let largestTestPrime = Int64(sqrt(Double((largestPrime-1)/2)))
             self.pTable = HLPrimeTable(primeFileURL: self.primesFileURL, largestPrime: largestTestPrime)
@@ -80,10 +80,17 @@ class HLPrime: NSObject {
     
     
     func findPrimes(largestPrime: HLPrimeType)    {
-        
+    
+        let success = self.fileManager.createPrimeFileIfNeeded(with: primesFileURL.path)
+        if !success {
+            print( "\nHLPrime-  findPrimes-  largestPrime: \(largestPrime) failed!  Unable to create prime file: \(primesFileURL.path)" )
+            primeFileLastLine = "0\t0\n"
+            primesDelegate?.findPrimesCompleted()
+            return  //  we don't have file access permission
+        }
+
         DispatchQueue.global(qos: .userInitiated).async {
             let startDate = Date()
-            self.fileManager.createPrimeFileIfNeeded(with: self.primesFileURL.path)
 
             print( "\nHLPrime-  findPrimes-  largestPrime: \(largestPrime)" )
             
