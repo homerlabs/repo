@@ -72,6 +72,7 @@ class HLPrime: NSObject {
             self.fileManager.closePrimesFileForRead()
 
             DispatchQueue.main.async {
+                self.pTable.deleteTable()
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
                 self.primesDelegate?.findNicePrimesCompleted()
             }
@@ -136,6 +137,7 @@ class HLPrime: NSObject {
                 self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
                 let (newLastN, newLastP) = self.primeFileLastLine!.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
+                self.pTable.deleteTable()
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
  //               print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
@@ -202,6 +204,7 @@ class HLPrime: NSObject {
             DispatchQueue.main.async {
                 self.factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path)
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                self.pTable.deleteTable()
     //              print( "HLPrime-  factorPrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
                 self.primesDelegate?.factorPrimesCompleted()

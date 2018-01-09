@@ -115,7 +115,10 @@ NSString *fileExtension = @"txt";
 {
     int n = line.intValue;
     if ( n % modSize == 0 )
+    {
+    //    let density = 
         NSLog( @"** new prime: %@", line );
+    }
     
     fputs(line.UTF8String, primesAppendFile);
 }
@@ -139,7 +142,9 @@ NSString *fileExtension = @"txt";
 {
     fprintf(factoredAppendFile, "%s\n", line.UTF8String);
     if ( modCounter++ % modSize == 0 )
+    {
         NSLog( @"  ** prime factored: %@", line );
+    }
 }
 //************************************************      factored file append    ****************
 

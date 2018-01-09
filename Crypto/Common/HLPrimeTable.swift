@@ -17,6 +17,11 @@ class HLPrimeTable: NSObject {
     var primesFileURL: URL!
 
 
+    func deleteTable()  {
+        print( "HLPrimeTable-  deleteTable" )
+        buf.removeAll()
+    }
+
     init?(primeFileURL: URL, largestPrime: HLPrimeType)  {
 //        print( "HLPrimeTable-  init?-  primeFileURL: \(primeFileURL.path)    largestPrime: \(largestPrime)" )
         self.primesFileURL = primeFileURL
