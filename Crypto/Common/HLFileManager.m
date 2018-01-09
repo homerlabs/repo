@@ -116,8 +116,14 @@ NSString *fileExtension = @"txt";
     int n = line.intValue;
     if ( n % modSize == 0 )
     {
-    //    let density = 
-        NSLog( @"** new prime: %@", line );
+        //        let density = Float80(self.lastP) / Float80(self.lastN)
+        NSArray<NSString *> *array = [line componentsSeparatedByString:@"\t"];
+        NSString *lastNStr = array[0];
+        NSString *lastPStr = [NSString stringWithFormat:@"%@", array[1]];
+        double lastN = array[0].doubleValue;
+        double lastP = lastPStr.doubleValue;
+        int lastPInt = lastPStr.intValue;
+        NSLog( @"** new prime-  lastN: %@    lastP: %d    density: %0.2f", lastNStr, lastPInt, lastN/lastP );
     }
     
     fputs(line.UTF8String, primesAppendFile);

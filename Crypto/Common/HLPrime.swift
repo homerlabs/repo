@@ -72,8 +72,8 @@ class HLPrime: NSObject {
             self.fileManager.closePrimesFileForRead()
 
             DispatchQueue.main.async {
-                self.pTable.deleteTable()
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                self.pTable.deleteTable()
                 self.primesDelegate?.findNicePrimesCompleted()
             }
         }
@@ -109,7 +109,8 @@ class HLPrime: NSObject {
 
                 //  find out where we left off and continue from there
                 //        (self.lastN, self.lastP) = primeFileLastLine!.parseLine()
-                print( "findPrimes-  starting at lastN: \(self.lastN)    lastP: \(self.lastP)" )
+                let density = Float80(self.lastN) / Float80(self.lastP)
+                print( "findPrimes-  starting at lastN: \(self.lastN)    lastP: \(self.lastP)    density: \(density)" )
                 self.fileManager.openPrimesFileForAppend(with: self.primesFileURL.path)
 
                 while( highestPossiblePrime >= self.lastP ) {
@@ -137,8 +138,8 @@ class HLPrime: NSObject {
                 self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path)
                 let (newLastN, newLastP) = self.primeFileLastLine!.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
-                self.pTable.deleteTable()
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                self.pTable.deleteTable()
  //               print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
                 self.primesDelegate?.findPrimesCompleted()
