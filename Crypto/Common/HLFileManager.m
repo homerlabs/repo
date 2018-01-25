@@ -123,7 +123,7 @@ NSString *fileExtension = @"txt";
         double lastN = array[0].doubleValue;
         double lastP = lastPStr.doubleValue;
         int lastPInt = lastPStr.intValue;
-        NSLog( @"** new prime-  lastN: %@    lastP: %d    density: %0.2f", lastNStr, lastPInt, lastN/lastP );
+        NSLog( @"** new prime-  lastN: %@    lastP: %d    density: %0.3f", lastNStr, lastPInt, lastN/lastP );
     }
     
     fputs(line.UTF8String, primesAppendFile);
