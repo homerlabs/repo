@@ -30,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B01D0F9A201CF9020076E254 /* RSATool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSATool.entitlements; sourceTree = "<group>"; };
 		B0439C0F1FA4063800EC83A0 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
 		B0439C111FA4063800EC83A0 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
@@ -79,8 +80,8 @@
 		B08176511F993D2B00772AFC = {
 			isa = PBXGroup;
 			children = (
-				B0439C0D1FA4063800EC83A0 /* Common */,
 				B081765C1F993D2B00772AFC /* RSATool */,
+				B0439C0D1FA4063800EC83A0 /* Common */,
 				B0FC2FB71FACD1C50071DD9B /* RSAToolTests */,
 				B081765B1F993D2B00772AFC /* Products */,
 			);
@@ -99,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				B081765F1F993D2B00772AFC /* ViewController.swift */,
+				B01D0F9A201CF9020076E254 /* RSATool.entitlements */,
 				B056E5911FA8DB8F0078D728 /* RSATool-Bridging-Header.h */,
 				B08176631F993D2B00772AFC /* Main.storyboard */,
 				B081765D1F993D2B00772AFC /* AppDelegate.swift */,
@@ -170,7 +172,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -374,6 +376,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RSATool/RSATool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -390,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RSATool/RSATool.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;

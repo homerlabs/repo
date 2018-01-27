@@ -98,7 +98,7 @@ class HLRSA: NSObject {
                 let temp = d * bigA
                 d = temp.truncatingRemainder(dividingBy: bigMod)
        //         d = Int64(temp2)
-             print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)   d: \(d)   temp: \(temp.debugDescription)" )
+       //      print( "i: \(i)   bitIndex: \(bitIndex)    weight: \(weight)   d: \(d)   temp: \(temp.debugDescription)" )
            }
             
  //          print( "i: \(i)   testB: \(testB)    weight: \(weight)   d: \(d)   " )
@@ -125,11 +125,11 @@ class HLRSA: NSObject {
 
     func encode( m: HLPrimeType, key: HLPrimeType) -> HLPrimeType {
         let result = fastExpOf(a: m, exp: key, mod: N)
-        let result2 = fastExp2Of(a: m, exp: key, mod: N)
-        let result3 = slowExpOf(a: m, exp: key, mod: N)
+//        let result2 = fastExp2Of(a: m, exp: key, mod: N)
+//        let result3 = slowExpOf(a: m, exp: key, mod: N)
   //      assert(result == result2 )
-        print( "encode-  result: \(result)  result2: \(result2)  result3: \(result3)" )
-        return result3
+//        print( "encode-  result: \(result)  result2: \(result2)  result3: \(result3)" )
+        return result
     }
     
     
@@ -168,18 +168,19 @@ class HLRSA: NSObject {
     }
     
     
-    func encodeFile(plaintextURL: URL)  {
-//        print( "HLRSA-  encode: \(plaintextURL.path)" )
+    func encodeFile(path: String)  {
+//        print( "HLRSA-  encode: \(path)" )
         do {
-            var data = try String(contentsOfFile: plaintextURL.path, encoding: .utf8)
-            print( "HLRSA-  encode-  text: \(data)" )
+            var dataIn = try String(contentsOfFile: path, encoding: .utf8)
+            var dataOut = ""
+            print( "HLRSA-  encode-  text: \(dataIn)" )
             
-            while data.count > 0 {
+            while dataIn.count > 0 {
                 var chunk = ""
 
                 for _ in 0..<chuckSize  {
-                    if data.count > 0   {
-                        let singleChar = data.removeFirst()
+                    if dataIn.count > 0   {
+                        let singleChar = dataIn.removeFirst()
                         chunk.append(singleChar)
                      }
                 }
@@ -187,13 +188,16 @@ class HLRSA: NSObject {
                 let plaintextInt = stringToInt(text: chunk)
                 let cypher = encode(m: plaintextInt, key: keyPublic)
      //           let cypher = encode(m: plaintextInt, key: keyPrivate)
- /*               let cypherString = intToString(n: cypher)
+                let cypherChuck = intToString(n: cypher)
+                dataOut.append(cypherChuck)
                 
                 let deCypherInt = encode(m: cypher, key: keyPrivate)
     //            let deCypherInt = encode(m: cypher, key: keyPublic)
                 let deCypherString = intToString(n: deCypherInt)
-                print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypher: \(cypher)    cypherString: \(cypherString)    deCypher: \(deCypherString)" )    */
+print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)    cypherString: \(cypherChuck)    deCypher: \(deCypherString)" )
             }
+            
+            try dataOut.write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
         } catch {
             print(error.localizedDescription)
         }

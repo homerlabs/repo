@@ -11,12 +11,15 @@ import Cocoa
 class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     @IBOutlet var plaintextFilePathTextField: NSTextField!
-    @IBOutlet var primePPathTextField: NSTextField!
-    @IBOutlet var primeQPathTextField: NSTextField!
+    @IBOutlet var ciphertextFilePathTextField: NSTextField!
+    @IBOutlet var primePTextField: NSTextField!
+    @IBOutlet var primeQTextField: NSTextField!
     @IBOutlet var publicKeyTextField: NSTextField!
     @IBOutlet var privateKeyTextField: NSTextField!
     @IBOutlet var nTextField: NSTextField!
     @IBOutlet var gammaTextField: NSTextField!
+    @IBOutlet var encodeButton: NSButton!
+    @IBOutlet var decodeButton: NSButton!
 
     var rsa: HLRSA!
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
@@ -26,10 +29,82 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let HLDefaultPublicKeyKey = "PublicKey"
 
 
+   func getOpenFilePath(title: String) -> String     {
+        print("getOpenFilePath")
+    
+        var path = ""
+        let openPanel = NSOpenPanel();
+        openPanel.canCreateDirectories = true;
+        openPanel.title = "Prime Finder Open Panel";
+//        openPanel.nameFieldStringValue = "Primes";
+        openPanel.allowedFileTypes = ["txt"];
+        openPanel.showsTagField = false;
+        openPanel.prompt = "Open";
+        openPanel.message = "Prime Finder Open Panel";
+//        openPanel.nameFieldLabel = "Save As:";
+
+        let i = openPanel.runModal();
+        if(i == NSApplication.ModalResponse.OK){
+            path = openPanel.url!.path
+        }
+    
+        return path
+    }
+   
+   func getSaveFilePath(title: String) -> String     {
+        print("getSaveFilePath")
+    
+        var path = ""
+        let savePanel = NSSavePanel();
+        savePanel.canCreateDirectories = true;
+        savePanel.title = "Save Panel";
+        savePanel.nameFieldStringValue = "Ciphertext";
+        savePanel.showsTagField = false;
+        savePanel.prompt = "Create";
+        savePanel.message = title;
+        savePanel.nameFieldLabel = "Save As:";
+        savePanel.allowedFileTypes = ["txt"];
+
+        let i = savePanel.runModal();
+        if(i == NSApplication.ModalResponse.OK){
+            path = savePanel.url!.path
+        }
+        return path
+    }
+   
+    @IBAction func decodeAction(sender: NSButton) {
+ //       print( "ViewController-  decodeAction" )
+//        let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
+//        rsa.encodeFile(plaintextURL: url)
+        print( "rsa.decodeFile completed." )
+    }
+
+
+    @IBAction func setPlaintextPathAction(sender: NSButton) {
+        print( "setPlaintextPathAction" )
+        let path = getOpenFilePath(title: "Set Plaintext file path")
+        plaintextFilePathTextField.stringValue = path
+        
+        if !ciphertextFilePathTextField.stringValue.isEmpty   {
+            encodeButton.isEnabled = true
+        }
+    }
+
+
+    @IBAction func setCiphertextPathAction(sender: NSButton) {
+        print( "setCiphertextPathAction" )
+        let path = getSaveFilePath(title: "Set Ciphertext file path")
+        ciphertextFilePathTextField.stringValue = path
+        
+        if !plaintextFilePathTextField.stringValue.isEmpty   {
+            encodeButton.isEnabled = true
+        }
+    }
+
+
     @IBAction func encodeAction(sender: NSButton) {
  //       print( "ViewController-  encodeAction" )
-        let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
-        rsa.encodeFile(plaintextURL: url)
+        rsa.encodeFile(path: plaintextFilePathTextField.stringValue)
         print( "rsa.encodeFile completed." )
     }
 
@@ -37,22 +112,22 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
      func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
-        if control == plaintextFilePathTextField    {
+/*        if control == plaintextFilePathTextField    {
             var newValue = control.stringValue
             if !newValue.hasPrefix("/")  {
                 newValue = homeDir + "/" + newValue
             }
            UserDefaults.standard.set(newValue, forKey:HLDefaultPlaintextFilePathKey)
-        }
+        }   */
         
-        else if control == primePPathTextField    {
+        if control == primePTextField    {
             setupRSA()
-            UserDefaults.standard.set(primePPathTextField.stringValue, forKey:HLDefaultPrimePKey)
+            UserDefaults.standard.set(primePTextField.stringValue, forKey:HLDefaultPrimePKey)
         }
 
-        else if control == primeQPathTextField    {
+        else if control == primeQTextField    {
             setupRSA()
-            UserDefaults.standard.set(primeQPathTextField.stringValue, forKey:HLDefaultPrimeQKey)
+            UserDefaults.standard.set(primeQTextField.stringValue, forKey:HLDefaultPrimeQKey)
         }
 
         else if control == publicKeyTextField    {
@@ -76,8 +151,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
     
     func setupRSA() {
-        let p = Int64(primePPathTextField.stringValue)!
-        let q = Int64(primeQPathTextField.stringValue)!
+        let p = Int64(primePTextField.stringValue)!
+        let q = Int64(primeQTextField.stringValue)!
         let n = p * q
         let gamma = (p-1) * (q-1)
         nTextField.stringValue = String(n)
@@ -90,25 +165,25 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
+ /*       if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
             plaintextFilePathTextField.stringValue = plaintextFilePath
         }
         else    {
             plaintextFilePathTextField.stringValue = "Desktop/Plaintext"
-        }
+        }   */
 
         if let primeP = UserDefaults.standard.string(forKey: HLDefaultPrimePKey)  {
-            primePPathTextField.stringValue = primeP
+            primePTextField.stringValue = primeP
         }
         else    {
-            primePPathTextField.stringValue = "13"
+            primePTextField.stringValue = "13"
         }
 
         if let primeQ = UserDefaults.standard.string(forKey: HLDefaultPrimeQKey)  {
-            primeQPathTextField.stringValue = primeQ
+            primeQTextField.stringValue = primeQ
         }
         else    {
-            primeQPathTextField.stringValue = "17"
+            primeQTextField.stringValue = "17"
         }
 
         if let publicKey = UserDefaults.standard.string(forKey: HLDefaultPublicKeyKey)  {
@@ -119,6 +194,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
 
         setupRSA()
+        encodeButton.isEnabled = false
+        decodeButton.isEnabled = false
    }
 }
 
