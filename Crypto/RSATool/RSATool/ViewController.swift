@@ -23,12 +23,14 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     var rsa: HLRSA!
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
-    let HLDefaultPlaintextFilePathKey = "PlaintextPathKey"
-    let HLDefaultPrimePKey = "PrimePKey"
-    let HLDefaultPrimeQKey = "PrimeQKey"
-    let HLDefaultPublicKeyKey = "PublicKey"
-
-
+    let HLDefaultPlaintextFilePathKey   = "PlaintextPathKey"
+    let HLPlaintextBookmarkKey          = "PlaintextBookmarkKey"
+    let HLCiphertextBookmarkKey         = "CiphertextBookmarkKey"
+    let HLDefaultPrimePKey              = "PrimePKey"
+    let HLDefaultPrimeQKey              = "PrimeQKey"
+    let HLDefaultPublicKeyKey           = "PublicKey"
+    
+    
    func getOpenFilePath(title: String) -> String     {
         print("getOpenFilePath")
     
@@ -46,6 +48,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         let i = openPanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
             path = openPanel.url!.path
+            openPanel.url!.setBookmarkFor(key: HLPlaintextBookmarkKey)
         }
     
         return path
@@ -68,6 +71,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         let i = savePanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
             path = savePanel.url!.path
+            savePanel.url!.setBookmarkFor(key: HLCiphertextBookmarkKey)
         }
         return path
     }
@@ -104,7 +108,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     @IBAction func encodeAction(sender: NSButton) {
  //       print( "ViewController-  encodeAction" )
-        rsa.encodeFile(path: plaintextFilePathTextField.stringValue)
+        rsa.encodeFile(inputFilepath: plaintextFilePathTextField.stringValue, outputFilepath: ciphertextFilePathTextField.stringValue)
         print( "rsa.encodeFile completed." )
     }
 
@@ -165,12 +169,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
- /*       if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
-            plaintextFilePathTextField.stringValue = plaintextFilePath
+        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
+            if let url = plaintextFilePathTextField.stringValue.getBookmarkFor(key: HLPlaintextBookmarkKey) {
+                plaintextFilePathTextField.stringValue = plaintextFilePath
+                print( "ViewController-  viewDidLoad-  url: \(String(describing: url))" )
+            }
         }
         else    {
-            plaintextFilePathTextField.stringValue = "Desktop/Plaintext"
-        }   */
+            plaintextFilePathTextField.stringValue = "Desktop/Plaintext???"
+        }
 
         if let primeP = UserDefaults.standard.string(forKey: HLDefaultPrimePKey)  {
             primePTextField.stringValue = primeP

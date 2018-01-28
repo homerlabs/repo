@@ -20,7 +20,7 @@ FILE *readTempFile;
 int modSize = 1;
 int modCounter = 0;
 
-NSString *fileExtension = @"txt";
+//NSString *fileExtension = @"txt";
 
 
 -(BOOL)createPrimeFileIfNeededWith:(NSString *)path {
@@ -37,8 +37,8 @@ NSString *fileExtension = @"txt";
     //  if open failed, create new file
     if ( !isFirstLineValid )
     {
-        NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-        primesAppendFile = fopen(pathWithExtension.UTF8String, "w");    //  create new file
+ //       NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+        primesAppendFile = fopen(path.UTF8String, "w");    //  create new file
         
         if ( primesAppendFile != nil )
         {
@@ -56,8 +56,8 @@ NSString *fileExtension = @"txt";
 
 //************************************************      primes file read        ****************
 -(int)openPrimesFileForReadWith:(NSString *)path  {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    primesReadFile = fopen(pathWithExtension.UTF8String, "r");
+ //   NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    primesReadFile = fopen(path.UTF8String, "r");
     return (primesReadFile == nil); //  return 0 for no error
 }
 -(void)closePrimesFileForRead
@@ -75,8 +75,8 @@ NSString *fileExtension = @"txt";
 //************************************************      factored file read      ****************
 -(int)openFactoredFileForReadWith:(NSString *)path
 {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    factoredReadFile = fopen(pathWithExtension.UTF8String, "r");
+//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    factoredReadFile = fopen(path.UTF8String, "r");
 
     if ( !factoredReadFile )
         return -1;  //    error
@@ -103,8 +103,8 @@ NSString *fileExtension = @"txt";
 
 //************************************************      primes file append      ****************
 -(void)openPrimesFileForAppendWith:(NSString *)path  {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-     primesAppendFile = fopen(pathWithExtension.UTF8String, "a");
+//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+     primesAppendFile = fopen(path.UTF8String, "a");
 }
 -(void)closePrimesFileForAppend
 {
@@ -133,8 +133,8 @@ NSString *fileExtension = @"txt";
 
 //************************************************      factored file append    ****************
 -(int)openFactoredFileForAppendWith:(NSString *)path  {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    factoredAppendFile = fopen(pathWithExtension.UTF8String, "a");
+//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    factoredAppendFile = fopen(path.UTF8String, "a");
     assert( factoredAppendFile );
     modCounter = 0;
     return 0;   //  no error
@@ -158,8 +158,8 @@ NSString *fileExtension = @"txt";
 //************************************************      nice primes file write  ****************
 -(int)openNicePrimesFileForWriteWith:(NSString *)path
 {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    nicePrimesWriteFile = fopen(pathWithExtension.UTF8String, "w");
+//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    nicePrimesWriteFile = fopen(path.UTF8String, "w");
     assert( nicePrimesWriteFile );
     modCounter = 0;
     return 0;   //  no error
@@ -183,8 +183,8 @@ NSString *fileExtension = @"txt";
 
 //************************************************      temp file read          ****************
 -(void)openTempFileForReadWith:(NSString *)path  {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    readTempFile = fopen(pathWithExtension.UTF8String, "r");
+//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    readTempFile = fopen(path.UTF8String, "r");
 }
 -(void)closeTempFileForRead
 {
@@ -205,8 +205,8 @@ NSString *fileExtension = @"txt";
 
 -(NSString *)lastLineForFile:(NSString *)path
 {
-    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
-    readTempFile = fopen(pathWithExtension.UTF8String, "r");
+//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
+    readTempFile = fopen(path.UTF8String, "r");
     
     if ( readTempFile )  {
         NSString *temp = @"";

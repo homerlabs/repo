@@ -168,10 +168,10 @@ class HLRSA: NSObject {
     }
     
     
-    func encodeFile(path: String)  {
+    func encodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  encode: \(path)" )
         do {
-            var dataIn = try String(contentsOfFile: path, encoding: .utf8)
+            var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
             var dataOut = ""
             print( "HLRSA-  encode-  text: \(dataIn)" )
             
@@ -197,7 +197,7 @@ class HLRSA: NSObject {
 print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)    cypherString: \(cypherChuck)    deCypher: \(deCypherString)" )
             }
             
-            try dataOut.write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
+            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
         } catch {
             print(error.localizedDescription)
         }
