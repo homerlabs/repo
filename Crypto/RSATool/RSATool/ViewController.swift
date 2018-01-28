@@ -34,7 +34,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     
    func getOpenFilePath(title: String) -> String     {
-        print("getOpenFilePath")
     
         var path = ""
         let openPanel = NSOpenPanel();
@@ -57,7 +56,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
    
    func getSaveFilePath(title: String) -> String     {
-        print("getSaveFilePath")
     
         var path = ""
         let savePanel = NSSavePanel();
@@ -79,7 +77,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
    
     @IBAction func setPlaintextPathAction(sender: NSButton) {
-        print( "setPlaintextPathAction" )
         let path = getOpenFilePath(title: "Set Plaintext file path")
         plaintextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultPlaintextFilePathKey)
@@ -90,7 +87,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
 
     @IBAction func setCiphertextPathAction(sender: NSButton) {
-        print( "setCiphertextPathAction" )
         let path = getSaveFilePath(title: "Set Ciphertext file path")
         ciphertextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultCiphertextFilePathKey)
@@ -102,7 +98,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
 
     @IBAction func decodeAction(sender: NSButton) {
- //       print( "ViewController-  decodeAction" )
 //        let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
         rsa.decodeFile(inputFilepath: ciphertextFilePathTextField.stringValue, outputFilepath: plaintextFilePathTextField.stringValue)
         print( "rsa.decodeFile completed." )
@@ -110,7 +105,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
 
     @IBAction func encodeAction(sender: NSButton) {
- //       print( "ViewController-  encodeAction" )
         rsa.encodeFile(inputFilepath: plaintextFilePathTextField.stringValue, outputFilepath: ciphertextFilePathTextField.stringValue)
         print( "rsa.encodeFile completed." )
     }
@@ -170,25 +164,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var plaintextPathFound = false
-        var ciphertextPathFound = false
-
-        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
-            if let url = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey) {
-                plaintextFilePathTextField.stringValue = plaintextFilePath
-                plaintextPathFound = true
-                print( "ViewController-  viewDidLoad-  plaintextFilePath: \(String(describing: url.path))" )
-            }
-        }
-
-        if let ciphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultCiphertextFilePathKey)  {
-            if let url = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey) {
-                ciphertextFilePathTextField.stringValue = ciphertextFilePath
-                ciphertextPathFound = true
-                print( "ViewController-  viewDidLoad-  ciphertextFilePath: \(String(describing: url.path))" )
-            }
-        }
-
         if let primeP = UserDefaults.standard.string(forKey: HLDefaultPrimePKey)  {
             primePTextField.stringValue = primeP
         }
@@ -212,7 +187,26 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
         setupRSA()
         
-        if plaintextPathFound && ciphertextPathFound   {
+        var plaintextPathFound = false
+        var ciphertextPathFound = false
+
+        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
+            if let url = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey) {
+                plaintextFilePathTextField.stringValue = plaintextFilePath
+                plaintextPathFound = true
+         //       print( "ViewController-  viewDidLoad-  plaintextFilePath: \(String(describing: url.path))" )
+            }
+        }
+
+        if let ciphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultCiphertextFilePathKey)  {
+            if let url = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey) {
+                ciphertextFilePathTextField.stringValue = ciphertextFilePath
+                ciphertextPathFound = true
+        //        print( "ViewController-  viewDidLoad-  ciphertextFilePath: \(String(describing: url.path))" )
+            }
+        }
+
+       if plaintextPathFound && ciphertextPathFound   {
             encodeButton.isEnabled = true
             decodeButton.isEnabled = true
         }

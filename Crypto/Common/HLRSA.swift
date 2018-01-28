@@ -32,6 +32,36 @@ class HLRSA: NSObject {
                              "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
+    func chunker(workingString: inout String) -> String   {
+        var chunk = ""
+        print( "chunker-  workingString: \(workingString)" )
+        
+        if workingString.count > chuckSize  {
+            chunk = String( workingString.prefix(chuckSize+1) )
+            let chunkInt = stringToInt(text: chunk)
+            if chunkInt < N     {
+                //  done
+                print( "chunker-  chunkPlusOne: \(chunk)    chunkInt: \(chunkInt)" )
+                workingString.removeFirst(chunk.count)
+            }
+            
+            else    {
+                chunk = String( workingString.prefix(chuckSize) )
+                let chunkInt = stringToInt(text: chunk)
+                print( "chunker-  chunk: \(chunk)    chunkInt: \(chunkInt)" )
+                workingString.removeFirst(chunk.count)
+            }
+        }
+        else    {
+            chunk = String( workingString.prefix(chuckSize) )
+            let chunkInt = stringToInt(text: chunk)
+            print( "chunker-  chunk: \(chunk)    chunkInt: \(chunkInt)" )
+            workingString.removeFirst(chunk.count)
+        }
+        
+        return chunk
+    }
+
     func fastExp2Of(a: HLPrimeType, exp: HLPrimeType, mod: HLPrimeType) -> HLPrimeType   {
         let arraySize = 100
         var value: [Float80] = Array(repeatElement(0, count: arraySize))
@@ -157,11 +187,11 @@ class HLRSA: NSObject {
             if workingN >= power {
                 let index = Int(workingN / power)
                 
- //               print( "intToString-  workingN: \(workingN)  power: \(power)" )
+     //           print( "intToString-  workingN: \(workingN)  power: \(power)" )
                 result.append(charSet[index])
            }
             workingN %= power
- //           print( "intToString-  result: \(result)" )
+  //          print( "intToString-  result: \(result)" )
         }
         
         return result
@@ -207,31 +237,32 @@ print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCyphe
     func encodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  encode: \(path)" )
         do {
-            var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            var workingString = dataIn
             var dataOut = ""
-            print( "HLRSA-  encode-  text: \(dataIn)" )
+            print( "HLRSA-  encodeFile-  text: \(dataIn)" )
             
-            while dataIn.count > 0 {
-                var chunk = ""
+            var chunk = chunker(workingString: &workingString)
+            print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
 
-                for _ in 0..<chuckSize  {
-                    if dataIn.count > 0   {
-                        let singleChar = dataIn.removeFirst()
-                        chunk.append(singleChar)
-                     }
-                }
-                
+            while chunk.count > 0 {
                 let plaintextInt = stringToInt(text: chunk)
                 let cypher = encode(m: plaintextInt, key: keyPublic)
-     //           let cypher = encode(m: plaintextInt, key: keyPrivate)
-                let cypherChuck = intToString(n: cypher)
-                dataOut.append(cypherChuck)
+      //           let cypher = encode(m: plaintextInt, key: keyPrivate)
+               let cypherChunk = intToString(n: cypher)
+
+                dataOut.append(cypherChunk)
                 
                 let deCypherInt = encode(m: cypher, key: keyPrivate)
     //            let deCypherInt = encode(m: cypher, key: keyPublic)
                 let deCypherString = intToString(n: deCypherInt)
-print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)    cypherString: \(cypherChuck)    deCypher: \(deCypherString)" )
+print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)    cypherString: \(cypherChunk)    deCypher: \(deCypherString)" )
+                
+                chunk = chunker(workingString: &workingString)
+                print( "HLRSA2-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
             }
+                
+            
             
             try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
         } catch {
@@ -327,7 +358,7 @@ print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)
         
         else                {   return -1            }
     }
-
+    
     init(p: Int64, q: Int64) {
         N = p * q
         Gamma = (p-1) * (q-1)
