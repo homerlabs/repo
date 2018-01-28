@@ -168,6 +168,42 @@ class HLRSA: NSObject {
     }
     
     
+    func decodeFile(inputFilepath: String, outputFilepath: String)  {
+//        print( "HLRSA-  decode: \(path)" )
+        do {
+            var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            var dataOut = ""
+            print( "HLRSA-  encode-  text: \(dataIn)" )
+            
+            while dataIn.count > 0 {
+                var chunk = ""
+
+                for _ in 0..<chuckSize  {
+                    if dataIn.count > 0   {
+                        let singleChar = dataIn.removeFirst()
+                        chunk.append(singleChar)
+                     }
+                }
+                
+                let ciphertextInt = stringToInt(text: chunk)
+     //           let decoded = encode(m: ciphertextInt, key: keyPublic)
+                let decoded = encode(m: ciphertextInt, key: keyPrivate)
+                let decodedChuck = intToString(n: decoded)
+                dataOut.append(decodedChuck)
+                
+    //            let reCypherInt = encode(m: cypher, key: keyPrivate)
+                let reCypherInt = encode(m: decoded, key: keyPublic)
+                let reCypherString = intToString(n: reCypherInt)
+print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCypherInt)    cypherString: \(decodedChuck)    reCypher: \(reCypherString)" )
+            }
+            
+            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
     func encodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  encode: \(path)" )
         do {
