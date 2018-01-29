@@ -23,7 +23,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     var rsa: HLRSA!
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
-    
+    var plainTextURL: URL? = nil
+    var cipherTextURL: URL? = nil
+
     let HLDefaultPlaintextFilePathKey   = "PlaintextPathKey"
     let HLDefaultCiphertextFilePathKey  = "CiphertextPathKey"
     let HLDefaultPrimePKey              = "PrimePKey"
@@ -158,6 +160,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         print( "ViewController-  viewDidDisappear" )
+        plainTextURL?.stopAccessingSecurityScopedResource()
+        cipherTextURL?.stopAccessingSecurityScopedResource()
         exit(0)
     }
     
@@ -187,26 +191,23 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
         setupRSA()
         
-        var plaintextPathFound = false
-        var ciphertextPathFound = false
-
         if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
-            if let url = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey) {
+            plainTextURL = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey)
+            if plainTextURL != nil {
                 plaintextFilePathTextField.stringValue = plaintextFilePath
-                plaintextPathFound = true
          //       print( "ViewController-  viewDidLoad-  plaintextFilePath: \(String(describing: url.path))" )
             }
         }
 
         if let ciphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultCiphertextFilePathKey)  {
-            if let url = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey) {
+            cipherTextURL = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey)
+            if cipherTextURL != nil {
                 ciphertextFilePathTextField.stringValue = ciphertextFilePath
-                ciphertextPathFound = true
         //        print( "ViewController-  viewDidLoad-  ciphertextFilePath: \(String(describing: url.path))" )
             }
         }
 
-       if plaintextPathFound && ciphertextPathFound   {
+       if plainTextURL != nil && cipherTextURL != nil   {
             encodeButton.isEnabled = true
             decodeButton.isEnabled = true
         }

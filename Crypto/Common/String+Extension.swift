@@ -43,7 +43,7 @@ extension String    {
                 var isStale = false
                     url = try URL(resolvingBookmarkData: data, options: URL.BookmarkResolutionOptions.withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
                     let success = url!.startAccessingSecurityScopedResource()
-let dontForgetToAddStopCall = -1
+
                     if !success {
                         print("startAccessingSecurityScopedResource-  success: \(success)")
                     }

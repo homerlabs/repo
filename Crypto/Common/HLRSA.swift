@@ -34,28 +34,26 @@ class HLRSA: NSObject {
     
     func chunker(workingString: inout String) -> String   {
         var chunk = ""
-        print( "chunker-  workingString: \(workingString)" )
+//        print( "chunker-  workingString: \(workingString)" )
         
         if workingString.count > chuckSize  {
             chunk = String( workingString.prefix(chuckSize+1) )
             let chunkInt = stringToInt(text: chunk)
             if chunkInt < N     {
                 //  done
-                print( "chunker-  chunkPlusOne: \(chunk)    chunkInt: \(chunkInt)" )
+   //             print( "chunker-  chunkPlusOne: \(chunk)    chunkInt: \(chunkInt)" )
                 workingString.removeFirst(chunk.count)
             }
             
             else    {
                 chunk = String( workingString.prefix(chuckSize) )
-                let chunkInt = stringToInt(text: chunk)
-                print( "chunker-  chunk: \(chunk)    chunkInt: \(chunkInt)" )
+  //              print( "chunker-  chunk: \(chunk)    chunkInt: \(stringToInt(text: chunk))" )
                 workingString.removeFirst(chunk.count)
             }
         }
         else    {
             chunk = String( workingString.prefix(chuckSize) )
-            let chunkInt = stringToInt(text: chunk)
-            print( "chunker-  chunk: \(chunk)    chunkInt: \(chunkInt)" )
+   //         print( "chunker-  chunk: \(chunk)    chunkInt: \(stringToInt(text: chunk))" )
             workingString.removeFirst(chunk.count)
         }
         
@@ -201,30 +199,29 @@ class HLRSA: NSObject {
     func decodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  decode: \(path)" )
         do {
-            var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            var workingString = dataIn
             var dataOut = ""
-            print( "HLRSA-  encode-  text: \(dataIn)" )
+//            print( "HLRSA-  decodeFile-  text: \(dataIn)" )
             
-            while dataIn.count > 0 {
-                var chunk = ""
+            var chunk = chunker(workingString: &workingString)
+ //           print( "HLRSA1-  decodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
 
-                for _ in 0..<chuckSize  {
-                    if dataIn.count > 0   {
-                        let singleChar = dataIn.removeFirst()
-                        chunk.append(singleChar)
-                     }
-                }
-                
+            while chunk.count > 0 {
+
                 let ciphertextInt = stringToInt(text: chunk)
      //           let decoded = encode(m: ciphertextInt, key: keyPublic)
                 let decoded = encode(m: ciphertextInt, key: keyPrivate)
                 let decodedChuck = intToString(n: decoded)
+                
                 dataOut.append(decodedChuck)
                 
     //            let reCypherInt = encode(m: cypher, key: keyPrivate)
                 let reCypherInt = encode(m: decoded, key: keyPublic)
                 let reCypherString = intToString(n: reCypherInt)
 print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCypherInt)    cypherString: \(decodedChuck)    reCypher: \(reCypherString)" )
+
+                chunk = chunker(workingString: &workingString)
             }
             
             try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
@@ -240,10 +237,10 @@ print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCyphe
             let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
             var workingString = dataIn
             var dataOut = ""
-            print( "HLRSA-  encodeFile-  text: \(dataIn)" )
+//            print( "HLRSA-  encodeFile-  text: \(dataIn)" )
             
             var chunk = chunker(workingString: &workingString)
-            print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
+ //           print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
 
             while chunk.count > 0 {
                 let plaintextInt = stringToInt(text: chunk)
@@ -259,10 +256,7 @@ print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCyphe
 print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)    cypherString: \(cypherChunk)    deCypher: \(deCypherString)" )
                 
                 chunk = chunker(workingString: &workingString)
-                print( "HLRSA2-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
             }
-                
-            
             
             try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
         } catch {
