@@ -26,15 +26,11 @@ class HLRSA: NSObject {
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
-    
+    let asciiRange = 34..<127
+
     var charSetSize: HLPrimeType    //  use HLPrimeType instead of int to avoid typecasting
     var charSet: [Character]
     
-    
-/*    func setCharacterSetWith(set: String)   {
-        charSet = Array(set)
-        charSetSize = Int64(charSet.count)
-    }   */
     
     func chunker(workingString: inout String) -> String   {
         var chunk = ""
@@ -165,12 +161,13 @@ class HLRSA: NSObject {
     }
     
     
+    //  have to add one to the index to avoid zero
     func stringToInt(text: String) -> HLPrimeType {
         var result: HLPrimeType = 0
         
         for char in text    {
             result *= charSetSize
-            let n = Int64(indexForChar(c: char))
+            let n = Int64(indexForChar(c: char)+1)
      //       print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
             result += n
        }
@@ -178,7 +175,8 @@ class HLRSA: NSObject {
         return result
     }
     
-    func intToString( n: HLPrimeType) -> String {
+    //  have to subtract one to make for the add one in stringToInt()
+    func intToString( n: HLPrimeType ) -> String {
         var result = ""
         var workingN = n
         var power = charSetSize
@@ -190,7 +188,7 @@ class HLRSA: NSObject {
                 let index = Int(workingN / power)
                 
      //           print( "intToString-  workingN: \(workingN)  power: \(power)" )
-                result.append(charSet[index])
+                result.append(charSet[index-1])
            }
             workingN %= power
   //          print( "intToString-  result: \(result)" )
@@ -200,11 +198,31 @@ class HLRSA: NSObject {
     }
     
     
+    //  check each character in the input string and replace any invalid character with a default character
+    //  use the first character in the characterSet as the default character
+    func validateCharactersInSet( data: String ) -> String   {
+        var inputString = data
+        var outputString = ""
+
+        while inputString.count > 0    {
+            var char = inputString.removeFirst()
+            if !charSet.contains(char)   {
+                print( "Warning:  Invalid character: '\(char)' in string!" )
+                char = charSet[0]   //  use the first char as the default
+            }
+
+            outputString.append(char)
+        }
+        
+        return outputString
+    }
+    
+    
     func decodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  decode: \(path)" )
         do {
             let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            var workingString = dataIn
+            var workingString = validateCharactersInSet( data: dataIn )
             var dataOut = ""
 //            print( "HLRSA-  decodeFile-  text: \(dataIn)" )
             
@@ -239,7 +257,7 @@ print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCyphe
 //        print( "HLRSA-  encode: \(path)" )
         do {
             let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            var workingString = dataIn
+            var workingString = validateCharactersInSet( data: dataIn )
             var dataOut = ""
 //            print( "HLRSA-  encodeFile-  text: \(dataIn)" )
             
@@ -268,7 +286,8 @@ print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)
         }
     }
     
-    
+    //  for a give char, return it's index in the charSet
+    //  return 1 not 0 for the first index
     func indexForChar( c: Character) -> Int {
         var index = Int(charSetSize - 1)
         while index >= 0  {
