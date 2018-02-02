@@ -10,6 +10,11 @@ import Cocoa
 
 class ViewController: NSViewController, NSControlTextEditingDelegate {
 
+    let defaultPrimeP = 13
+    let defaultPrimeQ = 17
+    let defaultPublicKey = 101
+    let defaultCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
     @IBOutlet var plaintextFilePathTextField: NSTextField!
     @IBOutlet var ciphertextFilePathTextField: NSTextField!
     @IBOutlet var primePTextField: NSTextField!
@@ -18,6 +23,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBOutlet var privateKeyTextField: NSTextField!
     @IBOutlet var nTextField: NSTextField!
     @IBOutlet var gammaTextField: NSTextField!
+    @IBOutlet var characterSetTextField: NSTextField!
+    @IBOutlet var characterSetSizeTextField: NSTextField!
+
     @IBOutlet var encodeButton: NSButton!
     @IBOutlet var decodeButton: NSButton!
 
@@ -28,9 +36,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     let HLDefaultPlaintextFilePathKey   = "PlaintextPathKey"
     let HLDefaultCiphertextFilePathKey  = "CiphertextPathKey"
+    let HLDefaultCharacterSetKey        = "CharacterSetKey"
     let HLDefaultPrimePKey              = "PrimePKey"
     let HLDefaultPrimeQKey              = "PrimeQKey"
     let HLDefaultPublicKeyKey           = "PublicKey"
+    
     let HLPlaintextBookmarkKey          = "PlaintextBookmarkKey"
     let HLCiphertextBookmarkKey         = "CiphertextBookmarkKey"
 
@@ -129,6 +139,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             setupKeys()
         }
 
+        else if control == characterSetTextField    {
+            UserDefaults.standard.set(characterSetTextField.stringValue, forKey:HLDefaultCharacterSetKey)
+            characterSetSizeTextField.integerValue = characterSetTextField.stringValue.count
+            setupRSA()
+        }
+
         else    {   assert( false )     }
         
         UserDefaults.standard.synchronize()
@@ -146,17 +162,17 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
     
     func setupRSA() {
+        let charSet = characterSetTextField.stringValue
         let p = Int64(primePTextField.stringValue)!
         let q = Int64(primeQTextField.stringValue)!
         let n = p * q
         let gamma = (p-1) * (q-1)
         nTextField.stringValue = String(n)
         gammaTextField.stringValue = String(gamma)
-        rsa = HLRSA(p: p, q: q)
+        rsa = HLRSA(p: p, q: q, characterSet: charSet)
         setupKeys()
     }
     
-
     override func viewDidDisappear() {
         super.viewDidDisappear()
         print( "ViewController-  viewDidDisappear" )
@@ -172,25 +188,23 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             primePTextField.stringValue = primeP
         }
         else    {
-            primePTextField.stringValue = "13"
+            primePTextField.integerValue = defaultPrimeP
         }
 
         if let primeQ = UserDefaults.standard.string(forKey: HLDefaultPrimeQKey)  {
             primeQTextField.stringValue = primeQ
         }
         else    {
-            primeQTextField.stringValue = "17"
+            primeQTextField.integerValue = defaultPrimeQ
         }
 
         if let publicKey = UserDefaults.standard.string(forKey: HLDefaultPublicKeyKey)  {
             publicKeyTextField.stringValue = publicKey
         }
         else    {
-            publicKeyTextField.stringValue = "107"
+            publicKeyTextField.integerValue = defaultPublicKey
         }
 
-        setupRSA()
-        
         if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
             plainTextURL = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey)
             if plainTextURL != nil {
@@ -206,6 +220,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         //        print( "ViewController-  viewDidLoad-  ciphertextFilePath: \(String(describing: url.path))" )
             }
         }
+
+        if let characterSet = UserDefaults.standard.string(forKey: HLDefaultCharacterSetKey)  {
+            characterSetTextField.stringValue = characterSet
+        }
+        else    {
+            characterSetTextField.stringValue = defaultCharacterSet
+            characterSetSizeTextField.integerValue = characterSetTextField.stringValue.count
+        }
+
+        setupRSA()
 
        if plainTextURL != nil && cipherTextURL != nil   {
             encodeButton.isEnabled = true

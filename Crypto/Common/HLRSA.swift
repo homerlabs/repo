@@ -26,11 +26,15 @@ class HLRSA: NSObject {
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
-    let charSetSize: HLPrimeType
-    let charSet: [Character] = ["_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ",", "?", "-", "!", "+", "=", "*",// "/", " ",
-           //                  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-                             "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
+    var charSetSize: HLPrimeType    //  use HLPrimeType instead of int to avoid typecasting
+    var charSet: [Character]
+    
+    
+/*    func setCharacterSetWith(set: String)   {
+        charSet = Array(set)
+        charSetSize = Int64(charSet.count)
+    }   */
     
     func chunker(workingString: inout String) -> String   {
         var chunk = ""
@@ -353,7 +357,11 @@ print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)
         else                {   return -1            }
     }
     
-    init(p: Int64, q: Int64) {
+    init(p: Int64, q: Int64, characterSet: String) {
+    var TODOneedToValidateAllCharsInCharacterSet = 0
+        charSet = Array(characterSet)
+        charSetSize = Int64(charSet.count)
+
         N = p * q
         Gamma = (p-1) * (q-1)
         charSetSize = Int64(charSet.count)
