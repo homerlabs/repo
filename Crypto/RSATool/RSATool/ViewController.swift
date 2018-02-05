@@ -27,6 +27,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBOutlet var gammaTextField: NSTextField!
     @IBOutlet var characterSetTextField: NSTextField!
     @IBOutlet var characterSetSizeTextField: NSTextField!
+    @IBOutlet var chunkSizeTextField: NSTextField!
 
     @IBOutlet var encodeButton: NSButton!
     @IBOutlet var decodeButton: NSButton!
@@ -187,6 +188,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         gammaTextField.stringValue = String(gamma)
         rsa = HLRSA(p: p, q: q, characterSet: charSet)
         setupKeys()
+        
+        chunkSizeTextField.stringValue = String.init(format:" %0.1f", arguments: [rsa.chuckSizeDouble])
     }
     
     override func viewDidDisappear() {
@@ -256,7 +259,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
         setupRSA()
 
-        encodeButton.isEnabled = false
+ /*       encodeButton.isEnabled = false
         decodeButton.isEnabled = false
 
        if plainTextURL != nil && cipherTextURL != nil   {
@@ -265,7 +268,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
        if cipherTextURL != nil && deCipherTextURL != nil   {
             decodeButton.isEnabled = true
-        }
+        }   */
    }
 }
 

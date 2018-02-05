@@ -784,7 +784,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8iG-3b-ObO">
-                                <rect key="frame" x="87" y="75" width="126" height="17"/>
+                                <rect key="frame" x="87" y="75" width="101" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="4934729" id="Meg-fe-HmO">
                                     <font key="font" metaFont="system"/>
@@ -801,8 +801,17 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S3R-2c-xsq">
+                                <rect key="frame" x="427" y="75" width="32" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="2.5" id="t2U-aG-zk1">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vpl-Ok-Xjh">
-                                <rect key="frame" x="244" y="75" width="126" height="17"/>
+                                <rect key="frame" x="244" y="75" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="4930176" id="QZZ-gG-SUe">
                                     <font key="font" metaFont="system"/>
@@ -914,6 +923,17 @@
                                     <action selector="setCiphertextPathActionWithSender:" target="XfG-lQ-9wD" id="R4R-rU-eir"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fWz-2m-K8o">
+                                <rect key="frame" x="13" y="244" width="177" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Set DeCipherText Path" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZWI-L6-DiR">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setDeCiphertextPathActionWithSender:" target="XfG-lQ-9wD" id="yob-6g-DV1"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fqt-jD-va8">
                                 <rect key="frame" x="102" y="13" width="115" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -947,22 +967,21 @@
                                     <action selector="setPlaintextPathActionWithSender:" target="XfG-lQ-9wD" id="yO4-86-dfA"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fWz-2m-K8o">
-                                <rect key="frame" x="13" y="244" width="177" height="32"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WSq-ov-ehr">
+                                <rect key="frame" x="338" y="75" width="85" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Set DeCipherText Path" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZWI-L6-DiR">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Chunk Size:" id="sbO-yf-fzd">
                                     <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="setDeCiphertextPathActionWithSender:" target="XfG-lQ-9wD" id="yob-6g-DV1"/>
-                                </connections>
-                            </button>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="characterSetSizeTextField" destination="UQ5-LC-upj" id="sZV-Yn-6lL"/>
                         <outlet property="characterSetTextField" destination="f3i-j8-d1T" id="sej-sZ-3Wy"/>
+                        <outlet property="chunkSizeTextField" destination="S3R-2c-xsq" id="6fU-hJ-jmn"/>
                         <outlet property="ciphertextFilePathTextField" destination="UXg-YA-bLW" id="eT6-W3-9bX"/>
                         <outlet property="deCiphertextFilePathTextField" destination="PdT-bh-yn8" id="VoG-Ly-R4e"/>
                         <outlet property="decodeButton" destination="Eqd-bV-Jw9" id="UVD-kq-vbL"/>
