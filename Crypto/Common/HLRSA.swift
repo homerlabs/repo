@@ -391,7 +391,7 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
     //    print( "HLRSA-  init-  x: \(x)" )
         chuckSize = Int(chuckSizeFloat)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)    chuckSize: \(chuckSizeFloat)" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chuckSizeFloat]))" )
         super.init()
     }
 }

@@ -17,6 +17,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     @IBOutlet var plaintextFilePathTextField: NSTextField!
     @IBOutlet var ciphertextFilePathTextField: NSTextField!
+    @IBOutlet var deCiphertextFilePathTextField: NSTextField!
+    
     @IBOutlet var primePTextField: NSTextField!
     @IBOutlet var primeQTextField: NSTextField!
     @IBOutlet var publicKeyTextField: NSTextField!
@@ -33,9 +35,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
     var plainTextURL: URL? = nil
     var cipherTextURL: URL? = nil
+    var deCipherTextURL: URL? = nil
 
     let HLDefaultPlaintextFilePathKey   = "PlaintextPathKey"
     let HLDefaultCiphertextFilePathKey  = "CiphertextPathKey"
+    let HLDefaultDeCiphertextFilePathKey = "DeCiphertextPathKey"
+
     let HLDefaultCharacterSetKey        = "CharacterSetKey"
     let HLDefaultPrimePKey              = "PrimePKey"
     let HLDefaultPrimeQKey              = "PrimeQKey"
@@ -43,6 +48,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
     let HLPlaintextBookmarkKey          = "PlaintextBookmarkKey"
     let HLCiphertextBookmarkKey         = "CiphertextBookmarkKey"
+    let HLDeCiphertextBookmarkKey       = "DeCiphertextBookmarkKey"
 
     
    func getOpenFilePath(title: String) -> String     {
@@ -67,13 +73,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         return path
     }
    
-   func getSaveFilePath(title: String) -> String     {
+   func getSaveFilePath(title: String, fileName: String, bookmarkName: String) -> String     {
     
         var path = ""
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
         savePanel.title = "Save Panel";
-        savePanel.nameFieldStringValue = "Ciphertext";
+        savePanel.nameFieldStringValue = fileName;
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
         savePanel.message = title;
@@ -83,7 +89,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         let i = savePanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
             path = savePanel.url!.path
-            savePanel.url!.setBookmarkFor(key: HLCiphertextBookmarkKey)
+            savePanel.url!.setBookmarkFor(key: bookmarkName)
         }
         return path
     }
@@ -99,7 +105,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
 
     @IBAction func setCiphertextPathAction(sender: NSButton) {
-        let path = getSaveFilePath(title: "Set Ciphertext file path")
+        let path = getSaveFilePath(title: "Set Ciphertext file path", fileName: "Ciphertext", bookmarkName: HLCiphertextBookmarkKey)
         ciphertextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultCiphertextFilePathKey)
 
@@ -108,10 +114,20 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
     }
 
+    @IBAction func setDeCiphertextPathAction(sender: NSButton) {
+        let path = getSaveFilePath(title: "Set DeCiphertext file path", fileName: "DeCiphertext", bookmarkName: HLDeCiphertextBookmarkKey)
+        deCiphertextFilePathTextField.stringValue = path
+        UserDefaults.standard.set(path, forKey:HLDefaultDeCiphertextFilePathKey)
+
+        if !ciphertextFilePathTextField.stringValue.isEmpty   {
+            decodeButton.isEnabled = true
+        }
+    }
+
 
     @IBAction func decodeAction(sender: NSButton) {
 //        let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
-        rsa.decodeFile(inputFilepath: ciphertextFilePathTextField.stringValue, outputFilepath: plaintextFilePathTextField.stringValue)
+        rsa.decodeFile(inputFilepath: ciphertextFilePathTextField.stringValue, outputFilepath: deCiphertextFilePathTextField.stringValue)
         print( "rsa.decodeFile completed." )
     }
 
@@ -178,6 +194,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         print( "ViewController-  viewDidDisappear" )
         plainTextURL?.stopAccessingSecurityScopedResource()
         cipherTextURL?.stopAccessingSecurityScopedResource()
+        deCipherTextURL?.stopAccessingSecurityScopedResource()
         exit(0)
     }
     
@@ -221,6 +238,14 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             }
         }
 
+        if let deCiphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultDeCiphertextFilePathKey)  {
+            deCipherTextURL = deCiphertextFilePath.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
+            if deCipherTextURL != nil {
+                deCiphertextFilePathTextField.stringValue = deCiphertextFilePath
+        //        print( "ViewController-  viewDidLoad-  deCiphertextFilePath: \(String(describing: url.path))" )
+            }
+        }
+
         if let characterSet = UserDefaults.standard.string(forKey: HLDefaultCharacterSetKey)  {
             characterSetTextField.stringValue = characterSet
         }
@@ -231,13 +256,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
         setupRSA()
 
+        encodeButton.isEnabled = false
+        decodeButton.isEnabled = false
+
        if plainTextURL != nil && cipherTextURL != nil   {
             encodeButton.isEnabled = true
-            decodeButton.isEnabled = true
         }
-        else    {
-            encodeButton.isEnabled = false
-            decodeButton.isEnabled = false
+
+       if cipherTextURL != nil && deCipherTextURL != nil   {
+            decodeButton.isEnabled = true
         }
    }
 }
