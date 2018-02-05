@@ -28,7 +28,8 @@ class HLRSA: NSObject {
     let chuckSize: Int
     let asciiRange = 34..<127
 
-    var charSetSize: HLPrimeType    //  use HLPrimeType instead of int to avoid typecasting
+    let charSetSize: HLPrimeType            //  use HLPrimeType instead of int to avoid typecasting
+    let charSetSizePlusOne: HLPrimeType     //  use HLPrimeType instead of int to avoid typecasting
     var charSet: [Character]
     
     
@@ -166,7 +167,7 @@ class HLRSA: NSObject {
         var result: HLPrimeType = 0
         
         for char in text    {
-            result *= charSetSize
+            result *= charSetSizePlusOne
             let n = Int64(indexForChar(c: char)+1)
      //       print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
             result += n
@@ -175,15 +176,15 @@ class HLRSA: NSObject {
         return result
     }
     
-    //  have to subtract one to make for the add one in stringToInt()
+    //  have to subtract one to make up for the add one in stringToInt()
     func intToString( n: HLPrimeType ) -> String {
         var result = ""
         var workingN = n
-        var power = charSetSize
-        while power < n {   power *= charSetSize}
+        var power = charSetSizePlusOne
+        while power < n {   power *= charSetSizePlusOne}
         
         while power > 1 {
-            power /= charSetSize
+            power /= charSetSizePlusOne
             if workingN >= power {
                 let index = Int(workingN / power)
                 
@@ -231,17 +232,17 @@ class HLRSA: NSObject {
 
             while chunk.count > 0 {
 
-                let ciphertextInt = stringToInt(text: chunk)
-     //           let decoded = encode(m: ciphertextInt, key: keyPublic)
-                let decoded = encode(m: ciphertextInt, key: keyPrivate)
-                let decodedChuck = intToString(n: decoded)
+                let cipherInt = stringToInt(text: chunk)
+     //           let deCipherInt = encode(m: ciphertextInt, key: keyPublic)
+                let deCipherInt = encode(m: cipherInt, key: keyPrivate)
+                let deCipherChunk = intToString(n: deCipherInt)
                 
-                dataOut.append(decodedChuck)
+                dataOut.append(deCipherChunk)
                 
     //            let reCypherInt = encode(m: cypher, key: keyPrivate)
-                let reCypherInt = encode(m: decoded, key: keyPublic)
-                let reCypherString = intToString(n: reCypherInt)
-print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCypherInt)    cypherString: \(decodedChuck)    reCypher: \(reCypherString)" )
+                let reCipherInt = encode(m: deCipherInt, key: keyPublic)
+                let reCipherChunk = intToString(n: reCipherInt)
+print( "cipherChunk: \(chunk)    cipherInt: \(cipherInt)    deCipherInt: \(deCipherInt)    deCipherChunk: \(deCipherChunk)    reCipherChunk: \(reCipherChunk)" )
 
                 chunk = chunker(workingString: &workingString)
             }
@@ -266,16 +267,16 @@ print( "chunk: \(chunk)    cypherInt: \(ciphertextInt)    reCypherInt: \(reCyphe
 
             while chunk.count > 0 {
                 let plaintextInt = stringToInt(text: chunk)
-                let cypher = encode(m: plaintextInt, key: keyPublic)
-      //           let cypher = encode(m: plaintextInt, key: keyPrivate)
-               let cypherChunk = intToString(n: cypher)
+                let cipher = encode(m: plaintextInt, key: keyPublic)
+      //           let cipher = encode(m: plaintextInt, key: keyPrivate)
+               let cipherChunk = intToString(n: cipher)
 
-                dataOut.append(cypherChunk)
+                dataOut.append(cipherChunk)
                 
-                let deCypherInt = encode(m: cypher, key: keyPrivate)
-    //            let deCypherInt = encode(m: cypher, key: keyPublic)
-                let deCypherString = intToString(n: deCypherInt)
-print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)    cypherString: \(cypherChunk)    deCypher: \(deCypherString)" )
+                let deCipherInt = encode(m: cipher, key: keyPrivate)
+    //            let deCipherInt = encode(m: cypher, key: keyPublic)
+                let deCipherString = intToString(n: deCipherInt)
+print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt: \(cipher)    cipherChunk: \(cipherChunk)    deCipherChunk: \(deCipherString)" )
                 
                 chunk = chunker(workingString: &workingString)
             }
@@ -378,17 +379,19 @@ print( "chunk: \(chunk)    plaintextInt: \(plaintextInt)    cypherInt: \(cypher)
     
     init(p: Int64, q: Int64, characterSet: String) {
     var TODOneedToValidateAllCharsInCharacterSet = 0
+    
         charSet = Array(characterSet)
         charSetSize = Int64(charSet.count)
+        charSetSizePlusOne = charSetSize + 1
 
         N = p * q
         Gamma = (p-1) * (q-1)
-        charSetSize = Int64(charSet.count)
-        let x = log(Double(N)) / log(Double(charSetSize)) + 0.000001    //  fudge factor due to Int() call below
+
+        let chuckSizeFloat = log(Double(N)) / log(Double(charSetSizePlusOne))
     //    print( "HLRSA-  init-  x: \(x)" )
-        chuckSize = Int(x)
+        chuckSize = Int(chuckSizeFloat)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)    chuckSize: \(chuckSize)" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)    chuckSize: \(chuckSizeFloat)" )
         super.init()
     }
 }
