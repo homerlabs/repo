@@ -57,13 +57,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         var path = ""
         let openPanel = NSOpenPanel();
         openPanel.canCreateDirectories = true;
-        openPanel.title = "Prime Finder Open Panel";
+        openPanel.title = "Not Used";
 //        openPanel.nameFieldStringValue = "Primes";
         openPanel.allowedFileTypes = ["txt"];
         openPanel.showsTagField = false;
         openPanel.prompt = "Open";
-        openPanel.message = "Prime Finder Open Panel";
-//        openPanel.nameFieldLabel = "Save As:";
+        openPanel.message = title;
+ //       openPanel.nameFieldLabel = "Save As:";
 
         let i = openPanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
@@ -79,7 +79,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         var path = ""
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
-        savePanel.title = "Save Panel";
+        savePanel.title = "RSA Tool Save Panel";
         savePanel.nameFieldStringValue = fileName;
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
@@ -96,44 +96,56 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
    
     @IBAction func setPlaintextPathAction(sender: NSButton) {
-        let path = getOpenFilePath(title: "Set Plaintext file path")
+        let path = getOpenFilePath(title: "Open Plaintext file")
         plaintextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultPlaintextFilePathKey)
-
-        if !ciphertextFilePathTextField.stringValue.isEmpty   {
-            encodeButton.isEnabled = true
-        }
+        plainTextURL = path.getBookmarkFor(key: HLPlaintextBookmarkKey)
     }
 
     @IBAction func setCiphertextPathAction(sender: NSButton) {
         let path = getSaveFilePath(title: "Set Ciphertext file path", fileName: "Ciphertext", bookmarkName: HLCiphertextBookmarkKey)
         ciphertextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultCiphertextFilePathKey)
-
-        if !plaintextFilePathTextField.stringValue.isEmpty   {
-            encodeButton.isEnabled = true
-        }
+        cipherTextURL = path.getBookmarkFor(key: HLCiphertextBookmarkKey)
     }
 
     @IBAction func setDeCiphertextPathAction(sender: NSButton) {
         let path = getSaveFilePath(title: "Set DeCiphertext file path", fileName: "DeCiphertext", bookmarkName: HLDeCiphertextBookmarkKey)
         deCiphertextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultDeCiphertextFilePathKey)
-
-        if !ciphertextFilePathTextField.stringValue.isEmpty   {
-            decodeButton.isEnabled = true
-        }
+        deCipherTextURL = path.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
     }
 
 
     @IBAction func decodeAction(sender: NSButton) {
-//        let url = URL(fileURLWithPath: plaintextFilePathTextField.stringValue)
+
+        if cipherTextURL == nil   {
+            print( "cipherTextURL is nil" )
+            setCiphertextPathAction(sender: sender) //  wrong button but any button will do
+        }
+        
+        if deCipherTextURL == nil   {
+            print( "deCipherTextURL is nil" )
+            setDeCiphertextPathAction(sender: sender) //  wrong button but any button will do
+        }
+        
         rsa.decodeFile(inputFilepath: ciphertextFilePathTextField.stringValue, outputFilepath: deCiphertextFilePathTextField.stringValue)
         print( "rsa.decodeFile completed." )
     }
 
 
     @IBAction func encodeAction(sender: NSButton) {
+
+        if plainTextURL == nil   {
+            print( "plainTextURL is nil" )
+            setPlaintextPathAction(sender: sender) //  wrong button but any button will do
+        }
+        
+        if cipherTextURL == nil   {
+            print( "cipherTextURL is nil" )
+            setCiphertextPathAction(sender: sender) //  wrong button but any button will do
+        }
+        
         rsa.encodeFile(inputFilepath: plaintextFilePathTextField.stringValue, outputFilepath: ciphertextFilePathTextField.stringValue)
         print( "rsa.encodeFile completed." )
     }

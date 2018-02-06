@@ -829,7 +829,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eom-tC-iay">
-                                <rect key="frame" x="192" y="313" width="269" height="17"/>
+                                <rect key="frame" x="135" y="313" width="326" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/Plaintext.txt" drawsBackground="YES" usesSingleLineMode="YES" id="Y00-Sq-ylV">
                                     <font key="font" metaFont="system"/>
@@ -841,7 +841,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UXg-YA-bLW">
-                                <rect key="frame" x="192" y="283" width="267" height="17"/>
+                                <rect key="frame" x="135" y="283" width="324" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/Ciphertext.txt" drawsBackground="YES" usesSingleLineMode="YES" id="fY3-FY-M5a">
                                     <font key="font" metaFont="system"/>
@@ -853,7 +853,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PdT-bh-yn8">
-                                <rect key="frame" x="192" y="253" width="267" height="17"/>
+                                <rect key="frame" x="135" y="253" width="324" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/DeCiphertext.txt" drawsBackground="YES" usesSingleLineMode="YES" id="f7U-sr-Ptz">
                                     <font key="font" metaFont="system"/>
@@ -913,9 +913,9 @@
                                 </connections>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1h0-J8-F4y">
-                                <rect key="frame" x="13" y="275" width="177" height="32"/>
+                                <rect key="frame" x="13" y="275" width="119" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Set CipherText Path" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LtC-YL-SqJ">
+                                <buttonCell key="cell" type="push" title="CipherText" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LtC-YL-SqJ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -924,9 +924,9 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fWz-2m-K8o">
-                                <rect key="frame" x="13" y="244" width="177" height="32"/>
+                                <rect key="frame" x="13" y="244" width="119" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Set DeCipherText Path" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZWI-L6-DiR">
+                                <buttonCell key="cell" type="push" title="DeCipherText" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZWI-L6-DiR">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -957,9 +957,9 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eVY-mQ-HiO">
-                                <rect key="frame" x="14" y="303" width="176" height="32"/>
+                                <rect key="frame" x="14" y="303" width="119" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Set PlainText Path" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="w1E-25-r0g">
+                                <buttonCell key="cell" type="push" title="PlainText" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="w1E-25-r0g">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
