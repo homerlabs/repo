@@ -52,18 +52,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let HLDeCiphertextBookmarkKey       = "DeCiphertextBookmarkKey"
 
     
-   func getOpenFilePath(title: String) -> String     {
+   func getOpenFilePath(title: String, bookmarkKey: String) -> String     {
     
         var path = ""
         let openPanel = NSOpenPanel();
         openPanel.canCreateDirectories = true;
-        openPanel.title = "Not Used";
-//        openPanel.nameFieldStringValue = "Primes";
         openPanel.allowedFileTypes = ["txt"];
         openPanel.showsTagField = false;
         openPanel.prompt = "Open";
         openPanel.message = title;
- //       openPanel.nameFieldLabel = "Save As:";
 
         let i = openPanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
@@ -96,7 +93,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
    
     @IBAction func setPlaintextPathAction(sender: NSButton) {
-        let path = getOpenFilePath(title: "Open Plaintext file")
+        let path = getOpenFilePath(title: "Open Plaintext file", bookmarkKey: HLPlaintextBookmarkKey)
         plaintextFilePathTextField.stringValue = path
         UserDefaults.standard.set(path, forKey:HLDefaultPlaintextFilePathKey)
         plainTextURL = path.getBookmarkFor(key: HLPlaintextBookmarkKey)
@@ -115,27 +112,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         UserDefaults.standard.set(path, forKey:HLDefaultDeCiphertextFilePathKey)
         deCipherTextURL = path.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
     }
-
-
-    @IBAction func decodeAction(sender: NSButton) {
-
-        if cipherTextURL == nil   {
-            print( "cipherTextURL is nil" )
-            setCiphertextPathAction(sender: sender) //  wrong button but any button will do
-        }
-        
-        if deCipherTextURL == nil   {
-            print( "deCipherTextURL is nil" )
-            setDeCiphertextPathAction(sender: sender) //  wrong button but any button will do
-        }
-        
-        rsa.decodeFile(inputFilepath: ciphertextFilePathTextField.stringValue, outputFilepath: deCiphertextFilePathTextField.stringValue)
-        print( "rsa.decodeFile completed." )
-    }
-
-
+    
+    
     @IBAction func encodeAction(sender: NSButton) {
-
         if plainTextURL == nil   {
             print( "plainTextURL is nil" )
             setPlaintextPathAction(sender: sender) //  wrong button but any button will do
@@ -148,6 +127,25 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         
         rsa.encodeFile(inputFilepath: plaintextFilePathTextField.stringValue, outputFilepath: ciphertextFilePathTextField.stringValue)
         print( "rsa.encodeFile completed." )
+    }
+
+
+    @IBAction func decodeAction(sender: NSButton) {
+        if cipherTextURL == nil   {
+            print( "cipherTextURL is nil" )
+            let path = getOpenFilePath(title: "Open Ciphertext file", bookmarkKey: HLCiphertextBookmarkKey)
+            ciphertextFilePathTextField.stringValue = path
+            UserDefaults.standard.set(path, forKey:HLDefaultCiphertextFilePathKey)
+            cipherTextURL = path.getBookmarkFor(key: HLCiphertextBookmarkKey)
+        }
+        
+        if deCipherTextURL == nil   {
+            print( "deCipherTextURL is nil" )
+            setDeCiphertextPathAction(sender: sender) //  wrong button but any button will do
+        }
+        
+        rsa.decodeFile(inputFilepath: ciphertextFilePathTextField.stringValue, outputFilepath: deCiphertextFilePathTextField.stringValue)
+        print( "rsa.decodeFile completed." )
     }
 
 
