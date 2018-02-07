@@ -10,10 +10,10 @@ import Cocoa
 
 class ViewController: NSViewController, NSControlTextEditingDelegate {
 
-    let defaultPrimeP = 13
-    let defaultPrimeQ = 17
-    let defaultPublicKey = 101
-    let defaultCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let defaultPrimeP = 257
+    let defaultPrimeQ = 251
+    let defaultPublicKey = 36083
+    let defaultCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/"
 
     @IBOutlet var plaintextFilePathTextField: NSTextField!
     @IBOutlet var ciphertextFilePathTextField: NSTextField!
@@ -270,17 +270,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         }
 
         setupRSA()
-
- /*       encodeButton.isEnabled = false
-        decodeButton.isEnabled = false
-
-       if plainTextURL != nil && cipherTextURL != nil   {
-            encodeButton.isEnabled = true
-        }
-
-       if cipherTextURL != nil && deCipherTextURL != nil   {
-            decodeButton.isEnabled = true
-        }   */
+        
+    //    AHRegisterHelpBookWithURL(url)
    }
 }
 
