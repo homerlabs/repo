@@ -13,7 +13,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let defaultPrimeP = 257
     let defaultPrimeQ = 251
     let defaultPublicKey = 36083
-    let defaultCharacterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/"
+    let defaultCharacterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+*/"
 
     @IBOutlet var plaintextFilePathTextField: NSTextField!
     @IBOutlet var ciphertextFilePathTextField: NSTextField!

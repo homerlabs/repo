@@ -26,7 +26,7 @@ class HLRSA: NSObject {
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
-    let asciiRange = 34..<127
+    let asciiRange = 35..<127
     let chuckSizeDouble: Double
 
     let charSetSize: HLPrimeType            //  use HLPrimeType instead of int to avoid typecasting
