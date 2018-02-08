@@ -17,9 +17,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBOutlet var modCountTextField: NSTextField!
     @IBOutlet var progressTextField: NSTextField!
 
-    @IBOutlet var primeStartButton: NSButton!
-    @IBOutlet var factorStartButton: NSButton!
-    @IBOutlet var filterStartButton: NSButton!
+    @IBOutlet var primeButton: NSButton!
+    @IBOutlet var nicePrimesButton: NSButton!
 
     var primeFinder: HLPrime!
     let HLDefaultPrimeFilePathKey = "PrimeFilePathKey"
@@ -34,51 +33,83 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var factorPrimesInProgress = false
     var errorCode = 0
 
+    let HLPrimesBookmarkKey         = "HLPrimesBookmarkKey"
+    let HLNicePrimesBookmarkKey     = "HLNicePrimesBookmarkKey"
+
+
+   func getOpenFilePath(title: String, bookmarkKey: String) -> String     {
+    
+        var path = ""
+        let openPanel = NSOpenPanel();
+        openPanel.canCreateDirectories = true;
+        openPanel.allowedFileTypes = ["txt"];
+        openPanel.showsTagField = false;
+        openPanel.prompt = "Open";
+        openPanel.message = title;
+
+        let i = openPanel.runModal();
+        if(i == NSApplication.ModalResponse.OK){
+            path = openPanel.url!.path
+            openPanel.url!.setBookmarkFor(key: bookmarkKey)
+        }
+    
+        return path
+    }
+   
+   func getSaveFilePath(title: String, fileName: String, bookmarkName: String) -> String     {
+    
+        var path = ""
+        let savePanel = NSSavePanel();
+        savePanel.canCreateDirectories = true;
+        savePanel.title = "RSA Tool Save Panel";
+        savePanel.nameFieldStringValue = fileName;
+        savePanel.showsTagField = false;
+        savePanel.prompt = "Create";
+        savePanel.message = title;
+        savePanel.nameFieldLabel = "Save As:";
+        savePanel.allowedFileTypes = ["txt"];
+
+        let i = savePanel.runModal();
+        if(i == NSApplication.ModalResponse.OK){
+            path = savePanel.url!.path
+            savePanel.url!.setBookmarkFor(key: bookmarkName)
+        }
+        return path
+    }
+
+
     @IBAction func checkProgressAction(sender: NSButton) {
             progressTextField.stringValue = String(primeFinder.lastP)
     }
     
     @IBAction func filterAction(sender: NSButton) {
-        if filterStartButton.state == .on {
-            filterStartButton.title = "Running"
+        if nicePrimesButton.state == .on {
+            nicePrimesButton.title = "Running"
             primeFinder.makeNicePrimesFile2(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
             findNicePrimesInProgress = true
         }
         else    {
-            filterStartButton.title = "Stopped"
-            filterStartButton.isEnabled = false
+            nicePrimesButton.title = "Stopped"
+            nicePrimesButton.isEnabled = false
             primeFinder.active = false
         }
     }
     
     @IBAction func primesStartAction(sender: NSButton) {
         
-        if primeStartButton.state == .on {
-            primeStartButton.title = "Running"
+        if primeButton.state == .on {
+            primeButton.title = "Running"
             primeFinder.findPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
             findPrimesInProgress = true
         }
         else    {
-            primeStartButton.title = "Stopped"
-            primeStartButton.isEnabled = false
+            primeButton.title = "Stopped"
+            primeButton.isEnabled = false
             primeFinder.active = false
         }
     }
     
-    @IBAction func factorStartAction(sender: NSButton) {
-        
-        if factorStartButton.state == .on {
-            factorStartButton.title = "Running"
-            primeFinder.factorPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
-            factorPrimesInProgress = true
-        }
-        else    {
-            factorStartButton.title = "Stopped"
-            factorStartButton.isEnabled = false
-            primeFinder.active = false
-        }
-   }
-   
+
     //*************   HLPrimeProtocol     *********************************************************
     func hlPrimeInitCompleted()  {
         let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
@@ -87,18 +118,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         
         if primeFinder.primeFileLastLine != nil {
             lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-            factorStartButton.isEnabled = true
-            filterStartButton.isEnabled = true
+            nicePrimesButton.isEnabled = true
+            nicePrimesButton.isEnabled = true
         }
         
         if primeFinder.factorFileLastLine != nil {
             lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
         }
         
-        primeStartButton.isEnabled = true
-        primeStartButton.title = "Prime Start"
-        factorStartButton.title = "Factor Start"
-        filterStartButton.title = "Filter Start"
+        primeButton.isEnabled = true
+        primeButton.title = "Prime Start"
     }
     
     func findPrimesCompleted()  {
@@ -106,11 +135,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-        primeStartButton.title = "Completed"
-        primeStartButton.isEnabled = false
-        
-        factorStartButton.isEnabled = true
-        filterStartButton.isEnabled = true
+        primeButton.title = "Completed"
+        primeButton.isEnabled = false
     }
     
     func findNicePrimesCompleted()  {
@@ -118,18 +144,18 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
         findNicePrimesInProgress = false
         lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-        filterStartButton.title = "Completed"
-        filterStartButton.isEnabled = false
+        nicePrimesButton.title = "Completed"
+        nicePrimesButton.isEnabled = false
     }
     
-    func factorPrimesCompleted()    {
+/*    func factorPrimesCompleted()    {
         let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   makePrimes completed  in \(elaspsedTime)    *********\n" )
         factorPrimesInProgress = false
         lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
         factorStartButton.title = "Completed"
         factorStartButton.isEnabled = false
-    }
+    }   */
     //*************   HLPrimeProtocol     *********************************************************
 
 
@@ -177,9 +203,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         lastLineFactorTextField.stringValue = "?"
         progressTextField.stringValue = "?"
 
-        primeStartButton.isEnabled = false
-        factorStartButton.isEnabled = false
-        filterStartButton.isEnabled = false
+        primeButton.isEnabled = false
+        nicePrimesButton.isEnabled = false
 
         if let primeFilePath = UserDefaults.standard.string(forKey: HLDefaultPrimeFilePathKey)  {
             primeFilePathTextField.stringValue = primeFilePath

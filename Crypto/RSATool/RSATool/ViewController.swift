@@ -65,7 +65,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         let i = openPanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
             path = openPanel.url!.path
-            openPanel.url!.setBookmarkFor(key: HLPlaintextBookmarkKey)
+            openPanel.url!.setBookmarkFor(key: bookmarkKey)
         }
     
         return path

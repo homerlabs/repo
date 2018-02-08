@@ -20,8 +20,6 @@ FILE *readTempFile;
 int modSize = 1;
 int modCounter = 0;
 
-//NSString *fileExtension = @"txt";
-
 
 -(BOOL)createPrimeFileIfNeededWith:(NSString *)path {
     int result = [self openPrimesFileForReadWith: path];
@@ -37,7 +35,6 @@ int modCounter = 0;
     //  if open failed, create new file
     if ( !isFirstLineValid )
     {
- //       NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
         primesAppendFile = fopen(path.UTF8String, "w");    //  create new file
         
         if ( primesAppendFile != nil )
@@ -56,7 +53,6 @@ int modCounter = 0;
 
 //************************************************      primes file read        ****************
 -(int)openPrimesFileForReadWith:(NSString *)path  {
- //   NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     primesReadFile = fopen(path.UTF8String, "r");
     return (primesReadFile == nil); //  return 0 for no error
 }
@@ -75,7 +71,6 @@ int modCounter = 0;
 //************************************************      factored file read      ****************
 -(int)openFactoredFileForReadWith:(NSString *)path
 {
-//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     factoredReadFile = fopen(path.UTF8String, "r");
 
     if ( !factoredReadFile )
@@ -103,7 +98,6 @@ int modCounter = 0;
 
 //************************************************      primes file append      ****************
 -(void)openPrimesFileForAppendWith:(NSString *)path  {
-//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
      primesAppendFile = fopen(path.UTF8String, "a");
 }
 -(void)closePrimesFileForAppend
@@ -133,7 +127,6 @@ int modCounter = 0;
 
 //************************************************      factored file append    ****************
 -(int)openFactoredFileForAppendWith:(NSString *)path  {
-//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     factoredAppendFile = fopen(path.UTF8String, "a");
     assert( factoredAppendFile );
     modCounter = 0;
@@ -158,7 +151,6 @@ int modCounter = 0;
 //************************************************      nice primes file write  ****************
 -(int)openNicePrimesFileForWriteWith:(NSString *)path
 {
-//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     nicePrimesWriteFile = fopen(path.UTF8String, "w");
     assert( nicePrimesWriteFile );
     modCounter = 0;
@@ -183,7 +175,6 @@ int modCounter = 0;
 
 //************************************************      temp file read          ****************
 -(void)openTempFileForReadWith:(NSString *)path  {
-//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     readTempFile = fopen(path.UTF8String, "r");
 }
 -(void)closeTempFileForRead
@@ -205,7 +196,6 @@ int modCounter = 0;
 
 -(NSString *)lastLineForFile:(NSString *)path
 {
-//    NSString *pathWithExtension = [NSString stringWithFormat:@"%@.%@",path , fileExtension];
     readTempFile = fopen(path.UTF8String, "r");
     
     if ( readTempFile )  {
