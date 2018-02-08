@@ -10,9 +10,9 @@ import Cocoa
 
 class ViewController: NSViewController, NSControlTextEditingDelegate {
 
-    let defaultPrimeP = 257
-    let defaultPrimeQ = 251
-    let defaultPublicKey = 36083
+    let defaultPrimeP = "257"
+    let defaultPrimeQ = "251"
+    let defaultPublicKey = "36083"
     let defaultCharacterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+*/"
 
     @IBOutlet var plaintextFilePathTextField: NSTextField!
@@ -45,7 +45,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let HLDefaultCharacterSetKey        = "CharacterSetKey"
     let HLDefaultPrimePKey              = "PrimePKey"
     let HLDefaultPrimeQKey              = "PrimeQKey"
-    let HLDefaultPublicKeyKey           = "PublicKey"
+    let HLDefaultPublicKey              = "HLPublicKey"
     
     let HLPlaintextBookmarkKey          = "PlaintextBookmarkKey"
     let HLCiphertextBookmarkKey         = "CiphertextBookmarkKey"
@@ -164,6 +164,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
         else if control == publicKeyTextField    {
             setupKeys()
+            UserDefaults.standard.set(publicKeyTextField.stringValue, forKey:HLDefaultPublicKey)
         }
 
         else if control == characterSetTextField    {
@@ -182,7 +183,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         let publicKey = Int64(publicKeyTextField.stringValue)!
         let privateKey = rsa.calculateKey(publicKey: publicKey)
         privateKeyTextField.stringValue = String(privateKey)
-        UserDefaults.standard.set(publicKeyTextField.stringValue, forKey:HLDefaultPublicKeyKey)
         rsa.keyPublic = publicKey
         rsa.keyPrivate = privateKey
     }
@@ -218,45 +218,23 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             primePTextField.stringValue = primeP
         }
         else    {
-            primePTextField.integerValue = defaultPrimeP
+            primePTextField.stringValue = defaultPrimeP
         }
 
         if let primeQ = UserDefaults.standard.string(forKey: HLDefaultPrimeQKey)  {
             primeQTextField.stringValue = primeQ
         }
         else    {
-            primeQTextField.integerValue = defaultPrimeQ
+            primeQTextField.stringValue = defaultPrimeQ
         }
 
-        if let publicKey = UserDefaults.standard.string(forKey: HLDefaultPublicKeyKey)  {
+        if let publicKey = UserDefaults.standard.string(forKey: HLDefaultPublicKey)  {
+  //          NSSound(named: NSSound.Name(rawValue: "Ping"))?.play()
             publicKeyTextField.stringValue = publicKey
         }
         else    {
-            publicKeyTextField.integerValue = defaultPublicKey
-        }
-
-        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
-            plainTextURL = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey)
-            if plainTextURL != nil {
-                plaintextFilePathTextField.stringValue = plaintextFilePath
-         //       print( "ViewController-  viewDidLoad-  plaintextFilePath: \(String(describing: url.path))" )
-            }
-        }
-
-        if let ciphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultCiphertextFilePathKey)  {
-            cipherTextURL = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey)
-            if cipherTextURL != nil {
-                ciphertextFilePathTextField.stringValue = ciphertextFilePath
-        //        print( "ViewController-  viewDidLoad-  ciphertextFilePath: \(String(describing: url.path))" )
-            }
-        }
-
-        if let deCiphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultDeCiphertextFilePathKey)  {
-            deCipherTextURL = deCiphertextFilePath.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
-            if deCipherTextURL != nil {
-                deCiphertextFilePathTextField.stringValue = deCiphertextFilePath
-        //        print( "ViewController-  viewDidLoad-  deCiphertextFilePath: \(String(describing: url.path))" )
-            }
+   //         NSSound(named: NSSound.Name(rawValue: "Purr"))?.play()
+            publicKeyTextField.stringValue = defaultPublicKey
         }
 
         if let characterSet = UserDefaults.standard.string(forKey: HLDefaultCharacterSetKey)  {
@@ -267,9 +245,28 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             characterSetSizeTextField.integerValue = characterSetTextField.stringValue.count
         }
 
+        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
+            plainTextURL = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey)
+            if plainTextURL != nil {
+                plaintextFilePathTextField.stringValue = plaintextFilePath
+            }
+        }
+
+        if let ciphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultCiphertextFilePathKey)  {
+            cipherTextURL = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey)
+            if cipherTextURL != nil {
+                ciphertextFilePathTextField.stringValue = ciphertextFilePath
+            }
+        }
+
+        if let deCiphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultDeCiphertextFilePathKey)  {
+            deCipherTextURL = deCiphertextFilePath.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
+            if deCipherTextURL != nil {
+                deCiphertextFilePathTextField.stringValue = deCiphertextFilePath
+            }
+        }
+
         setupRSA()
-        
-    //    AHRegisterHelpBookWithURL(url)
    }
 }
 
