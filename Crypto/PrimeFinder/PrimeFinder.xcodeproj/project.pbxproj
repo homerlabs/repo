@@ -11,6 +11,7 @@
 		B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03242581FCDCC2B003B2265 /* ViewController.swift */; };
 		B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B032425A1FCDCC2B003B2265 /* Assets.xcassets */; };
 		B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B032425C1FCDCC2B003B2265 /* Main.storyboard */; };
+		B0409143202CF473009E8FA0 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0409142202CF473009E8FA0 /* Help */; };
 		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
 		B0ADCE5F1FEEED2700EF7FDE /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA271FCDCE7700017C90 /* HLPrime.swift */; };
 		B0ADCE601FEEEEC500EF7FDE /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
@@ -39,6 +40,7 @@
 		B032425A1FCDCC2B003B2265 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B032425D1FCDCC2B003B2265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B032425F1FCDCC2B003B2265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0409142202CF473009E8FA0 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 		B032424A1FCDCC2B003B2265 = {
 			isa = PBXGroup;
 			children = (
+				B0409142202CF473009E8FA0 /* Help */,
 				B03242551FCDCC2B003B2265 /* PrimeFinder */,
 				B0DAFA231FCDCE7700017C90 /* Common */,
 				B0ADCE561FEEEBAE00EF7FDE /* PrimeFinderTests */,
@@ -212,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0409143202CF473009E8FA0 /* Help in Resources */,
 				B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */,
 				B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */,
 			);

@@ -7,9 +7,9 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleHelpBookFolder</key>
-	<string>PrimeFinder.Help</string>
+	<string>Help</string>
 	<key>CFBundleHelpBookName</key>
-	<string>com.homerlabs.primeFinder.help</string>
+	<string>PrimeFinder Help</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
