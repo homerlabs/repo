@@ -685,7 +685,7 @@
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="PrimeFinder" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -814,7 +814,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="filterActionWithSender:" target="XfG-lQ-9wD" id="dOu-3s-B9L"/>
+                                    <action selector="nicePrimesActionWithSender:" target="XfG-lQ-9wD" id="VYU-kE-YuO"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wwB-jO-Uc6">
@@ -840,8 +840,8 @@
                     <connections>
                         <outlet property="modCountTextField" destination="0r3-f7-7EQ" id="hEs-23-cQZ"/>
                         <outlet property="nicePrimeFilePathTextField" destination="wwB-jO-Uc6" id="rDE-6R-nCJ"/>
-                        <outlet property="nicePrimesButton" destination="JpO-5X-s5e" id="sjU-it-Gfs"/>
-                        <outlet property="primeButton" destination="uIT-kN-6mk" id="0Vd-jr-9pR"/>
+                        <outlet property="nicePrimesButton" destination="0UU-ee-UBx" id="YNp-Ky-3jV"/>
+                        <outlet property="primeButton" destination="snx-gN-6Hu" id="bt8-eO-ZQl"/>
                         <outlet property="primeFilePathTextField" destination="nAu-gK-rOB" id="z2r-HF-o2b"/>
                         <outlet property="progressTextField" destination="CNL-s0-YqP" id="75i-sN-OP2"/>
                         <outlet property="terminalPrimeTextField" destination="U82-QS-35Z" id="Gux-I7-8yI"/>

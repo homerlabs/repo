@@ -14,7 +14,7 @@ class HLPrimeTable: NSObject {
     let highestPrimeInTable: HLPrimeType    //  used for debugging only
 
     let fileManager: HLFileManager = HLFileManager.shared()
-    var primesFileURL: URL!
+    var primesFile: String?
 
 
     func deleteTable()  {
@@ -22,11 +22,11 @@ class HLPrimeTable: NSObject {
         buf.removeAll()
     }
 
-    init?(primeFileURL: URL, largestPrime: HLPrimeType)  {
+    init?(primeFile: String?, largestPrime: HLPrimeType)  {
 //        print( "HLPrimeTable-  init?-  primeFileURL: \(primeFileURL.path)    largestPrime: \(largestPrime)" )
-        self.primesFileURL = primeFileURL
+        self.primesFile = primeFile
 
-        if self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) == 0  {
+        if self.fileManager.openPrimesFileForRead(with: self.primesFile) == 0  {
             var lastP: HLPrimeType = 0
             
             while largestPrime > lastP {
