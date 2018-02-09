@@ -31,7 +31,7 @@
 /* Begin PBXFileReference section */
 		B01D0F9A201CF9020076E254 /* RSATool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSATool.entitlements; sourceTree = "<group>"; };
 		B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
-		B081765A1F993D2B00772AFC /* RSATool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSATool.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B081765A1F993D2B00772AFC /* Crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B081765D1F993D2B00772AFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B081765F1F993D2B00772AFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B08176611F993D2B00772AFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		B081765B1F993D2B00772AFC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B081765A1F993D2B00772AFC /* RSATool.app */,
+				B081765A1F993D2B00772AFC /* Crypto.app */,
 				B0FC2FB61FACD1C50071DD9B /* RSAToolTests.xctest */,
 			);
 			name = Products;
@@ -117,9 +117,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B08176591F993D2B00772AFC /* RSATool */ = {
+		B08176591F993D2B00772AFC /* Crypto */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B081766A1F993D2B00772AFC /* Build configuration list for PBXNativeTarget "RSATool" */;
+			buildConfigurationList = B081766A1F993D2B00772AFC /* Build configuration list for PBXNativeTarget "Crypto" */;
 			buildPhases = (
 				B08176561F993D2B00772AFC /* Sources */,
 				B08176571F993D2B00772AFC /* Frameworks */,
@@ -129,9 +129,9 @@
 			);
 			dependencies = (
 			);
-			name = RSATool;
+			name = Crypto;
 			productName = RSATool;
-			productReference = B081765A1F993D2B00772AFC /* RSATool.app */;
+			productReference = B081765A1F993D2B00772AFC /* Crypto.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B0FC2FB51FACD1C50071DD9B /* RSAToolTests */ = {
@@ -191,7 +191,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B08176591F993D2B00772AFC /* RSATool */,
+				B08176591F993D2B00772AFC /* Crypto */,
 				B0FC2FB51FACD1C50071DD9B /* RSAToolTests */,
 			);
 		};
@@ -243,7 +243,7 @@
 /* Begin PBXTargetDependency section */
 		B0FC2FBC1FACD1C50071DD9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B08176591F993D2B00772AFC /* RSATool */;
+			target = B08176591F993D2B00772AFC /* Crypto */;
 			targetProxy = B0FC2FBB1FACD1C50071DD9B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -376,7 +376,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = RSATool/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.RSATool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.Crypto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
@@ -393,7 +393,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = RSATool/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.RSATool;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.Crypto;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
@@ -446,7 +446,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B081766A1F993D2B00772AFC /* Build configuration list for PBXNativeTarget "RSATool" */ = {
+		B081766A1F993D2B00772AFC /* Build configuration list for PBXNativeTarget "Crypto" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B081766B1F993D2B00772AFC /* Debug */,

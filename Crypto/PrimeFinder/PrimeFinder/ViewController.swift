@@ -11,8 +11,8 @@ import Cocoa
 class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesProtocol {
 
     @IBOutlet var primeFilePathTextField: NSTextField!
-    @IBOutlet var lastLinePrimeTextField: NSTextField!
-    @IBOutlet var lastLineFactorTextField: NSTextField!
+    @IBOutlet var nicePrimeFilePathTextField: NSTextField!
+//    @IBOutlet var lastLinePrimeTextField: NSTextField!
     @IBOutlet var terminalPrimeTextField: NSTextField!
     @IBOutlet var modCountTextField: NSTextField!
     @IBOutlet var progressTextField: NSTextField!
@@ -21,9 +21,10 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBOutlet var nicePrimesButton: NSButton!
 
     var primeFinder: HLPrime!
-    let HLDefaultPrimeFilePathKey = "PrimeFilePathKey"
-    let HLDefaultTerminalPrimeKey = "TerminalPrimeKey"
-    let HLDefaultModCountKey = "ModCountKey"
+    let HLDefaultPrimeFilePathKey       = "PrimeFilePathKey"
+    let HLDefaultNicePrimeFilePathKey   = "NicePrimeFilePathKey"
+    let HLDefaultTerminalPrimeKey       = "TerminalPrimeKey"
+    let HLDefaultModCountKey            = "ModCountKey"
     
     let defaultTerminalPrime = "1000000"
     let defaultModSize = "100000"
@@ -33,35 +34,32 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var factorPrimesInProgress = false
     var errorCode = 0
 
+    var primesURL: URL? = nil
+    var nicePrimesURL: URL? = nil
     let HLPrimesBookmarkKey         = "HLPrimesBookmarkKey"
     let HLNicePrimesBookmarkKey     = "HLNicePrimesBookmarkKey"
 
 
-   func getOpenFilePath(title: String, bookmarkKey: String) -> String     {
-    
-        var path = ""
-        let openPanel = NSOpenPanel();
-        openPanel.canCreateDirectories = true;
-        openPanel.allowedFileTypes = ["txt"];
-        openPanel.showsTagField = false;
-        openPanel.prompt = "Open";
-        openPanel.message = title;
-
-        let i = openPanel.runModal();
-        if(i == NSApplication.ModalResponse.OK){
-            path = openPanel.url!.path
-            openPanel.url!.setBookmarkFor(key: bookmarkKey)
-        }
-    
-        return path
+    @IBAction func setPrimesPathAction(sender: NSButton) {
+        let path = getSaveFilePath(title: "Set Primes file path", fileName: "Primes", bookmarkName: HLPrimesBookmarkKey)
+        primeFilePathTextField.stringValue = path
+        UserDefaults.standard.set(path, forKey:HLDefaultPrimeFilePathKey)
+        primesURL = path.getBookmarkFor(key: HLPrimesBookmarkKey)
     }
-   
+
+    @IBAction func setNicePrimesPathAction(sender: NSButton) {
+        let path = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes", bookmarkName: HLNicePrimesBookmarkKey)
+        nicePrimeFilePathTextField.stringValue = path
+        UserDefaults.standard.set(path, forKey:HLDefaultNicePrimeFilePathKey)
+        primesURL = path.getBookmarkFor(key: HLNicePrimesBookmarkKey)
+    }
+
    func getSaveFilePath(title: String, fileName: String, bookmarkName: String) -> String     {
     
         var path = ""
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
-        savePanel.title = "RSA Tool Save Panel";
+        savePanel.title = "PrimeFinder Save Panel";
         savePanel.nameFieldStringValue = fileName;
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
@@ -111,7 +109,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
 
     //*************   HLPrimeProtocol     *********************************************************
-    func hlPrimeInitCompleted()  {
+/*    func hlPrimeInitCompleted()  {
         let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   HLPrime init completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
@@ -122,19 +120,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             nicePrimesButton.isEnabled = true
         }
         
-        if primeFinder.factorFileLastLine != nil {
-            lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
-        }
-        
         primeButton.isEnabled = true
         primeButton.title = "Prime Start"
-    }
+    }   */
     
     func findPrimesCompleted()  {
         let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
-        lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
+ //       lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         primeButton.title = "Completed"
         primeButton.isEnabled = false
     }
@@ -143,7 +137,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
         print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
         findNicePrimesInProgress = false
-        lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
+//        lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         nicePrimesButton.title = "Completed"
         nicePrimesButton.isEnabled = false
     }
@@ -162,7 +156,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
-        if control == primeFilePathTextField    {
+/*        if control == primeFilePathTextField    {
             var newValue = control.stringValue
             if !newValue.hasPrefix("/")  {
                 newValue = "/Users/" + NSUserName() + "/" + newValue
@@ -178,9 +172,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             }
             
             UserDefaults.standard.set(newValue, forKey:HLDefaultPrimeFilePathKey)
-        }
+        }   */
 
-        else if control == terminalPrimeTextField    {
+        if control == terminalPrimeTextField    {
             terminalPrimeTextField.stringValue = control.stringValue
             UserDefaults.standard.set(control.stringValue, forKey:HLDefaultTerminalPrimeKey)
         }
@@ -199,20 +193,23 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lastLinePrimeTextField.stringValue = "?"
-        lastLineFactorTextField.stringValue = "?"
+ //       lastLinePrimeTextField.stringValue = "?"
         progressTextField.stringValue = "?"
 
-        primeButton.isEnabled = false
-        nicePrimesButton.isEnabled = false
-
         if let primeFilePath = UserDefaults.standard.string(forKey: HLDefaultPrimeFilePathKey)  {
-            primeFilePathTextField.stringValue = primeFilePath
+            primesURL = primeFilePath.getBookmarkFor(key: HLNicePrimesBookmarkKey)
+            if primesURL != nil {
+                primeFilePathTextField.stringValue = primeFilePath
+            }
         }
-        else    {
-            primeFilePathTextField.stringValue = "/Users/" + NSUserName() + "/Downloads/Primes"
+
+        if let nicePrimeFilePath = UserDefaults.standard.string(forKey: HLDefaultNicePrimeFilePathKey)  {
+            nicePrimesURL = nicePrimeFilePath.getBookmarkFor(key: HLNicePrimesBookmarkKey)
+            if nicePrimesURL != nil {
+                nicePrimeFilePathTextField.stringValue = nicePrimeFilePath
+            }
         }
-        
+
         if let terminalPrime = UserDefaults.standard.string(forKey: HLDefaultTerminalPrimeKey)  {
             terminalPrimeTextField.stringValue = terminalPrime
         }
@@ -227,15 +224,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             modCountTextField.stringValue = defaultModSize
         }
 
-        primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
+ //       if
+ //       primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
         
-        if let primeLastLine = primeFinder.primeFileLastLine    {
-            lastLinePrimeTextField.stringValue = primeLastLine
-        }
-        
-        if let factoredLastLine = primeFinder.factorFileLastLine    {
-            lastLineFactorTextField.stringValue = factoredLastLine
-        }
+ //       if let primeLastLine = primeFinder.primeFileLastLine    {
+ //           lastLinePrimeTextField.stringValue = primeLastLine
+  //      }
     }
 }
 

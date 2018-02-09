@@ -11,10 +11,9 @@ import Foundation
 typealias HLPrimeType = Int64
 
 protocol HLPrimesProtocol {
-    func hlPrimeInitCompleted()
+//    func hlPrimeInitCompleted()
     func findPrimesCompleted()
     func findNicePrimesCompleted()
-    func factorPrimesCompleted()
 }
 
 
@@ -208,7 +207,7 @@ class HLPrime: NSObject {
                 self.pTable.deleteTable()
     //              print( "HLPrime-  factorPrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
-                self.primesDelegate?.factorPrimesCompleted()
+      //          self.primesDelegate?.factorPrimesCompleted()
             }
         }
     }
@@ -336,11 +335,9 @@ class HLPrime: NSObject {
         super.init()
         setupFilePaths(basePath: primeFilePath)
         print( "HLPrime.init-  primeFilePath: \(primesFileURL.path)" )
-        let startDate = Date()
 
-        DispatchQueue.global(qos: .userInitiated).async {
 
-           if let primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path) {
+ /*          if let primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFileURL.path) {
                 self.primeFileLastLine = primeFileLastLine
                 (self.lastN, self.lastP) = primeFileLastLine.parseLine()
                 print( "Primes file found: '\(self.primesFileURL.lastPathComponent)' last line:  lastN: \(self.lastN)    lastP: \(self.lastP)" )
@@ -349,13 +346,7 @@ class HLPrime: NSObject {
             if let factorFileLastLine = self.fileManager.lastLine(forFile: self.factoredFileURL.path) {
                 self.factorFileLastLine = factorFileLastLine
                 print( "Factored file found: '\(self.factoredFileURL.lastPathComponent)' last line: \(factorFileLastLine)" )
-            }
-
-            DispatchQueue.main.async {
-                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
-                self.primesDelegate?.hlPrimeInitCompleted()
-            }
-        }
+            }   */
     }
 }
 

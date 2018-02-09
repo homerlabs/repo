@@ -22,7 +22,7 @@ typealias HLPrimeType = Int64
 class HLRSA: NSObject {
 
     let N: HLPrimeType
-    let Gamma: HLPrimeType
+    let Phi: HLPrimeType
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
@@ -307,7 +307,7 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
     
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
-        let bigGamma = Float80(exactly: Gamma)!
+        let bigGamma = Float80(exactly: Phi)!
         var s: [Float80] = Array(repeating: 0, count: arraySize)
         var t: [Float80] = Array(repeating: 0, count: arraySize)
         var r: [Float80] = Array(repeating: 0, count: arraySize)
@@ -352,7 +352,7 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         s[1] = 0
         t[0] = 0
         t[1] = 1
-        r[0] = Gamma
+        r[0] = Phi
         r[1] = publicKey
         var i = 1
         
@@ -367,10 +367,10 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
 
         if r[i] == 1        {
             var privateKey = t[i]
-            if privateKey <= 0     {   privateKey += Gamma       }
+            if privateKey <= 0     {   privateKey += Phi       }
             
             let product = Float80(exactly: publicKey)! * Float80(exactly: privateKey)!
-            let keyVerify = product.truncatingRemainder(dividingBy: Float80(exactly: Gamma)!)
+            let keyVerify = product.truncatingRemainder(dividingBy: Float80(exactly: Phi)!)
             assert( keyVerify == 1 )
             return privateKey
         }
@@ -386,13 +386,13 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         charSetSizePlusOne = charSetSize + 1
 
         N = p * q
-        Gamma = (p-1) * (q-1)
+        Phi = (p-1) * (q-1)
 
         chuckSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
     //    print( "HLRSA-  init-  x: \(x)" )
         chuckSize = Int(chuckSizeDouble)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Gamma: \(Gamma)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chuckSizeDouble]))" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chuckSizeDouble]))" )
         super.init()
     }
 }

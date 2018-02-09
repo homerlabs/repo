@@ -10,7 +10,7 @@ import Cocoa
 
 class ViewController: NSViewController, NSControlTextEditingDelegate {
 
-    let defaultPrimeP = "257"
+    let defaultPrimeP: String = "257"
     let defaultPrimeQ = "251"
     let defaultPublicKey = "36083"
     let defaultCharacterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+*/"
