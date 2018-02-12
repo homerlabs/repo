@@ -17,7 +17,7 @@ FILE *primesReadFile, *primesAppendFile;
 FILE *factoredReadFile, *factoredAppendFile;
 FILE *nicePrimesWriteFile;
 FILE *readTempFile;
-int modSize = 1;
+int modSize = 1000000;
 int modCounter = 0;
 
 
@@ -220,10 +220,9 @@ int modCounter = 0;
     modSize = size;
 }
 
--(instancetype)init:(int)modulasSize
+-(instancetype)init
 {
     self = [super init];
-    modSize = modulasSize;
     sharedManager = self;
     return self;
 }

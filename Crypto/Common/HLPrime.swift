@@ -11,7 +11,6 @@ import Foundation
 typealias HLPrimeType = Int64
 
 protocol HLPrimesProtocol {
-//    func hlPrimeInitCompleted()
     func findPrimesCompleted()
     func findNicePrimesCompleted()
 }
@@ -33,7 +32,7 @@ class HLPrime: NSObject {
     var primesDelegate: HLPrimesProtocol?
     var pTable: HLPrimeTable!
     
-   func makeNicePrimesFile2(nicePrimePath: String, largestPrime: HLPrimeType)    {
+   func makeNicePrimesFile(nicePrimePath: String, largestPrime: HLPrimeType)    {
 
         DispatchQueue.global(qos: .userInitiated).async {
             let startDate = Date()
@@ -286,52 +285,9 @@ class HLPrime: NSObject {
         return result
     }
     
-/*   func makeNicePrimesFile()    {
-        print( "HLPrime-  makeNicePrimesFile" )
-        fileManager.openFactoredFileForRead(with: factoredFile)
-        fileManager.openNicePrimesFileForWrite(with: nicePrimesFile)
-    
-        var line = fileManager.readFactoredFileLine()
-        var lastN = 3   //  first prime in factored file is '5'
-        if line != nil  {
-            repeat  {
-                var tabCount = 0
-                let tab = 9   //  ascii tab
-                let charCount = line!.count
-                let cString = line!.utf8CString
-                
-                for index in 0..<charCount {
-                    let charValue = cString[index]
-                    if charValue == tab    {
-                        tabCount += 1
-                    }
-                }
-                
-                if tabCount == 1 {
-                    let lastP = line!.prefixInt64()
-                    let outputLine = "\(lastN)\t\(lastP)"
-                    fileManager.writeNicePrimesFile(outputLine)
-                }
 
-                line = fileManager.readFactoredFileLine()
-                lastN += 1
-            }   while line != nil
-
-            fileManager.closeNicePrimesFileForWrite()
-            fileManager.closeFactoredFileForRead()
-        }
-    }
-    
-    
-    func setupFilePaths(basePath: String)   {
-  //      print( "HLPrime.setupFilePaths-  basePath: \(basePath)" )
-        primesFileURL = URL(string: basePath)
-        factoredFileURL = URL(string: basePath + "-F")
-        nicePrimesFileURL = URL(string: basePath + "-N")
-    }   */
-
-    init(primeFilePath: String, modCount: Int32, delegate: HLPrimesProtocol)  {
-        fileManager = HLFileManager(modCount)
+    init(primeFilePath: String, delegate: HLPrimesProtocol)  {
+        fileManager = HLFileManager()
         primesDelegate = delegate
         primesFile = primeFilePath
 
