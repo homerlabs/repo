@@ -14,11 +14,11 @@ class ViewController: NSViewController, WKNavigationDelegate {
     let urlString = "https://nine.websudoku.com/?"
 //    let urlString = "https://websudoku.com/?"
     var webView: WKWebView!
-    var puzzle = Array(repeating: 0, count: 81)
+    var puzzleArray = Array(repeating: 0, count: 81)
+    var puzzle = HLSolver()
     
     
-    func parsePuzzle(data: String) -> [Int]  {
-        var puzzle =  Array(repeating: 0, count: 81)
+    func parsePuzzle(data: String)  {
         var puzzleString = data
 
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
@@ -34,7 +34,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
                     if let range: Range<String.Index> = preString.range(of:"value=\"")  {
                         if let value = Int(String(preString[range.upperBound])) {
                             print( "valueString: \(value)" )
-                            puzzle[index] = value
+                            puzzleArray[index] = value
                         }
                     }
                 }
@@ -42,8 +42,6 @@ class ViewController: NSViewController, WKNavigationDelegate {
             
             print( "puzzleString: \(puzzleString)" )
         }
-
-        return puzzle
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -54,7 +52,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
            //     print( "innerHTML: \(String(describing: html))" )
                 
                 if let puzzleString = html as? String   {
-                    self.puzzle = self.parsePuzzle(data: puzzleString)
+                    self.parsePuzzle(data: puzzleString)
                 }
         })
     }

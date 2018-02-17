@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Homer Labs. All rights reserved.
 //
 
-import UIKit
+import Cocoa
 
 
 enum CMGCellStatus: Int

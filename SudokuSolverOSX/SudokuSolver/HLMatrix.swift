@@ -34,6 +34,10 @@ struct Matrix {
         return newData
     }
     
+    init()  {
+        self.init(rows: 9, columns: 9)
+    }
+    
     init(rows: Int, columns: Int) {
         kRows = rows
         kColumns = columns
@@ -64,7 +68,7 @@ struct Matrix {
             outputString += sortedCell[i]
         }
         
-        for _ in outputString.characters.count..<10 {
+        for _ in outputString.count..<10 {
             outputString += " "
         }
 

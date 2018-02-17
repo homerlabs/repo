@@ -13,6 +13,8 @@
 		B074CD45203656E30053FC11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B074CD44203656E30053FC11 /* Assets.xcassets */; };
 		B074CD48203656E30053FC11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B074CD46203656E30053FC11 /* Main.storyboard */; };
 		B074CD522036577E0053FC11 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B074CD512036577E0053FC11 /* WebKit.framework */; };
+		B07D35DB2038CF31003F503C /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07D35D92038CF31003F503C /* HLMatrix.swift */; };
+		B07D35DC2038CF31003F503C /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07D35DA2038CF31003F503C /* HLSolver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		B074CD49203656E30053FC11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B074CD4A203656E30053FC11 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
 		B074CD512036577E0053FC11 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		B07D35D92038CF31003F503C /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
+		B07D35DA2038CF31003F503C /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 		B074CD3F203656E30053FC11 /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
+				B07D35D92038CF31003F503C /* HLMatrix.swift */,
+				B07D35DA2038CF31003F503C /* HLSolver.swift */,
 				B074CD40203656E30053FC11 /* AppDelegate.swift */,
 				B074CD42203656E30053FC11 /* ViewController.swift */,
 				B074CD44203656E30053FC11 /* Assets.xcassets */,
@@ -154,8 +160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B07D35DC2038CF31003F503C /* HLSolver.swift in Sources */,
 				B074CD43203656E30053FC11 /* ViewController.swift in Sources */,
 				B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */,
+				B07D35DB2038CF31003F503C /* HLMatrix.swift in Sources */,
 				B00CF02020375BF400389CF1 /* WKWebViewWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
