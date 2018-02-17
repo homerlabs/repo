@@ -47,8 +47,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print( "didFinishNavigationdidFinishNavigation" )
         
-        webView.evaluateJavaScript("document.documentElement.innerHTML.toString()",
-                                   completionHandler: { (html: Any?, error: Error?) in
+        webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
            //     print( "innerHTML: \(String(describing: html))" )
                 
                 if let puzzleString = html as? String   {

@@ -64,7 +64,7 @@ struct Matrix {
             outputString += sortedCell[i]
         }
         
-        for _ in outputString.characters.count..<10 {
+        for _ in outputString.count..<10 {
             outputString += " "
         }
 

@@ -12,6 +12,7 @@ import WebKit
 
 class HLWebViewViewController: UIViewController, WKNavigationDelegate {
 
+    let urlString = "https://nine.websudoku.com/?"
     var puzzleTitle: String
     var puzzleData: Array<String>
     let viewTall: CGFloat = 248
@@ -37,15 +38,18 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print("HLWebViewController-  didFinishNavigation: \(navigation)")
-
-        webView.evaluateJavaScript("document.documentElement.outerHTML.toString()",
-                           completionHandler: { (html: AnyObject?, error: NSError?) in
-        //    print(html)
-            self.parseHTML(html as! String)
-            } as? (Any?, Error?) -> Void)
+        print( "didFinishNavigationdidFinishNavigation" )
+        
+        webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
+        //        print( "innerHTML: \(String(describing: html))" )
+            
+                if let puzzleString = html as? String   {
+                    let puzzleArray = self.parsePuzzle(data: puzzleString)
+                    print( "puzzleArray: \(puzzleArray)" )
+                }
+        })
     }
-    
+
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)    {
         
@@ -54,71 +58,41 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     }
     
     
-    func parseHTML( _ data: String)
-    {
-        var count = 0;
-//        print( "data:\(data)" )
-        var stringArray = Array<String>()
-        let formTag = data.range(of: "<form")
-        
-        if( formTag != nil )
-        {
-            var remainingString = data.substring(from: formTag!.upperBound)
-            var tdTag = remainingString.range(of: "<td ")
+    func parsePuzzle(data: String) -> [Int]  {
+        var puzzleString = data
+        var puzzleArray = Array(repeating: 0, count: 81)
+
+        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
+            puzzleString = String(puzzleString[range.lowerBound...])
+    //        print( "*******************puzzleString: \(puzzleString)" )
             
-            while( tdTag != nil && count < 81 )
-            {
-                remainingString = remainingString.substring(from: tdTag!.upperBound)
-                
-                if let tdClosingTag = remainingString.range(of: "</td>")
-                {
-                   if let readonlyTag = remainingString.range(of: "value=")
-                    {
-                        if( tdClosingTag.lowerBound > readonlyTag.lowerBound )
-                        {
- //                           remainingString = remainingString.substring(from: <#T##String.CharacterView corresponding to your index##String.CharacterView#>.index(readonlyTag.upperBound, offsetBy: 1))
-                            
-                            let t1 = remainingString.substring(to: remainingString.characters.index(remainingString.startIndex, offsetBy: 1))
-                            stringArray.append(t1)
+            for index in 0..<81 {
+                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
+                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
+       //             print( "*******************preString: \(preString)" )
+                    puzzleString.removeFirst(preString.count)
+                    
+                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
+                        if let value = Int(String(preString[range.upperBound])) {
+        //                    print( "valueString: \(value)" )
+                            puzzleArray[index] = value
                         }
-                        else
-                        {
-                            stringArray.append("0")
-                        }
-                    }
-                    else    //  this may be needed if the last cell is empty
-                    {
-                       stringArray.append("0")
                     }
                 }
-                
-                count += 1
-                tdTag = remainingString.range(of: "<td")
             }
             
-            if ( stringArray.count == 81 )
-            {
-                puzzleData = stringArray
-                
-                let nameTag = remainingString.range(of: "Copy link for this puzzle")
-                
-                remainingString = remainingString.substring(from: nameTag!.upperBound)
-                let newIndex = remainingString.index(after: remainingString.startIndex)
-                let newIndex2 = remainingString.index(after: newIndex)
-                remainingString = remainingString.substring(from: newIndex2)
-                
-                let endTag = remainingString.range(of: "</a>")
-                puzzleTitle = remainingString.substring(to: endTag!.lowerBound)
-                gotoButton.isEnabled = true;
-    //           print( "puzzleData: \(puzzleData)" )
-    //           print( "puzzleTitle: \(puzzleTitle)" )
-            }
-            else
-            {
-               print( "Bad, bad parse!" )
-                assert( false );
-            }
+  //          print( "puzzleString: \(puzzleString)" )
+            if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
+                puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
+                if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
+
+                    let title = puzzleString[puzzleString.startIndex..<range2.lowerBound]
+                    print( "title: '\(title)'" )
+                }
+           }
         }
+        
+        return puzzleArray
     }
 
 
@@ -150,7 +124,7 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
 //        print("HLWebViewController-  viewDidLoad")
 
-        let url: URL = URL(string: "http://view.websudoku.com")!
+        let url: URL = URL(string: urlString)!
         let request = URLRequest(url: url)
         webView = WKWebView(frame:containerView.bounds)
         containerView.addSubview(webView!)
