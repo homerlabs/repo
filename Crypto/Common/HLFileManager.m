@@ -22,7 +22,7 @@ int modCounter = 0;
 
 
 -(BOOL)createPrimeFileIfNeededWith:(NSString *)path {
-    int result = [self openPrimesFileForReadWith: path];
+/*    int result = [self openPrimesFileForReadWith: path];
    
     NSString *temp = nil;
     if ( result == 0 )  //  file found, get first line
@@ -34,7 +34,7 @@ int modCounter = 0;
 
     //  if open failed, create new file
     if ( !isFirstLineValid )
-    {
+    {   */
         primesAppendFile = fopen(path.UTF8String, "w");    //  create new file
         
         if ( primesAppendFile != nil )
@@ -44,9 +44,9 @@ int modCounter = 0;
             [self closePrimesFileForAppend];
             return 1;   //  sucess
         }
-    }
+/*    }
     else
-        return 1;   //  sucess
+        return 1;   //  sucess  */
     
     return 0;       //  createPrimeFile failed
 }

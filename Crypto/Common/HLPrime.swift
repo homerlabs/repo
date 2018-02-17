@@ -11,7 +11,7 @@ import Foundation
 typealias HLPrimeType = Int64
 
 protocol HLPrimesProtocol {
-    func findPrimesCompleted()
+    func findPrimesCompleted(lastLine: String)
     func findNicePrimesCompleted()
 }
 
@@ -85,12 +85,13 @@ class HLPrime: NSObject {
         if !success {
             print( "\nHLPrime-  findPrimes-  largestPrime: \(largestPrime) failed!  Unable to create prime file: \(String(describing: primesFile))" )
             primeFileLastLine = "0\t0\n"
-            primesDelegate?.findPrimesCompleted()
+            primesDelegate?.findPrimesCompleted(lastLine: primeFileLastLine!)
             return  //  we don't have file access permission
         }
 
         DispatchQueue.global(qos: .userInitiated).async {
             let startDate = Date()
+            var output = ""
 
             print( "\nHLPrime-  findPrimes-  largestPrime: \(largestPrime)" )
             
@@ -115,7 +116,7 @@ class HLPrime: NSObject {
                 while( highestPossiblePrime >= self.lastP ) {
                 
                     if self.isPrime(n: self.lastP)    {
-                        let output = String(format: "%d\t%ld\n", self.lastN, self.lastP)
+                        output = String(format: "%d\t%ld\n", self.lastN, self.lastP)
                         self.fileManager.appendPrimesLine(output)
                         self.lastN += 1
                     }
@@ -129,19 +130,21 @@ class HLPrime: NSObject {
  
                 self.fileManager.closePrimesFileForAppend()
                 highestPossiblePrime = self.findHighestPossiblePrime(terminalPrime: largestPrime)
-           }
+                self.pTable.deleteTable()
+            }
 
             
 
             DispatchQueue.main.async {
-                self.primeFileLastLine = self.fileManager.lastLine(forFile: self.primesFile)
+                output.removeLast()
+                self.primeFileLastLine = output
                 let (newLastN, newLastP) = self.primeFileLastLine!.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
                 self.pTable.deleteTable()
  //               print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
-                self.primesDelegate?.findPrimesCompleted()
+                self.primesDelegate?.findPrimesCompleted(lastLine: output)
             }
         }
     }

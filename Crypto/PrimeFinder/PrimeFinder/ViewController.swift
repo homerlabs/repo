@@ -197,12 +197,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         primeButton.title = "Prime Start"
     }   */
     
-    func findPrimesCompleted()  {
+    func findPrimesCompleted(lastLine: String)  {
         let elaspsedTime = primeFinder!.actionTimeInSeconds.formatTime()
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
  //       lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-        progressTextField.stringValue = String(self.primeFinder!.lastP)
+        progressTextField.stringValue = lastLine
         primeButton.title = "Find Primes"
         nicePrimesButton.isEnabled = true
         timer?.invalidate()
@@ -270,6 +270,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     override func viewDidDisappear() {
         super.viewDidDisappear()
         print( "ViewController-  viewDidDisappear" )
+        primeFinder?.active = false //  exit loop and close files
         primesURL?.stopAccessingSecurityScopedResource()
         nicePrimesURL?.stopAccessingSecurityScopedResource()
         exit(0)
