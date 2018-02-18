@@ -96,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXp-NM-KuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="388" y="1276"/>
+            <point key="canvasLocation" x="388" y="646"/>
         </scene>
         <!--About-->
         <scene sceneID="9o1-Wh-Zie">
@@ -124,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ryw-MP-c1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1357" y="3237"/>
+            <point key="canvasLocation" x="388" y="3419"/>
         </scene>
         <!--MasterViewController-->
         <scene sceneID="uFG-aA-rgA">
@@ -153,7 +153,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Em6-tH-lyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1953" y="2107"/>
+            <point key="canvasLocation" x="1381" y="3419"/>
         </scene>
         <!--AboutNavController-->
         <scene sceneID="Z71-Oe-3BR">
@@ -169,7 +169,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MrZ-Ph-5sH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1133" y="2107"/>
+            <point key="canvasLocation" x="1381" y="2106"/>
         </scene>
         <!--SplitView-->
         <scene sceneID="6Fl-6e-vex">
@@ -187,7 +187,7 @@
         <!--Solver-->
         <scene sceneID="g3e-JT-cei">
             <objects>
-                <viewController title="Solver" id="1lh-am-sXc" customClass="HLSolverViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Solver" modalTransitionStyle="flipHorizontal" id="1lh-am-sXc" customClass="HLSolverViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oSl-gV-Rmx"/>
                         <viewControllerLayoutGuide type="bottom" id="Lln-d8-FFc"/>
@@ -281,16 +281,8 @@
                                         <rect key="frame" x="0.0" y="76" width="560" height="560"/>
                                         <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="560" id="38T-2M-sP2"/>
-                                            <constraint firstAttribute="width" constant="600" id="3Pv-uq-oga"/>
-                                            <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="275:259" constant="-22.123552123552145" id="8zF-yL-M9h"/>
-                                            <constraint firstAttribute="height" constant="600" id="FlL-tD-rDs"/>
-                                            <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="1:1" id="GYZ-mS-Np0"/>
                                             <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="1:1" id="ctH-Uc-JAs"/>
                                             <constraint firstAttribute="height" constant="560" id="hS8-aS-vNG"/>
-                                            <constraint firstAttribute="height" constant="550" id="qJB-2o-gMf"/>
-                                            <constraint firstAttribute="height" constant="560" id="sZt-jR-Pfw"/>
-                                            <constraint firstAttribute="width" constant="550" id="uS0-Ds-VLM"/>
                                             <constraint firstAttribute="width" constant="560" id="yki-cG-khd"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="tt6-eR-VRI">
@@ -310,18 +302,6 @@
                                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </collectionViewCell>
                                         </cells>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="38T-2M-sP2"/>
-                                                <exclude reference="3Pv-uq-oga"/>
-                                                <exclude reference="8zF-yL-M9h"/>
-                                                <exclude reference="FlL-tD-rDs"/>
-                                                <exclude reference="GYZ-mS-Np0"/>
-                                                <exclude reference="qJB-2o-gMf"/>
-                                                <exclude reference="sZt-jR-Pfw"/>
-                                                <exclude reference="uS0-Ds-VLM"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <outlet property="dataSource" destination="1lh-am-sXc" id="25Y-79-jdt"/>
                                             <outlet property="delegate" destination="1lh-am-sXc" id="Ff0-K1-cmS"/>
@@ -334,7 +314,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="560" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="0EG-dk-Q4V"/>
-                                                    <constraint firstAttribute="width" constant="560" id="xMX-16-4v8"/>
                                                 </constraints>
                                                 <segments>
                                                     <segment title="Mono Cell"/>
@@ -349,12 +328,11 @@
                                                 <rect key="frame" x="0.0" y="38" width="560" height="30"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-TI-m18" userLabel="RdWrt Stack View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="132" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rj-Oa-WEK" userLabel="ReadButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="51" id="LDR-Vb-QgO"/>
                                                                     <constraint firstAttribute="height" constant="30" id="mQ7-cz-pvX"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Read">
@@ -365,10 +343,9 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUY-S1-fHk" userLabel="WriteButton">
-                                                                <rect key="frame" x="81" y="0.0" width="51" height="30"/>
+                                                                <rect key="frame" x="65" y="0.0" width="37" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Xgh-bl-5Nt"/>
-                                                                    <constraint firstAttribute="width" constant="51" id="iVk-UQ-bN8"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Write">
                                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -380,13 +357,12 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="g2g-xi-1S7" userLabel="Solve Stack View">
-                                                        <rect key="frame" x="427" y="0.0" width="133" height="30"/>
+                                                        <rect key="frame" x="454" y="0.0" width="106" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-6f-4eh" userLabel="UndoButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="7KW-Z7-Fpq"/>
-                                                                    <constraint firstAttribute="width" constant="51" id="MAk-gm-hlb"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Undo">
                                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -396,9 +372,8 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbY-a6-gGW" userLabel="SolveButton">
-                                                                <rect key="frame" x="81" y="0.0" width="52" height="30"/>
+                                                                <rect key="frame" x="68" y="0.0" width="38" height="30"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="52" id="qPN-Rx-LL7"/>
                                                                     <constraint firstAttribute="height" constant="30" id="rXd-d2-gsk"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Solve">
@@ -420,10 +395,9 @@
                                 <rect key="frame" x="0.0" y="976" width="768" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-AX-dm0">
-                                        <rect key="frame" x="309" y="0.0" width="150" height="48"/>
+                                        <rect key="frame" x="322" y="0.0" width="124" height="48"/>
                                         <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="F3I-p7-Fdw"/>
                                             <constraint firstAttribute="height" constant="48" id="d8z-LD-eQc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
@@ -435,19 +409,6 @@
                                             <segue destination="mN4-m4-heJ" kind="unwind" unwindAction="unwindToWebView:" id="qkL-7J-oVK"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oxz-zy-e7t">
-                                        <rect key="frame" x="618" y="0.0" width="150" height="48"/>
-                                        <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="09y-1t-E4X"/>
-                                            <constraint firstAttribute="width" constant="150" id="ZeA-EV-B36"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <state key="normal" title="About">
-                                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="BottomView"/>
@@ -455,14 +416,7 @@
                                     <constraint firstItem="XHS-AX-dm0" firstAttribute="centerX" secondItem="7tg-k5-zXI" secondAttribute="centerX" id="Ij8-Ji-U4M"/>
                                     <constraint firstAttribute="height" constant="48" id="LGg-PT-yyl"/>
                                     <constraint firstAttribute="bottom" secondItem="XHS-AX-dm0" secondAttribute="bottom" id="QQr-hi-ckc"/>
-                                    <constraint firstAttribute="bottom" secondItem="Oxz-zy-e7t" secondAttribute="bottom" id="byc-xU-avZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="Oxz-zy-e7t" secondAttribute="trailing" id="l15-vt-CW4"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="Oxz-zy-e7t"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -495,7 +449,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mox-1L-5mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="mN4-m4-heJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1285" y="1276"/>
+            <point key="canvasLocation" x="1405" y="646"/>
         </scene>
     </scenes>
 </document>
