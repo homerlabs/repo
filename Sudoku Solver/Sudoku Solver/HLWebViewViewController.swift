@@ -18,7 +18,6 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     let viewTall: CGFloat = 248
     let viewShort: CGFloat  = 123
     
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint?
     @IBOutlet weak var gotoButton: UIButton!
     @IBOutlet weak var containerView: UIView!
     var webView: WKWebView?
@@ -44,23 +43,16 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    let puzzleArray = self.parsePuzzle(data: puzzleString)
-                    print( "puzzleArray: \(puzzleArray)" )
+                    self.puzzleData = self.parsePuzzle(data: puzzleString)
+       //             print( "puzzleArray: \(self.puzzleData)" )
                 }
         })
     }
 
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)    {
-        
-        if (size.width > size.height)   {   heightConstraint!.constant = viewShort  }
-        else                            {   heightConstraint!.constant = viewTall   }
-    }
-    
-    
-    func parsePuzzle(data: String) -> [Int]  {
+    func parsePuzzle(data: String) -> [String]  {
         var puzzleString = data
-        var puzzleArray = Array(repeating: 0, count: 81)
+        var puzzleArray = Array(repeating: "0", count: 81)
 
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
             puzzleString = String(puzzleString[range.lowerBound...])
@@ -73,10 +65,7 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
                     puzzleString.removeFirst(preString.count)
                     
                     if let range: Range<String.Index> = preString.range(of:"value=\"")  {
-                        if let value = Int(String(preString[range.upperBound])) {
-        //                    print( "valueString: \(value)" )
-                            puzzleArray[index] = value
-                        }
+                        puzzleArray[index] = String(preString[range.upperBound])
                     }
                 }
             }
@@ -86,8 +75,7 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
                 puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
 
-                    let title = puzzleString[puzzleString.startIndex..<range2.lowerBound]
-                    print( "title: '\(title)'" )
+                    puzzleTitle = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
                 }
            }
         }
@@ -132,21 +120,6 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
         webView!.load(request)
     }
     
-    
-/*    override func viewDidAppear(animated: Bool)
-    {
-        super.viewDidAppear(animated)
-
-
-        if (UIDevice.currentDevice().orientation == .LandscapeLeft || UIDevice.currentDevice().orientation == .LandscapeRight)    {
-            heightConstraint!.constant = viewShort
-        }
-        else {
-            heightConstraint!.constant = viewTall
-        }
-    }   */
-    
-
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
