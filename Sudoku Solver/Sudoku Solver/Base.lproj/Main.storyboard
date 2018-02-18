@@ -43,7 +43,7 @@
                                     <segue destination="1lh-am-sXc" kind="show" identifier="GotoSolver" id="AsD-Rm-M91"/>
                                 </connections>
                             </button>
-                            <view userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="kAM-8F-Ve7">
+                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="kAM-8F-Ve7">
                                 <rect key="frame" x="134" y="212" width="500" height="600"/>
                                 <color key="backgroundColor" red="0.85769403197249194" green="0.99193829298019409" blue="0.97611823551662413" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -92,12 +92,11 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="kAM-8F-Ve7" id="hDO-oI-O6Y"/>
-                        <outlet property="gotoButton" destination="hhc-gb-w6c" id="fdI-xa-izk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXp-NM-KuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="731.25" y="715.4296875"/>
+            <point key="canvasLocation" x="388" y="1276"/>
         </scene>
         <!--About-->
         <scene sceneID="9o1-Wh-Zie">
@@ -496,7 +495,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mox-1L-5mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="mN4-m4-heJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1629" y="716"/>
+            <point key="canvasLocation" x="1285" y="1276"/>
         </scene>
     </scenes>
 </document>

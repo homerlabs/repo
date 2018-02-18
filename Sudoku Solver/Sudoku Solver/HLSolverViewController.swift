@@ -27,17 +27,17 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     let moodeSelectKey  = "mode"
     let archiveKey      = "Archive"
     
-    @IBOutlet weak var collectionView: UICollectionView?
-    @IBOutlet weak var puzzleNameLabel: UILabel?
-    @IBOutlet weak var nodeCountLabel: UILabel?
-    @IBOutlet weak var algorithmSelect: UISegmentedControl?
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var puzzleNameLabel: UILabel!
+    @IBOutlet weak var nodeCountLabel: UILabel!
+    @IBOutlet weak var algorithmSelect: UISegmentedControl!
     
-    @IBOutlet weak var undoButton: UIButton?
-    @IBOutlet weak var solveButton: UIButton?
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var solveButton: UIButton!
     
-    @IBOutlet weak var rowSwitch: UISwitch?
-    @IBOutlet weak var columnSwitch: UISwitch?
-    @IBOutlet weak var blockSwitch: UISwitch?
+    @IBOutlet weak var rowSwitch: UISwitch!
+    @IBOutlet weak var columnSwitch: UISwitch!
+    @IBOutlet weak var blockSwitch: UISwitch!
     
     
     @IBAction func undoAction(_ sender:UISwitch)
@@ -46,14 +46,14 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         _solver.dataSet = _solver.previousDataSet
         updateAndDisplayCells()
         
-        undoButton!.isEnabled = false
+        undoButton.isEnabled = false
     }
     
     
     @IBAction func readAction()
     {
         _solver.read()
-        puzzleNameLabel!.text = _solver.puzzleName
+        puzzleNameLabel.text = _solver.puzzleName
         updateAndDisplayCells()
     }
     
@@ -67,9 +67,9 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func settingsAction()
     {
-        rowsSelected    = rowSwitch!.isOn
-        columnsSelected = columnSwitch!.isOn
-        blocksSelected  = blockSwitch!.isOn
+        rowsSelected    = rowSwitch.isOn
+        columnsSelected = columnSwitch.isOn
+        blocksSelected  = blockSwitch.isOn
         
         defaults.set(!rowsSelected,     forKey:rowSwitchKey )
         defaults.set(!columnsSelected,  forKey:columnSwitchKey )
@@ -79,7 +79,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func modeSelectAction()
     {
-        defaults.set(algorithmSelect!.selectedSegmentIndex, forKey: moodeSelectKey)
+        defaults.set(algorithmSelect.selectedSegmentIndex, forKey: moodeSelectKey)
     }
     
     
@@ -88,7 +88,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
          
         _solver.previousDataSet = _solver.dataSet
 
-       switch( algorithmSelect!.selectedSegmentIndex )
+       switch( algorithmSelect.selectedSegmentIndex )
         {
             case 0:     //  Mono Cell
                 _solver.findMonoCells(rows: rowsSelected, columns: columnsSelected)
@@ -112,13 +112,13 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     
     func updateAndDisplayCells()    {
         _solver.updateChangedCells()
-        collectionView?.reloadData()
+        collectionView.reloadData()
         let unsolvedCount = _solver.unsolvedCount()
-        nodeCountLabel!.text = "Unsolved Nodes: \(unsolvedCount)"
+        nodeCountLabel.text = "Unsolved Nodes: \(unsolvedCount)"
         
-        undoButton!.isEnabled = true
-        if unsolvedCount == 0   {   solveButton!.isEnabled = false    }
-        else                    {   solveButton!.isEnabled = true     }
+        undoButton.isEnabled = true
+        if unsolvedCount == 0   {   solveButton.isEnabled = false    }
+        else                    {   solveButton.isEnabled = true     }
     }
     
     
@@ -161,19 +161,19 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         super.viewDidLoad()
 
         let nib = UINib(nibName:"HLCollectionViewCell", bundle:nil)
-        collectionView!.register(nib, forCellWithReuseIdentifier:"HLPuzzleCell")
+        collectionView.register(nib, forCellWithReuseIdentifier:"HLPuzzleCell")
         
-        algorithmSelect!.selectedSegmentIndex = defaults.integer(forKey: moodeSelectKey)
+        algorithmSelect.selectedSegmentIndex = defaults.integer(forKey: moodeSelectKey)
         rowsSelected        = !defaults.bool(forKey: rowSwitchKey)
         columnsSelected     = !defaults.bool(forKey: columnSwitchKey)
         blocksSelected      = !defaults.bool(forKey: blockSwitchKey)
-        rowSwitch!.isOn       = rowsSelected
-        columnSwitch!.isOn    = columnsSelected
-        blockSwitch!.isOn     = blocksSelected
+        rowSwitch.isOn       = rowsSelected
+        columnSwitch.isOn    = columnsSelected
+        blockSwitch.isOn     = blocksSelected
         
         _solver.puzzleName = puzzleName
-        puzzleNameLabel!.text = _solver.puzzleName
-        undoButton!.isEnabled = false
+        puzzleNameLabel.text = _solver.puzzleName
+        undoButton.isEnabled = false
         
 //        _solver.read()
 //        updateAndDisplayCells()
@@ -182,6 +182,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
 
         _solver.load(importArray)
         _solver.prunePuzzle(rows:true, columns:true, blocks:true)
-        nodeCountLabel!.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
+        nodeCountLabel.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
     }
 }

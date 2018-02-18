@@ -18,9 +18,8 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     let viewTall: CGFloat = 248
     let viewShort: CGFloat  = 123
     
-    @IBOutlet weak var gotoButton: UIButton!
     @IBOutlet weak var containerView: UIView!
-    var webView: WKWebView?
+    var hlWebView: WKWebView!
     
     @IBAction func unwindToWebView(_ sender: UIStoryboardSegue)
     {
@@ -114,15 +113,15 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
 
         let url: URL = URL(string: urlString)!
         let request = URLRequest(url: url)
-        webView = WKWebView(frame:containerView.bounds)
-        containerView.addSubview(webView!)
-        webView!.navigationDelegate = self
-        webView!.load(request)
+        hlWebView = WKWebView(frame:containerView.bounds)
+        containerView.addSubview(hlWebView)
+        hlWebView.navigationDelegate = self
+        hlWebView.load(request)
     }
     
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        webView!.stopLoading()
+        hlWebView.stopLoading()
     }
 }
