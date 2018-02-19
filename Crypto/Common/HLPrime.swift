@@ -12,7 +12,7 @@ typealias HLPrimeType = Int64
 
 protocol HLPrimesProtocol {
     func findPrimesCompleted(lastLine: String)
-    func findNicePrimesCompleted()
+    func findNicePrimesCompleted(lastLine: String)
 }
 
 
@@ -37,6 +37,7 @@ class HLPrime: NSObject {
         DispatchQueue.global(qos: .userInitiated).async {
             let startDate = Date()
             self.nicePrimesFile = nicePrimePath
+            var lastLine = ""
             print( "HLPrime-  makeNicePrimesFile-  largestPrime: \(largestPrime)" )
         
             let largestTestPrime = Int64(sqrt(Double((largestPrime-1)/2)))
@@ -58,6 +59,7 @@ class HLPrime: NSObject {
                 
                 if self.isPrime(n: possiblePrime) {
                     self.fileManager.writeNicePrimesFile(line)
+                    lastLine = line!
                 }
 
                 line = self.fileManager.readPrimesFileLine()
@@ -73,7 +75,7 @@ class HLPrime: NSObject {
             DispatchQueue.main.async {
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
                 self.pTable.deleteTable()
-                self.primesDelegate?.findNicePrimesCompleted()
+                self.primesDelegate?.findNicePrimesCompleted(lastLine: lastLine)
             }
         }
     }

@@ -804,7 +804,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNL-s0-YqP">
-                                <rect key="frame" x="162" y="153" width="117" height="17"/>
+                                <rect key="frame" x="168" y="153" width="166" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="last prime" drawsBackground="YES" usesSingleLineMode="YES" id="WGz-73-EpV">
                                     <font key="font" metaFont="system"/>

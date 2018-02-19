@@ -12,9 +12,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
     @IBOutlet var primeFilePathTextField: NSTextField!
     @IBOutlet var nicePrimeFilePathTextField: NSTextField!
-//    @IBOutlet var lastLinePrimeTextField: NSTextField!
     @IBOutlet var terminalPrimeTextField: NSTextField!
- //   @IBOutlet var modCountTextField: NSTextField!
     @IBOutlet var progressTextField: NSTextField!
 
     @IBOutlet var primeButton: NSButton!
@@ -24,14 +22,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     let HLDefaultPrimeFilePathKey       = "PrimeFilePathKey"
     let HLDefaultNicePrimeFilePathKey   = "NicePrimeFilePathKey"
     let HLDefaultTerminalPrimeKey       = "TerminalPrimeKey"
-    let HLDefaultModCountKey            = "ModCountKey"
     
     let defaultTerminalPrime = "1000000"
-    let defaultModSize = "100000"
-    
+    let primesButtonTitle       = "Find Primes"
+    let nicePrimesButtonTitle   = "Find NPrimes"
+
     var findPrimesInProgress = false
     var findNicePrimesInProgress = false
-    var factorPrimesInProgress = false
     var errorCode = 0
     var timer: Timer?
     let updateTimeIsSeconds = 1.0
@@ -104,9 +101,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
     @IBAction func primesStartAction(sender: NSButton) {
         
-        if primeButton.state == .on {
+        if !findPrimesInProgress {
             primeButton.title = "Running"
-            findPrimesInProgress = true
             nicePrimesButton.isEnabled = false
 
             if primesURL == nil   {
@@ -130,18 +126,20 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             }
         }
         else    {
-            primeButton.title = "Stopped"
-     //       primeButton.isEnabled = false
+            primeButton.title = primesButtonTitle
             primeFinder?.active = false
         }
+        
+        findPrimesInProgress = !findPrimesInProgress
     }
     
 
     @IBAction func nicePrimesAction(sender: NSButton) {
-        if nicePrimesButton.state == .on {
+        if !findNicePrimesInProgress {
             nicePrimesButton.title = "Running"
             findNicePrimesInProgress = true
-           
+            primeButton.isEnabled = false
+
             if primesURL == nil   {
                 print( "primesURL is nil" )
                 
@@ -175,91 +173,41 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             }
        }
         else    {
-            nicePrimesButton.title = "Stopped"
-            nicePrimesButton.isEnabled = false
+            nicePrimesButton.title = nicePrimesButtonTitle
             primeFinder?.active = false
         }
     }
     
     //*************   HLPrimeProtocol     *********************************************************
-/*    func hlPrimeInitCompleted()  {
-        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
-        print( "    *********   HLPrime init completed in \(elaspsedTime)    *********\n" )
-        findPrimesInProgress = false
-        
-        if primeFinder.primeFileLastLine != nil {
-            lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-            nicePrimesButton.isEnabled = true
-            nicePrimesButton.isEnabled = true
-        }
-        
-        primeButton.isEnabled = true
-        primeButton.title = "Prime Start"
-    }   */
-    
     func findPrimesCompleted(lastLine: String)  {
         let elaspsedTime = primeFinder!.actionTimeInSeconds.formatTime()
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
- //       lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
         progressTextField.stringValue = lastLine
-        primeButton.title = "Find Primes"
+        primeButton.title = primesButtonTitle
         nicePrimesButton.isEnabled = true
         timer?.invalidate()
     }
     
-    func findNicePrimesCompleted()  {
+    func findNicePrimesCompleted(lastLine: String)  {
         let elaspsedTime = primeFinder!.actionTimeInSeconds.formatTime()
         print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
         findNicePrimesInProgress = false
-//        lastLinePrimeTextField.stringValue = primeFinder.primeFileLastLine!
-        nicePrimesButton.title = "Completed"
-        nicePrimesButton.isEnabled = false
+        progressTextField.stringValue = lastLine
+        nicePrimesButton.title = nicePrimesButtonTitle
+        primeButton.isEnabled = true
         timer?.invalidate()
     }
-    
-/*    func factorPrimesCompleted()    {
-        let elaspsedTime = primeFinder.actionTimeInSeconds.formatTime()
-        print( "    *********   makePrimes completed  in \(elaspsedTime)    *********\n" )
-        factorPrimesInProgress = false
-        lastLineFactorTextField.stringValue = primeFinder.factorFileLastLine!
-        factorStartButton.title = "Completed"
-        factorStartButton.isEnabled = false
-    }   */
     //*************   HLPrimeProtocol     *********************************************************
 
 
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
-/*        if control == primeFilePathTextField    {
-            var newValue = control.stringValue
-            if !newValue.hasPrefix("/")  {
-                newValue = "/Users/" + NSUserName() + "/" + newValue
-            }
-            
-            primeFinder.setupFilePaths(basePath: newValue)
-        
-            if let lastLine = primeFinder.lastLineFor(path: newValue) {
-                lastLinePrimeTextField.stringValue = lastLine
-            }
-            else    {
-                lastLinePrimeTextField.stringValue = "FILE NOT FOUND"
-            }
-            
-            UserDefaults.standard.set(newValue, forKey:HLDefaultPrimeFilePathKey)
-        }   */
-
         if control == terminalPrimeTextField    {
             terminalPrimeTextField.stringValue = control.stringValue
             UserDefaults.standard.set(control.stringValue, forKey:HLDefaultTerminalPrimeKey)
         }
-
-/*        else if control == modCountTextField    {
-            primeFinder?.fileManager.setModSize(control.intValue)
-            modCountTextField.stringValue = control.stringValue
-            UserDefaults.standard.set(control.stringValue, forKey:HLDefaultModCountKey)
-        }   */
 
         else    {   assert( false )     }
         
@@ -278,7 +226,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     
     override func viewDidLoad() {
         super.viewDidLoad()
- //       lastLinePrimeTextField.stringValue = "?"
         progressTextField.stringValue = "?"
 
         if let primeFilePath = UserDefaults.standard.string(forKey: HLDefaultPrimeFilePathKey)  {
@@ -303,20 +250,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
         
         progressTextField.stringValue = "Idle"
-
-/*        if let modCount = UserDefaults.standard.string(forKey: HLDefaultModCountKey)  {
-            modCountTextField.stringValue = modCount
-        }
-        else    {
-            modCountTextField.stringValue = defaultModSize
-        }   */
-
- //       if
- //       primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, modCount: modCountTextField.intValue, delegate: self)
-        
- //       if let primeLastLine = primeFinder.primeFileLastLine    {
- //           lastLinePrimeTextField.stringValue = primeLastLine
-  //      }
     }
 }
 
