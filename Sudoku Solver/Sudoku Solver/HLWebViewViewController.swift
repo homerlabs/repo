@@ -12,11 +12,9 @@ import WebKit
 
 class HLWebViewViewController: UIViewController, WKNavigationDelegate {
 
-    let urlString = "https://nine.websudoku.com/?"
+    let urlString = "https://nine.websudoku.com/?level=4&amp;"
     var puzzleTitle: String
     var puzzleData: Array<String>
-    let viewTall: CGFloat = 248
-    let viewShort: CGFloat  = 123
     
     @IBOutlet weak var containerView: UIView!
     var hlWebView: WKWebView!
@@ -36,26 +34,28 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print( "didFinishNavigationdidFinishNavigation" )
         
         webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    self.puzzleData = self.parsePuzzle(data: puzzleString)
-       //             print( "puzzleArray: \(self.puzzleData)" )
+                    let success = self.parsePuzzle(data: puzzleString)
+      //              print( "puzzleString: \(puzzleString)" )
+                    print( "parsePuzzle success: \(success)" )
                 }
         })
     }
 
     
-    func parsePuzzle(data: String) -> [String]  {
+    //  returns true if successful
+    //  if parse if good, set puzzleData and puzzleTitle
+    func parsePuzzle(data: String) -> Bool  {
         var puzzleString = data
         var puzzleArray = Array(repeating: "0", count: 81)
 
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
             puzzleString = String(puzzleString[range.lowerBound...])
-    //        print( "*******************puzzleString: \(puzzleString)" )
+  //          print( "*******************puzzleString: \(puzzleString)" )
             
             for index in 0..<81 {
                 if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
@@ -73,13 +73,15 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
             if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
                 puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
-
                     puzzleTitle = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
+                    puzzleData = puzzleArray
+                    print( "*******************puzzleTitle: \(puzzleTitle)" )
+                    return true
                 }
            }
         }
         
-        return puzzleArray
+        return false    //  parse failed
     }
 
 
@@ -111,6 +113,12 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
 //        print("HLWebViewController-  viewDidLoad")
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        print("HLWebViewController-  viewWillAppear")
         let url: URL = URL(string: urlString)!
         let request = URLRequest(url: url)
         hlWebView = WKWebView(frame:containerView.bounds)

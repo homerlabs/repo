@@ -510,7 +510,7 @@ class HLSolver: NSObject {
             
             previousDataSet = dataSet
             
-            printDataSet(dataSet)
+      //      printDataSet(dataSet)
      //       printDataSet2()
         }
     }
