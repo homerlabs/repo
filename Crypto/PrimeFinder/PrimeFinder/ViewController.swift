@@ -31,7 +31,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var findNicePrimesInProgress = false
     var errorCode = 0
     var timer: Timer?
-    let updateTimeIsSeconds = 1.0
+    var updateTimeIsSeconds = 1.0   //  set to 10.0 for terminalCount > 50000000
 
     var primesURL: URL? = nil
     var nicePrimesURL: URL? = nil
@@ -119,6 +119,10 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             if primeFinder != nil {
                 primeFinder!.findPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
                 
+                if terminalPrimeTextField.intValue >= 50000000   {
+                    updateTimeIsSeconds *= 10
+                }
+                
                 timer?.invalidate()
                 timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
                     self.progressTextField.stringValue = String(self.primeFinder!.lastP)
@@ -165,6 +169,10 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             if primeFinder != nil {
                 let path2 = nicePrimeFilePathTextField.stringValue
                 primeFinder?.makeNicePrimesFile(nicePrimePath: path2, largestPrime: Int64(terminalPrimeTextField.stringValue)!)
+                
+                if terminalPrimeTextField.intValue >= 50000000   {
+                    updateTimeIsSeconds *= 10
+                }
                 
                 timer?.invalidate()
                 timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
