@@ -1,12 +1,1 @@
-{
-  "images" : [
-    {
-      "idiom" : "tv",
-      "scale" : "1x"
-    }
-  ],
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  }
-}
+AT, ZCREATIONDATE TIMESTAMP )ƒ33…?tableZCDDMBACKLIGHTEVENTZCDDMBACKLIGHTEVENTCREATE TABLE ZCDDMBACKLIGHTEVENT ( Z_PK INTEGER PRIMAR
