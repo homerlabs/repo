@@ -34,7 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B03242531FCDCC2B003B2265 /* PrimeFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PrimeFinder.app; path = "Prime Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B03242531FCDCC2B003B2265 /* Prime Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Prime Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B03242561FCDCC2B003B2265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B03242581FCDCC2B003B2265 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B032425A1FCDCC2B003B2265 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		B03242541FCDCC2B003B2265 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B03242531FCDCC2B003B2265 /* PrimeFinder.app */,
+				B03242531FCDCC2B003B2265 /* Prime Finder.app */,
 				B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */,
 			);
 			name = Products;
@@ -130,9 +130,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B03242521FCDCC2B003B2265 /* PrimeFinder */ = {
+		B03242521FCDCC2B003B2265 /* Prime Finder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B03242631FCDCC2B003B2265 /* Build configuration list for PBXNativeTarget "PrimeFinder" */;
+			buildConfigurationList = B03242631FCDCC2B003B2265 /* Build configuration list for PBXNativeTarget "Prime Finder" */;
 			buildPhases = (
 				B032424F1FCDCC2B003B2265 /* Sources */,
 				B03242501FCDCC2B003B2265 /* Frameworks */,
@@ -142,9 +142,9 @@
 			);
 			dependencies = (
 			);
-			name = PrimeFinder;
+			name = "Prime Finder";
 			productName = PrimeFinder;
-			productReference = B03242531FCDCC2B003B2265 /* PrimeFinder.app */;
+			productReference = B03242531FCDCC2B003B2265 /* Prime Finder.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B0ADCE541FEEEBAE00EF7FDE /* PrimeFinderTests */ = {
@@ -204,7 +204,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B03242521FCDCC2B003B2265 /* PrimeFinder */,
+				B03242521FCDCC2B003B2265 /* Prime Finder */,
 				B0ADCE541FEEEBAE00EF7FDE /* PrimeFinderTests */,
 			);
 		};
@@ -261,7 +261,7 @@
 /* Begin PBXTargetDependency section */
 		B0ADCE5B1FEEEBAE00EF7FDE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B03242521FCDCC2B003B2265 /* PrimeFinder */;
+			target = B03242521FCDCC2B003B2265 /* Prime Finder */;
 			targetProxy = B0ADCE5A1FEEEBAE00EF7FDE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -466,7 +466,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B03242631FCDCC2B003B2265 /* Build configuration list for PBXNativeTarget "PrimeFinder" */ = {
+		B03242631FCDCC2B003B2265 /* Build configuration list for PBXNativeTarget "Prime Finder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B03242641FCDCC2B003B2265 /* Debug */,

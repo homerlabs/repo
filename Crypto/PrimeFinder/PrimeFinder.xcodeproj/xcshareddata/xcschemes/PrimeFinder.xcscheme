@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B03242521FCDCC2B003B2265"
                BuildableName = "Prime Finder.app"
-               BlueprintName = "PrimeFinder"
+               BlueprintName = "Prime Finder"
                ReferencedContainer = "container:PrimeFinder.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,7 +45,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B03242521FCDCC2B003B2265"
             BuildableName = "Prime Finder.app"
-            BlueprintName = "PrimeFinder"
+            BlueprintName = "Prime Finder"
             ReferencedContainer = "container:PrimeFinder.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -69,7 +69,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B03242521FCDCC2B003B2265"
             BuildableName = "Prime Finder.app"
-            BlueprintName = "PrimeFinder"
+            BlueprintName = "Prime Finder"
             ReferencedContainer = "container:PrimeFinder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -88,7 +88,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B03242521FCDCC2B003B2265"
             BuildableName = "Prime Finder.app"
-            BlueprintName = "PrimeFinder"
+            BlueprintName = "Prime Finder"
             ReferencedContainer = "container:PrimeFinder.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
