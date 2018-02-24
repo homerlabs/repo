@@ -168,7 +168,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             primeFinder = HLPrime(primeFilePath: path, delegate: self)
             if primeFinder != nil {
                 let path2 = nicePrimeFilePathTextField.stringValue
-                primeFinder?.makeNicePrimesFile(nicePrimePath: path2, largestPrime: Int64(terminalPrimeTextField.stringValue)!)
+      //          primeFinder?.makeNicePrimesFile(nicePrimePath: path2, largestPrime: Int64(terminalPrimeTextField.stringValue)!)
+                primeFinder?.scanPrimesFile(nicePrimePath: path2)
                 
                 if terminalPrimeTextField.intValue >= 50000000   {
                     updateTimeIsSeconds *= 10

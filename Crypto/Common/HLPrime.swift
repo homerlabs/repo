@@ -32,6 +32,50 @@ class HLPrime: NSObject {
     var primesDelegate: HLPrimesProtocol?
     var pTable: HLPrimeTable!
     
+   func scanPrimesFile(nicePrimePath: String)    {
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let startDate = Date()
+            self.nicePrimesFile = nicePrimePath
+            let mod = 1000
+            
+            print( "HLPrime-  scanPrimesFile" )
+        
+            self.fileManager.openPrimesFileForRead(with: self.primesFile)
+            self.fileManager.openNicePrimesFileForWrite(with: self.nicePrimesFile)
+        
+            //  lineCount is redundant as the Prime file is already numbered
+            //  still, it verifies the Prime file count so is useful
+            var lineCount = 1
+            var line = self.fileManager.readPrimesFileLine()
+            var lastLine = line
+
+            while  line != nil && self.active   {
+            
+                if lineCount % mod == 1 {
+                    self.fileManager.writeNicePrimesFile(line)
+                    print( "lineCount: \(lineCount) \t\(line!)" )
+                }
+                
+                lastLine = line
+                line = self.fileManager.readPrimesFileLine()
+                lineCount += 1
+
+            }
+
+            self.fileManager.writeNicePrimesFile(lastLine!)
+            self.fileManager.closeNicePrimesFileForWrite()
+            self.fileManager.closePrimesFileForRead()
+
+            DispatchQueue.main.async {
+                print( "lastLine: \(lastLine!)" )
+                self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                self.primesDelegate?.findNicePrimesCompleted(lastLine: lastLine!)
+            }
+        }
+    }
+    
+    
    func makeNicePrimesFile(nicePrimePath: String, largestPrime: HLPrimeType)    {
 
         DispatchQueue.global(qos: .userInitiated).async {

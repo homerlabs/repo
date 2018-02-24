@@ -114,10 +114,10 @@ int modCounter = 0;
         NSArray<NSString *> *array = [line componentsSeparatedByString:@"\t"];
         NSString *lastNStr = array[0];
         NSString *lastPStr = [NSString stringWithFormat:@"%@", array[1]];
-        double lastN = array[0].doubleValue;
-        double lastP = lastPStr.doubleValue;
-        int lastPInt = lastPStr.intValue;
-        NSLog( @"** new prime-  lastN: %@    lastP: %d    density: %0.3f", lastNStr, lastPInt, lastN/lastP );
+        
+        UInt64 lastN = lastNStr.intValue;
+        UInt64 lastP = lastPStr.intValue;
+        NSLog( @"** new prime-  lastN: %llu    lastP: %llu    density: %0.3f", lastN, lastP, lastN/(lastP*1.0) );
     }
     
     fputs(line.UTF8String, primesAppendFile);
