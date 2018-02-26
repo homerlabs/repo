@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B00F11481C53B28700504C61 /* HLMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00F11471C53B28700504C61 /* HLMasterViewController.swift */; };
 		B00F114B1C53BA3F00504C61 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B00F114A1C53BA3F00504C61 /* Overview.pdf */; };
 		B039647F1B54962C00BA226A /* HLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */; };
 		B03964801B54962C00BA226A /* HLCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */; };
@@ -23,7 +22,6 @@
 		B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDD1B5483F900DEA64D /* HLSolver.swift */; };
 		B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */; };
 		B0BD13A91B5D079900484205 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD13A81B5D079900484205 /* HLMatrix.swift */; };
-		B0C66EA61C53B24B00D730CF /* HLDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C66EA51C53B24B00D730CF /* HLDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B00F11471C53B28700504C61 /* HLMasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMasterViewController.swift; sourceTree = "<group>"; };
 		B00F114A1C53BA3F00504C61 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Overview.pdf; sourceTree = "<group>"; };
 		B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLCollectionViewCell.swift; sourceTree = "<group>"; };
 		B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -55,7 +52,6 @@
 		B0986EDD1B5483F900DEA64D /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLHelpViewController.swift; sourceTree = "<group>"; };
 		B0BD13A81B5D079900484205 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
-		B0C66EA51C53B24B00D730CF /* HLDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */,
-				B00F11471C53B28700504C61 /* HLMasterViewController.swift */,
-				B0C66EA51C53B24B00D730CF /* HLDetailViewController.swift */,
 				B0986EDD1B5483F900DEA64D /* HLSolver.swift */,
 				B0BD13A81B5D079900484205 /* HLMatrix.swift */,
 				B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */,
@@ -262,9 +256,7 @@
 				B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */,
 				B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */,
 				B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */,
-				B0C66EA61C53B24B00D730CF /* HLDetailViewController.swift in Sources */,
 				B0BD13A91B5D079900484205 /* HLMatrix.swift in Sources */,
-				B00F11481C53B28700504C61 /* HLMasterViewController.swift in Sources */,
 				B039647F1B54962C00BA226A /* HLCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
