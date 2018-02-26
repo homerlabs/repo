@@ -61,7 +61,7 @@
                                 </state>
                                 <connections>
                                     <action selector="aboutAction:" destination="ZBV-B0-Bj3" eventType="touchUpInside" id="Cgz-mu-nox"/>
-                                    <segue destination="xAg-if-6ub" kind="presentation" identifier="GotoAbout" id="4tf-Rg-mmK"/>
+                                    <segue destination="mcK-Sr-dT0" kind="show" identifier="GotoAbout" id="M6i-Si-fbw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -98,91 +98,38 @@
             </objects>
             <point key="canvasLocation" x="388" y="646"/>
         </scene>
-        <!--About-->
-        <scene sceneID="9o1-Wh-Zie">
+        <!--Help-->
+        <scene sceneID="9n4-91-9TK">
             <objects>
-                <viewController title="About" id="xV2-ZI-mxn" customClass="HLDetailViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Help" id="mcK-Sr-dT0" customClass="HLHelpViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hFG-l3-siI"/>
-                        <viewControllerLayoutGuide type="bottom" id="8Nh-Bj-EdJ"/>
+                        <viewControllerLayoutGuide type="top" id="GBD-Vx-62v"/>
+                        <viewControllerLayoutGuide type="bottom" id="O4L-Hk-GyW"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vhd-yn-5zI">
+                    <view key="view" contentMode="scaleToFill" id="W8j-xC-q79">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9x-qe-onZ">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbi-bf-rER" customClass="UIWebView">
+                                <rect key="frame" x="20" y="28" width="728" height="976"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cbi-bf-rER" firstAttribute="top" secondItem="GBD-Vx-62v" secondAttribute="bottom" constant="8" id="I76-PL-nrm"/>
+                            <constraint firstItem="cbi-bf-rER" firstAttribute="trailing" secondItem="W8j-xC-q79" secondAttribute="trailingMargin" id="U2u-Dw-D2a"/>
+                            <constraint firstItem="O4L-Hk-GyW" firstAttribute="top" secondItem="cbi-bf-rER" secondAttribute="bottom" constant="20" id="n1p-ua-xhw"/>
+                            <constraint firstItem="cbi-bf-rER" firstAttribute="leading" secondItem="W8j-xC-q79" secondAttribute="leadingMargin" id="pND-UD-KYC"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="pdfWebView" destination="e9x-qe-onZ" id="zuk-3f-efV"/>
+                        <outlet property="hlWebView" destination="cbi-bf-rER" id="J7N-qK-F4d"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ryw-MP-c1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-KU-OYg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="388" y="3419"/>
-        </scene>
-        <!--MasterViewController-->
-        <scene sceneID="uFG-aA-rgA">
-            <objects>
-                <tableViewController title="MasterViewController" clearsSelectionOnViewWillAppear="NO" id="gdC-gP-UTU" customClass="HLMasterViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="26K-M3-T3l">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HLCell" id="9jg-Sg-p8Z">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9jg-Sg-p8Z" id="e0U-l1-7Cl">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="gdC-gP-UTU" id="DxS-WV-zvH"/>
-                            <outlet property="delegate" destination="gdC-gP-UTU" id="t4F-Bm-Wz9"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Sudoku Solver About" id="7mv-kn-N8O"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Em6-tH-lyw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1381" y="3419"/>
-        </scene>
-        <!--AboutNavController-->
-        <scene sceneID="Z71-Oe-3BR">
-            <objects>
-                <navigationController title="AboutNavController" id="ozd-3O-JyO" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mFm-49-fdh">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="gdC-gP-UTU" kind="relationship" relationship="rootViewController" id="cLd-Jr-OgA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MrZ-Ph-5sH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1381" y="2106"/>
-        </scene>
-        <!--SplitView-->
-        <scene sceneID="6Fl-6e-vex">
-            <objects>
-                <splitViewController title="SplitView" id="xAg-if-6ub" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="ozd-3O-JyO" kind="relationship" relationship="masterViewController" id="BpQ-wi-FDh"/>
-                        <segue destination="xV2-ZI-mxn" kind="relationship" relationship="detailViewController" id="699-Ln-u7s"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7qY-8E-9pj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="388" y="2106"/>
+            <point key="canvasLocation" x="387.5" y="1467.7734375"/>
         </scene>
         <!--Solver-->
         <scene sceneID="g3e-JT-cei">

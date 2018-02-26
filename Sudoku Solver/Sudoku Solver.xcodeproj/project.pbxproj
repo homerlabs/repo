@@ -21,6 +21,7 @@
 		B0986EDA1B54780800DEA64D /* HLWebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */; };
 		B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */; };
 		B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDD1B5483F900DEA64D /* HLSolver.swift */; };
+		B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */; };
 		B0BD13A91B5D079900484205 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD13A81B5D079900484205 /* HLMatrix.swift */; };
 		B0C66EA61C53B24B00D730CF /* HLDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C66EA51C53B24B00D730CF /* HLDetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLWebViewViewController.swift; sourceTree = "<group>"; };
 		B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolverViewController.swift; sourceTree = "<group>"; };
 		B0986EDD1B5483F900DEA64D /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
+		B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLHelpViewController.swift; sourceTree = "<group>"; };
 		B0BD13A81B5D079900484205 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B0C66EA51C53B24B00D730CF /* HLDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 		B0986EB61B54775600DEA64D /* Sudoku Solver */ = {
 			isa = PBXGroup;
 			children = (
+				B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */,
 				B00F11471C53B28700504C61 /* HLMasterViewController.swift */,
 				B0C66EA51C53B24B00D730CF /* HLDetailViewController.swift */,
 				B0986EDD1B5483F900DEA64D /* HLSolver.swift */,
@@ -257,6 +260,7 @@
 				B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */,
 				B0986EDA1B54780800DEA64D /* HLWebViewViewController.swift in Sources */,
 				B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */,
+				B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */,
 				B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */,
 				B0C66EA61C53B24B00D730CF /* HLDetailViewController.swift in Sources */,
 				B0BD13A91B5D079900484205 /* HLMatrix.swift in Sources */,

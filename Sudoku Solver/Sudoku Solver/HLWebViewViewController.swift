@@ -95,10 +95,13 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
                 viewController.puzzleName = puzzleTitle
             }
         }
-        else if segue.identifier == "GotoAbout"
+/*        else if segue.identifier == "GotoAbout"
         {
-            print("HLWebViewController-  prepareForSegue-  GotoAbout")
-        }
+            if let viewController: HLHelpViewController = segue.destination as? HLHelpViewController
+            {
+                viewController.pdf = "Hi!"
+            }
+        }   */
     }
 
 
@@ -115,7 +118,7 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
 
     }
     
-    override func viewWillAppear(_ animated: Bool)
+/*    override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         print("HLWebViewController-  viewWillAppear")
@@ -131,5 +134,5 @@ class HLWebViewViewController: UIViewController, WKNavigationDelegate {
     {
         super.viewWillDisappear(animated)
         hlWebView.stopLoading()
-    }
+    }   */
 }
