@@ -103,11 +103,11 @@
 		B0986EB61B54775600DEA64D /* Sudoku Solver */ = {
 			isa = PBXGroup;
 			children = (
+				B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */,
+				B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */,
 				B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */,
 				B0986EDD1B5483F900DEA64D /* HLSolver.swift */,
 				B0BD13A81B5D079900484205 /* HLMatrix.swift */,
-				B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */,
-				B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */,
 				B0986EB91B54775600DEA64D /* AppDelegate.swift */,
 				B0986EBD1B54775600DEA64D /* Main.storyboard */,
 				B0986EC01B54775600DEA64D /* Images.xcassets */,

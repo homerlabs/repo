@@ -24,9 +24,10 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     let rowSwitchKey    = "Row"
     let columnSwitchKey = "Column"
     let blockSwitchKey  = "Block"
-    let moodeSelectKey  = "mode"
+    let modeSelectKey   = "mode"
     let archiveKey      = "Archive"
     
+    @IBOutlet weak var blockStackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var puzzleNameLabel: UILabel!
     @IBOutlet weak var nodeCountLabel: UILabel!
@@ -79,7 +80,17 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func modeSelectAction()
     {
-        defaults.set(algorithmSelect.selectedSegmentIndex, forKey: moodeSelectKey)
+        defaults.set(algorithmSelect.selectedSegmentIndex, forKey: modeSelectKey)
+        print( "algorithmSelect.selectedSegmentIndex: \(algorithmSelect.selectedSegmentIndex)" )
+/*        if algorithmSelect.selectedSegmentIndex == 0    {
+            blockStackView.isHidden = true
+        }
+        else if algorithmSelect.selectedSegmentIndex == 1    {
+            blockStackView.isHidden = false
+        }
+        else if algorithmSelect.selectedSegmentIndex == 2    {
+            blockStackView.isHidden = false
+        }   */
     }
     
     
@@ -163,7 +174,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         let nib = UINib(nibName:"HLCollectionViewCell", bundle:nil)
         collectionView.register(nib, forCellWithReuseIdentifier:"HLPuzzleCell")
         
-        algorithmSelect.selectedSegmentIndex = defaults.integer(forKey: moodeSelectKey)
+        algorithmSelect.selectedSegmentIndex = defaults.integer(forKey: modeSelectKey)
         rowsSelected        = !defaults.bool(forKey: rowSwitchKey)
         columnsSelected     = !defaults.bool(forKey: columnSwitchKey)
         blocksSelected      = !defaults.bool(forKey: blockSwitchKey)
