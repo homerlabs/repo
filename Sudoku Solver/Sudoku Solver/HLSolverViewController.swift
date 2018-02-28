@@ -19,7 +19,8 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     var rowsSelected    = true
     var columnsSelected = true
     var blocksSelected  = true
-    
+    var savedBlocksSelected  = true
+
     let defaults = UserDefaults.standard
     let rowSwitchKey    = "Row"
     let columnSwitchKey = "Column"
@@ -72,7 +73,8 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         rowsSelected    = rowSwitch.isOn
         columnsSelected = columnSwitch.isOn
         blocksSelected  = blockSwitch.isOn
-        
+        savedBlocksSelected  = blockSwitch.isOn
+
         defaults.set(!rowsSelected,     forKey:rowSwitchKey )
         defaults.set(!columnsSelected,  forKey:columnSwitchKey )
         defaults.set(!blocksSelected,   forKey:blockSwitchKey )
@@ -82,16 +84,21 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     @IBAction func modeSelectAction()
     {
         defaults.set(algorithmSelect.selectedSegmentIndex, forKey: modeSelectKey)
-        print( "algorithmSelect.selectedSegmentIndex: \(algorithmSelect.selectedSegmentIndex)" )
-/*        if algorithmSelect.selectedSegmentIndex == 0    {
-            blockStackView.isHidden = true
+
+        //  disable Blocks Switch for Mono Cell Mode
+        if algorithmSelect.selectedSegmentIndex == 0        {       //  Mono Cell
+            blockSwitch.isEnabled = false
+            savedBlocksSelected = blockSwitch.isOn
+            blockSwitch.isOn = false
         }
-        else if algorithmSelect.selectedSegmentIndex == 1    {
-            blockStackView.isHidden = false
+        else if algorithmSelect.selectedSegmentIndex == 1    {      //  Find Sets
+            blockSwitch.isEnabled = true
+            blockSwitch.isOn = savedBlocksSelected
         }
-        else if algorithmSelect.selectedSegmentIndex == 2    {
-            blockStackView.isHidden = false
-        }   */
+        else if algorithmSelect.selectedSegmentIndex == 2    {      //  Mono Sector
+            blockSwitch.isEnabled = true
+            blockSwitch.isOn = savedBlocksSelected
+        }
     }
     
     
