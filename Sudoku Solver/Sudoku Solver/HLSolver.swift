@@ -9,12 +9,12 @@
 import UIKit
 
 
-enum CMGCellStatus: Int
+enum HLCellStatus: Int
 {
-    case cmgUnSolvedStatus
-    case cmgGivenStatus
-    case cmgSolvedStatus
-    case cmgChangedStatus
+    case unsolvedStatus
+    case givenStatus
+    case solvedStatus
+    case changedStatus
 }
 
 
@@ -49,15 +49,15 @@ class HLSolver: NSObject {
     
     
 /*    func fillRow()  {
-        dataSet[0] = (Set(arrayLiteral: "1", "2", "3"), .CMGUnSolvedStatus)
-        dataSet[1] = (Set(arrayLiteral: "1", "2", "3", "9"), .CMGUnSolvedStatus)
-        dataSet[2] = (Set(arrayLiteral: "1", "2", "3"), .CMGUnSolvedStatus)
-        dataSet[3] = (Set(arrayLiteral: "1", "2", "4", "3"), .CMGUnSolvedStatus)
-        dataSet[4] = (Set(arrayLiteral: "1", "2"), .CMGUnSolvedStatus)
-        dataSet[5] = (Set(arrayLiteral: "1", "2", "6", "5"), .CMGUnSolvedStatus)
-        dataSet[6] = (Set(arrayLiteral: "1", "2", "7", "6"), .CMGUnSolvedStatus)
-        dataSet[7] = (Set(arrayLiteral: "1", "2", "8", "7"), .CMGUnSolvedStatus)
-        dataSet[8] = (Set(arrayLiteral: "1", "2", "9", "8"), .CMGUnSolvedStatus)
+        dataSet[0] = (Set(arrayLiteral: "1", "2", "3"), .unsolvedStatus)
+        dataSet[1] = (Set(arrayLiteral: "1", "2", "3", "9"), .unsolvedStatus)
+        dataSet[2] = (Set(arrayLiteral: "1", "2", "3"), .unsolvedStatus)
+        dataSet[3] = (Set(arrayLiteral: "1", "2", "4", "3"), .unsolvedStatus)
+        dataSet[4] = (Set(arrayLiteral: "1", "2"), .unsolvedStatus)
+        dataSet[5] = (Set(arrayLiteral: "1", "2", "6", "5"), .unsolvedStatus)
+        dataSet[6] = (Set(arrayLiteral: "1", "2", "7", "6"), .unsolvedStatus)
+        dataSet[7] = (Set(arrayLiteral: "1", "2", "8", "7"), .unsolvedStatus)
+        dataSet[8] = (Set(arrayLiteral: "1", "2", "9", "8"), .unsolvedStatus)
         
         for index in 0..<kColumns   {
             previousDataSet[index] = dataSet[index]
@@ -85,7 +85,7 @@ class HLSolver: NSObject {
                             let newSet = data.intersection(solutionSet)
                             if !newSet.isEmpty {
       //          print("row: \(row)   column: \(column)   newSet: \(newSet)")
-                                dataSet[row, column] = (newSet, .cmgSolvedStatus)
+                                dataSet[row, column] = (newSet, .solvedStatus)
                             }
                         }
                     }
@@ -354,15 +354,15 @@ class HLSolver: NSObject {
             let (data2, _) = previousDataSet[index]
             
             //  first lets convert Changed to Solved or Unsollved
-            if status == .cmgChangedStatus {
-                if data.count == 1  {   status = .cmgSolvedStatus   }
-                else                {   status = .cmgUnSolvedStatus }
+            if status == .changedStatus {
+                if data.count == 1  {   status = .solvedStatus   }
+                else                {   status = .unsolvedStatus }
                 dataSet[index] = (data, status)
             }
             
             //  then find the cells that changed
             if data.count != data2.count        {
-                status = .cmgChangedStatus
+                status = .changedStatus
                 dataSet[index] = (data, status) }
         }
     }
@@ -418,7 +418,7 @@ class HLSolver: NSObject {
     
         var newDataSet = Matrix(rows:9, columns:9)
         for index in 0..<81                                         {
-            newDataSet[index] = (Set(arrayLiteral: String(index)), .cmgUnSolvedStatus)  }
+            newDataSet[index] = (Set(arrayLiteral: String(index)), .unsolvedStatus)  }
         
         dataSet = newDataSet;
     }
@@ -500,10 +500,10 @@ class HLSolver: NSObject {
             for i in 0 ..< kCellCount 
             {
                 let cellValue = data[i]
-                var newCell: (Set<String>, CMGCellStatus)
+                var newCell: (Set<String>, HLCellStatus)
                 
-                if ( cellValue == "0" )     { newCell = (fullSet, .cmgUnSolvedStatus)       }
-                else    {  newCell = (Set<String>(arrayLiteral: data[i]), .cmgGivenStatus)  }
+                if ( cellValue == "0" )     { newCell = (fullSet, .unsolvedStatus)       }
+                else    {  newCell = (Set<String>(arrayLiteral: data[i]), .givenStatus)  }
                 
                 dataSet[i] = newCell
             }
@@ -527,7 +527,7 @@ class HLSolver: NSObject {
                 
                 for index in 0..<kCellCount {
                     let x: [String] = dataArray[index]
-                    dataSet[index] = (arrayToSet(x), CMGCellStatus(rawValue: statusArray[index])!)
+                    dataSet[index] = (arrayToSet(x), HLCellStatus(rawValue: statusArray[index])!)
                 }
                 
                 previousDataSet = dataSet

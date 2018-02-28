@@ -14,7 +14,7 @@ struct Matrix {
     let kColumns: Int
     let kCellCount: Int
 
-    var grid: [(Set<String>, CMGCellStatus)]
+    var grid: [(Set<String>, HLCellStatus)]
     
     func nodeCount() -> Int {
         var count = 0
@@ -39,7 +39,7 @@ struct Matrix {
         kColumns = columns
         kCellCount = rows * columns
         
-        grid = Array(repeating: (Set<String>(), .cmgUnSolvedStatus), count: rows*columns)
+        grid = Array(repeating: (Set<String>(), .unsolvedStatus), count: rows*columns)
     }
     
     func description(_ index: Int) -> String {
@@ -78,7 +78,7 @@ struct Matrix {
     func indexIsValidForColumn(_ column: Int) -> Bool {
         return column>=0 && column<kColumns         }
     
-    subscript(row: Int, column: Int) -> (Set<String>, CMGCellStatus) {
+    subscript(row: Int, column: Int) -> (Set<String>, HLCellStatus) {
         get {
             assert(indexIsValidForRow(row), "Row index out of range")
             assert(indexIsValidForColumn(column), "Column index out of range")
@@ -96,7 +96,7 @@ struct Matrix {
         return index>=0 && index<kCellCount
     }
     
-    subscript(index: Int) -> (Set<String>, CMGCellStatus) {
+    subscript(index: Int) -> (Set<String>, HLCellStatus) {
         get {
             assert(indexIsValidForCell(index), "Index outy of range")
             return grid[index]

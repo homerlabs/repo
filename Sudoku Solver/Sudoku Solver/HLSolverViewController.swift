@@ -55,6 +55,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     {
         _solver.read()
         puzzleNameLabel.text = _solver.puzzleName
+ //       _solver.prunePuzzle(rows:true, columns:true, blocks:true)
         updateAndDisplayCells()
     }
     
@@ -151,16 +152,16 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
 
        switch status {
             
-            case .cmgGivenStatus:
+            case .givenStatus:
                 cell.hlLabel!.textColor = UIColor.brown
         
-            case .cmgSolvedStatus:
+            case .solvedStatus:
                 cell.hlLabel!.textColor = UIColor.green
         
-            case .cmgChangedStatus:
+            case .changedStatus:
                 cell.hlLabel!.textColor = UIColor.red
         
-            case .cmgUnSolvedStatus:
+            case .unsolvedStatus:
                 cell.hlLabel!.textColor = UIColor.blue
         }
 
