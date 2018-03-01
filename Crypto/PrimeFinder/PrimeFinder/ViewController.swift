@@ -10,13 +10,13 @@ import Cocoa
 
 class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesProtocol {
 
-    @IBOutlet var primeFilePathTextField: NSTextField!
-    @IBOutlet var nicePrimeFilePathTextField: NSTextField!
-    @IBOutlet var terminalPrimeTextField: NSTextField!
-    @IBOutlet var progressTextField: NSTextField!
+    @IBOutlet weak var primeFilePathTextField: NSTextField!
+    @IBOutlet weak var nicePrimeFilePathTextField: NSTextField!
+    @IBOutlet weak var terminalPrimeTextField: NSTextField!
+    @IBOutlet weak var progressTextField: NSTextField!
 
-    @IBOutlet var primeButton: NSButton!
-    @IBOutlet var nicePrimesButton: NSButton!
+    @IBOutlet weak var primeButton: NSButton!
+    @IBOutlet weak var nicePrimesButton: NSButton!
 
     var primeFinder: HLPrime?
     let HLDefaultPrimeFilePathKey       = "PrimeFilePathKey"
