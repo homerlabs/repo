@@ -91,13 +91,17 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
             savedBlocksSelected = blockSwitch.isOn
             blockSwitch.isOn = false
         }
+        
         else if algorithmSelect.selectedSegmentIndex == 1    {      //  Find Sets
             blockSwitch.isEnabled = true
             blockSwitch.isOn = savedBlocksSelected
         }
+        
+        //  disable Blocks Switch for Mono Sector Mode
         else if algorithmSelect.selectedSegmentIndex == 2    {      //  Mono Sector
-            blockSwitch.isEnabled = true
-            blockSwitch.isOn = savedBlocksSelected
+            blockSwitch.isEnabled = false
+            savedBlocksSelected = blockSwitch.isOn
+            blockSwitch.isOn = false
         }
     }
     
