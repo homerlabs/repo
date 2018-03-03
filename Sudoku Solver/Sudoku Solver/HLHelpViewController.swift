@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import WebKit
 
 class HLHelpViewController: UIViewController {
 
-    @IBOutlet weak var hlWebView: UIWebView!
+    @IBOutlet weak var hlWebView: WKWebView!
     var pdfPath: String!
 
 
@@ -19,7 +20,7 @@ class HLHelpViewController: UIViewController {
 
         if let pdfURL = Bundle.main.url(forResource: "Overview", withExtension: "pdf", subdirectory: nil, localization: nil)  {
             let urlRequest = URLRequest(url: pdfURL)
-            hlWebView.loadRequest(urlRequest)
+            hlWebView.load(urlRequest)
         }
     }
 
@@ -27,16 +28,4 @@ class HLHelpViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
