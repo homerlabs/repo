@@ -162,8 +162,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
-                                <rect key="frame" x="104" y="153" width="560" height="718"/>
+                            <stackView contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OGI-BA-KbS">
+                                <rect key="frame" x="104" y="134" width="560" height="706.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="2Fh-nQ-z4x" userLabel="Top Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="56.5"/>
@@ -244,7 +244,7 @@
                                         </subviews>
                                     </stackView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="raL-M3-hEL">
-                                        <rect key="frame" x="0.0" y="76" width="560" height="560"/>
+                                        <rect key="frame" x="0.0" y="66.5" width="560" height="560"/>
                                         <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="raL-M3-hEL" secondAttribute="height" multiplier="1:1" id="ctH-Uc-JAs"/>
@@ -273,14 +273,11 @@
                                             <outlet property="delegate" destination="1lh-am-sXc" id="Ff0-K1-cmS"/>
                                         </connections>
                                     </collectionView>
-                                    <stackView contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bVo-Er-9Cg" userLabel="Bottom Stack View">
-                                        <rect key="frame" x="0.0" y="650" width="560" height="68"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHx-wS-tW8" userLabel="BottomButtonsView">
+                                        <rect key="frame" x="0.0" y="636.5" width="560" height="70"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9I9-M9-gre">
                                                 <rect key="frame" x="0.0" y="0.0" width="560" height="29"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="28" id="0EG-dk-Q4V"/>
-                                                </constraints>
                                                 <segments>
                                                     <segment title="Mono Cell"/>
                                                     <segment title="Find Sets"/>
@@ -290,71 +287,72 @@
                                                     <action selector="modeSelectAction" destination="1lh-am-sXc" eventType="valueChanged" id="sha-eN-Cfg"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="TxT-TK-zCR" userLabel="Buttons Stack View">
-                                                <rect key="frame" x="0.0" y="38" width="560" height="30"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Ua5-TI-m18" userLabel="RdWrt Stack View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="30"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rj-Oa-WEK" userLabel="ReadButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="30"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="mQ7-cz-pvX"/>
-                                                                </constraints>
-                                                                <state key="normal" title="Read">
-                                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="readAction" destination="1lh-am-sXc" eventType="touchUpInside" id="ugo-me-676"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUY-S1-fHk" userLabel="WriteButton">
-                                                                <rect key="frame" x="65" y="0.0" width="37" height="30"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="Xgh-bl-5Nt"/>
-                                                                </constraints>
-                                                                <state key="normal" title="Write">
-                                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="writeAction" destination="1lh-am-sXc" eventType="touchUpInside" id="lv4-ME-jck"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="g2g-xi-1S7" userLabel="Solve Stack View">
-                                                        <rect key="frame" x="454" y="0.0" width="106" height="30"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-6f-4eh" userLabel="UndoButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="30"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="7KW-Z7-Fpq"/>
-                                                                </constraints>
-                                                                <state key="normal" title="Undo">
-                                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="undoAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="gMq-Z9-bhv"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbY-a6-gGW" userLabel="SolveButton">
-                                                                <rect key="frame" x="68" y="0.0" width="38" height="30"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="30" id="rXd-d2-gsk"/>
-                                                                </constraints>
-                                                                <state key="normal" title="Solve">
-                                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </state>
-                                                                <connections>
-                                                                    <action selector="solveAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="waZ-Gy-pHI"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rj-Oa-WEK" userLabel="ReadButton">
+                                                <rect key="frame" x="10" y="38" width="35" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="ttb-H1-DGR"/>
+                                                </constraints>
+                                                <state key="normal" title="Read">
+                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="readAction" destination="1lh-am-sXc" eventType="touchUpInside" id="ugo-me-676"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUY-S1-fHk" userLabel="WriteButton">
+                                                <rect key="frame" x="113" y="38" width="37" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="3px-6q-6rb"/>
+                                                </constraints>
+                                                <state key="normal" title="Write">
+                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="writeAction" destination="1lh-am-sXc" eventType="touchUpInside" id="lv4-ME-jck"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbY-a6-gGW" userLabel="SolveButton">
+                                                <rect key="frame" x="512" y="38" width="38" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="DQM-hW-zc5"/>
+                                                </constraints>
+                                                <state key="normal" title="Solve">
+                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="solveAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="waZ-Gy-pHI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-6f-4eh" userLabel="UndoButton">
+                                                <rect key="frame" x="406" y="38" width="38" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="3VD-y0-tUu"/>
+                                                </constraints>
+                                                <state key="normal" title="Undo">
+                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="undoAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="gMq-Z9-bhv"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="VbY-a6-gGW" secondAttribute="trailing" constant="10" id="DfX-8n-E5k"/>
+                                            <constraint firstItem="VbY-a6-gGW" firstAttribute="top" secondItem="9I9-M9-gre" secondAttribute="bottom" constant="10" id="PEO-Ne-ySe"/>
+                                            <constraint firstItem="8rj-Oa-WEK" firstAttribute="leading" secondItem="UHx-wS-tW8" secondAttribute="leading" constant="10" id="UaB-t0-4ri"/>
+                                            <constraint firstItem="tcH-6f-4eh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UHx-wS-tW8" secondAttribute="leading" constant="20" symbolic="YES" id="Xtd-RT-dt9"/>
+                                            <constraint firstItem="GUY-S1-fHk" firstAttribute="top" secondItem="9I9-M9-gre" secondAttribute="bottom" constant="10" id="bSq-vA-zmE"/>
+                                            <constraint firstItem="tcH-6f-4eh" firstAttribute="top" secondItem="9I9-M9-gre" secondAttribute="bottom" constant="10" id="evH-Mc-f2e"/>
+                                            <constraint firstItem="GUY-S1-fHk" firstAttribute="leading" secondItem="8rj-Oa-WEK" secondAttribute="trailing" constant="68" id="fWJ-fa-bzS"/>
+                                            <constraint firstItem="8rj-Oa-WEK" firstAttribute="top" secondItem="9I9-M9-gre" secondAttribute="bottom" constant="10" id="lNr-mf-Yl4"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GUY-S1-fHk" secondAttribute="trailing" constant="20" symbolic="YES" id="t0K-TF-nY0"/>
+                                            <constraint firstItem="9I9-M9-gre" firstAttribute="leading" secondItem="UHx-wS-tW8" secondAttribute="leading" id="wS7-dj-blc"/>
+                                            <constraint firstItem="VbY-a6-gGW" firstAttribute="leading" secondItem="tcH-6f-4eh" secondAttribute="trailing" constant="68" id="xcC-AN-eqg"/>
+                                            <constraint firstAttribute="trailing" secondItem="9I9-M9-gre" secondAttribute="trailing" id="xdj-3c-N7D"/>
+                                            <constraint firstItem="9I9-M9-gre" firstAttribute="top" secondItem="UHx-wS-tW8" secondAttribute="top" id="yHZ-Wm-OAK"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tg-k5-zXI" userLabel="BottomView">
@@ -391,7 +389,7 @@
                             <constraint firstAttribute="trailing" secondItem="7tg-k5-zXI" secondAttribute="trailing" id="Ed4-aD-ob2"/>
                             <constraint firstItem="7tg-k5-zXI" firstAttribute="leading" secondItem="emN-cI-9yU" secondAttribute="leading" id="KvJ-pK-vg5"/>
                             <constraint firstItem="OGI-BA-KbS" firstAttribute="centerX" secondItem="emN-cI-9yU" secondAttribute="centerX" id="Q6N-HH-Sdn"/>
-                            <constraint firstItem="OGI-BA-KbS" firstAttribute="centerY" secondItem="emN-cI-9yU" secondAttribute="centerY" id="cdo-wB-byS"/>
+                            <constraint firstItem="OGI-BA-KbS" firstAttribute="centerY" secondItem="emN-cI-9yU" secondAttribute="centerY" constant="-25" id="cdo-wB-byS"/>
                             <constraint firstItem="Lln-d8-FFc" firstAttribute="top" secondItem="7tg-k5-zXI" secondAttribute="bottom" id="tHg-d1-qaV"/>
                         </constraints>
                         <variation key="default">
@@ -407,15 +405,17 @@
                         <outlet property="columnSwitch" destination="UOo-2B-Htu" id="Wca-am-2JJ"/>
                         <outlet property="nodeCountLabel" destination="djP-HE-PfT" id="m6a-ut-h8S"/>
                         <outlet property="puzzleNameLabel" destination="pQb-Vc-u7v" id="gJa-er-yRq"/>
+                        <outlet property="readButton" destination="8rj-Oa-WEK" id="b9B-2E-krE"/>
                         <outlet property="rowSwitch" destination="He1-bw-H5S" id="h6M-9d-jI6"/>
                         <outlet property="solveButton" destination="VbY-a6-gGW" id="6cW-Va-Lqg"/>
                         <outlet property="undoButton" destination="tcH-6f-4eh" id="Iqt-Nd-GFV"/>
+                        <outlet property="writeButton" destination="GUY-S1-fHk" id="IHi-Yz-9W9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mox-1L-5mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="mN4-m4-heJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1405" y="646"/>
+            <point key="canvasLocation" x="1404.6875" y="645.703125"/>
         </scene>
     </scenes>
 </document>

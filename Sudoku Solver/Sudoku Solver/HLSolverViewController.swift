@@ -36,7 +36,9 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
     
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var solveButton: UIButton!
-    
+    @IBOutlet weak var readButton: UIButton!
+    @IBOutlet weak var writeButton: UIButton!
+
     @IBOutlet weak var rowSwitch: UISwitch!
     @IBOutlet weak var columnSwitch: UISwitch!
     @IBOutlet weak var blockSwitch: UISwitch!
@@ -206,5 +208,10 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource {
         _solver.load(importArray)
         _solver.prunePuzzle(rows:true, columns:true, blocks:true)
         nodeCountLabel.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
+        
+        #if !HLDEBUG
+            readButton.isHidden = true
+            writeButton.isHidden = true
+        #endif
     }
 }
