@@ -12,6 +12,8 @@
 		B04C6C44204846AE00C23B41 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B04C6C43204846AE00C23B41 /* Overview.pdf */; };
 		B058FFA41BC94C0900398B98 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDD1B5483F900DEA64D /* HLSolver.swift */; };
 		B058FFA51BC94C2D00398B98 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD13A81B5D079900484205 /* HLMatrix.swift */; };
+		B05E3D8C204C720B00BCA8FA /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8B204C720B00BCA8FA /* GameKit.framework */; };
+		B05E3D8E204C720F00BCA8FA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8D204C720F00BCA8FA /* StoreKit.framework */; };
 		B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EB91B54775600DEA64D /* AppDelegate.swift */; };
 		B0986EBF1B54775600DEA64D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0986EBD1B54775600DEA64D /* Main.storyboard */; };
 		B0986EC11B54775600DEA64D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC01B54775600DEA64D /* Images.xcassets */; };
@@ -38,6 +40,8 @@
 		B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLCollectionViewCell.swift; sourceTree = "<group>"; };
 		B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLCollectionViewCell.xib; sourceTree = "<group>"; };
 		B04C6C43204846AE00C23B41 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Overview.pdf; sourceTree = "<group>"; };
+		B05E3D8B204C720B00BCA8FA /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		B05E3D8D204C720F00BCA8FA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B0986EB41B54775600DEA64D /* HLSudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLSudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0986EB81B54775600DEA64D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0986EB91B54775600DEA64D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B05E3D8C204C720B00BCA8FA /* GameKit.framework in Frameworks */,
+				B05E3D8E204C720F00BCA8FA /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +86,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B05E3D88204C706500BCA8FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B05E3D8D204C720F00BCA8FA /* StoreKit.framework */,
+				B05E3D8B204C720B00BCA8FA /* GameKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B0986EAB1B54775600DEA64D = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +102,7 @@
 				B0986EB61B54775600DEA64D /* Sudoku Solver */,
 				B0986ECC1B54775600DEA64D /* Sudoku SolverTests */,
 				B0986EB51B54775600DEA64D /* Products */,
+				B05E3D88204C706500BCA8FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,6 +211,14 @@
 					B0986EB31B54775600DEA64D = {
 						CreatedOnToolsVersion = 6.4;
 						LastSwiftMigration = 0920;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					B0986EC81B54775600DEA64D = {
 						CreatedOnToolsVersion = 6.4;
@@ -410,7 +434,7 @@
 				INFOPLIST_FILE = "Sudoku Solver/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DHLDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.SudokuSolver;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.HLSudokuSolver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -428,7 +452,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = "Sudoku Solver/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.SudokuSolver;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.HLSudokuSolver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
