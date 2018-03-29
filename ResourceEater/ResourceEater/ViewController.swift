@@ -10,23 +10,31 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var runButton: NSButton!
-    
-    let kTimerInterval = 0.5
-    var running = false
+    @IBOutlet weak var runButton:       NSButton!
+    @IBOutlet weak var ramButton:       NSButton!
+    @IBOutlet weak var cpuButton:       NSButton!
+    @IBOutlet weak var diskButton:      NSButton!
+    @IBOutlet weak var ethernetButton:  NSButton!
+
+    let ramSize = 500   //  megabytes
+    let diskSize = 500  //  megabytes
+    let kTimerInterval = 1.0
+//    var running = false
     var timer: Timer!
     
     
-    @IBAction func buttonAction(sender:Any)   {
-        print( "ViewController-  buttonAction" )
+    @IBAction func runAction(sender:NSButton)   {
+        print( "ViewController-  runAction-  run state: \(runButton.state)" )
         
-        running = !running
+ //       running = !running
         
-        if running  {
+        if runButton.state == .on  {
             runButton.title = "Stop"
             timer = Timer.scheduledTimer(withTimeInterval: kTimerInterval, repeats: true) { timer in
-
-                self.leakMemory()
+            
+                if self.ramButton.state == .on   {
+                    self.leakMemory(megabytes: self.ramSize)
+                }
             }
         }
         else    {
@@ -35,10 +43,17 @@ class ViewController: NSViewController {
         }
     }
     
+    @IBAction func purgeAction(sender:NSButton)   {
+        print( "ViewController-  purgeAction" )
+        
+        ViewController.purgeBuffer()
+        
+    }
     
-    func leakMemory()   {
+
+    func leakMemory(megabytes: Int)   {
  //       print( "ViewController-  leakMemory" )
-        ViewController.allocateMemoryOfSize( numberOfMegaBytes: 500 )
+        ViewController.allocateMemoryOfSize( numberOfMegaBytes: megabytes )
     }
 
 
@@ -48,6 +63,11 @@ class ViewController: NSViewController {
         let mb = 1048576
         let newBuffer = [UInt8](repeating: 0, count: numberOfMegaBytes * mb)
         buffer += newBuffer
+    }
+
+    static func purgeBuffer() {
+        print("Purge buffer of size: \(buffer.count)")
+        buffer.removeAll()
     }
 }
 

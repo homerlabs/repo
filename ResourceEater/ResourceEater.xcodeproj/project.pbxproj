@@ -95,10 +95,10 @@
 		B0E46BE91EC89A28009D37E5 /* ResourceEater */ = {
 			isa = PBXGroup;
 			children = (
-				B0E46BEA1EC89A28009D37E5 /* AppDelegate.swift */,
 				B0E46BEC1EC89A28009D37E5 /* ViewController.swift */,
-				B0E46BEE1EC89A28009D37E5 /* Assets.xcassets */,
 				B0E46BF01EC89A28009D37E5 /* Main.storyboard */,
+				B0E46BEA1EC89A28009D37E5 /* AppDelegate.swift */,
+				B0E46BEE1EC89A28009D37E5 /* Assets.xcassets */,
 				B0E46BF31EC89A28009D37E5 /* Info.plist */,
 			);
 			path = ResourceEater;
