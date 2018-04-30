@@ -11,22 +11,62 @@ import Cocoa
 let mb = 1048576
 
 
-class ViewController: NSViewController {
+import Foundation
 
+enum FileWriteError: Error {
+    case directoryDoesntExist
+    case convertToDataIssue
+}
+
+protocol FileWriter {
+    func write(_ text: String, filename: String) throws
+}
+
+extension FileWriter {
+//    var fileName: String { return "ResourceEater.txt" }
+
+    func write(_ text: String, filename: String) throws {
+        guard let dir = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first else {
+            throw FileWriteError.directoryDoesntExist
+        }
+
+        let encoding = String.Encoding.utf8
+
+        guard let data = text.data(using: encoding) else {
+            throw FileWriteError.convertToDataIssue
+        }
+
+        let fileUrl = dir.appendingPathComponent(filename)
+
+        if let fileHandle = FileHandle(forWritingAtPath: fileUrl.path) {
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(data)
+        } else {
+            try text.write(to: fileUrl, atomically: false, encoding: encoding)
+        }
+    }
+}
+
+
+class ViewController: NSViewController, FileWriter {
     @IBOutlet weak var runButton:       NSButton!
     @IBOutlet weak var ramButton:       NSButton!
     @IBOutlet weak var cpuButton:       NSButton!
     @IBOutlet weak var diskButton:      NSButton!
-    @IBOutlet weak var ethernetButton:  NSButton!
 
     let ramSize = 500   //  megabytes
     let diskSize = 500  //  megabytes
     let kTimerInterval = 1.0
     var timer: Timer!
     var count = 0
-    let filename = "ResourceEater"
+    let filename = "ResourceEater.txt"
+    var processShouldTerminate = false
+    var outputText = ""
+    let HLDefaultsKey = "HLDefaultsKey"
+    let weightRAM = 1
+    let weightCPU = 2
+    let weightDisk = 4
 
-    
     @IBAction func runAction(sender:NSButton)   {
         print( "ViewController-  runAction-  run state: \(runButton.state.rawValue)" )
         
@@ -43,7 +83,11 @@ class ViewController: NSViewController {
                 }
            
                 if self.diskButton.state == .on   {
-                    self.writeToDisk(megabytes: 1)
+                    self.writeToDisk(numberOfKBytes: 1024)
+                }
+           
+                if self.cpuButton.state == .on   {
+                    self.spawnProcess(processCount: 100)
                 }
             }
         }
@@ -56,38 +100,53 @@ class ViewController: NSViewController {
     @IBAction func purgeAction(sender:NSButton)   {
         print( "ViewController-  purgeAction" )
         
+        processShouldTerminate = true
         ViewController.purgeBuffer()
-        purgeFiles()
+        purgeFile()
+    }
+
+    func spawnProcess(processCount: Int)   {
+ //       print( "ViewController-  spawnProcess" )
+ 
+        processShouldTerminate = false
+        var counter = 0.0
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            while  !self.processShouldTerminate   {
+                counter += 0.001
+            }
+
+            DispatchQueue.main.async {
+                print( "spawnProcess terminates" )
+            }
+        }
     }
     
 
-    func writeToDisk(megabytes: Int)   {
+    func writeToDisk(numberOfKBytes: Int)   {
  //       print( "ViewController-  writeToDisk" )
- 
+
          do {
-             let dir: URL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).last! as URL
-             let fullFilename = filename + String(count) + ".txt"
-             let url = dir.appendingPathComponent(fullFilename)
-             try fullFilename.write(toFile: url.path, atomically: true, encoding: String.Encoding.utf8)
+            for _ in 0..<numberOfKBytes {
+                try write(outputText, filename: filename)
+            }
          }
          catch {
              print("Could not write to file")
          }
     }
     
-    func purgeFiles()   {
-        print( "Purge \(count) files" )
+    func purgeFile()   {
 
         let dir: URL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).last! as URL
-        for index in 1...count  {
-            let fullFilename = filename + String(index) + ".txt"
-            let url = dir.appendingPathComponent(fullFilename)
-
+        let url = dir.appendingPathComponent(filename)
+        
+        if FileManager.default.fileExists(atPath: url.path)     {
             do  {
                 try FileManager.default.removeItem(atPath: url.path)
             }
             catch   {
-                 print("Could not purge file \(fullFilename)")
+                 print("Could not purge file \(filename)")
             }
         }
     }
@@ -108,6 +167,45 @@ class ViewController: NSViewController {
     static func purgeBuffer() {
         print("Purge buffer of size: \(buffer.count/mb) MBs")
         buffer.removeAll()
+    }
+    
+    override func viewDidLoad() {
+        let text = "0" + String(repeating: "1", count: 1021) + "2\n"
+        for _ in 0..<1 {
+            outputText += text
+        }
+        
+        let value = UserDefaults.standard.integer(forKey: HLDefaultsKey)
+        let ram = value & weightRAM
+        let cpu = value & weightCPU
+        let disk = value & weightDisk
+        
+        ramButton.state = NSControl.StateValue(rawValue: ram)
+        cpuButton.state = NSControl.StateValue(rawValue: cpu)
+        diskButton.state = NSControl.StateValue(rawValue: disk)
+
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        
+        purgeAction(sender: runButton)
+        
+        var value = 0
+        if ramButton.state == .on   {
+            value += weightRAM
+        }
+        
+        if cpuButton.state == .on   {
+            value += weightCPU
+        }
+        
+        if diskButton.state == .on   {
+            value += weightDisk
+        }
+        UserDefaults.standard.set(value, forKey:HLDefaultsKey)
+
+        exit(0)
     }
 }
 

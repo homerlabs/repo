@@ -724,14 +724,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J6L-GA-sf9">
-                                <rect key="frame" x="210" y="53" width="82" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Ethernet" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TG1-rc-S4D">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qze-wf-zwU">
                                 <rect key="frame" x="340" y="210" width="81" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -748,7 +740,6 @@
                     <connections>
                         <outlet property="cpuButton" destination="WDt-tv-rqf" id="Rpq-9L-i26"/>
                         <outlet property="diskButton" destination="q3P-Nl-yPc" id="p2D-4P-c2E"/>
-                        <outlet property="ethernetButton" destination="J6L-GA-sf9" id="H7s-Zx-xPm"/>
                         <outlet property="ramButton" destination="ody-DQ-YNm" id="iHr-be-aah"/>
                         <outlet property="runButton" destination="gvE-Ky-jBX" id="zvG-lf-Sou"/>
                     </connections>
