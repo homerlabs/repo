@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZBV-B0-Bj3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1lh-am-sXc">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,88 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--WebView-->
-        <scene sceneID="Lld-ZC-N0V">
-            <objects>
-                <viewController title="WebView" id="ZBV-B0-Bj3" customClass="HLWebViewViewController" customModule="HLSudokuSolver" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3rL-L8-9pD"/>
-                        <viewControllerLayoutGuide type="bottom" id="Xis-UA-xHJ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iRw-hk-vik">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhc-gb-w6c">
-                                <rect key="frame" x="334" y="956" width="101" height="48"/>
-                                <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="bC4-5c-m5K"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="Go to Solver">
-                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="1lh-am-sXc" kind="show" identifier="GotoSolver" id="AsD-Rm-M91"/>
-                                </connections>
-                            </button>
-                            <view userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="kAM-8F-Ve7">
-                                <rect key="frame" x="134" y="212" width="500" height="600"/>
-                                <color key="backgroundColor" red="0.85769403197249194" green="0.99193829298019409" blue="0.97611823551662413" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="5Se-aj-3Lf"/>
-                                    <constraint firstAttribute="width" constant="500" id="TZ2-Me-SkL"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJ5-yY-Ae8">
-                                <rect key="frame" x="699" y="971" width="49" height="33"/>
-                                <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                <state key="normal" title="About">
-                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="aboutAction:" destination="ZBV-B0-Bj3" eventType="touchUpInside" id="Cgz-mu-nox"/>
-                                    <segue destination="mcK-Sr-dT0" kind="show" identifier="GotoAbout" id="M6i-Si-fbw"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="bJ5-yY-Ae8" firstAttribute="trailing" secondItem="iRw-hk-vik" secondAttribute="trailingMargin" id="49g-iZ-XRW"/>
-                            <constraint firstItem="kAM-8F-Ve7" firstAttribute="centerY" secondItem="iRw-hk-vik" secondAttribute="centerY" id="BdE-w3-WdM"/>
-                            <constraint firstAttribute="centerX" secondItem="hhc-gb-w6c" secondAttribute="centerX" id="FV3-fy-qSR"/>
-                            <constraint firstItem="bJ5-yY-Ae8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iRw-hk-vik" secondAttribute="leadingMargin" id="N04-vX-6jZ"/>
-                            <constraint firstItem="hhc-gb-w6c" firstAttribute="centerX" secondItem="iRw-hk-vik" secondAttribute="centerX" id="XJQ-Qh-deB"/>
-                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="bJ5-yY-Ae8" secondAttribute="bottom" constant="20" id="czt-OC-mOt"/>
-                            <constraint firstItem="kAM-8F-Ve7" firstAttribute="centerX" secondItem="iRw-hk-vik" secondAttribute="centerX" id="fTZ-ng-GPY"/>
-                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" constant="20" id="hjg-2T-4XN"/>
-                            <constraint firstItem="hhc-gb-w6c" firstAttribute="leading" secondItem="iRw-hk-vik" secondAttribute="leadingMargin" constant="289" id="jkU-LO-6c8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hhc-gb-w6c" secondAttribute="trailing" constant="289" id="mpb-Bo-0hI"/>
-                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" constant="20" id="rHA-ex-B0F"/>
-                            <constraint firstItem="Xis-UA-xHJ" firstAttribute="top" secondItem="hhc-gb-w6c" secondAttribute="bottom" constant="15" id="sbK-VE-KA2"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="FV3-fy-qSR"/>
-                                <exclude reference="jkU-LO-6c8"/>
-                                <exclude reference="mpb-Bo-0hI"/>
-                                <exclude reference="rHA-ex-B0F"/>
-                                <exclude reference="sbK-VE-KA2"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="containerView" destination="kAM-8F-Ve7" id="hDO-oI-O6Y"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sXp-NM-KuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="388" y="646"/>
-        </scene>
         <!--Help-->
         <scene sceneID="9n4-91-9TK">
             <objects>
@@ -110,7 +28,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAr-z5-IFl">
-                                <rect key="frame" x="706" y="983" width="42" height="33"/>
+                                <rect key="frame" x="661" y="983" width="42" height="33"/>
                                 <color key="backgroundColor" red="0.64203774930000002" green="0.80266940590000002" blue="0.99919462199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="PhA-Zo-fZi"/>
@@ -121,17 +39,17 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="OFd-Z5-71Z" kind="unwind" unwindAction="unwindToWebView:" id="ciX-IC-kVH"/>
+                                    <action selector="backAction:" destination="mcK-Sr-dT0" eventType="touchUpInside" id="TfA-z8-znC"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.64203774930000002" green="0.80266940590000002" blue="0.99919462199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="O4L-Hk-GyW" firstAttribute="top" secondItem="oAr-z5-IFl" secondAttribute="bottom" constant="8" id="6zi-RE-JpN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oAr-z5-IFl" secondAttribute="trailing" constant="45" id="9wg-aY-UCe"/>
                             <constraint firstItem="cbi-bf-rER" firstAttribute="top" secondItem="GBD-Vx-62v" secondAttribute="bottom" constant="8" id="I76-PL-nrm"/>
                             <constraint firstItem="oAr-z5-IFl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="W8j-xC-q79" secondAttribute="leadingMargin" id="JZM-5d-I7F"/>
                             <constraint firstItem="cbi-bf-rER" firstAttribute="trailing" secondItem="W8j-xC-q79" secondAttribute="trailingMargin" id="U2u-Dw-D2a"/>
-                            <constraint firstItem="oAr-z5-IFl" firstAttribute="trailing" secondItem="W8j-xC-q79" secondAttribute="trailingMargin" id="ZdM-7k-vzh"/>
                             <constraint firstItem="O4L-Hk-GyW" firstAttribute="top" secondItem="cbi-bf-rER" secondAttribute="bottom" constant="94" id="n1p-ua-xhw"/>
                             <constraint firstItem="cbi-bf-rER" firstAttribute="leading" secondItem="W8j-xC-q79" secondAttribute="leadingMargin" id="pND-UD-KYC"/>
                         </constraints>
@@ -141,9 +59,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z1L-KU-OYg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="OFd-Z5-71Z" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="388" y="1346"/>
+            <point key="canvasLocation" x="1154" y="1395"/>
         </scene>
         <!--Solver-->
         <scene sceneID="g3e-JT-cei">
@@ -274,27 +191,45 @@
                                 <rect key="frame" x="0.0" y="976" width="768" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-AX-dm0">
-                                        <rect key="frame" x="322" y="0.0" width="124" height="48"/>
+                                        <rect key="frame" x="337" y="0.0" width="94" height="48"/>
                                         <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="d8z-LD-eQc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <state key="normal" title="Go to WebView">
+                                        <state key="normal" title="New Puzzle">
                                             <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="mN4-m4-heJ" kind="unwind" unwindAction="unwindToWebView:" id="qkL-7J-oVK"/>
+                                            <action selector="newPuzzleAction:" destination="1lh-am-sXc" eventType="touchUpInside" id="YpU-oy-olg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Trw-wR-tvv">
+                                        <rect key="frame" x="664" y="8" width="49" height="33"/>
+                                        <color key="backgroundColor" red="0.64203774930000002" green="0.80266940590000002" blue="0.99919462199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="tYd-Gx-VrH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <state key="normal" title="About">
+                                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="mcK-Sr-dT0" kind="show" identifier="GotoHelp" id="rRc-GM-Cxz"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.64203774929046631" green="0.80266940593719482" blue="0.99919462203979492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="BottomView"/>
                                 <constraints>
+                                    <constraint firstItem="Trw-wR-tvv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XHS-AX-dm0" secondAttribute="trailing" id="3Nf-q6-r0w"/>
+                                    <constraint firstItem="Trw-wR-tvv" firstAttribute="centerY" secondItem="7tg-k5-zXI" secondAttribute="centerY" id="3t1-Qh-GZe"/>
                                     <constraint firstItem="XHS-AX-dm0" firstAttribute="centerX" secondItem="7tg-k5-zXI" secondAttribute="centerX" id="Ij8-Ji-U4M"/>
                                     <constraint firstAttribute="height" constant="48" id="LGg-PT-yyl"/>
                                     <constraint firstAttribute="bottom" secondItem="XHS-AX-dm0" secondAttribute="bottom" id="QQr-hi-ckc"/>
+                                    <constraint firstAttribute="trailing" secondItem="Trw-wR-tvv" secondAttribute="trailing" constant="55" id="aMf-jr-1g4"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHx-wS-tW8" userLabel="BottomButtonsView">
@@ -411,9 +346,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mox-1L-5mf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="mN4-m4-heJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1404.6875" y="645.703125"/>
+            <point key="canvasLocation" x="1154" y="664"/>
         </scene>
     </scenes>
 </document>

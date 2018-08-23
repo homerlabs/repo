@@ -24,8 +24,10 @@ class HLHelpViewController: UIViewController {
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func backAction(_ sender:UIButton)
+    {
+        self.dismiss(animated: true, completion: nil)
     }
 }
+
+

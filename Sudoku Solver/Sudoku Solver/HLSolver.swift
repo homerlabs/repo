@@ -48,6 +48,11 @@ class HLSolver: NSObject {
     ]
     
     
+    override init() {
+        print( "HLSolver-  init" )
+    }
+    
+    
 /*    func fillRow()  {
         dataSet[0] = (Set(arrayLiteral: "1", "2", "3"), .unsolvedStatus)
         dataSet[1] = (Set(arrayLiteral: "1", "2", "3", "9"), .unsolvedStatus)
@@ -401,8 +406,6 @@ class HLSolver: NSObject {
     }
     
     
-    override init() {}
-
     required init(coder aDecoder: NSCoder)
     {
 //        var newDataSet = Matrix(rows:9, columns:9)

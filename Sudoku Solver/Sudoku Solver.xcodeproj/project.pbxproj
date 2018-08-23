@@ -19,7 +19,6 @@
 		B0986EC11B54775600DEA64D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC01B54775600DEA64D /* Images.xcassets */; };
 		B0986EC41B54775600DEA64D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC21B54775600DEA64D /* LaunchScreen.xib */; };
 		B0986ED01B54775600DEA64D /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */; };
-		B0986EDA1B54780800DEA64D /* HLWebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */; };
 		B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */; };
 		B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDD1B5483F900DEA64D /* HLSolver.swift */; };
 		B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */; };
@@ -51,7 +50,6 @@
 		B0986EC91B54775600DEA64D /* Sudoku SolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sudoku SolverTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0986ECE1B54775600DEA64D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
-		B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLWebViewViewController.swift; sourceTree = "<group>"; };
 		B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolverViewController.swift; sourceTree = "<group>"; };
 		B0986EDD1B5483F900DEA64D /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLHelpViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 		B0986EB61B54775600DEA64D /* Sudoku Solver */ = {
 			isa = PBXGroup;
 			children = (
-				B0986ED91B54780800DEA64D /* HLWebViewViewController.swift */,
 				B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */,
 				B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */,
 				B0986EDD1B5483F900DEA64D /* HLSolver.swift */,
@@ -274,7 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */,
-				B0986EDA1B54780800DEA64D /* HLWebViewViewController.swift in Sources */,
 				B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */,
 				B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */,
 				B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */,

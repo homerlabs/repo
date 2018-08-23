@@ -73,19 +73,19 @@ class HLGameController: NSObject {
         rightThumbstick = gamepad?.rightThumbstick
         
         if mode == 0    {
-            leftThumbstick.xAxis.valueChangedHandler = { _ in
+            leftThumbstick.xAxis.valueChangedHandler = { extendedGamepad, element in
                 self.readPad(pad: self.leftThumbstick)
             }
             
-            rightThumbstick.xAxis.valueChangedHandler = { _ in
+ /*           rightThumbstick.xAxis.valueChangedHandler = { _ in
                 self.readPad(pad: self.rightThumbstick)
             }
             
             leftThumbstick.yAxis.valueChangedHandler = nil
-            rightThumbstick.yAxis.valueChangedHandler = nil
+            rightThumbstick.yAxis.valueChangedHandler = nil */
         }
         
-        else    {
+/*        else    {
             leftThumbstick.yAxis.valueChangedHandler = { _ in
                     self.readPad(pad: self.leftThumbstick)
             }
@@ -96,10 +96,10 @@ class HLGameController: NSObject {
             
             leftThumbstick.xAxis.valueChangedHandler = nil
             rightThumbstick.xAxis.valueChangedHandler = nil
-        }
+        }   */
         
         buttonX = gamepad?.buttonX
-        buttonX.pressedChangedHandler = { _ in
+/*        buttonX.pressedChangedHandler = { _ in
         //     print("buttonX: \(self.buttonX.isPressed)")
              if self.buttonX.isPressed      {   self.delegate.buttonXPressed()   }
         }
@@ -120,6 +120,6 @@ class HLGameController: NSObject {
         buttonB.pressedChangedHandler = { _ in
         //     print("buttonB: \(self.buttonB.isPressed)")
              if self.buttonB.isPressed      {   self.delegate.buttonBPressed()   }
-        }
+        }   */
     }
 }
