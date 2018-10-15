@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0D82D6C21751EE80047416C /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D82D6B21751EE80047416C /* URL+Extension.swift */; };
+		B0D82D6E2175215C0047416C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D82D6D2175215C0047416C /* String+Extension.swift */; };
 		B0DBFABB2174F7FC0009FE99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBFABA2174F7FC0009FE99 /* AppDelegate.swift */; };
 		B0DBFABD2174F7FC0009FE99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBFABC2174F7FC0009FE99 /* ViewController.swift */; };
 		B0DBFABF2174F7FD0009FE99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0DBFABE2174F7FD0009FE99 /* Assets.xcassets */; };
 		B0DBFAC22174F7FD0009FE99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DBFAC02174F7FD0009FE99 /* Main.storyboard */; };
-		B0DBFACC2174FA980009FE99 /* Automator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFACB2174FA980009FE99 /* Automator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B0D82D6B21751EE80047416C /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		B0D82D6D2175215C0047416C /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B0D82D6F217521EE0047416C /* Disk Tester.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Disk Tester.entitlements"; sourceTree = "<group>"; };
 		B0DBFAB72174F7FC0009FE99 /* Disk Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Disk Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DBFABA2174F7FC0009FE99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0DBFABC2174F7FC0009FE99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,7 +34,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0DBFACC2174FA980009FE99 /* Automator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,10 +62,13 @@
 			children = (
 				B0DBFABC2174F7FC0009FE99 /* ViewController.swift */,
 				B0DBFAC02174F7FD0009FE99 /* Main.storyboard */,
+				B0D82D6F217521EE0047416C /* Disk Tester.entitlements */,
 				B0DBFABA2174F7FC0009FE99 /* AppDelegate.swift */,
 				B0DBFABE2174F7FD0009FE99 /* Assets.xcassets */,
 				B0DBFAC32174F7FD0009FE99 /* Info.plist */,
 				B0DBFAC42174F7FD0009FE99 /* Disk_Tester.entitlements */,
+				B0D82D6B21751EE80047416C /* URL+Extension.swift */,
+				B0D82D6D2175215C0047416C /* String+Extension.swift */,
 			);
 			path = "Disk Tester";
 			sourceTree = "<group>";
@@ -107,6 +113,11 @@
 				TargetAttributes = {
 					B0DBFAB62174F7FC0009FE99 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -145,8 +156,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0D82D6E2175215C0047416C /* String+Extension.swift in Sources */,
 				B0DBFABD2174F7FC0009FE99 /* ViewController.swift in Sources */,
 				B0DBFABB2174F7FC0009FE99 /* AppDelegate.swift in Sources */,
+				B0D82D6C21751EE80047416C /* URL+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Disk Tester/Disk_Tester.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Disk Tester/Disk Tester.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -302,7 +315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Disk Tester/Disk_Tester.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Disk Tester/Disk Tester.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
