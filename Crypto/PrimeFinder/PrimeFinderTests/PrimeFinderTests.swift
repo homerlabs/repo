@@ -18,11 +18,11 @@ class PrimeFinderTests: XCTestCase, HLPrimesProtocol {
 
 
     //*************   HLPrimeProtocol     *********************************************************
-    func findPrimesCompleted()  {
+    func findPrimesCompleted(lastLine: String) {
         currentExpectation?.fulfill()
     }
     
-    func factorPrimesCompleted()    {
+    func findNicePrimesCompleted(lastLine: String) {
         currentExpectation?.fulfill()
     }
     //*************   HLPrimeProtocol     *********************************************************
@@ -30,7 +30,7 @@ class PrimeFinderTests: XCTestCase, HLPrimesProtocol {
 
     override func setUp() {
         super.setUp()
-        primeFinder = HLPrime(primeFilePath: "/Volumes/USB64/Primes", modCount: 1000, delegate: self)
+        primeFinder = HLPrime(primeFilePath: "/Volumes/USB64/Primes", delegate: self)
     }
     
     override func tearDown() {
