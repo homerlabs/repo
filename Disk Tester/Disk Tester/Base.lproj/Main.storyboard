@@ -712,7 +712,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DZK-It-aaL">
                                 <rect key="frame" x="49" y="136" width="382" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Set Test File Path" bezelStyle="rounded" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IeP-OC-fK6">
+                                <buttonCell key="cell" type="push" title="Set Destination Test File Path" bezelStyle="rounded" alignment="left" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IeP-OC-fK6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -723,7 +723,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wTJ-Qe-qlx">
                                 <rect key="frame" x="49" y="203" width="382" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Set Test File Path" bezelStyle="rounded" alignment="left" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HKz-7V-b7d">
+                                <buttonCell key="cell" type="push" title="Set Soure Test File Path" bezelStyle="rounded" alignment="left" refusesFirstResponder="YES" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HKz-7V-b7d">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

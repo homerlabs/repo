@@ -11,12 +11,12 @@ import Automator
 
 class ViewController: NSViewController {
 
-    let HLSourceFilePathKey      = "SourcePathKey"
-    let HLDestinationFilePathKey = "DestinationPathKey"
     let HLSourceBookmarkKey      = "SourceBookmarkKey"
     let HLDestinationBookmarkKey = "DestinationBookmarkKey"
+    let filename = "HLBigTestFile"
     var sourceURL: URL?
     var destinationURL: URL?
+    let homeDirURL = FileManager.default.homeDirectoryForCurrentUser
 
     @IBOutlet weak var sourcePathButton: NSButton!
     @IBOutlet weak var destinationPathButton: NSButton!
@@ -24,39 +24,63 @@ class ViewController: NSViewController {
     @IBAction func setSourcePathAction(sender: NSButton) {
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
-        savePanel.title = "Set test file path";
+        savePanel.title = "Set source test file path";
         savePanel.nameFieldStringValue = "HLBigTestFile";
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
 
         let i = savePanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
-            savePanel.url!.setBookmarkFor(key: HLSourceBookmarkKey)
-            sender.title = savePanel.url!.path
-            UserDefaults.standard.set(savePanel.url!.path, forKey:HLSourceFilePathKey)
+            sourceURL = savePanel.url
+            sourceURL!.setBookmarkFor(key: HLSourceBookmarkKey)
             UserDefaults.standard.synchronize()
-           sourceURL = savePanel.url!.path.getBookmarkFor(key: HLSourceBookmarkKey)
+            sourcePathButton.title = sourceURL!.path
        }
         print( "sourceURL: \(String(describing: sourceURL))" )
+        createBigFile()
     }
 
     @IBAction func setDestinationPathAction(sender: NSButton) {
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
-        savePanel.title = "Set test file path";
+        savePanel.title = "Set destination test file path";
         savePanel.nameFieldStringValue = "HLBigTestFile";
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
 
         let i = savePanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
-            savePanel.url!.setBookmarkFor(key: HLDestinationBookmarkKey)
-            sender.title = savePanel.url!.path
-            UserDefaults.standard.set(savePanel.url!.path, forKey:HLDestinationFilePathKey)
+            destinationURL = savePanel.url
+            destinationURL!.setBookmarkFor(key: HLDestinationBookmarkKey)
             UserDefaults.standard.synchronize()
-            destinationURL = savePanel.url!.path.getBookmarkFor(key: HLDestinationBookmarkKey)
+            destinationPathButton.title = destinationURL!.path
        }
         print( "destinationURL: \(String(describing: destinationURL))" )
+    }
+    
+    func createBigFile()    {
+        let data = Data(repeating: 48, count: 4096)
+        let success = FileManager.default.createFile(atPath: sourceURL!.path, contents: data, attributes: nil)
+        print( "createBigFile-  success: \(success)" )
+    }
+
+    func getBookmarkFor(key: String) -> URL?   {
+        var url: URL? = nil
+        
+        if let data = UserDefaults.standard.data(forKey: key)  {
+            do  {
+                var isStale = false
+                    url = try URL(resolvingBookmarkData: data, options: URL.BookmarkResolutionOptions.withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
+                    let success = url!.startAccessingSecurityScopedResource()
+
+                    if !success {
+                        print("startAccessingSecurityScopedResource-  success: \(success)")
+                    }
+                } catch {
+                    print("Warning:  Unable to optain security bookmark for key: \(key)!")
+                }
+        }
+        return url
     }
 
     override func viewDidDisappear() {
@@ -70,11 +94,15 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let primeFilePath = UserDefaults.standard.string(forKey: HLSourceFilePathKey)  {
-            sourceURL = primeFilePath.getBookmarkFor(key: HLSourceFilePathKey)
-            if sourceURL != nil {
-                sourcePathButton.title = sourceURL!.path
-            }
+        sourceURL = getBookmarkFor(key: HLSourceBookmarkKey)
+        destinationURL = getBookmarkFor(key: HLDestinationBookmarkKey)
+
+        if let url = sourceURL  {
+            sourcePathButton.title = url.path
+        }
+
+        if let url = destinationURL  {
+            destinationPathButton.title = url.path
         }
     }
 
