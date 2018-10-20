@@ -15,7 +15,15 @@ extension URL    {
                                     includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(data, forKey:key)
         }   catch   {
-            print("Warning:  Unable to create security bookmark for key: \(key)!")
+            print("HLWarning:  Unable to create security bookmark for key: \(key)!")
+        }
+    }
+    
+    func copyFileTo(url: URL) {
+        do  {
+            try FileManager.default.copyItem(at: self, to: url)
+        }   catch   {
+            print("HLWarning:  Unable to copy file: \(self.path)!")
         }
     }
 }

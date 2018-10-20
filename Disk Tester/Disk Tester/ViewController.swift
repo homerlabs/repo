@@ -16,7 +16,6 @@ class ViewController: NSViewController {
     let filename = "HLBigTestFile"
     var sourceURL: URL?
     var destinationURL: URL?
-    let homeDirURL = FileManager.default.homeDirectoryForCurrentUser
 
     @IBOutlet weak var sourcePathButton: NSButton!
     @IBOutlet weak var destinationPathButton: NSButton!
@@ -58,10 +57,39 @@ class ViewController: NSViewController {
         print( "destinationURL: \(String(describing: destinationURL))" )
     }
     
+    @IBAction func runTestAction(sender: NSButton) {
+        guard sourceURL != nil else {
+            print( "Serious Error:  Source URL is NIL" )
+            return
+        }
+        
+        guard destinationURL != nil else {
+            print( "Serious Error:  Destination URL is NIL" )
+            return
+        }
+        
+        sourceURL!.copyFileTo(url: destinationURL!)
+        print( "runTestAction" )
+    }
+    
     func createBigFile()    {
-        let data = Data(repeating: 48, count: 4096)
+        guard sourceURL != nil else {
+            print( "Serious Error:  Source URL is NIL" )
+            return
+        }
+
+        let string100: String = "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+        let data = Data(base64Encoded: string100)
         let success = FileManager.default.createFile(atPath: sourceURL!.path, contents: data, attributes: nil)
         print( "createBigFile-  success: \(success)" )
+    }
+
+    func deleteFile(url: URL)   {
+        do  {
+                try FileManager.default.removeItem(at: url)
+            } catch {
+                print("Warning:  Unable to delete file: \(url)!")
+            }
     }
 
     func getBookmarkFor(key: String) -> URL?   {
@@ -86,6 +114,15 @@ class ViewController: NSViewController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         print( "ViewController-  viewDidDisappear" )
+        
+        //  remove any created files if present
+        if let url = sourceURL  {
+            deleteFile(url: url)
+        }
+        if let url = destinationURL  {
+            deleteFile(url: url)
+        }
+        
         sourceURL?.stopAccessingSecurityScopedResource()
         destinationURL?.stopAccessingSecurityScopedResource()
         exit(0)
