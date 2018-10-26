@@ -36,7 +36,6 @@ class ViewController: NSViewController {
             sourcePathButton.title = sourceURL!.path
        }
         print( "sourceURL: \(String(describing: sourceURL))" )
-        createBigFile()
     }
 
     @IBAction func setDestinationPathAction(sender: NSButton) {
@@ -68,6 +67,7 @@ class ViewController: NSViewController {
             return
         }
         
+        createBigFile()
         sourceURL!.copyFileTo(url: destinationURL!)
         print( "runTestAction" )
     }
