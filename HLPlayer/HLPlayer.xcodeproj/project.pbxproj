@@ -12,6 +12,8 @@
 		B029BDFC2183483B00361044 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B029BDFB2183483B00361044 /* Assets.xcassets */; };
 		B029BDFF2183483B00361044 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B029BDFD2183483B00361044 /* Main.storyboard */; };
 		B029BE0C218348E500361044 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029BE0B218348E500361044 /* URL+Extension.swift */; };
+		B033B1E321837ECB00B67F62 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B033B1E221837ECB00B67F62 /* AVFoundation.framework */; };
+		B033B1E521837F2D00B67F62 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B033B1E421837F2D00B67F62 /* AVKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		B029BE002183483B00361044 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B029BE012183483B00361044 /* HLPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HLPlayer.entitlements; sourceTree = "<group>"; };
 		B029BE0B218348E500361044 /* URL+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		B033B1E221837ECB00B67F62 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B033B1E421837F2D00B67F62 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B033B1E521837F2D00B67F62 /* AVKit.framework in Frameworks */,
+				B033B1E321837ECB00B67F62 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +48,7 @@
 				B029BDF62183483A00361044 /* HLPlayer */,
 				B029BE0A218348E500361044 /* CommonCode */,
 				B029BDF52183483A00361044 /* Products */,
+				B033B1E121837ECB00B67F62 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +80,15 @@
 			);
 			name = CommonCode;
 			path = ../CommonCode;
+			sourceTree = "<group>";
+		};
+		B033B1E121837ECB00B67F62 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B033B1E421837F2D00B67F62 /* AVKit.framework */,
+				B033B1E221837ECB00B67F62 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,6 +123,11 @@
 				TargetAttributes = {
 					B029BDF32183483A00361044 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -284,7 +305,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = HLPlayer/HLPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -303,7 +323,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = HLPlayer/HLPlayer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;

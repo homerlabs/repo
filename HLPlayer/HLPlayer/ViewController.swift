@@ -7,13 +7,17 @@
 //
 
 import Cocoa
+import AVFoundation
+import AVKit
 
 class ViewController: NSViewController {
 
     let HLVideoBookmarkKey  = "HLVideoBookmarkKey"
     let HLVideoURLKey       = "HLVideoURLKey"
     var videoURL: URL?
+    var player: AVPlayer?
 
+    @IBOutlet weak var playerView: AVPlayerView!
     @IBOutlet weak var videoPathButton: NSButton!
 
     @IBAction func setVideoPathAction(sender: NSButton) {
@@ -21,15 +25,22 @@ class ViewController: NSViewController {
             videoURL = url
             videoPathButton.title = url.path
             UserDefaults.standard.set(url, forKey:HLVideoURLKey)
+            
+            let playerItem = AVPlayerItem(url: url)
+ //       print( "playerItem: \(String(describing: playerItem))" )
+            player = AVPlayer(playerItem: playerItem)
+            playerView.player = player
+            player?.play()
         }
-        print( "videoURL: \(String(describing: videoURL?.path))" )
+//        print( "videoURL: \(String(describing: videoURL?.path))" )
     }
 
    func getOpenFilePath(bookmarkKey: String) -> URL?     {
     
         var url: URL?
         let openPanel = NSOpenPanel();
-        openPanel.allowedFileTypes = ["iso"];
+        openPanel.allowedFileTypes = ["iso", "mp4"]
+ //       openPanel.canChooseDirectories = true
 
         let i = openPanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
@@ -39,6 +50,13 @@ class ViewController: NSViewController {
     
 //    print( "getOpenFilePath: \(title),  Bookmark: \(bookmarkKey)  return: \(String(describing: url))" )
         return url
+    }
+
+    override func viewWillDisappear() {
+        print( "viewWillDisappear)" )
+        player?.pause()
+
+        super.viewWillDisappear()
     }
 
     override func viewDidLoad() {

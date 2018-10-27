@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <plugIn identifier="com.apple.AVKitIBPlugin" version="14313.18"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -709,8 +710,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <avPlayerView controlsStyle="inline" translatesAutoresizingMaskIntoConstraints="NO" id="4F0-z1-Khz">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4F0-z1-Khz" secondAttribute="height" multiplier="16:9" id="kIJ-k6-gAD"/>
+                                </constraints>
+                            </avPlayerView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YMt-VC-0Ik">
-                                <rect key="frame" x="14" y="118" width="452" height="32"/>
+                                <rect key="frame" x="14" y="117" width="452" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="n3e-hO-5Gd"/>
                                 </constraints>
@@ -724,12 +731,17 @@
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="4F0-z1-Khz" secondAttribute="trailing" id="2do-vv-GoE"/>
                             <constraint firstItem="YMt-VC-0Ik" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="9Gp-Cv-QWQ"/>
                             <constraint firstItem="YMt-VC-0Ik" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="EKg-kn-Spb"/>
+                            <constraint firstItem="4F0-z1-Khz" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Lld-xJ-kbd"/>
+                            <constraint firstAttribute="bottom" secondItem="4F0-z1-Khz" secondAttribute="bottom" id="PZJ-q3-Rga"/>
                             <constraint firstAttribute="trailing" secondItem="YMt-VC-0Ik" secondAttribute="trailing" constant="20" id="PnB-sa-Ae0"/>
+                            <constraint firstItem="4F0-z1-Khz" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="fdI-D4-Ebs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="playerView" destination="4F0-z1-Khz" id="L72-bl-3Cl"/>
                         <outlet property="videoPathButton" destination="YMt-VC-0Ik" id="BsY-HL-2bo"/>
                     </connections>
                 </viewController>
