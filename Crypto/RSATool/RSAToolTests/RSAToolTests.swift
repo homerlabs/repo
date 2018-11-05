@@ -16,7 +16,7 @@ class RSAToolTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        rsa = HLRSA(p: 15971, q: 15959)
+        rsa = HLRSA(p: 15971, q: 15959, characterSet: "1234567890")
         rsa.keyPublic = kPublic
         rsa.keyPrivate = kPrivate
     }

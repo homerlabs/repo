@@ -379,7 +379,6 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
     }
     
     init(p: Int64, q: Int64, characterSet: String) {
-    var TODOneedToValidateAllCharsInCharacterSet = 0
     
         charSet = Array(characterSet)
         charSetSize = Int64(charSet.count)
