@@ -26,7 +26,21 @@ class ViewController: NSViewController {
             videoPathButton.title = url.path
             UserDefaults.standard.set(url, forKey:HLVideoURLKey)
             
-            let playerItem = AVPlayerItem(url: url)
+            let movie = AVMovie(url: url)
+          print( "movie: \(movie)" )
+          print( "movie.tracks: \(movie.tracks)" )
+            print( "movie.url: \(String(describing: movie.url))" )
+            print( "movie.data: \(String(describing: movie.data))" )
+            print( "movie.isPlayable: \(movie.isPlayable)" )
+            print( "movie.isReadable: \(movie.isReadable)" )
+            print( "movie.duration.isValid: \(movie.duration.isValid)    movie.duration.seconds: \(movie.duration.seconds)" )
+            print( "movie.allMediaSelections: \(movie.allMediaSelections)" )
+            print( "movie.hasProtectedContent: \(movie.hasProtectedContent)" )
+
+            
+            let playerItem = AVPlayerItem(asset: movie)
+            
+  //          let playerItem = AVPlayerItem(url: url)
  //       print( "playerItem: \(String(describing: playerItem))" )
             player = AVPlayer(playerItem: playerItem)
             playerView.player = player
@@ -39,8 +53,8 @@ class ViewController: NSViewController {
     
         var url: URL?
         let openPanel = NSOpenPanel();
-        openPanel.allowedFileTypes = ["iso", "mp4"]
- //       openPanel.canChooseDirectories = true
+        openPanel.allowedFileTypes = ["iso", "mp4", "mov"]
+        openPanel.canChooseDirectories = true
 
         let i = openPanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
