@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import Automator
 
 class ViewController: NSViewController {
 
@@ -21,6 +20,26 @@ class ViewController: NSViewController {
     @IBOutlet weak var destinationPathButton: NSButton!
 
     @IBAction func setSourcePathAction(sender: NSButton) {
+        runSourceOpenPanel()
+//        runSourceSavePanel()
+    }
+    
+    func runSourceOpenPanel()    {
+        let openPanel = NSOpenPanel();
+  //      openPanel.allowedFileTypes = ["iso", "mp4", "mov"]
+        openPanel.canChooseDirectories = true
+
+        let i = openPanel.runModal();
+        if(i == NSApplication.ModalResponse.OK){
+            sourceURL = openPanel.url
+            sourceURL!.setBookmarkFor(key: HLSourceBookmarkKey)
+            UserDefaults.standard.synchronize()
+            sourcePathButton.title = sourceURL!.path
+        }
+        print( "runSourceOpenPanel-  sourceURL: \(String(describing: sourceURL))" )
+    }
+
+    func runSourceSavePanel()    {
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
         savePanel.title = "Set source test file path";
@@ -34,7 +53,7 @@ class ViewController: NSViewController {
             sourceURL!.setBookmarkFor(key: HLSourceBookmarkKey)
             UserDefaults.standard.synchronize()
             sourcePathButton.title = sourceURL!.path
-       }
+        }
         print( "sourceURL: \(String(describing: sourceURL))" )
     }
 
@@ -67,11 +86,12 @@ class ViewController: NSViewController {
             return
         }
         
-        createBigFile()
-        sourceURL!.copyFileTo(url: destinationURL!)
+//        createBigFile()
+        copyFile(fromURL: sourceURL!, toUR: destinationURL!)
         print( "runTestAction" )
     }
     
+    //  not currently being used
     func createBigFile()    {
         guard sourceURL != nil else {
             print( "Serious Error:  Source URL is NIL" )
@@ -84,12 +104,33 @@ class ViewController: NSViewController {
         print( "createBigFile-  success: \(success)" )
     }
 
+    func copyFile(fromURL: URL, toUR: URL) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let startDate = Date()
+            
+            do  {
+                try FileManager.default.copyItem(at: fromURL, to: toUR)
+            }   catch   {
+                print("HLWarning:  Unable to copy file: \(fromURL.path)!")
+            }
+
+            DispatchQueue.main.async {
+                let timeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                print( "fileCopyCompleted-  timeInSeconds: \(timeInSeconds)" )
+            }
+        }
+    }
+    
     func deleteFile(url: URL)   {
         do  {
                 try FileManager.default.removeItem(at: url)
             } catch {
                 print("Warning:  Unable to delete file: \(url)!")
             }
+    }
+
+    func fileCopyCompleted()    {
+        print( "fileCopyCompleted" )
     }
 
     func getBookmarkFor(key: String) -> URL?   {
@@ -116,9 +157,9 @@ class ViewController: NSViewController {
         print( "ViewController-  viewDidDisappear" )
         
         //  remove any created files if present
-        if let url = sourceURL  {
+/*        if let url = sourceURL  {
             deleteFile(url: url)
-        }
+        }   */
         if let url = destinationURL  {
             deleteFile(url: url)
         }
