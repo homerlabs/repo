@@ -18,6 +18,8 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var sourcePathButton: NSButton!
     @IBOutlet weak var destinationPathButton: NSButton!
+    @IBOutlet weak var runButton: NSButton!
+    @IBOutlet weak var statusTextField: NSTextField!
 
     @IBAction func setSourcePathAction(sender: NSButton) {
         runSourceOpenPanel()
@@ -54,6 +56,10 @@ class ViewController: NSViewController {
             UserDefaults.standard.synchronize()
             sourcePathButton.title = sourceURL!.path
         }
+        
+        if sourceURL != nil && destinationURL != nil    {
+            runButton.isEnabled = true
+        }
         print( "sourceURL: \(String(describing: sourceURL))" )
     }
 
@@ -72,6 +78,10 @@ class ViewController: NSViewController {
             UserDefaults.standard.synchronize()
             destinationPathButton.title = destinationURL!.path
        }
+       
+        if sourceURL != nil && destinationURL != nil    {
+            runButton.isEnabled = true
+        }
         print( "destinationURL: \(String(describing: destinationURL))" )
     }
     
@@ -87,7 +97,11 @@ class ViewController: NSViewController {
         }
         
 //        createBigFile()
-        copyFile(fromURL: sourceURL!, toUR: destinationURL!)
+        
+        runButton.isEnabled = false
+        statusTextField.stringValue = "Status:  Test in Progress"
+
+        copyFile(fromURL: sourceURL!, toURL: destinationURL!)
         print( "runTestAction" )
     }
     
@@ -104,19 +118,29 @@ class ViewController: NSViewController {
         print( "createBigFile-  success: \(success)" )
     }
 
-    func copyFile(fromURL: URL, toUR: URL) {
+    func copyFile(fromURL: URL, toURL: URL) {
         DispatchQueue.global(qos: .userInitiated).async {
             let startDate = Date()
+            var copySuccess = true
             
             do  {
-                try FileManager.default.copyItem(at: fromURL, to: toUR)
+                try FileManager.default.copyItem(at: fromURL, to: toURL)
             }   catch   {
+                copySuccess = false
                 print("HLWarning:  Unable to copy file: \(fromURL.path)!")
             }
 
             DispatchQueue.main.async {
-                let timeInSeconds = -Int(startDate.timeIntervalSinceNow)
-                print( "fileCopyCompleted-  timeInSeconds: \(timeInSeconds)" )
+                self.runButton.isEnabled = true
+                if copySuccess  {
+                    let timeInSeconds = -Int(startDate.timeIntervalSinceNow)
+                    print( "fileCopyCompleted-  timeInSeconds: \(timeInSeconds)" )
+                    self.deleteFile(url: toURL)
+                    self.statusTextField.stringValue = "Status:  Copy completed in \(timeInSeconds) seconds"
+                }
+                else    {
+                    self.statusTextField.stringValue = "Status:  Copy Failed!"
+                }
             }
         }
     }
@@ -127,10 +151,6 @@ class ViewController: NSViewController {
             } catch {
                 print("Warning:  Unable to delete file: \(url)!")
             }
-    }
-
-    func fileCopyCompleted()    {
-        print( "fileCopyCompleted" )
     }
 
     func getBookmarkFor(key: String) -> URL?   {
@@ -181,6 +201,10 @@ class ViewController: NSViewController {
 
         if let url = destinationURL  {
             destinationPathButton.title = url.path
+        }
+        
+        if sourceURL != nil && destinationURL != nil    {
+            runButton.isEnabled = true
         }
     }
 
