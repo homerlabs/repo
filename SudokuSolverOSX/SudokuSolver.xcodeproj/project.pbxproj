@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B00CF02020375BF400389CF1 /* WKWebViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00CF01F20375BF400389CF1 /* WKWebViewWrapper.swift */; };
 		B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD40203656E30053FC11 /* AppDelegate.swift */; };
 		B074CD43203656E30053FC11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD42203656E30053FC11 /* ViewController.swift */; };
 		B074CD45203656E30053FC11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B074CD44203656E30053FC11 /* Assets.xcassets */; };
@@ -18,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B00CF01F20375BF400389CF1 /* WKWebViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewWrapper.swift; sourceTree = "<group>"; };
 		B074CD3D203656E30053FC11 /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074CD40203656E30053FC11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B074CD42203656E30053FC11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,15 +61,14 @@
 		B074CD3F203656E30053FC11 /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
+				B074CD42203656E30053FC11 /* ViewController.swift */,
+				B074CD46203656E30053FC11 /* Main.storyboard */,
 				B07D35D92038CF31003F503C /* HLMatrix.swift */,
 				B07D35DA2038CF31003F503C /* HLSolver.swift */,
 				B074CD40203656E30053FC11 /* AppDelegate.swift */,
-				B074CD42203656E30053FC11 /* ViewController.swift */,
 				B074CD44203656E30053FC11 /* Assets.xcassets */,
-				B074CD46203656E30053FC11 /* Main.storyboard */,
 				B074CD49203656E30053FC11 /* Info.plist */,
 				B074CD4A203656E30053FC11 /* SudokuSolver.entitlements */,
-				B00CF01F20375BF400389CF1 /* WKWebViewWrapper.swift */,
 			);
 			path = SudokuSolver;
 			sourceTree = "<group>";
@@ -116,6 +113,7 @@
 				TargetAttributes = {
 					B074CD3C203656E30053FC11 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -164,7 +162,6 @@
 				B074CD43203656E30053FC11 /* ViewController.swift in Sources */,
 				B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */,
 				B07D35DB2038CF31003F503C /* HLMatrix.swift in Sources */,
-				B00CF02020375BF400389CF1 /* WKWebViewWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +297,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.SudokuSolver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -316,7 +313,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.SudokuSolver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

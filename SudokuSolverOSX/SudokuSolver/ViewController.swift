@@ -11,12 +11,20 @@ import WebKit
 
 class ViewController: NSViewController, WKNavigationDelegate {
 
-    let urlString = "https://nine.websudoku.com/?"
-//    let urlString = "https://websudoku.com/?"
     var webView: WKWebView!
     var puzzleArray = Array(repeating: 0, count: 81)
     var puzzle = HLSolver()
+    var stupidButton = NSButton(frame: NSZeroRect)
     
+    @IBAction func newPuzzleAction(_ sender: NSButton)  {
+        let urlString = "https://nine.websudoku.com/?"
+        webView = WKWebView(frame: view.frame)
+        webView.navigationDelegate = self
+
+        if let url = URL(string: urlString) {
+            webView.load(URLRequest(url: url));
+        }
+    }
     
     func parsePuzzle(data: String)  {
         var puzzleString = data
@@ -33,14 +41,14 @@ class ViewController: NSViewController, WKNavigationDelegate {
                     
                     if let range: Range<String.Index> = preString.range(of:"value=\"")  {
                         if let value = Int(String(preString[range.upperBound])) {
-                            print( "valueString: \(value)" )
+               //             print( "valueString: \(value)" )
                             puzzleArray[index] = value
                         }
                     }
                 }
             }
             
-            print( "puzzleString: \(puzzleString)" )
+     //       print( "puzzleString: \(puzzleString)" )
         }
     }
     
@@ -56,25 +64,19 @@ class ViewController: NSViewController, WKNavigationDelegate {
         })
     }
 
-    override func viewWillAppear() {
-        super.viewWillAppear()
-        let webConfiguration = WKWebViewConfiguration()
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        print( "ViewController-  viewDidDisappear" )
+        exit(0)
+    }
     
-        webView = WKWebView(frame: view.frame, configuration: webConfiguration)
-//        webView.uiDelegate = self
-        webView.navigationDelegate = self
-
-        if let url = URL(string: urlString) {
-            webView.load(URLRequest(url: url));
-            view = webView
-        }
-    }
-
-/*    override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
+        
+        newPuzzleAction(stupidButton)
     }
 
-    override var representedObject: Any? {
+/*    override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
