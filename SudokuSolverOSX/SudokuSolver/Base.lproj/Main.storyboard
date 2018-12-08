@@ -724,6 +724,10 @@
                                                 <size key="itemSize" width="50" height="50"/>
                                             </collectionViewFlowLayout>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="XfG-lQ-9wD" id="8d2-tb-Vg6"/>
+                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="0aM-gg-EA8"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.85769403200000005" green="0.99193829300000003" blue="0.97611823549999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -754,34 +758,13 @@
                             <constraint firstAttribute="bottom" secondItem="I0G-N8-cDs" secondAttribute="bottom" constant="9" id="dfa-3v-CKl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="BdX-RK-x5O" id="woT-Wc-qSS"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74" y="1057"/>
-        </scene>
-        <!--Collection View Item-->
-        <scene sceneID="5C1-Ve-Wn8">
-            <objects>
-                <collectionViewItem id="xYN-OR-HvY" sceneMemberID="viewController">
-                    <view key="view" id="hc6-dD-5gF">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yEX-Vw-E7H">
-                                <rect key="frame" x="32" y="41" width="37" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="4My-tb-Qxm">
-                                    <font key="font" usesAppearanceFont="YES"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                    </view>
-                </collectionViewItem>
-                <customObject id="pOg-Zi-igU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="526" y="964"/>
         </scene>
     </scenes>
 </document>

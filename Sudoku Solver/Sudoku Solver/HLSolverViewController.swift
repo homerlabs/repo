@@ -297,7 +297,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         
         newPuzzleAction(undoButton)
         
-        #if !HLDEBUG
+        #if HLDEBUG
             readButton.isHidden = true
             writeButton.isHidden = true
         #endif

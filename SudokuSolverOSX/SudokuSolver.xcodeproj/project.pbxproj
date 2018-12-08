@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B023811D21BC0B4A007E8988 /* HLCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */; };
+		B023811E21BC0B4A007E8988 /* HLCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */; };
 		B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD40203656E30053FC11 /* AppDelegate.swift */; };
 		B074CD43203656E30053FC11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD42203656E30053FC11 /* ViewController.swift */; };
 		B074CD45203656E30053FC11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B074CD44203656E30053FC11 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCollectionViewItem.swift; sourceTree = "<group>"; };
+		B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HLCollectionViewItem.xib; sourceTree = "<group>"; };
 		B074CD3D203656E30053FC11 /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074CD40203656E30053FC11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B074CD42203656E30053FC11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 		B074CD3F203656E30053FC11 /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
+				B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */,
+				B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */,
 				B074CD42203656E30053FC11 /* ViewController.swift */,
 				B074CD46203656E30053FC11 /* Main.storyboard */,
 				B07D35D92038CF31003F503C /* HLMatrix.swift */,
@@ -146,6 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B023811E21BC0B4A007E8988 /* HLCollectionViewItem.xib in Resources */,
 				B074CD45203656E30053FC11 /* Assets.xcassets in Resources */,
 				B074CD48203656E30053FC11 /* Main.storyboard in Resources */,
 			);
@@ -162,6 +169,7 @@
 				B074CD43203656E30053FC11 /* ViewController.swift in Sources */,
 				B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */,
 				B07D35DB2038CF31003F503C /* HLMatrix.swift in Sources */,
+				B023811D21BC0B4A007E8988 /* HLCollectionViewItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
