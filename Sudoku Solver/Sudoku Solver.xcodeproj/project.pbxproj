@@ -10,8 +10,6 @@
 		B039647F1B54962C00BA226A /* HLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */; };
 		B03964801B54962C00BA226A /* HLCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */; };
 		B04C6C44204846AE00C23B41 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B04C6C43204846AE00C23B41 /* Overview.pdf */; };
-		B058FFA41BC94C0900398B98 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDD1B5483F900DEA64D /* HLSolver.swift */; };
-		B058FFA51BC94C2D00398B98 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD13A81B5D079900484205 /* HLMatrix.swift */; };
 		B05E3D8C204C720B00BCA8FA /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8B204C720B00BCA8FA /* GameKit.framework */; };
 		B05E3D8E204C720F00BCA8FA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8D204C720F00BCA8FA /* StoreKit.framework */; };
 		B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EB91B54775600DEA64D /* AppDelegate.swift */; };
@@ -20,9 +18,11 @@
 		B0986EC41B54775600DEA64D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC21B54775600DEA64D /* LaunchScreen.xib */; };
 		B0986ED01B54775600DEA64D /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */; };
 		B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */; };
-		B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDD1B5483F900DEA64D /* HLSolver.swift */; };
 		B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */; };
-		B0BD13A91B5D079900484205 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BD13A81B5D079900484205 /* HLMatrix.swift */; };
+		B0FCA58A21BD74A700365374 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58821BD74A700365374 /* HLMatrix.swift */; };
+		B0FCA58B21BD74A700365374 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58821BD74A700365374 /* HLMatrix.swift */; };
+		B0FCA58C21BD74A700365374 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58921BD74A700365374 /* HLSolver.swift */; };
+		B0FCA58D21BD74A700365374 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58921BD74A700365374 /* HLSolver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +51,9 @@
 		B0986ECE1B54775600DEA64D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
 		B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolverViewController.swift; sourceTree = "<group>"; };
-		B0986EDD1B5483F900DEA64D /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLHelpViewController.swift; sourceTree = "<group>"; };
-		B0BD13A81B5D079900484205 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
+		B0FCA58821BD74A700365374 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
+		B0FCA58921BD74A700365374 /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +96,7 @@
 		B0986EAB1B54775600DEA64D = {
 			isa = PBXGroup;
 			children = (
+				B0FCA58721BD74A700365374 /* SudokuSolverCommon */,
 				B04C6C42204846AE00C23B41 /* Resources */,
 				B0986EB61B54775600DEA64D /* Sudoku Solver */,
 				B0986ECC1B54775600DEA64D /* Sudoku SolverTests */,
@@ -118,8 +119,6 @@
 			children = (
 				B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */,
 				B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */,
-				B0986EDD1B5483F900DEA64D /* HLSolver.swift */,
-				B0BD13A81B5D079900484205 /* HLMatrix.swift */,
 				B0986EB91B54775600DEA64D /* AppDelegate.swift */,
 				B0986EBD1B54775600DEA64D /* Main.storyboard */,
 				B0986EC01B54775600DEA64D /* Images.xcassets */,
@@ -154,6 +153,16 @@
 				B0986ECE1B54775600DEA64D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0FCA58721BD74A700365374 /* SudokuSolverCommon */ = {
+			isa = PBXGroup;
+			children = (
+				B0FCA58821BD74A700365374 /* HLMatrix.swift */,
+				B0FCA58921BD74A700365374 /* HLSolver.swift */,
+			);
+			name = SudokuSolverCommon;
+			path = ../SudokuSolverCommon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,11 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0986EDE1B5483F900DEA64D /* HLSolver.swift in Sources */,
 				B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */,
 				B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */,
+				B0FCA58A21BD74A700365374 /* HLMatrix.swift in Sources */,
 				B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */,
-				B0BD13A91B5D079900484205 /* HLMatrix.swift in Sources */,
+				B0FCA58C21BD74A700365374 /* HLSolver.swift in Sources */,
 				B039647F1B54962C00BA226A /* HLCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,8 +292,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B058FFA41BC94C0900398B98 /* HLSolver.swift in Sources */,
-				B058FFA51BC94C2D00398B98 /* HLMatrix.swift in Sources */,
+				B0FCA58B21BD74A700365374 /* HLMatrix.swift in Sources */,
+				B0FCA58D21BD74A700365374 /* HLSolver.swift in Sources */,
 				B0986ED01B54775600DEA64D /* Sudoku_SolverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

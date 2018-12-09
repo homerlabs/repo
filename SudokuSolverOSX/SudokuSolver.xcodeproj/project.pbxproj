@@ -9,18 +9,20 @@
 /* Begin PBXBuildFile section */
 		B023811D21BC0B4A007E8988 /* HLCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */; };
 		B023811E21BC0B4A007E8988 /* HLCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */; };
+		B0576D7921BD75DC00EDFEE0 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */; };
+		B0576D7A21BD75DC00EDFEE0 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */; };
 		B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD40203656E30053FC11 /* AppDelegate.swift */; };
 		B074CD43203656E30053FC11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD42203656E30053FC11 /* ViewController.swift */; };
 		B074CD45203656E30053FC11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B074CD44203656E30053FC11 /* Assets.xcassets */; };
 		B074CD48203656E30053FC11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B074CD46203656E30053FC11 /* Main.storyboard */; };
 		B074CD522036577E0053FC11 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B074CD512036577E0053FC11 /* WebKit.framework */; };
-		B07D35DB2038CF31003F503C /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07D35D92038CF31003F503C /* HLMatrix.swift */; };
-		B07D35DC2038CF31003F503C /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07D35DA2038CF31003F503C /* HLSolver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCollectionViewItem.swift; sourceTree = "<group>"; };
 		B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HLCollectionViewItem.xib; sourceTree = "<group>"; };
+		B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
+		B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B074CD3D203656E30053FC11 /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074CD40203656E30053FC11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B074CD42203656E30053FC11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,8 +31,6 @@
 		B074CD49203656E30053FC11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B074CD4A203656E30053FC11 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
 		B074CD512036577E0053FC11 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		B07D35D92038CF31003F503C /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
-		B07D35DA2038CF31003F503C /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,9 +45,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B0576D7621BD75DC00EDFEE0 /* SudokuSolverCommon */ = {
+			isa = PBXGroup;
+			children = (
+				B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */,
+				B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */,
+			);
+			name = SudokuSolverCommon;
+			path = ../SudokuSolverCommon;
+			sourceTree = "<group>";
+		};
 		B074CD34203656E30053FC11 = {
 			isa = PBXGroup;
 			children = (
+				B0576D7621BD75DC00EDFEE0 /* SudokuSolverCommon */,
 				B074CD3F203656E30053FC11 /* SudokuSolver */,
 				B074CD3E203656E30053FC11 /* Products */,
 				B074CD502036577E0053FC11 /* Frameworks */,
@@ -69,8 +80,6 @@
 				B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */,
 				B074CD42203656E30053FC11 /* ViewController.swift */,
 				B074CD46203656E30053FC11 /* Main.storyboard */,
-				B07D35D92038CF31003F503C /* HLMatrix.swift */,
-				B07D35DA2038CF31003F503C /* HLSolver.swift */,
 				B074CD40203656E30053FC11 /* AppDelegate.swift */,
 				B074CD44203656E30053FC11 /* Assets.xcassets */,
 				B074CD49203656E30053FC11 /* Info.plist */,
@@ -165,10 +174,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B07D35DC2038CF31003F503C /* HLSolver.swift in Sources */,
+				B0576D7A21BD75DC00EDFEE0 /* HLSolver.swift in Sources */,
 				B074CD43203656E30053FC11 /* ViewController.swift in Sources */,
 				B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */,
-				B07D35DB2038CF31003F503C /* HLMatrix.swift in Sources */,
+				B0576D7921BD75DC00EDFEE0 /* HLMatrix.swift in Sources */,
 				B023811D21BC0B4A007E8988 /* HLCollectionViewItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

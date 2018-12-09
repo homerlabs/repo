@@ -30,7 +30,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     let modeSelectKey   = "mode"
     let archiveKey      = "Archive"
     
-//    @IBOutlet weak var blockStackView: UIStackView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var puzzleNameLabel: UILabel!
     @IBOutlet weak var nodeCountLabel: UILabel!
@@ -47,7 +46,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     
     let url = URL(string: "https://nine.websudoku.com/?level=4&amp;")!
     var puzzleTitle = ""
- //   var puzzleData = Array<String>()
     var hlWebView = WKWebView()
 
 
@@ -58,24 +56,10 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         hlWebView = WKWebView(frame:self.view.bounds)
   //      containerView.addSubview(hlWebView)
         hlWebView.navigationDelegate = self
-        hlWebView.load(request)
+ //       hlWebView.load(request)
     }
     
     
-/*    @IBAction func aboutAction(_ sender: UIButton)
-    {
-        print("HLSolverViewController-  aboutAction")
-        self.performSegue( withIdentifier: "GotoAbout", sender:self)
-    }
-    
-    
-    @IBAction func unwindToSolverView(_ sender: UIStoryboardSegue)
-    {
-        let sourceViewController = sender.source
-        print("HLSolverViewController-  unwindToSolverView: \(sourceViewController)")
-    }   */
-    
-
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
         print("HLSolverViewController-  webView-  didFinish")
