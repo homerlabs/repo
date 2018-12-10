@@ -56,7 +56,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         hlWebView = WKWebView(frame:self.view.bounds)
   //      containerView.addSubview(hlWebView)
         hlWebView.navigationDelegate = self
- //       hlWebView.load(request)
+        hlWebView.load(request)
     }
     
     
@@ -67,55 +67,16 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    let success = self.parsePuzzle(data: puzzleString)
-      //              print( "puzzleString: \(puzzleString)" )
-                    print( "parsePuzzle success: \(success)" )
-                   self.collectionView.reloadData()
+                    if let solver = HLSolver(html: puzzleString)    {
+                        self._solver = solver
+        //              print( "puzzleString: \(puzzleString)" )
+                        self.collectionView.reloadData()
+                    }
                 }
         })
     }
 
     
-    //  returns true if successful
-    //  if parse if good, set puzzleData and puzzleTitle
-    func parsePuzzle(data: String) -> Bool  {
-        var puzzleString = data
-        var puzzleArray = Array(repeating: "0", count: 81)
-
-        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
-            puzzleString = String(puzzleString[range.lowerBound...])
-  //          print( "*******************puzzleString: \(puzzleString)" )
-            
-            for index in 0..<81 {
-                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
-                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
-       //             print( "*******************preString: \(preString)" )
-                    puzzleString.removeFirst(preString.count)
-                    
-                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
-                        puzzleArray[index] = String(preString[range.upperBound])
-                    }
-                }
-            }
-            
-  //          print( "puzzleString: \(puzzleString)" )
-            if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
-                puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
-                if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
-                    puzzleTitle = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
-                    _solver.load(puzzleArray)
-                    _solver.prunePuzzle(rows:true, columns:true, blocks:true)
-                    nodeCountLabel.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
-                   print( "*******************puzzleTitle: \(puzzleTitle)" )
-                    return true
-                }
-           }
-        }
-        
-        return false    //  parse failed
-    }
-
-
     @IBAction func undoAction(_ sender:UISwitch)
     {
         print( "HLSolverViewController-  undoAction" )
@@ -267,7 +228,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         blockSwitch.isOn     = blocksSelected
         
  //       _solver.puzzleName = puzzleName
-        puzzleNameLabel.text = _solver.puzzleName
+  //      puzzleNameLabel.text = _solver.puzzleName
         undoButton.isEnabled = false
         
 //        _solver.read()

@@ -9,10 +9,10 @@
 import Cocoa
 import WebKit
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, WKNavigationDelegate {
 
     var webView: WKWebView!
-    var puzzleArray = Array(repeating: 0, count: 81)
+//    var puzzleArray = Array(repeating: 0, count: 81)
     var puzzle = HLSolver()
     var stupidButton = NSButton(frame: NSZeroRect)
     @IBOutlet weak var collectionView: NSCollectionView!
@@ -20,6 +20,7 @@ class ViewController: NSViewController {
     @IBAction func newPuzzleAction(_ sender: NSButton)  {
         let urlString = "https://nine.websudoku.com/?"
         webView = WKWebView(frame: view.frame)
+        webView.navigationDelegate = self
 
         if let url = URL(string: urlString) {
             webView.load(URLRequest(url: url));
@@ -40,32 +41,6 @@ class ViewController: NSViewController {
     collectionView.layer?.backgroundColor = NSColor.black.cgColor
   }
 
-    func parsePuzzle(data: String)  {
-        var puzzleString = data
-
-        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
-            puzzleString = String(puzzleString[range.lowerBound...])
-    //        print( "*******************puzzleString: \(puzzleString)" )
-            
-            for index in 0..<81 {
-                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
-                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
-       //             print( "*******************preString: \(preString)" )
-                    puzzleString.removeFirst(preString.count)
-                    
-                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
-                        if let value = Int(String(preString[range.upperBound])) {
-               //             print( "valueString: \(value)" )
-                            puzzleArray[index] = value
-                        }
-                    }
-                }
-            }
-            
-     //       print( "puzzleString: \(puzzleString)" )
-        }
-    }
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print( "didFinishNavigationdidFinishNavigation" )
         
@@ -73,7 +48,8 @@ class ViewController: NSViewController {
            //     print( "innerHTML: \(String(describing: html))" )
                 
                 if let puzzleString = html as? String   {
-                    self.parsePuzzle(data: puzzleString)
+                    self.puzzle = HLSolver(html: puzzleString)
+                    self.collectionView.reloadData()
                 }
         })
     }
@@ -89,30 +65,22 @@ class ViewController: NSViewController {
         
         newPuzzleAction(stupidButton)
         configureCollectionView()
-        for index in 0..<puzzleArray.count   {
-            puzzleArray[index] = index
-        }
     }
 }
 
 extension ViewController : NSCollectionViewDataSource {
   
-  // 2
   func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        print( "puzzleArray.count: \(puzzleArray.count)" )
-    return puzzleArray.count
+    return puzzle.kCellCount
   }
   
-  // 3
   func collectionView(_ itemForRepresentedObjectAtcollectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
     
-    // 4
     let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "HLCollectionViewItem"), for: indexPath)
     guard let collectionViewItem = item as? HLCollectionViewItem else {return item}
     
-    // 5
-        let item2 = puzzleArray[indexPath.item]
-    collectionViewItem.hlTextField.stringValue = String(item2)
+    let (data, status) = puzzle.dataSet[indexPath.item]
+    collectionViewItem.hlTextField.stringValue = puzzle.setToString(data)
     return item
   }
 }

@@ -48,11 +48,6 @@ class HLSolver: NSObject {
     ]
     
     
-    override init() {
-        print( "HLSolver-  init" )
-    }
-    
-    
 /*    func fillRow()  {
         dataSet[0] = (Set(arrayLiteral: "1", "2", "3"), .unsolvedStatus)
         dataSet[1] = (Set(arrayLiteral: "1", "2", "3", "9"), .unsolvedStatus)
@@ -416,7 +411,6 @@ class HLSolver: NSObject {
         print("data: \(data)   status: \(status)   puzzleName: \(String(describing: puzzleName))")
     }
     
-    
     func testData81() {
     
         var newDataSet = Matrix(rows:9, columns:9)
@@ -595,5 +589,44 @@ class HLSolver: NSObject {
         print("PrintDataSet")
         for row in 0..<kRows    {  printRowDataSet(dataSet, row: row)    }
         print("\n")
+    }
+
+    override init() {
+
+    }
+    
+    init(html: String) {
+        var puzzleString = html
+        var puzzleArray = Array(repeating: "0", count: 81)
+        super.init()
+
+        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
+            puzzleString = String(puzzleString[range.lowerBound...])
+  //          print( "*******************puzzleString: \(puzzleString)" )
+            
+            for index in 0..<81 {
+                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
+                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
+       //             print( "*******************preString: \(preString)" )
+                    puzzleString.removeFirst(preString.count)
+                    
+                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
+                        puzzleArray[index] = String(preString[range.upperBound])
+                    }
+                }
+            }
+            
+  //          print( "puzzleString: \(puzzleString)" )
+            if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
+                puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
+                if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
+                    puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
+                    load(puzzleArray)
+                    prunePuzzle(rows:true, columns:true, blocks:true)
+      //              nodeCountLabel.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
+      //             print( "*******************puzzleTitle: \(puzzleTitle)" )
+                }
+           }
+        }
     }
 }
