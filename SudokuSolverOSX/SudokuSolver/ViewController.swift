@@ -81,6 +81,20 @@ extension ViewController : NSCollectionViewDataSource {
     
     let (data, status) = puzzle.dataSet[indexPath.item]
     collectionViewItem.hlTextField.stringValue = puzzle.setToString(data)
+       switch status {
+        
+            case .givenStatus:
+                collectionViewItem.hlTextField!.textColor = NSColor.brown
+        
+            case .solvedStatus:
+                collectionViewItem.hlTextField!.textColor = NSColor.green
+        
+            case .changedStatus:
+                collectionViewItem.hlTextField!.textColor = NSColor.red
+        
+            case .unsolvedStatus:
+                collectionViewItem.hlTextField!.textColor = NSColor.blue
+        }
     return item
   }
 }

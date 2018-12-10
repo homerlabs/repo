@@ -67,13 +67,17 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    if let solver = HLSolver(html: puzzleString)    {
-                        self._solver = solver
-        //              print( "puzzleString: \(puzzleString)" )
-                        self.collectionView.reloadData()
-                    }
+                    self._solver = HLSolver(html: puzzleString)
+        //           print( "puzzleString: \(puzzleString)" )
+                    self.updateDisplay()
                 }
         })
+    }
+    
+    
+    func updateDisplay()    {
+        puzzleNameLabel.text = _solver.puzzleName
+        updateAndDisplayCells()
     }
 
     

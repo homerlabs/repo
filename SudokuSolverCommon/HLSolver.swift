@@ -29,7 +29,7 @@ class HLSolver: NSObject {
     
     var dataSet = Matrix(rows:9, columns:9)
     var previousDataSet = Matrix(rows:9, columns:9)
-    var puzzleName = ""
+    var puzzleName = "No Puzzle Found"
     var workingArray: [Set<String>] = Array(repeating: Set<String>(), count: 8)
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
@@ -592,14 +592,24 @@ class HLSolver: NSObject {
     }
 
     override init() {
-
+        print("HLSolver-  init")
+        for index in 0..<kCellCount    {
+            dataSet[index] = (fullSet, .unsolvedStatus)
+        }
+        
+        super.init()
     }
     
     init(html: String) {
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
+        
+        for index in 0..<kCellCount    {
+            dataSet[index] = (fullSet, .unsolvedStatus)
+        }
+        
         super.init()
-
+        
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
             puzzleString = String(puzzleString[range.lowerBound...])
   //          print( "*******************puzzleString: \(puzzleString)" )
@@ -623,8 +633,6 @@ class HLSolver: NSObject {
                     puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
                     load(puzzleArray)
                     prunePuzzle(rows:true, columns:true, blocks:true)
-      //              nodeCountLabel.text = "Unsolved Nodes: \(_solver.unsolvedCount())"
-      //             print( "*******************puzzleTitle: \(puzzleTitle)" )
                 }
            }
         }
