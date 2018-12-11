@@ -21,7 +21,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     var rowsSelected    = true
     var columnsSelected = true
     var blocksSelected  = true
-    var savedBlocksSelected  = true
+    var savedBlocksSelected  = true //  needed for when button is disabled
 
     let defaults = UserDefaults.standard
     let rowSwitchKey    = "Row"

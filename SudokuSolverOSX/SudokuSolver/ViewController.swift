@@ -11,13 +11,90 @@ import WebKit
 
 class ViewController: NSViewController, WKNavigationDelegate {
 
-    var webView: WKWebView!
-//    var puzzleArray = Array(repeating: 0, count: 81)
     var puzzle = HLSolver()
-    var stupidButton = NSButton(frame: NSZeroRect)
-    @IBOutlet weak var collectionView: NSCollectionView!
+    var webView: WKWebView!
+    var rowsSelected: NSControl.StateValue = .on
+    var columnsSelected: NSControl.StateValue = .on
+    var blocksSelected: NSControl.StateValue = .on
+    var savedBlocksSelected: NSControl.StateValue = .on //  needed for when button is disabled
 
-    @IBAction func newPuzzleAction(_ sender: NSButton)  {
+    @IBOutlet weak var algorithmSelect: NSSegmentedControl!
+    @IBOutlet weak var collectionView: NSCollectionView!
+    @IBOutlet weak var nodeCountTextField: NSTextField!
+    @IBOutlet weak var solveButton: NSButton!
+    @IBOutlet weak var rowSwitch: NSButton!
+    @IBOutlet weak var columnSwitch: NSButton!
+    @IBOutlet weak var blockSwitch: NSButton!
+    let defaults = UserDefaults.standard
+    let rowSwitchKey    = "Row"
+    let columnSwitchKey = "Column"
+    let blockSwitchKey  = "Block"
+    let modeSelectKey   = "mode"
+    let archiveKey      = "Archive"
+
+    @IBAction func settingsAction(_ sender: NSButton)
+    {
+        rowsSelected    = rowSwitch.state
+        columnsSelected = columnSwitch.state
+        blocksSelected  = blockSwitch.state
+        savedBlocksSelected  = blockSwitch.state
+
+        defaults.set(rowsSelected == .off,     forKey:rowSwitchKey )
+        defaults.set(columnsSelected == .off,  forKey:columnSwitchKey )
+        defaults.set(blocksSelected == .off,   forKey:blockSwitchKey )
+    }
+
+    @IBAction func solveAction(_ sender: NSButton)  {
+        print( "solveAction" )
+        puzzle.previousDataSet = puzzle.dataSet
+        
+        switch( algorithmSelect.selectedSegment )
+        {
+            case 0:     //  Mono Cell
+                puzzle.findMonoCells(rows: rowsSelected == .on, columns: columnsSelected == .on)
+                break
+        
+            case 1:     //  Find Sets
+                puzzle.findPuzzleSets(rows: rowsSelected == .on, columns: columnsSelected == .on, blocks: blocksSelected == .on)
+                break
+        
+            case 2:     //  Mono Sectors
+                puzzle.findMonoSectors(rows: rowsSelected == .on, columns: columnsSelected == .on)
+                break
+        
+            default:
+                break
+        }
+        
+        updateDisplay()
+    }
+    
+    @IBAction func modeSelectAction(_ sender:NSSegmentedControl)    {
+        print( "modeSelectAction" )
+        defaults.set(algorithmSelect.selectedSegment, forKey: modeSelectKey)
+
+        //  disable Blocks Switch for Mono Cell Mode
+        if algorithmSelect.selectedSegment == 0        {       //  Mono Cell
+            blockSwitch.isEnabled = false
+            savedBlocksSelected = blockSwitch.state
+            blockSwitch.state = .off
+        }
+        
+        else if algorithmSelect.selectedSegment == 1    {      //  Find Sets
+            blockSwitch.isEnabled = true
+            blockSwitch.state = savedBlocksSelected
+        }
+        
+        //  disable Blocks Switch for Mono Sector Mode
+        else if algorithmSelect.selectedSegment == 2    {      //  Mono Sector
+            blockSwitch.isEnabled = false
+            savedBlocksSelected = blockSwitch.state
+            blockSwitch.state = .off
+        }
+    }
+
+
+   @IBAction func newPuzzleAction(_ sender: NSButton)  {
         let urlString = "https://nine.websudoku.com/?"
         webView = WKWebView(frame: view.frame)
         webView.navigationDelegate = self
@@ -49,9 +126,15 @@ class ViewController: NSViewController, WKNavigationDelegate {
                 
                 if let puzzleString = html as? String   {
                     self.puzzle = HLSolver(html: puzzleString)
-                    self.collectionView.reloadData()
+                    self.updateDisplay()
                 }
         })
+    }
+    
+    func updateDisplay()  {
+        collectionView.reloadData()
+        let unsolvedCount = puzzle.unsolvedCount()
+        nodeCountTextField.stringValue = "Unsolved Nodes: \(unsolvedCount)"
     }
 
     override func viewDidDisappear() {
@@ -63,7 +146,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        newPuzzleAction(stupidButton)
+        newPuzzleAction(solveButton)    //  passed in value not used
         configureCollectionView()
     }
 }

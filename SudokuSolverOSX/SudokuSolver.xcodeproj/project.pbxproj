@@ -58,8 +58,8 @@
 		B074CD34203656E30053FC11 = {
 			isa = PBXGroup;
 			children = (
-				B0576D7621BD75DC00EDFEE0 /* SudokuSolverCommon */,
 				B074CD3F203656E30053FC11 /* SudokuSolver */,
+				B0576D7621BD75DC00EDFEE0 /* SudokuSolverCommon */,
 				B074CD3E203656E30053FC11 /* Products */,
 				B074CD502036577E0053FC11 /* Frameworks */,
 			);
@@ -76,10 +76,10 @@
 		B074CD3F203656E30053FC11 /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
-				B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */,
-				B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */,
 				B074CD42203656E30053FC11 /* ViewController.swift */,
 				B074CD46203656E30053FC11 /* Main.storyboard */,
+				B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */,
+				B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */,
 				B074CD40203656E30053FC11 /* AppDelegate.swift */,
 				B074CD44203656E30053FC11 /* Assets.xcassets */,
 				B074CD49203656E30053FC11 /* Info.plist */,
