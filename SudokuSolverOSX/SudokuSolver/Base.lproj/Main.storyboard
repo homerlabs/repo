@@ -763,6 +763,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="settingsAction:" target="XfG-lQ-9wD" id="MRk-5n-hom"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-NR-prE">
                                 <rect key="frame" x="80" y="685" width="83" height="32"/>
@@ -771,6 +774,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="settingsAction:" target="XfG-lQ-9wD" id="umc-2p-WBx"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yia-2Z-aHe">
                                 <rect key="frame" x="80" y="758" width="56" height="23"/>
@@ -779,6 +785,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="settingsAction:" target="XfG-lQ-9wD" id="hJd-Fr-f06"/>
+                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ogD-K6-LML">
                                 <rect key="frame" x="418" y="722" width="134" height="17"/>
@@ -814,6 +823,37 @@
                                     <action selector="solveAction:" target="XfG-lQ-9wD" id="eIc-KT-2km"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OIc-6b-0LQ" userLabel="Undo Button">
+                                <rect key="frame" x="329" y="50" width="74" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundRect" title="Undo" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W9Q-bn-f0f">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="cellTitle"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="undoAction:" target="XfG-lQ-9wD" id="h3D-8A-nYS"/>
+                                </connections>
+                            </button>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-KU-amg">
+                                <rect key="frame" x="233" y="748" width="44" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-N5-IlW">
+                                <rect key="frame" x="309" y="748" width="44" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-pk-f7R">
+                                <rect key="frame" x="233" y="697" width="44" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F53-gW-dtm">
+                                <rect key="frame" x="309" y="697" width="44" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </colorWell>
                         </subviews>
                         <constraints>
                             <constraint firstItem="OUe-xJ-YCC" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="246-0n-YuN"/>
@@ -835,6 +875,7 @@
                         <outlet property="nodeCountTextField" destination="ogD-K6-LML" id="KDi-dp-JvP"/>
                         <outlet property="rowSwitch" destination="Yia-2Z-aHe" id="un6-00-ug7"/>
                         <outlet property="solveButton" destination="UxE-Hh-eIk" id="AfZ-ZV-1Io"/>
+                        <outlet property="undoButton" destination="OIc-6b-0LQ" id="mCW-xl-bUj"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

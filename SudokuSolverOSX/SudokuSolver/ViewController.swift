@@ -22,6 +22,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var nodeCountTextField: NSTextField!
     @IBOutlet weak var solveButton: NSButton!
+    @IBOutlet weak var undoButton: NSButton!
     @IBOutlet weak var rowSwitch: NSButton!
     @IBOutlet weak var columnSwitch: NSButton!
     @IBOutlet weak var blockSwitch: NSButton!
@@ -39,13 +40,22 @@ class ViewController: NSViewController, WKNavigationDelegate {
         blocksSelected  = blockSwitch.state
         savedBlocksSelected  = blockSwitch.state
 
+  //      let x = (rowsSelected == .off).rawValue
         defaults.set(rowsSelected == .off,     forKey:rowSwitchKey )
         defaults.set(columnsSelected == .off,  forKey:columnSwitchKey )
         defaults.set(blocksSelected == .off,   forKey:blockSwitchKey )
     }
 
+    @IBAction func undoAction(_ sender: NSButton)
+    {
+        print( "undoAction" )
+        puzzle.dataSet = puzzle.previousDataSet
+        updateDisplay()
+        
+        undoButton.isEnabled = false
+    }
+
     @IBAction func solveAction(_ sender: NSButton)  {
-        print( "solveAction" )
         puzzle.previousDataSet = puzzle.dataSet
         
         switch( algorithmSelect.selectedSegment )
@@ -145,9 +155,17 @@ class ViewController: NSViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        newPuzzleAction(solveButton)    //  passed in value not used
+
+        algorithmSelect.selectedSegment = defaults.integer(forKey: modeSelectKey)
+        rowsSelected        = NSControl.StateValue.init(rawValue: Int(!defaults.bool(forKey: rowSwitchKey)))
+        columnsSelected     = NSControl.StateValue.init(rawValue: Int(!defaults.bool(forKey: columnSwitchKey)))
+        blocksSelected      = NSControl.StateValue.init(rawValue: Int(!defaults.bool(forKey: blockSwitchKey)))
+        rowSwitch.state     = rowsSelected
+        columnSwitch.state  = columnsSelected
+        blockSwitch.state   = blocksSelected
         configureCollectionView()
+        
+        newPuzzleAction(undoButton)    //  passed in value not used
     }
 }
 
