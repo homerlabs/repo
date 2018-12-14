@@ -834,25 +834,25 @@
                                     <action selector="undoAction:" target="XfG-lQ-9wD" id="h3D-8A-nYS"/>
                                 </connections>
                             </button>
-                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-KU-amg">
-                                <rect key="frame" x="233" y="748" width="44" height="23"/>
+                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-KU-amg" userLabel="Given Color Well">
+                                <rect key="frame" x="193" y="757" width="44" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </colorWell>
-                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-N5-IlW">
-                                <rect key="frame" x="309" y="748" width="44" height="23"/>
+                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-N5-IlW" userLabel="Unsolved Color Well">
+                                <rect key="frame" x="193" y="732" width="44" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </colorWell>
-                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-pk-f7R">
-                                <rect key="frame" x="233" y="697" width="44" height="23"/>
+                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-pk-f7R" userLabel="Solved Color Well">
+                                <rect key="frame" x="193" y="682" width="44" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </colorWell>
-                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F53-gW-dtm">
-                                <rect key="frame" x="309" y="697" width="44" height="23"/>
+                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F53-gW-dtm" userLabel="Changed Color Well">
+                                <rect key="frame" x="193" y="707" width="44" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="color" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </colorWell>
                         </subviews>
                         <constraints>
@@ -870,12 +870,16 @@
                     <connections>
                         <outlet property="algorithmSelect" destination="DQF-lw-v2G" id="laZ-86-HaJ"/>
                         <outlet property="blockSwitch" destination="nLF-NR-prE" id="Mpf-lZ-b8Q"/>
+                        <outlet property="changedColorWell" destination="F53-gW-dtm" id="fhh-OJ-V9S"/>
                         <outlet property="collectionView" destination="BdX-RK-x5O" id="woT-Wc-qSS"/>
                         <outlet property="columnSwitch" destination="gho-zs-zMc" id="nhW-dZ-6VH"/>
+                        <outlet property="givenColorWell" destination="ZQC-KU-amg" id="pwh-zg-0gh"/>
                         <outlet property="nodeCountTextField" destination="ogD-K6-LML" id="KDi-dp-JvP"/>
                         <outlet property="rowSwitch" destination="Yia-2Z-aHe" id="un6-00-ug7"/>
                         <outlet property="solveButton" destination="UxE-Hh-eIk" id="AfZ-ZV-1Io"/>
+                        <outlet property="solvedColorWell" destination="dBh-pk-f7R" id="2oP-S6-Yt3"/>
                         <outlet property="undoButton" destination="OIc-6b-0LQ" id="mCW-xl-bUj"/>
+                        <outlet property="unsolvedColorWell" destination="K7L-N5-IlW" id="cX0-3Z-RLR"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
