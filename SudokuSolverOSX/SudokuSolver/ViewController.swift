@@ -117,7 +117,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
   fileprivate func configureCollectionView() {
     // 1
     let flowLayout = NSCollectionViewFlowLayout()
-    flowLayout.itemSize = NSSize(width: 52.0, height: 52.0)
+    flowLayout.itemSize = NSSize(width: 52.0, height: 54.0)
     flowLayout.sectionInset = NSEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
     flowLayout.minimumInteritemSpacing = 1.0
     flowLayout.minimumLineSpacing = 1.0
