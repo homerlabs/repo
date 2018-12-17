@@ -27,7 +27,7 @@
 		B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B05B2B6A21C174120062620D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		B074CD3D203656E30053FC11 /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B074CD3D203656E30053FC11 /* Sudoku Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sudoku Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074CD40203656E30053FC11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B074CD42203656E30053FC11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B074CD44203656E30053FC11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		B074CD3E203656E30053FC11 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B074CD3D203656E30053FC11 /* SudokuSolver.app */,
+				B074CD3D203656E30053FC11 /* Sudoku Solver.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B074CD3C203656E30053FC11 /* SudokuSolver */ = {
+		B074CD3C203656E30053FC11 /* Sudoku Solver */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B074CD4D203656E30053FC11 /* Build configuration list for PBXNativeTarget "SudokuSolver" */;
+			buildConfigurationList = B074CD4D203656E30053FC11 /* Build configuration list for PBXNativeTarget "Sudoku Solver" */;
 			buildPhases = (
 				B074CD39203656E30053FC11 /* Sources */,
 				B074CD3A203656E30053FC11 /* Frameworks */,
@@ -117,9 +117,9 @@
 			);
 			dependencies = (
 			);
-			name = SudokuSolver;
+			name = "Sudoku Solver";
 			productName = SudokuSolver;
-			productReference = B074CD3D203656E30053FC11 /* SudokuSolver.app */;
+			productReference = B074CD3D203656E30053FC11 /* Sudoku Solver.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -157,7 +157,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B074CD3C203656E30053FC11 /* SudokuSolver */,
+				B074CD3C203656E30053FC11 /* Sudoku Solver */,
 			);
 		};
 /* End PBXProject section */
@@ -320,7 +320,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = SudokuSolver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.SudokuSolver;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.homerlabs.Sudoku-Solver";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -336,7 +336,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = SudokuSolver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.SudokuSolver;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.homerlabs.Sudoku-Solver";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -354,7 +354,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B074CD4D203656E30053FC11 /* Build configuration list for PBXNativeTarget "SudokuSolver" */ = {
+		B074CD4D203656E30053FC11 /* Build configuration list for PBXNativeTarget "Sudoku Solver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B074CD4E203656E30053FC11 /* Debug */,
