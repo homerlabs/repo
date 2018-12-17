@@ -30,7 +30,6 @@ class HLSolver: NSObject {
     var dataSet = Matrix(rows:9, columns:9)
     var previousDataSet = Matrix(rows:9, columns:9)
     var puzzleName = "No Puzzle Found"
-//    var workingArray: [Set<String>] = Array(repeating: Set<String>(), count: 8)
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
     let blockIndexSet = [
