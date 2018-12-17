@@ -789,8 +789,8 @@
                                     <action selector="settingsAction:" target="XfG-lQ-9wD" id="hJd-Fr-f06"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ogD-K6-LML">
-                                <rect key="frame" x="418" y="722" width="134" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ogD-K6-LML">
+                                <rect key="frame" x="418" y="676" width="134" height="17"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" title="Unsolved Nodes: 0" id="aRU-kE-YDW">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -834,26 +834,83 @@
                                     <action selector="undoAction:" target="XfG-lQ-9wD" id="h3D-8A-nYS"/>
                                 </connections>
                             </button>
-                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-KU-amg" userLabel="Given Color Well">
-                                <rect key="frame" x="193" y="757" width="44" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </colorWell>
-                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-N5-IlW" userLabel="Unsolved Color Well">
-                                <rect key="frame" x="193" y="732" width="44" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </colorWell>
-                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-pk-f7R" userLabel="Solved Color Well">
-                                <rect key="frame" x="193" y="682" width="44" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </colorWell>
-                            <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F53-gW-dtm" userLabel="Changed Color Well">
-                                <rect key="frame" x="193" y="707" width="44" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="color" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </colorWell>
+                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hil-2Y-n7P" userLabel="Color Key View">
+                                <rect key="frame" x="257" y="709" width="276" height="71"/>
+                                <subviews>
+                                    <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-KU-amg" userLabel="Given Color Well">
+                                        <rect key="frame" x="0.0" y="20" width="44" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-Km-Yqd">
+                                        <rect key="frame" x="3" y="0.0" width="39" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Given" id="hSz-xc-lLk">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-N5-IlW" userLabel="Unsolved Color Well">
+                                        <rect key="frame" x="74" y="20" width="44" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Fu-R0-Le7">
+                                        <rect key="frame" x="66" y="0.0" width="61" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Unsolved" id="j5T-Zv-gNV">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F53-gW-dtm" userLabel="Changed Color Well">
+                                        <rect key="frame" x="158" y="20" width="44" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="color" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nU2-3f-OVk">
+                                        <rect key="frame" x="151" y="0.0" width="59" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Changed" id="R1y-7Y-AfZ">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <colorWell ambiguous="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-pk-f7R" userLabel="Solved Color Well">
+                                        <rect key="frame" x="232" y="20" width="44" height="23"/>
+                                        <color key="color" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </colorWell>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wGq-VM-WBm">
+                                        <rect key="frame" x="233" y="0.0" width="45" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Solved" id="fI5-ee-wYL">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lOR-nZ-lcY">
+                                        <rect key="frame" x="60" y="54" width="146" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="142" id="4mW-Qs-Yjg"/>
+                                            <constraint firstAttribute="height" constant="17" id="zQ9-7f-Enp"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Puzzle State Color Key" id="FrT-Yo-w7c">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="lOR-nZ-lcY" firstAttribute="centerX" secondItem="hil-2Y-n7P" secondAttribute="centerX" id="4sO-oC-8lW"/>
+                                    <constraint firstItem="lOR-nZ-lcY" firstAttribute="top" secondItem="hil-2Y-n7P" secondAttribute="top" id="8ga-Ua-PTi"/>
+                                    <constraint firstAttribute="trailing" secondItem="dBh-pk-f7R" secondAttribute="trailing" id="MHm-yd-CPh"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Fu-R0-Le7" secondAttribute="bottom" id="Ohz-rL-I4f"/>
+                                    <constraint firstAttribute="bottom" secondItem="tbf-Km-Yqd" secondAttribute="bottom" id="fDv-YP-C38"/>
+                                    <constraint firstAttribute="bottom" secondItem="nU2-3f-OVk" secondAttribute="bottom" id="jZi-RH-B0H"/>
+                                    <constraint firstAttribute="bottom" secondItem="wGq-VM-WBm" secondAttribute="bottom" id="kNl-aq-qbH"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="OUe-xJ-YCC" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="246-0n-YuN"/>
