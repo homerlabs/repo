@@ -52,6 +52,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
         puzzle.dataSet = puzzle.previousDataSet
         updateDisplay()
         
+        solveButton.isEnabled = true
         undoButton.isEnabled = false
     }
 
@@ -76,6 +77,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
                 break
         }
         
+        undoButton.isEnabled = true
         updateDisplay()
     }
     
@@ -112,6 +114,9 @@ class ViewController: NSViewController, WKNavigationDelegate {
         if let url = URL(string: urlString) {
             webView.load(URLRequest(url: url));
         }
+    
+        undoButton.isEnabled = false
+        solveButton.isEnabled = true
     }
     
   fileprivate func configureCollectionView() {
@@ -145,6 +150,10 @@ class ViewController: NSViewController, WKNavigationDelegate {
         collectionView.reloadData()
         let unsolvedCount = puzzle.unsolvedCount()
         nodeCountTextField.stringValue = "Unsolved Nodes: \(unsolvedCount)"
+        
+        if unsolvedCount == 0 {
+            solveButton.isEnabled = false
+}
     }
 
     override func viewDidDisappear() {
