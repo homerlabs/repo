@@ -150,16 +150,17 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
     
     func updateDisplay()  {
-        collectionView.reloadData()
         let unsolvedCount = puzzle.unsolvedCount()
         nodeCountTextField.stringValue = "Unsolved Nodes: \(unsolvedCount)"
-        
+
         if unsolvedCount == 0 {
             solveButton.isEnabled = false
         }
         else    {
             solveButton.isEnabled = true
         }
+        puzzle.updateChangedCells() //  make sure to call this befoe reloading collectionview
+        collectionView.reloadData()
     }
 
     override func viewDidDisappear() {

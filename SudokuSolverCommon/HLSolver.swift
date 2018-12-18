@@ -595,11 +595,13 @@ class HLSolver: NSObject {
         for index in 0..<kCellCount    {
             dataSet[index] = (fullSet, .unsolvedStatus)
         }
+        previousDataSet = dataSet
         
         super.init()
     }
     
     init(html: String) {
+        print("HLSolver-  init(html: String)")
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
         
@@ -632,6 +634,8 @@ class HLSolver: NSObject {
                     puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
                     load(puzzleArray)
                     prunePuzzle(rows:true, columns:true, blocks:true)
+        
+                    previousDataSet = dataSet
                 }
            }
         }
