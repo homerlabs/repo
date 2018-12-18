@@ -19,6 +19,7 @@ enum HLCellStatus: Int
 
 
 class HLSolver: NSObject {
+    let url = URL(string: "https://nine.websudoku.com/?level=4&amp")!
     let kDataKey    = "Data"
     let kStatusKey  = "Status"
     let kNameKey    = "Name"

@@ -44,7 +44,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     @IBOutlet weak var columnSwitch: UISwitch!
     @IBOutlet weak var blockSwitch: UISwitch!
     
-    let url = URL(string: "https://nine.websudoku.com/?level=4&amp;")!
     var puzzleTitle = ""
     var hlWebView = WKWebView()
 
@@ -52,9 +51,8 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     @IBAction func newPuzzleAction(_ sender: UIButton)
     {
         print("HLSolverViewController-  newPuzzleAction")
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: _solver.url)
         hlWebView = WKWebView(frame:self.view.bounds)
-  //      containerView.addSubview(hlWebView)
         hlWebView.navigationDelegate = self
         hlWebView.load(request)
     }
