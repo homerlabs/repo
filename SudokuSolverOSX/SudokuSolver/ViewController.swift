@@ -116,7 +116,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
         }
     
         undoButton.isEnabled = false
-        solveButton.isEnabled = true
+        solveButton.isEnabled = false
     }
     
   fileprivate func configureCollectionView() {
@@ -153,7 +153,10 @@ class ViewController: NSViewController, WKNavigationDelegate {
         
         if unsolvedCount == 0 {
             solveButton.isEnabled = false
-}
+        }
+        else    {
+            solveButton.isEnabled = true
+        }
     }
 
     override func viewDidDisappear() {
