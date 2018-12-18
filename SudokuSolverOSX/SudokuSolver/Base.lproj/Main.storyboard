@@ -675,7 +675,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="SudokuSolver" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Sudoku_Solver" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -705,7 +705,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SudokuSolver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Sudoku_Solver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1029,6 +1029,17 @@
                                     <action selector="newPuzzleAction:" target="XfG-lQ-9wD" id="PSw-4p-cq6"/>
                                 </connections>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pnV-to-Mff">
+                                <rect key="frame" x="257" y="23" width="87" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="iWV-3F-dal"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="center" title="Puzzle Name" id="fxR-Pw-3Sx">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Ts6-Bx-S1g" firstAttribute="leading" secondItem="I0G-N8-cDs" secondAttribute="leading" id="Dg9-rQ-D2R"/>
@@ -1037,6 +1048,8 @@
                             <constraint firstItem="OIc-6b-0LQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I0G-N8-cDs" secondAttribute="trailing" constant="8" symbolic="YES" id="NX7-vF-1DP"/>
                             <constraint firstAttribute="bottom" secondItem="I0G-N8-cDs" secondAttribute="bottom" constant="20" id="ZdV-7u-GOn"/>
                             <constraint firstItem="OIc-6b-0LQ" firstAttribute="firstBaseline" secondItem="I0G-N8-cDs" secondAttribute="firstBaseline" id="c3R-SS-EIh"/>
+                            <constraint firstItem="pnV-to-Mff" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="jtz-J9-v4T"/>
+                            <constraint firstAttribute="bottom" secondItem="pnV-to-Mff" secondAttribute="bottom" constant="23" id="lAP-L5-xjP"/>
                             <constraint firstItem="Ts6-Bx-S1g" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="15" id="r5j-Uy-TpP"/>
                             <constraint firstItem="UxE-Hh-eIk" firstAttribute="firstBaseline" secondItem="I0G-N8-cDs" secondAttribute="firstBaseline" id="vHw-M0-HtV"/>
                             <constraint firstItem="I0G-N8-cDs" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="45" id="vlZ-5d-F7Z"/>
@@ -1048,6 +1061,7 @@
                         <outlet property="collectionView" destination="BdX-RK-x5O" id="woT-Wc-qSS"/>
                         <outlet property="columnSwitch" destination="gho-zs-zMc" id="nhW-dZ-6VH"/>
                         <outlet property="nodeCountTextField" destination="ogD-K6-LML" id="KDi-dp-JvP"/>
+                        <outlet property="puzzleNameTextField" destination="pnV-to-Mff" id="orN-VR-eIy"/>
                         <outlet property="rowSwitch" destination="Yia-2Z-aHe" id="un6-00-ug7"/>
                         <outlet property="solveButton" destination="UxE-Hh-eIk" id="AfZ-ZV-1Io"/>
                         <outlet property="undoButton" destination="OIc-6b-0LQ" id="mCW-xl-bUj"/>

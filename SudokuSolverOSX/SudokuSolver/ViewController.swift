@@ -20,6 +20,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
 
     @IBOutlet weak var algorithmSelect: NSSegmentedControl!
     @IBOutlet weak var collectionView: NSCollectionView!
+    @IBOutlet weak var puzzleNameTextField: NSTextField!
     @IBOutlet weak var nodeCountTextField: NSTextField!
     @IBOutlet weak var solveButton: NSButton!
     @IBOutlet weak var undoButton: NSButton!
@@ -107,7 +108,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
 
 
    @IBAction func newPuzzleAction(_ sender: NSButton)  {
-        let urlString = "https://nine.websudoku.com/?"
+        let urlString = "https://nine.websudoku.com/?level=4"
         webView = WKWebView(frame: view.frame)
         webView.navigationDelegate = self
 
@@ -117,6 +118,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     
         undoButton.isEnabled = false
         solveButton.isEnabled = false
+        puzzleNameTextField.stringValue = ""
     }
     
   fileprivate func configureCollectionView() {
@@ -137,10 +139,11 @@ class ViewController: NSViewController, WKNavigationDelegate {
         print( "didFinishNavigationdidFinishNavigation" )
         
         webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
-           //     print( "innerHTML: \(String(describing: html))" )
+       //         print( "innerHTML: \(String(describing: html))" )
                 
                 if let puzzleString = html as? String   {
                     self.puzzle = HLSolver(html: puzzleString)
+                    self.puzzleNameTextField.stringValue = self.puzzle.puzzleName
                     self.updateDisplay()
                 }
         })
