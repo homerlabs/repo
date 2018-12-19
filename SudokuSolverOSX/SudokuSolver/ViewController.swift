@@ -9,6 +9,13 @@
 import Cocoa
 import WebKit
 
+enum HLAlgorithmMode: Int
+{
+    case MonoCellAlgorithm
+    case FindSetsAlgorithm
+    case MonoSectorAlgorithm
+}
+
 class ViewController: NSViewController, WKNavigationDelegate {
 
     var puzzle = HLSolver()
@@ -87,19 +94,19 @@ class ViewController: NSViewController, WKNavigationDelegate {
         defaults.set(algorithmSelect.selectedSegment, forKey: modeSelectKey)
 
         //  disable Blocks Switch for Mono Cell Mode
-        if algorithmSelect.selectedSegment == 0        {       //  Mono Cell
+        if algorithmSelect.selectedSegment == HLAlgorithmMode.MonoCellAlgorithm.rawValue       {       //  Mono Cell
             blockSwitch.isEnabled = false
             savedBlocksSelected = blockSwitch.state
             blockSwitch.state = .off
         }
         
-        else if algorithmSelect.selectedSegment == 1    {      //  Find Sets
+        else if algorithmSelect.selectedSegment == HLAlgorithmMode.FindSetsAlgorithm.rawValue    {      //  Find Sets
             blockSwitch.isEnabled = true
             blockSwitch.state = savedBlocksSelected
         }
         
         //  disable Blocks Switch for Mono Sector Mode
-        else if algorithmSelect.selectedSegment == 2    {      //  Mono Sector
+        else if algorithmSelect.selectedSegment == HLAlgorithmMode.MonoSectorAlgorithm.rawValue    {      //  Mono Sector
             blockSwitch.isEnabled = false
             savedBlocksSelected = blockSwitch.state
             blockSwitch.state = .off
@@ -172,6 +179,13 @@ class ViewController: NSViewController, WKNavigationDelegate {
         rowSwitch.state     = rowsSelected
         columnSwitch.state  = columnsSelected
         blockSwitch.state   = blocksSelected
+        
+        let findSetsSelected = (algorithmSelect.selectedSegment == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+        if !findSetsSelected {
+            blockSwitch.isEnabled  = false
+            blockSwitch.state  = .off
+        }
+        blockSwitch.isEnabled = (algorithmSelect.selectedSegment == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
         configureCollectionView()
         
         newPuzzleAction(undoButton)    //  passed in value not used

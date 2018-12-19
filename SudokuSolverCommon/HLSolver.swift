@@ -641,4 +641,8 @@ class HLSolver: NSObject {
            }
         }
     }
+    
+    deinit {
+        print("HLSolver-  deinit")
+    }
 }

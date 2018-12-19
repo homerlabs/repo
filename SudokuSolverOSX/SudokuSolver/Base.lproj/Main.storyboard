@@ -771,11 +771,11 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="25" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ehX-1x-dsw" userLabel="Colors Stack View">
-                                                                    <rect key="frame" x="0.0" y="1" width="278" height="43"/>
+                                                                    <rect key="frame" x="0.0" y="1" width="277" height="43"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <subviews>
                                                                         <stackView distribution="equalSpacing" orientation="vertical" alignment="centerX" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0A-Hc-6nA" userLabel="Given Stack View">
-                                                                            <rect key="frame" x="3" y="0.0" width="44" height="43"/>
+                                                                            <rect key="frame" x="2" y="0.0" width="44" height="43"/>
                                                                             <subviews>
                                                                                 <colorWell enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-KU-amg" userLabel="Given Color Well">
                                                                                     <rect key="frame" x="0.0" y="20" width="44" height="23"/>
@@ -804,7 +804,7 @@
                                                                             </customSpacing>
                                                                         </stackView>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pUE-gm-vYV" userLabel="Unsolved Stack View">
-                                                                            <rect key="frame" x="72" y="1" width="57" height="41"/>
+                                                                            <rect key="frame" x="71" y="1" width="57" height="41"/>
                                                                             <subviews>
                                                                                 <colorWell enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7L-N5-IlW" userLabel="Unsolved Color Well">
                                                                                     <rect key="frame" x="7" y="18" width="44" height="23"/>
@@ -833,7 +833,7 @@
                                                                             </customSpacing>
                                                                         </stackView>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="osT-gb-A1v">
-                                                                            <rect key="frame" x="154" y="0.0" width="55" height="43"/>
+                                                                            <rect key="frame" x="153" y="0.0" width="55" height="43"/>
                                                                             <subviews>
                                                                                 <colorWell enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F53-gW-dtm" userLabel="Changed Color Well">
                                                                                     <rect key="frame" x="6" y="20" width="44" height="23"/>
@@ -862,7 +862,7 @@
                                                                             </customSpacing>
                                                                         </stackView>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LX6-V9-c5k">
-                                                                            <rect key="frame" x="234" y="0.0" width="44" height="43"/>
+                                                                            <rect key="frame" x="233" y="0.0" width="44" height="43"/>
                                                                             <subviews>
                                                                                 <colorWell enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-pk-f7R" userLabel="Solved Color Well">
                                                                                     <rect key="frame" x="0.0" y="20" width="44" height="23"/>
@@ -891,7 +891,7 @@
                                                                             </customSpacing>
                                                                         </stackView>
                                                                     </subviews>
-                                                                    <edgeInsets key="edgeInsets" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                                                    <edgeInsets key="edgeInsets" left="2" right="0.0" top="0.0" bottom="0.0"/>
                                                                     <visibilityPriorities>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
