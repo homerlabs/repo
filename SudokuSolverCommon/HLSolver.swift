@@ -17,6 +17,13 @@ enum HLCellStatus: Int
     case changedStatus
 }
 
+enum HLAlgorithmMode: Int
+{
+    case MonoCellAlgorithm
+    case FindSetsAlgorithm
+    case MonoSectorAlgorithm
+}
+
 
 class HLSolver: NSObject {
     let url = URL(string: "https://nine.websudoku.com/?level=4&amp")!

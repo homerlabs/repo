@@ -9,13 +9,6 @@
 import Cocoa
 import WebKit
 
-enum HLAlgorithmMode: Int
-{
-    case MonoCellAlgorithm
-    case FindSetsAlgorithm
-    case MonoSectorAlgorithm
-}
-
 class ViewController: NSViewController, WKNavigationDelegate {
 
     var puzzle = HLSolver()

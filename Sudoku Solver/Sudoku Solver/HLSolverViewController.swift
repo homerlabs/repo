@@ -68,6 +68,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
                     self._solver = HLSolver(html: puzzleString)
         //           print( "puzzleString: \(puzzleString)" )
                     self.updateDisplay()
+                    self.undoButton.isEnabled = false
                 }
         })
     }
@@ -229,10 +230,15 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         columnSwitch.isOn    = columnsSelected
         blockSwitch.isOn     = blocksSelected
         
- //       _solver.puzzleName = puzzleName
-  //      puzzleNameLabel.text = _solver.puzzleName
         undoButton.isEnabled = false
         
+        let findSetsSelected = (algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+        if !findSetsSelected {
+            blockSwitch.isEnabled  = false
+            blockSwitch.isOn  = false
+        }
+        blockSwitch.isEnabled = (algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+
 //        _solver.read()
 //        updateAndDisplayCells()
 //        _solver.findSetsForRow(0, sizeOfSet: 3)
@@ -244,7 +250,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         
         newPuzzleAction(undoButton)
         
-        #if HLDEBUG
+        #if !HLDEBUG
             readButton.isHidden = true
             writeButton.isHidden = true
         #endif
