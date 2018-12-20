@@ -24,9 +24,9 @@ enum HLAlgorithmMode: Int
     case MonoSectorAlgorithm
 }
 
-
 class HLSolver: NSObject {
     let url = URL(string: "https://nine.websudoku.com/?level=4&amp")!
+//    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=8663783213")!
     let kDataKey    = "Data"
     let kStatusKey  = "Status"
     let kNameKey    = "Name"
