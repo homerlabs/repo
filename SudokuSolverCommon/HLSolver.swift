@@ -26,7 +26,7 @@ enum HLAlgorithmMode: Int
 
 class HLSolver: NSObject {
     let url = URL(string: "https://nine.websudoku.com/?level=4&amp")!
-//    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=8663783213")!
+ //   let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=8700119084")!
     let kDataKey    = "Data"
     let kStatusKey  = "Status"
     let kNameKey    = "Name"
@@ -371,6 +371,15 @@ class HLSolver: NSObject {
             if data.count != data2.count        {
                 status = .changedStatus
                 dataSet[index] = (data, status) }
+        }
+        
+        //  check for cells only have 1 value after prunning and mark them solved
+        for index in 0..<dataSet.kCellCount {
+            let (data, status) = dataSet[index]
+            
+            if data.count == 1 && status == .unsolvedStatus   {
+                dataSet[index] = (data, .solvedStatus)
+            }
         }
     }
     

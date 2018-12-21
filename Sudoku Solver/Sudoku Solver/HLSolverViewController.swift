@@ -55,7 +55,8 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         hlWebView = WKWebView(frame:self.view.bounds)
         hlWebView.navigationDelegate = self
         hlWebView.load(request)
-    }
+        solveButton.isEnabled = false
+   }
     
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -69,6 +70,7 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         //           print( "puzzleString: \(puzzleString)" )
                     self.updateDisplay()
                     self.undoButton.isEnabled = false
+                    self.solveButton.isEnabled = true
                 }
         })
     }

@@ -158,8 +158,8 @@
 		B0FCA58721BD74A700365374 /* SudokuSolverCommon */ = {
 			isa = PBXGroup;
 			children = (
-				B0FCA58821BD74A700365374 /* HLMatrix.swift */,
 				B0FCA58921BD74A700365374 /* HLSolver.swift */,
+				B0FCA58821BD74A700365374 /* HLMatrix.swift */,
 			);
 			name = SudokuSolverCommon;
 			path = ../SudokuSolverCommon;
