@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B039647F1B54962C00BA226A /* HLCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */; };
 		B03964801B54962C00BA226A /* HLCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */; };
-		B04C6C44204846AE00C23B41 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B04C6C43204846AE00C23B41 /* Overview.pdf */; };
 		B05E3D8C204C720B00BCA8FA /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8B204C720B00BCA8FA /* GameKit.framework */; };
 		B05E3D8E204C720F00BCA8FA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8D204C720F00BCA8FA /* StoreKit.framework */; };
 		B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EB91B54775600DEA64D /* AppDelegate.swift */; };
@@ -18,6 +17,12 @@
 		B0986EC41B54775600DEA64D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC21B54775600DEA64D /* LaunchScreen.xib */; };
 		B0986ED01B54775600DEA64D /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */; };
 		B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */; };
+		B0A5DF1121CD959400D98119 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0C21CD959400D98119 /* Overview.pdf */; };
+		B0A5DF1221CD959400D98119 /* ColorRed.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0D21CD959400D98119 /* ColorRed.png */; };
+		B0A5DF1321CD959400D98119 /* ColorBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0E21CD959400D98119 /* ColorBlue.png */; };
+		B0A5DF1421CD959400D98119 /* ColorGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0F21CD959400D98119 /* ColorGreen.png */; };
+		B0A5DF1521CD959400D98119 /* ColorBrown.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF1021CD959400D98119 /* ColorBrown.png */; };
+		B0A5DF1721CDA14B00D98119 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A5DF1621CDA14B00D98119 /* UIView+Extension.swift */; };
 		B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */; };
 		B0FCA58A21BD74A700365374 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58821BD74A700365374 /* HLMatrix.swift */; };
 		B0FCA58B21BD74A700365374 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58821BD74A700365374 /* HLMatrix.swift */; };
@@ -38,7 +43,6 @@
 /* Begin PBXFileReference section */
 		B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLCollectionViewCell.swift; sourceTree = "<group>"; };
 		B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLCollectionViewCell.xib; sourceTree = "<group>"; };
-		B04C6C43204846AE00C23B41 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Overview.pdf; sourceTree = "<group>"; };
 		B05E3D8B204C720B00BCA8FA /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		B05E3D8D204C720F00BCA8FA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B0986EB41B54775600DEA64D /* HLSudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLSudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +55,12 @@
 		B0986ECE1B54775600DEA64D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
 		B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolverViewController.swift; sourceTree = "<group>"; };
+		B0A5DF0C21CD959400D98119 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Overview.pdf; sourceTree = "<group>"; };
+		B0A5DF0D21CD959400D98119 /* ColorRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorRed.png; sourceTree = "<group>"; };
+		B0A5DF0E21CD959400D98119 /* ColorBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorBlue.png; sourceTree = "<group>"; };
+		B0A5DF0F21CD959400D98119 /* ColorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorGreen.png; sourceTree = "<group>"; };
+		B0A5DF1021CD959400D98119 /* ColorBrown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorBrown.png; sourceTree = "<group>"; };
+		B0A5DF1621CDA14B00D98119 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLHelpViewController.swift; sourceTree = "<group>"; };
 		B0FCA58821BD74A700365374 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B0FCA58921BD74A700365374 /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
@@ -76,14 +86,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B04C6C42204846AE00C23B41 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				B04C6C43204846AE00C23B41 /* Overview.pdf */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		B05E3D88204C706500BCA8FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,8 +98,8 @@
 		B0986EAB1B54775600DEA64D = {
 			isa = PBXGroup;
 			children = (
+				B0A5DF0B21CD959400D98119 /* Resources */,
 				B0FCA58721BD74A700365374 /* SudokuSolverCommon */,
-				B04C6C42204846AE00C23B41 /* Resources */,
 				B0986EB61B54775600DEA64D /* Sudoku Solver */,
 				B0986ECC1B54775600DEA64D /* Sudoku SolverTests */,
 				B0986EB51B54775600DEA64D /* Products */,
@@ -126,6 +128,7 @@
 				B0986EB71B54775600DEA64D /* Supporting Files */,
 				B039647D1B54962C00BA226A /* HLCollectionViewCell.swift */,
 				B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */,
+				B0A5DF1621CDA14B00D98119 /* UIView+Extension.swift */,
 			);
 			path = "Sudoku Solver";
 			sourceTree = "<group>";
@@ -153,6 +156,18 @@
 				B0986ECE1B54775600DEA64D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0A5DF0B21CD959400D98119 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B0A5DF0C21CD959400D98119 /* Overview.pdf */,
+				B0A5DF0D21CD959400D98119 /* ColorRed.png */,
+				B0A5DF0E21CD959400D98119 /* ColorBlue.png */,
+				B0A5DF0F21CD959400D98119 /* ColorGreen.png */,
+				B0A5DF1021CD959400D98119 /* ColorBrown.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		B0FCA58721BD74A700365374 /* SudokuSolverCommon */ = {
@@ -258,10 +273,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B03964801B54962C00BA226A /* HLCollectionViewCell.xib in Resources */,
+				B0A5DF1521CD959400D98119 /* ColorBrown.png in Resources */,
+				B0A5DF1421CD959400D98119 /* ColorGreen.png in Resources */,
 				B0986EBF1B54775600DEA64D /* Main.storyboard in Resources */,
-				B04C6C44204846AE00C23B41 /* Overview.pdf in Resources */,
+				B0A5DF1121CD959400D98119 /* Overview.pdf in Resources */,
 				B0986EC41B54775600DEA64D /* LaunchScreen.xib in Resources */,
 				B0986EC11B54775600DEA64D /* Images.xcassets in Resources */,
+				B0A5DF1221CD959400D98119 /* ColorRed.png in Resources */,
+				B0A5DF1321CD959400D98119 /* ColorBlue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */,
+				B0A5DF1721CDA14B00D98119 /* UIView+Extension.swift in Sources */,
 				B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */,
 				B0FCA58A21BD74A700365374 /* HLMatrix.swift in Sources */,
 				B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */,
