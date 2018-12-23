@@ -17,13 +17,13 @@
 		B0986EC41B54775600DEA64D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC21B54775600DEA64D /* LaunchScreen.xib */; };
 		B0986ED01B54775600DEA64D /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */; };
 		B0986EDC1B54781900DEA64D /* HLSolverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */; };
-		B0A5DF1121CD959400D98119 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0C21CD959400D98119 /* Overview.pdf */; };
-		B0A5DF1221CD959400D98119 /* ColorRed.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0D21CD959400D98119 /* ColorRed.png */; };
-		B0A5DF1321CD959400D98119 /* ColorBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0E21CD959400D98119 /* ColorBlue.png */; };
-		B0A5DF1421CD959400D98119 /* ColorGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF0F21CD959400D98119 /* ColorGreen.png */; };
-		B0A5DF1521CD959400D98119 /* ColorBrown.png in Resources */ = {isa = PBXBuildFile; fileRef = B0A5DF1021CD959400D98119 /* ColorBrown.png */; };
 		B0A5DF1721CDA14B00D98119 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A5DF1621CDA14B00D98119 /* UIView+Extension.swift */; };
 		B0B6F8192043AE3E00E31EEB /* HLHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */; };
+		B0DA334021CFF71900A5F1AA /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0DA333821CFF71900A5F1AA /* Overview.pdf */; };
+		B0DA334121CFF71900A5F1AA /* ColorRed.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DA333921CFF71900A5F1AA /* ColorRed.png */; };
+		B0DA334321CFF71900A5F1AA /* ColorBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DA333B21CFF71900A5F1AA /* ColorBlue.png */; };
+		B0DA334421CFF71900A5F1AA /* ColorGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DA333C21CFF71900A5F1AA /* ColorGreen.png */; };
+		B0DA334621CFF71900A5F1AA /* ColorBrown.png in Resources */ = {isa = PBXBuildFile; fileRef = B0DA333E21CFF71900A5F1AA /* ColorBrown.png */; };
 		B0FCA58A21BD74A700365374 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58821BD74A700365374 /* HLMatrix.swift */; };
 		B0FCA58B21BD74A700365374 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58821BD74A700365374 /* HLMatrix.swift */; };
 		B0FCA58C21BD74A700365374 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCA58921BD74A700365374 /* HLSolver.swift */; };
@@ -55,13 +55,13 @@
 		B0986ECE1B54775600DEA64D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0986ECF1B54775600DEA64D /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
 		B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolverViewController.swift; sourceTree = "<group>"; };
-		B0A5DF0C21CD959400D98119 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Overview.pdf; sourceTree = "<group>"; };
-		B0A5DF0D21CD959400D98119 /* ColorRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorRed.png; sourceTree = "<group>"; };
-		B0A5DF0E21CD959400D98119 /* ColorBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorBlue.png; sourceTree = "<group>"; };
-		B0A5DF0F21CD959400D98119 /* ColorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorGreen.png; sourceTree = "<group>"; };
-		B0A5DF1021CD959400D98119 /* ColorBrown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorBrown.png; sourceTree = "<group>"; };
 		B0A5DF1621CDA14B00D98119 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLHelpViewController.swift; sourceTree = "<group>"; };
+		B0DA333821CFF71900A5F1AA /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Overview.pdf; sourceTree = "<group>"; };
+		B0DA333921CFF71900A5F1AA /* ColorRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorRed.png; sourceTree = "<group>"; };
+		B0DA333B21CFF71900A5F1AA /* ColorBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorBlue.png; sourceTree = "<group>"; };
+		B0DA333C21CFF71900A5F1AA /* ColorGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorGreen.png; sourceTree = "<group>"; };
+		B0DA333E21CFF71900A5F1AA /* ColorBrown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorBrown.png; sourceTree = "<group>"; };
 		B0FCA58821BD74A700365374 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B0FCA58921BD74A700365374 /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +98,7 @@
 		B0986EAB1B54775600DEA64D = {
 			isa = PBXGroup;
 			children = (
-				B0A5DF0B21CD959400D98119 /* Resources */,
+				B0DA333621CFF71900A5F1AA /* Resources */,
 				B0FCA58721BD74A700365374 /* SudokuSolverCommon */,
 				B0986EB61B54775600DEA64D /* Sudoku Solver */,
 				B0986ECC1B54775600DEA64D /* Sudoku SolverTests */,
@@ -158,14 +158,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B0A5DF0B21CD959400D98119 /* Resources */ = {
+		B0DA333621CFF71900A5F1AA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B0A5DF0C21CD959400D98119 /* Overview.pdf */,
-				B0A5DF0D21CD959400D98119 /* ColorRed.png */,
-				B0A5DF0E21CD959400D98119 /* ColorBlue.png */,
-				B0A5DF0F21CD959400D98119 /* ColorGreen.png */,
-				B0A5DF1021CD959400D98119 /* ColorBrown.png */,
+				B0DA333821CFF71900A5F1AA /* Overview.pdf */,
+				B0DA333921CFF71900A5F1AA /* ColorRed.png */,
+				B0DA333B21CFF71900A5F1AA /* ColorBlue.png */,
+				B0DA333C21CFF71900A5F1AA /* ColorGreen.png */,
+				B0DA333E21CFF71900A5F1AA /* ColorBrown.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -273,14 +273,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B03964801B54962C00BA226A /* HLCollectionViewCell.xib in Resources */,
-				B0A5DF1521CD959400D98119 /* ColorBrown.png in Resources */,
-				B0A5DF1421CD959400D98119 /* ColorGreen.png in Resources */,
+				B0DA334321CFF71900A5F1AA /* ColorBlue.png in Resources */,
 				B0986EBF1B54775600DEA64D /* Main.storyboard in Resources */,
-				B0A5DF1121CD959400D98119 /* Overview.pdf in Resources */,
 				B0986EC41B54775600DEA64D /* LaunchScreen.xib in Resources */,
+				B0DA334621CFF71900A5F1AA /* ColorBrown.png in Resources */,
+				B0DA334021CFF71900A5F1AA /* Overview.pdf in Resources */,
 				B0986EC11B54775600DEA64D /* Images.xcassets in Resources */,
-				B0A5DF1221CD959400D98119 /* ColorRed.png in Resources */,
-				B0A5DF1321CD959400D98119 /* ColorBlue.png in Resources */,
+				B0DA334121CFF71900A5F1AA /* ColorRed.png in Resources */,
+				B0DA334421CFF71900A5F1AA /* ColorGreen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
