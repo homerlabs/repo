@@ -25,7 +25,7 @@ enum HLAlgorithmMode: Int
 }
 
 class HLSolver: NSObject {
-    let url = URL(string: "https://nine.websudoku.com/?level=4&amp")!
+    let url = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
     let kDataKey    = "Data"
     let kStatusKey  = "Status"

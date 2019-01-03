@@ -107,16 +107,47 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
 
 
-   @IBAction func newPuzzleAction(_ sender: NSButton)  {
+   @IBAction func newPuzzleAction(_ sender: Any)  {
+        fetchPuzzle(id: "")
+    }
+    
+    @IBAction func fetchPuzzleAction(_ sender: Any) {
+        print( "fetchPuzzleAction" )
+        
+        let alert = NSAlert()
+        alert.messageText = "Enter the puzzle id:"
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
+        alert.accessoryView = textField
+        
+        let buttonPressed = alert.runModal()
+        
+        if buttonPressed == NSApplication.ModalResponse.alertFirstButtonReturn {
+            fetchPuzzle(id: textField.stringValue)
+        }
+    }
+    
+    func fetchPuzzle(id: String)   {
+        print( "fetchPuzzle: \(String(describing: id))" )
         webView = WKWebView(frame: view.frame)
         webView.navigationDelegate = self
-        webView.load(URLRequest(url: puzzle.url));
+        let urlId = "&set_id=\(id)"
+       webView.load(URLRequest(url: puzzle.url));
     
         undoButton.isEnabled = false
         solveButton.isEnabled = false
         puzzleNameTextField.stringValue = ""
     }
-    
+
+    @objc func printQuote(_ sender: Any?) {
+        let quoteText = "Never put off until tomorrow what you can do the day after tomorrow."
+        let quoteAuthor = "Mark Twain"
+
+        print("\(quoteText) — \(quoteAuthor)")
+    }
+
   fileprivate func configureCollectionView() {
     let flowLayout = NSCollectionViewFlowLayout()
     flowLayout.itemSize = NSSize(width: 52.0, height: 54.0)
