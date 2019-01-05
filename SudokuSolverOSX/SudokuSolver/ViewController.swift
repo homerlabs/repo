@@ -107,8 +107,16 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
 
 
+   @IBAction func openAction(_ sender: Any)  {
+        print( "openAction" )
+    }
+    
+   @IBAction func saveAction(_ sender: Any)  {
+        print( "saveAction" )
+    }
+    
    @IBAction func newPuzzleAction(_ sender: Any)  {
-        fetchPuzzle(id: "")
+        fetchPuzzle(url: puzzle.url)
     }
     
     @IBAction func fetchPuzzleAction(_ sender: Any) {
@@ -119,22 +127,22 @@ class ViewController: NSViewController, WKNavigationDelegate {
         alert.addButton(withTitle: "OK")
         alert.addButton(withTitle: "Cancel")
         
-        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 30))
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 170, height: 20))
         alert.accessoryView = textField
         
         let buttonPressed = alert.runModal()
         
         if buttonPressed == NSApplication.ModalResponse.alertFirstButtonReturn {
-            fetchPuzzle(id: textField.stringValue)
+            if let url = URL(string: "\(puzzle.url.absoluteString)&set_id=\(textField.stringValue)")    {  fetchPuzzle(url: url)            }
+            else                                                                                        {   fetchPuzzle(url: puzzle.url)    }
         }
     }
     
-    func fetchPuzzle(id: String)   {
-        print( "fetchPuzzle: \(String(describing: id))" )
+    func fetchPuzzle(url: URL)   {
+        print( "fetchPuzzle: \(url)" )
         webView = WKWebView(frame: view.frame)
         webView.navigationDelegate = self
-        let urlId = "&set_id=\(id)"
-       webView.load(URLRequest(url: puzzle.url));
+        webView.load(URLRequest(url: url));
     
         undoButton.isEnabled = false
         solveButton.isEnabled = false

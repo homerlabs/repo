@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B00EB7B421C8140700C2724A /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B00EB7B321C8140700C2724A /* Help */; };
+		B01A8F9921E0ED0F005DAE5E /* HLFilePathManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01A8F9821E0ED0E005DAE5E /* HLFilePathManager.swift */; };
 		B023811D21BC0B4A007E8988 /* HLCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */; };
 		B023811E21BC0B4A007E8988 /* HLCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */; };
 		B0576D7921BD75DC00EDFEE0 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		B00EB7B321C8140700C2724A /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
+		B01A8F9821E0ED0E005DAE5E /* HLFilePathManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLFilePathManager.swift; sourceTree = "<group>"; };
 		B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCollectionViewItem.swift; sourceTree = "<group>"; };
 		B023811C21BC0B4A007E8988 /* HLCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HLCollectionViewItem.xib; sourceTree = "<group>"; };
 		B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				B074CD49203656E30053FC11 /* Info.plist */,
 				B074CD4A203656E30053FC11 /* SudokuSolver.entitlements */,
 				B05B2B6A21C174120062620D /* Int+Extension.swift */,
+				B01A8F9821E0ED0E005DAE5E /* HLFilePathManager.swift */,
 			);
 			path = SudokuSolver;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			files = (
 				B0576D7A21BD75DC00EDFEE0 /* HLSolver.swift in Sources */,
 				B074CD43203656E30053FC11 /* ViewController.swift in Sources */,
+				B01A8F9921E0ED0F005DAE5E /* HLFilePathManager.swift in Sources */,
 				B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */,
 				B05B2B6B21C174120062620D /* Int+Extension.swift in Sources */,
 				B0576D7921BD75DC00EDFEE0 /* HLMatrix.swift in Sources */,
