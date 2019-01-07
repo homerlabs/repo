@@ -11,10 +11,10 @@ import Foundation
 
 enum HLCellStatus: Int
 {
-    case unsolvedStatus
     case givenStatus
-    case solvedStatus
+    case unsolvedStatus
     case changedStatus
+    case solvedStatus   //  keep this one last as its used as enum count
 }
 
 enum HLAlgorithmMode: Int
@@ -563,6 +563,71 @@ class HLSolver: NSObject {
             UserDefaults.standard.set(puzzleName, forKey: kNameKey)
             UserDefaults.standard.set(dataArray, forKey: kDataKey)
             UserDefaults.standard.set(statusArray, forKey: kStatusKey)
+    }
+    
+    
+    func loadPuzzleWith(data: String)   {
+        var array: [Substring] = data.split(separator: "\n")
+        var tempData = Matrix(rows:9, columns:9)
+        var tempStatus = Array(repeating: 0, count: kCellCount)
+        var tempName = ""
+        tempName = String(array[0])
+        array.remove(at: 0) //  get rid of the puzzlename line and leave cell data
+        for index in 0..<kCellCount {
+            let line = String(array[index])
+            let valueArray = line.split(separator: "\t")
+            let (valueInt, statusInt) = (Int(valueArray[0]), Int(valueArray[1]))
+
+            //  make sure we get 2 Ints (value, status)
+            guard let value = valueInt, let status = statusInt else {
+                print("Bad data on line: \(index+1)   data: \(line)")
+                return
+            }
+            
+            //  make sure that status value is in range
+            guard status >= 0,  status <= HLCellStatus.solvedStatus.rawValue else
+            {
+                print("Bad status data on line: \(index+1)   data: \(line)")
+                return
+            }
+            
+            tempStatus[index] = status
+            if valueInt == 0   {
+                tempData[index] = (fullSet, HLCellStatus.init(rawValue: status)!)
+            }
+            else    {
+                let str = String(value)
+                let data = Set<String>([str])
+                 tempData[index] = (data, .solvedStatus)
+            }
+        }
+        dataSet = tempData
+        prunePuzzle(rows:true, columns:true, blocks:true)
+        
+        //  restore status values
+        previousDataSet = dataSet
+        for index in 0..<kCellCount {
+            var (value, status) = dataSet[index]
+            status = HLCellStatus.init(rawValue: tempStatus[index])!
+            dataSet[index] = (value, status)
+        }
+        
+        previousDataSet = dataSet
+        puzzleName = tempName
+    }
+    
+    
+    func dataToString() -> String {
+        print( "HLSolver-  dataToText" )
+        var outString = ""
+        outString.append("\(puzzleName)\n")
+        for index in 0..<kCellCount {
+            let (data, status) = dataSet[index]
+            if data.count == 1  {   outString.append("\(data.first!)\t\(status.rawValue)\n")    }
+            else                {   outString.append("0\t\(status.rawValue)\n")                 }
+        }
+
+        return outString
     }
     
     

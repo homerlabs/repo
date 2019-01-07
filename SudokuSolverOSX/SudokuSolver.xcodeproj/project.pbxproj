@@ -83,6 +83,7 @@
 		B074CD3F203656E30053FC11 /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
+				B01A8F9821E0ED0E005DAE5E /* HLFilePathManager.swift */,
 				B074CD42203656E30053FC11 /* ViewController.swift */,
 				B074CD46203656E30053FC11 /* Main.storyboard */,
 				B023811B21BC0B4A007E8988 /* HLCollectionViewItem.swift */,
@@ -92,7 +93,6 @@
 				B074CD49203656E30053FC11 /* Info.plist */,
 				B074CD4A203656E30053FC11 /* SudokuSolver.entitlements */,
 				B05B2B6A21C174120062620D /* Int+Extension.swift */,
-				B01A8F9821E0ED0E005DAE5E /* HLFilePathManager.swift */,
 			);
 			path = SudokuSolver;
 			sourceTree = "<group>";

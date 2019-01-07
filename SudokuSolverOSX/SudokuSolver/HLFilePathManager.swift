@@ -35,11 +35,11 @@ class HLFilePathManager: NSObject {
         var path: String?
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
-        savePanel.title = "PrimeFinder Save Panel";
+        savePanel.title = title;
         savePanel.nameFieldStringValue = fileName;
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
-        savePanel.message = title;
+ //       savePanel.message = title;
         savePanel.nameFieldLabel = "Save As:";
         savePanel.allowedFileTypes = ["txt"];
 

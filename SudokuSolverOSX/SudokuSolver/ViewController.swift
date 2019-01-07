@@ -17,6 +17,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     var columnsSelected: NSControl.StateValue = .on
     var blocksSelected: NSControl.StateValue = .on
     var savedBlocksSelected: NSControl.StateValue = .on //  needed for when button is disabled
+    let filepathManager = HLFilePathManager()
 
     @IBOutlet weak var algorithmSelect: NSSegmentedControl!
     @IBOutlet weak var collectionView: NSCollectionView!
@@ -41,7 +42,6 @@ class ViewController: NSViewController, WKNavigationDelegate {
         blocksSelected  = blockSwitch.state
         savedBlocksSelected  = blockSwitch.state
 
-  //      let x = (rowsSelected == .off).rawValue
         defaults.set(rowsSelected == .off,     forKey:rowSwitchKey )
         defaults.set(columnsSelected == .off,  forKey:columnSwitchKey )
         defaults.set(blocksSelected == .off,   forKey:blockSwitchKey )
@@ -83,7 +83,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
     
     @IBAction func modeSelectAction(_ sender:NSSegmentedControl)    {
-        print( "modeSelectAction" )
+ //       print( "modeSelectAction" )
         defaults.set(algorithmSelect.selectedSegment, forKey: modeSelectKey)
 
         //  disable Blocks Switch for Mono Cell Mode
@@ -108,11 +108,37 @@ class ViewController: NSViewController, WKNavigationDelegate {
 
 
    @IBAction func openAction(_ sender: Any)  {
-        print( "openAction" )
+        if let path = filepathManager.getOpenFilePath(title: "Open Sudoku Data File", bookmarkKey: "not used")    {
+            let url = URL(fileURLWithPath: path)
+            print( "openAction: \(String(describing: path))" )
+            var inString = ""
+            do {
+                inString = try String(contentsOf: url)
+                puzzle.loadPuzzleWith(data: inString)
+                
+                let unsolvedCount = puzzle.unsolvedCount()
+                nodeCountTextField.stringValue = "Unsolved Nodes: \(unsolvedCount)"
+                solveButton.isEnabled = (unsolvedCount != 0)
+                collectionView.reloadData()
+                puzzleNameTextField.stringValue = puzzle.puzzleName
+            } catch {
+                print("Failed reading from URL: \(url), Error: " + error.localizedDescription)
+            }
+     //       print("Read from the file: \(inString)")
+        }
     }
     
    @IBAction func saveAction(_ sender: Any)  {
-        print( "saveAction" )
+        if let path = filepathManager.getSaveFilePath(title: "Sudoku Solver Save Panel", fileName: "SudokuData", bookmarkKey: "not used")    {
+            let url = URL(fileURLWithPath: path)
+            print( "saveAction: path" )
+            let outString = puzzle.dataToString()
+            do {
+                try outString.write(to: url, atomically: true, encoding: .utf8)
+            } catch {
+                print("Failed writing to URL: \(url), Error: " + error.localizedDescription)
+            }
+        }
     }
     
    @IBAction func newPuzzleAction(_ sender: Any)  {
@@ -120,7 +146,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
     
     @IBAction func fetchPuzzleAction(_ sender: Any) {
-        print( "fetchPuzzleAction" )
+//        print( "fetchPuzzleAction" )
         
         let alert = NSAlert()
         alert.messageText = "Enter the puzzle id:"
@@ -139,7 +165,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
     
     func fetchPuzzle(url: URL)   {
-        print( "fetchPuzzle: \(url)" )
+//        print( "fetchPuzzle: \(url)" )
         webView = WKWebView(frame: view.frame)
         webView.navigationDelegate = self
         webView.load(URLRequest(url: url));
@@ -168,7 +194,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
   }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        print( "didFinishNavigationdidFinishNavigation" )
+        print( "WKNavigationDelegate-  didFinish" )
         
         webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
        //         print( "innerHTML: \(String(describing: html))" )
@@ -184,13 +210,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     func updateDisplay()  {
         let unsolvedCount = puzzle.unsolvedCount()
         nodeCountTextField.stringValue = "Unsolved Nodes: \(unsolvedCount)"
-
-        if unsolvedCount == 0 {
-            solveButton.isEnabled = false
-        }
-        else    {
-            solveButton.isEnabled = true
-        }
+        solveButton.isEnabled = (unsolvedCount != 0)
         puzzle.updateChangedCells() //  make sure to call this befoe reloading collectionview
         collectionView.reloadData()
     }
