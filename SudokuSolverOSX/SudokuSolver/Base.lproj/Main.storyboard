@@ -86,16 +86,6 @@
                                                 <action selector="saveAction:" target="Ady-hI-5gd" id="wBW-2N-MNV"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
-                                            <connections>
-                                                <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
-                                            <connections>
-                                                <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
@@ -123,11 +113,6 @@
                                         <menuItem title="Paste" keyEquivalent="v" id="wMB-G7-mEj">
                                             <connections>
                                                 <action selector="paste:" target="Ady-hI-5gd" id="CfT-3o-JAx"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Select All" keyEquivalent="a" id="UxI-E3-DYB">
-                                            <connections>
-                                                <action selector="selectAll:" target="Ady-hI-5gd" id="AyZ-cU-wwN"/>
                                             </connections>
                                         </menuItem>
                                     </items>
