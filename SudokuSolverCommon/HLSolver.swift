@@ -275,6 +275,7 @@ class HLSolver: NSObject {
     }
     
     
+    //  prunePuzzle() calls itself until node count remains unchanged
     func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool)  {
 
         func prunePuzzleRows()                          {
@@ -603,6 +604,11 @@ class HLSolver: NSObject {
         }
         dataSet = tempData
         prunePuzzle(rows:true, columns:true, blocks:true)
+        
+        guard isValidPuzzle() else  {
+            print("Error:  Data was parsed but produced invalid puzzle.")
+            return
+        }
         
         //  restore status values
         previousDataSet = dataSet
