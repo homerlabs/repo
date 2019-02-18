@@ -87,6 +87,12 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
+                                        <menuItem title="Fast Solve" keyEquivalent="f" id="Bfs-qK-tOX">
+                                            <connections>
+                                                <action selector="fastSolveAction:" target="Ady-hI-5gd" id="fME-eM-rtU"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="O59-xQ-3uZ"/>
                                         <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
@@ -555,7 +561,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="74" y="1057"/>
+            <point key="canvasLocation" x="289" y="1167"/>
         </scene>
     </scenes>
 </document>

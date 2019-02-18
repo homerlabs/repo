@@ -164,6 +164,19 @@ class ViewController: NSViewController, WKNavigationDelegate {
         }
     }
     
+    @IBAction func fastSolveAction(_ sender: Any) {
+        print( "fastSolveAction" )
+        
+        while puzzle.unsolvedCount() > 0    {
+            puzzle.findMonoCells(rows: true, columns: true)
+            puzzle.findPuzzleSets(rows: true, columns: true, blocks: true)
+            puzzle.findMonoSectors(rows: true, columns: true)
+        print( "fastSolveAction-  puzzle.unsolvedCount:  \(puzzle.unsolvedCount())" )
+        }
+        
+        updateDisplay()
+    }
+    
     func fetchPuzzle(url: URL)   {
 //        print( "fetchPuzzle: \(url)" )
         webView = WKWebView(frame: view.frame)

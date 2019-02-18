@@ -97,13 +97,15 @@ class HLSolver: NSObject {
                         }
                     }
                 }
-            }
+                
+                prunePuzzle(rows: true, columns: true, blocks: true)
+           }
             
             //  start of monoCellRows
        //     print("monoCellRows")
-            for row in 0..<kRows    {   monoCell(row)   }
-        
-            prunePuzzle(rows: true, columns: true, blocks: true)
+            for row in 0..<kRows    {
+                monoCell(row)
+            }
         }
     
         func monoCellColumns()      {
@@ -111,8 +113,8 @@ class HLSolver: NSObject {
             monoCellRows()
             convertColumnsToRows()  }
 
-        //  start of func findMonoSectors()
-        print("findMonoSectors")
+        //  start of func findMonoCells()
+        print("findMonoCells")
         if rows     {   monoCellRows()    }
         if columns  {   monoCellColumns() }
     }
@@ -124,7 +126,7 @@ class HLSolver: NSObject {
             
             //  returns an array of found MonoSectors as a tuple (num, sector)
             func findMonoSectorForRow(_ row: Int) -> [(Int, Int)]    {
-                print("monoSector")
+   //             print("monoSector")
                 
                 var foundMonoSectors: [(Int, Int)] = Array()
                 let sectorNotFound = -1     //  anything but 0-2
@@ -152,7 +154,7 @@ class HLSolver: NSObject {
                     
                     if sector != sectorNotFound     {
                         foundMonoSectors.append((num, sector))
-                        print("foundMonoSectors: \(row)   foundMonoSectors: \(foundMonoSectors)")
+           //             print("foundMonoSectors: \(row)   foundMonoSectors: \(foundMonoSectors)")
                     }
                 }
              
@@ -317,7 +319,7 @@ class HLSolver: NSObject {
             if blocks   {   prunePuzzleBlocks()  }
 
             currentNodeCount = unsolvedCount()
-            assert( isValidPuzzle(), "Puzzle is not valid!" )
+            assert( isValidPuzzle(), "Puzzle \(puzzleName) is not valid!" )
         }
         while previousNodeCount != currentNodeCount
     }
