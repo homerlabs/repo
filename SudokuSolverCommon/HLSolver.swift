@@ -19,9 +19,9 @@ enum HLCellStatus: Int
 
 enum HLAlgorithmMode: Int
 {
-    case MonoCellAlgorithm
-    case FindSetsAlgorithm
-    case MonoSectorAlgorithm
+    case MonoCell
+    case FindSets
+    case MonoSector
 }
 
 class HLSolver: NSObject {
@@ -84,7 +84,7 @@ class HLSolver: NSObject {
                         for item: String in data {  numArray[Int(item)!] += 1   }   }
                 }
                 
-                for index in 1..<10 {
+                for index in 1...9 {
                     if numArray[index] == 1 {
                         for column in 0..<kColumns     {
                             let (data, _) = dataSet[row, column]
@@ -202,6 +202,7 @@ class HLSolver: NSObject {
                 for item in foundSet                                                {
                //     print("foundMonoSectors: \(row)   item: \(item)")
                     reduceBlockForRow(row, sector: item.1, reduceNumber: item.0)    }
+                    prunePuzzle(rows: true, columns: true, blocks: true)
             }
         }
 

@@ -40,7 +40,10 @@ class ViewController: NSViewController, WKNavigationDelegate {
         rowsSelected    = rowSwitch.state
         columnsSelected = columnSwitch.state
         blocksSelected  = blockSwitch.state
-        savedBlocksSelected  = blockSwitch.state
+        
+        if algorithmSelect.selectedSegment == HLAlgorithmMode.FindSets.rawValue {
+            savedBlocksSelected  = blockSwitch.state
+        }
 
         defaults.set(rowsSelected == .off,     forKey:rowSwitchKey )
         defaults.set(columnsSelected == .off,  forKey:columnSwitchKey )
@@ -62,15 +65,15 @@ class ViewController: NSViewController, WKNavigationDelegate {
         
         switch( algorithmSelect.selectedSegment )
         {
-            case 0:     //  Mono Cell
+            case HLAlgorithmMode.MonoCell.rawValue:
                 puzzle.findMonoCells(rows: rowsSelected == .on, columns: columnsSelected == .on)
                 break
         
-            case 1:     //  Find Sets
+            case HLAlgorithmMode.FindSets.rawValue:
                 puzzle.findPuzzleSets(rows: rowsSelected == .on, columns: columnsSelected == .on, blocks: blocksSelected == .on)
                 break
         
-            case 2:     //  Mono Sectors
+            case HLAlgorithmMode.MonoSector.rawValue:
                 puzzle.findMonoSectors(rows: rowsSelected == .on, columns: columnsSelected == .on)
                 break
         
@@ -87,21 +90,19 @@ class ViewController: NSViewController, WKNavigationDelegate {
         defaults.set(algorithmSelect.selectedSegment, forKey: modeSelectKey)
 
         //  disable Blocks Switch for Mono Cell Mode
-        if algorithmSelect.selectedSegment == HLAlgorithmMode.MonoCellAlgorithm.rawValue       {       //  Mono Cell
+        if algorithmSelect.selectedSegment == HLAlgorithmMode.MonoCell.rawValue       {
             blockSwitch.isEnabled = false
-            savedBlocksSelected = blockSwitch.state
             blockSwitch.state = .off
         }
         
-        else if algorithmSelect.selectedSegment == HLAlgorithmMode.FindSetsAlgorithm.rawValue    {      //  Find Sets
+        else if algorithmSelect.selectedSegment == HLAlgorithmMode.FindSets.rawValue    {
             blockSwitch.isEnabled = true
             blockSwitch.state = savedBlocksSelected
         }
         
         //  disable Blocks Switch for Mono Sector Mode
-        else if algorithmSelect.selectedSegment == HLAlgorithmMode.MonoSectorAlgorithm.rawValue    {      //  Mono Sector
+        else if algorithmSelect.selectedSegment == HLAlgorithmMode.MonoSector.rawValue    {
             blockSwitch.isEnabled = false
-            savedBlocksSelected = blockSwitch.state
             blockSwitch.state = .off
         }
     }
@@ -245,12 +246,12 @@ class ViewController: NSViewController, WKNavigationDelegate {
         columnSwitch.state  = columnsSelected
         blockSwitch.state   = blocksSelected
         
-        let findSetsSelected = (algorithmSelect.selectedSegment == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+        let findSetsSelected = (algorithmSelect.selectedSegment == HLAlgorithmMode.FindSets.rawValue)
         if !findSetsSelected {
             blockSwitch.isEnabled  = false
             blockSwitch.state  = .off
         }
-        blockSwitch.isEnabled = (algorithmSelect.selectedSegment == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+        blockSwitch.isEnabled = (algorithmSelect.selectedSegment == HLAlgorithmMode.FindSets.rawValue)
         configureCollectionView()
         
         newPuzzleAction(undoButton)    //  passed in value not used
