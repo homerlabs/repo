@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-Portrait.png" translatesAutoresizingMaskIntoConstraints="NO" id="pCP-W8-URP">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="pCP-W8-URP">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                 </imageView>
             </subviews>
@@ -32,6 +32,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Default-Portrait.png" width="1668" height="2224"/>
+        <image name="Launch" width="1668" height="2224"/>
     </resources>
 </document>

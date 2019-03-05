@@ -28,7 +28,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     let columnSwitchKey = "Column"
     let blockSwitchKey  = "Block"
     let modeSelectKey   = "mode"
-    let archiveKey      = "Archive"
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var puzzleNameLabel: UILabel!
@@ -51,6 +50,10 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     @IBAction func newPuzzleAction(_ sender: UIButton)
     {
         print("HLSolverViewController-  newPuzzleAction")
+        solveButton.setTitle("Prune", for: .normal)
+        _solver = HLSolver()
+        updateDisplay()
+        
         let request = URLRequest(url: _solver.url)
         hlWebView = WKWebView(frame:self.view.bounds)
         hlWebView.navigationDelegate = self
@@ -147,22 +150,32 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
     {
         _solver.previousDataSet = _solver.dataSet
 
-       switch( algorithmSelect.selectedSegmentIndex )
-        {
-            case HLAlgorithmMode.MonoCell.rawValue:
-                _solver.findMonoCells(rows: rowsSelected, columns: columnsSelected)
-                break
+        if _solver.puzzleState == .Initial   {
+            _solver.puzzleState = .Solving
+            solveButton.setTitle("Solve", for: .normal)
+            _solver.prunePuzzle(rows:true, columns:true, blocks:true)
+            _solver.previousDataSet = _solver.dataSet  //  remove 'Changed' status from cells
+        }
+        else    {
+           switch( algorithmSelect.selectedSegmentIndex )
+            {
+                case HLAlgorithmMode.MonoCell.rawValue:
+                    _solver.findMonoCells(rows: rowsSelected, columns: columnsSelected)
+                    break
             
-            case HLAlgorithmMode.FindSets.rawValue:
-                _solver.findPuzzleSets(rows: rowsSelected, columns: columnsSelected, blocks: blocksSelected)
-                break
+                case HLAlgorithmMode.FindSets.rawValue:
+                    _solver.findPuzzleSets(rows: rowsSelected, columns: columnsSelected, blocks: blocksSelected)
+                    break
             
-            case HLAlgorithmMode.MonoSector.rawValue:    
-                _solver.findMonoSectors(rows: rowsSelected, columns: columnsSelected)
-                break
+                case HLAlgorithmMode.MonoSector.rawValue:
+                    _solver.findMonoSectors(rows: rowsSelected, columns: columnsSelected)
+                    break
             
-            default:
-                break
+                default:
+                    break
+            }
+        
+            undoButton.isEnabled = true
         }
         
         updateAndDisplayCells()
@@ -175,7 +188,6 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         let unsolvedCount = _solver.unsolvedCount()
         nodeCountLabel.text = "Unsolved Nodes: \(unsolvedCount)"
         
-        undoButton.isEnabled = true
         if unsolvedCount == 0   {   solveButton.isEnabled = false    }
         else                    {   solveButton.isEnabled = true     }
     }
@@ -193,9 +205,9 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HLPuzzleCell",
                                         for: indexPath) as! HLCollectionViewCell
         
-        let (_, status) = _solver.dataSet[indexPath.row]
-        
-        cell.hlLabel!.text = _solver.dataSet.description(indexPath.row)
+        let (setData, status) = _solver.dataSet[indexPath.row]
+
+        cell.hlLabel!.text = _solver.setToString(setData)
 
        switch status {
             

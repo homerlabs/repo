@@ -313,11 +313,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbY-a6-gGW" userLabel="SolveButton">
-                                                <rect key="frame" x="512" y="38" width="38" height="30"/>
+                                                <rect key="frame" x="509" y="38" width="41" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="DQM-hW-zc5"/>
                                                 </constraints>
-                                                <state key="normal" title="Solve">
+                                                <state key="normal" title="Prune">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -325,7 +325,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcH-6f-4eh" userLabel="UndoButton">
-                                                <rect key="frame" x="406" y="38" width="38" height="30"/>
+                                                <rect key="frame" x="406" y="38" width="37" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="3VD-y0-tUu"/>
                                                 </constraints>
@@ -351,8 +351,8 @@
                                             <constraint firstAttribute="trailing" secondItem="9I9-M9-gre" secondAttribute="trailing" id="jqX-gJ-i2h"/>
                                             <constraint firstAttribute="trailing" secondItem="VbY-a6-gGW" secondAttribute="trailing" constant="10" id="kOn-aT-NVS"/>
                                             <constraint firstItem="8rj-Oa-WEK" firstAttribute="top" secondItem="9I9-M9-gre" secondAttribute="bottom" constant="10" id="lNr-mf-Yl4"/>
+                                            <constraint firstItem="VbY-a6-gGW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tcH-6f-4eh" secondAttribute="trailing" constant="66" id="o4k-k1-UbK"/>
                                             <constraint firstItem="9I9-M9-gre" firstAttribute="leading" secondItem="UHx-wS-tW8" secondAttribute="leading" id="qJ7-VN-saz"/>
-                                            <constraint firstItem="VbY-a6-gGW" firstAttribute="leading" secondItem="tcH-6f-4eh" secondAttribute="trailing" constant="68" id="xcC-AN-eqg"/>
                                         </constraints>
                                     </view>
                                 </subviews>
