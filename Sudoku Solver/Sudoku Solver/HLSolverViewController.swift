@@ -125,21 +125,19 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         defaults.set(algorithmSelect.selectedSegmentIndex, forKey: modeSelectKey)
 
         //  disable Blocks Switch for Mono Cell Mode
-        if algorithmSelect.selectedSegmentIndex == 0        {       //  Mono Cell
+        if algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.MonoCell.rawValue        {
             blockSwitch.isEnabled = false
-            savedBlocksSelected = blockSwitch.isOn
             blockSwitch.isOn = false
         }
         
-        else if algorithmSelect.selectedSegmentIndex == 1    {      //  Find Sets
+        else if algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSets.rawValue    {
             blockSwitch.isEnabled = true
             blockSwitch.isOn = savedBlocksSelected
         }
         
         //  disable Blocks Switch for Mono Sector Mode
-        else if algorithmSelect.selectedSegmentIndex == 2    {      //  Mono Sector
+        else if algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.MonoSector.rawValue    {
             blockSwitch.isEnabled = false
-            savedBlocksSelected = blockSwitch.isOn
             blockSwitch.isOn = false
         }
     }
@@ -151,15 +149,15 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
 
        switch( algorithmSelect.selectedSegmentIndex )
         {
-            case 0:     //  Mono Cell
+            case HLAlgorithmMode.MonoCell.rawValue:
                 _solver.findMonoCells(rows: rowsSelected, columns: columnsSelected)
                 break
             
-            case 1:     //  Find Sets
+            case HLAlgorithmMode.FindSets.rawValue:
                 _solver.findPuzzleSets(rows: rowsSelected, columns: columnsSelected, blocks: blocksSelected)
                 break
             
-            case 2:     //  Mono Sectors
+            case HLAlgorithmMode.MonoSector.rawValue:    
                 _solver.findMonoSectors(rows: rowsSelected, columns: columnsSelected)
                 break
             
@@ -234,12 +232,12 @@ class HLSolverViewController: UIViewController, UICollectionViewDataSource, WKNa
         
         undoButton.isEnabled = false
         
-        let findSetsSelected = (algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+        let findSetsSelected = (algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSets.rawValue)
         if !findSetsSelected {
             blockSwitch.isEnabled  = false
             blockSwitch.isOn  = false
         }
-        blockSwitch.isEnabled = (algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSetsAlgorithm.rawValue)
+        blockSwitch.isEnabled = (algorithmSelect.selectedSegmentIndex == HLAlgorithmMode.FindSets.rawValue)
 
 //        _solver.read()
 //        updateAndDisplayCells()
