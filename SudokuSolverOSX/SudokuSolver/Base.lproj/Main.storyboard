@@ -534,10 +534,10 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="OIc-6b-0LQ" firstAttribute="leading" secondItem="I0G-N8-cDs" secondAttribute="trailing" constant="270" id="0MT-Xf-SsW"/>
                             <constraint firstItem="Ts6-Bx-S1g" firstAttribute="leading" secondItem="I0G-N8-cDs" secondAttribute="leading" id="Dg9-rQ-D2R"/>
-                            <constraint firstItem="UxE-Hh-eIk" firstAttribute="leading" secondItem="OIc-6b-0LQ" secondAttribute="trailing" constant="41" id="Llb-WA-Vmj"/>
+                            <constraint firstItem="UxE-Hh-eIk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OIc-6b-0LQ" secondAttribute="trailing" constant="8" symbolic="YES" id="Llb-WA-Vmj"/>
                             <constraint firstAttribute="trailing" secondItem="UxE-Hh-eIk" secondAttribute="trailing" constant="55" id="NT8-aB-wxY"/>
-                            <constraint firstItem="OIc-6b-0LQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I0G-N8-cDs" secondAttribute="trailing" constant="8" symbolic="YES" id="NX7-vF-1DP"/>
                             <constraint firstAttribute="bottom" secondItem="I0G-N8-cDs" secondAttribute="bottom" constant="20" id="ZdV-7u-GOn"/>
                             <constraint firstItem="OIc-6b-0LQ" firstAttribute="firstBaseline" secondItem="I0G-N8-cDs" secondAttribute="firstBaseline" id="c3R-SS-EIh"/>
                             <constraint firstItem="pnV-to-Mff" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="jtz-J9-v4T"/>

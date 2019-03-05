@@ -61,27 +61,37 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
 
     @IBAction func solveAction(_ sender: NSButton)  {
-        puzzle.previousDataSet = puzzle.dataSet
-        
-        switch( algorithmSelect.selectedSegment )
-        {
-            case HLAlgorithmMode.MonoCell.rawValue:
-                puzzle.findMonoCells(rows: rowsSelected == .on, columns: columnsSelected == .on)
-                break
-        
-            case HLAlgorithmMode.FindSets.rawValue:
-                puzzle.findPuzzleSets(rows: rowsSelected == .on, columns: columnsSelected == .on, blocks: blocksSelected == .on)
-                break
-        
-            case HLAlgorithmMode.MonoSector.rawValue:
-                puzzle.findMonoSectors(rows: rowsSelected == .on, columns: columnsSelected == .on)
-                break
-        
-            default:
-                break
+    
+        if puzzle.puzzleState == .Initial   {
+            puzzle.puzzleState = .Solving
+            solveButton.title = "Solve"
+            puzzle.prunePuzzle(rows:true, columns:true, blocks:true)
+            puzzle.previousDataSet = puzzle.dataSet  //  remove 'Changed' status from cells
+        }
+        else    {
+            puzzle.previousDataSet = puzzle.dataSet
+            
+            switch( algorithmSelect.selectedSegment )
+            {
+                case HLAlgorithmMode.MonoCell.rawValue:
+                    puzzle.findMonoCells(rows: rowsSelected == .on, columns: columnsSelected == .on)
+                    break
+            
+                case HLAlgorithmMode.FindSets.rawValue:
+                    puzzle.findPuzzleSets(rows: rowsSelected == .on, columns: columnsSelected == .on, blocks: blocksSelected == .on)
+                    break
+            
+                case HLAlgorithmMode.MonoSector.rawValue:
+                    puzzle.findMonoSectors(rows: rowsSelected == .on, columns: columnsSelected == .on)
+                    break
+            
+                default:
+                    break
+            }
+            
+            undoButton.isEnabled = true
         }
         
-        undoButton.isEnabled = true
         updateDisplay()
     }
     
@@ -180,12 +190,16 @@ class ViewController: NSViewController, WKNavigationDelegate {
     
     func fetchPuzzle(url: URL)   {
 //        print( "fetchPuzzle: \(url)" )
+        puzzle = HLSolver() //  create and display a blank puzzle (all nodes unsolved)
+        updateDisplay()
+        
         webView = WKWebView(frame: view.frame)
         webView.navigationDelegate = self
         webView.load(URLRequest(url: url));
     
         undoButton.isEnabled = false
         solveButton.isEnabled = false
+        solveButton.title = "Prune"
         puzzleNameTextField.stringValue = ""
     }
 

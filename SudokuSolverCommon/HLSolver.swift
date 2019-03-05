@@ -24,6 +24,13 @@ enum HLAlgorithmMode: Int
     case MonoSector
 }
 
+enum HLPuzzleState: Int
+{
+    case Initial
+    case Solving
+    case Final
+}
+
 class HLSolver: NSObject {
     let url = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
@@ -38,6 +45,7 @@ class HLSolver: NSObject {
     var dataSet = Matrix(rows:9, columns:9)
     var previousDataSet = Matrix(rows:9, columns:9)
     var puzzleName = "No Puzzle Found"
+    var puzzleState: HLPuzzleState
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
     let blockIndexSet = [
@@ -427,7 +435,8 @@ class HLSolver: NSObject {
         let puzzleName  = aDecoder.decodeObject(forKey: kNameKey)
         let data        = aDecoder.decodeObject(forKey: kDataKey) as! Set<String>
         let status      = aDecoder.decodeInteger(forKey: kStatusKey)
-        
+        puzzleState = .Initial
+
         print("data: \(data)   status: \(status)   puzzleName: \(String(describing: puzzleName))")
     }
     
@@ -663,7 +672,9 @@ class HLSolver: NSObject {
     func setToString(_ aSet: Set<String>)->String     {
         let list = Array(aSet.sorted(by: <))
         var returnString = ""
-        for index in 0..<list.count     {   returnString += list[index]     }
+        if list.count < 9   {
+            for index in 0..<list.count     {   returnString += list[index]     }
+        }
         return returnString
     }
     
@@ -687,7 +698,8 @@ class HLSolver: NSObject {
             dataSet[index] = (fullSet, .unsolvedStatus)
         }
         previousDataSet = dataSet
-        
+        puzzleState = .Initial
+
         super.init()
     }
     
@@ -695,6 +707,7 @@ class HLSolver: NSObject {
         print("HLSolver-  init(html: String)")
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
+        puzzleState = .Initial
         
         for index in 0..<kCellCount    {
             dataSet[index] = (fullSet, .unsolvedStatus)
@@ -724,7 +737,6 @@ class HLSolver: NSObject {
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
                     puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
                     load(puzzleArray)
-                    prunePuzzle(rows:true, columns:true, blocks:true)
         
                     previousDataSet = dataSet
                 }
