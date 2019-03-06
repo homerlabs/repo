@@ -28,7 +28,7 @@ struct Matrix {
     
     func copy() -> Matrix {
         var newData = Matrix(rows:9, columns:9)
-        for i in 0..<81     {
+        for i in 0..<kCellCount     {
             newData.grid[i] = grid[i]
         }
         return newData
@@ -39,7 +39,7 @@ struct Matrix {
         kColumns = columns
         kCellCount = rows * columns
         
-        grid = Array(repeating: (Set<String>(), .unsolvedStatus), count: rows*columns)
+        grid = Array(repeating: (Set<String>(), .unsolvedStatus), count: kCellCount)
     }
     
     func description(_ index: Int) -> String {
