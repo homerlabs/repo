@@ -177,7 +177,7 @@
 				TargetAttributes = {
 					B03242521FCDCC2B003B2265 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -187,7 +187,7 @@
 					};
 					B0ADCE541FEEEBAE00EF7FDE = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B03242521FCDCC2B003B2265;
 					};
@@ -405,7 +405,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
 				PRODUCT_NAME = "Prime Finder";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -422,7 +422,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
 				PRODUCT_NAME = "Prime Finder";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -438,7 +438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.PrimeFinderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prime Finder.app/Contents/MacOS/Prime Finder";
 			};
 			name = Debug;
@@ -455,7 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.PrimeFinderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prime Finder.app/Contents/MacOS/Prime Finder";
 			};
 			name = Release;

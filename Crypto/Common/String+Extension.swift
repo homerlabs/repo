@@ -12,7 +12,7 @@ import Foundation
 extension String    {
     func prefixInt64() -> Int64 {
         var tempString = self
-        if let index = tempString.index(of: "\t") {
+        if let index = tempString.firstIndex(of: "\t") {
             tempString = String(tempString.prefix(upTo: index))
         }
         if let tempInt = Int64(tempString)  {
@@ -24,7 +24,7 @@ extension String    {
     }
     
     func parseLine() -> (index: Int, prime: Int64)  {
-        if let index = self.index(of: "\t") {
+        if let index = self.firstIndex(of: "\t") {
             let index2 = self.index(after: index)
             let lastN = self.prefix(upTo: index)
             let lastP = self.suffix(from: index2)

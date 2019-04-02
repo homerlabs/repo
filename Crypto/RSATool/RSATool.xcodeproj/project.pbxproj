@@ -164,7 +164,7 @@
 				TargetAttributes = {
 					B08176591F993D2B00772AFC = {
 						CreatedOnToolsVersion = 9.0.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -174,7 +174,7 @@
 					};
 					B0FC2FB51FACD1C50071DD9B = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = B08176591F993D2B00772AFC;
 					};
@@ -385,7 +385,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.RSATool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -402,7 +402,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.RSATool;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -418,7 +418,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.RSAToolTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLCrypto.app/Contents/MacOS/HLCrypto";
 			};
 			name = Debug;
@@ -435,7 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = homerlabs.RSAToolTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLCrypto.app/Contents/MacOS/HLCrypto";
 			};
 			name = Release;
