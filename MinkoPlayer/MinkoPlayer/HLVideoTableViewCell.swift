@@ -10,6 +10,8 @@ import UIKit
 
 class HLVideoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var duration: UILabel!
     @IBOutlet weak var id: UILabel!
     @IBOutlet weak var yt_id: UILabel!
     @IBOutlet weak var videoImageView: UIImageView!

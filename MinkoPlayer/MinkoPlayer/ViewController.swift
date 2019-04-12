@@ -67,7 +67,9 @@ class ViewController: UIViewController, HLDataProviderProtocol, UITableViewDeleg
 //        cell.textLabel?.text = cats[indexPath.row].id
         cell.id?.text = requestVideosCommand.data[indexPath.row].id
         cell.yt_id?.text = requestVideosCommand.data[indexPath.row].yt_id
-        
+        cell.title?.text = requestVideosCommand.data[indexPath.row].title
+        cell.duration?.text = requestVideosCommand.data[indexPath.row].duration
+
         let urlString = requestVideosCommand.data[indexPath.row].thumb_medium
         
         if let image = imageCache[urlString]    {
