@@ -33,6 +33,6 @@ class HLVideo: NSObject, Decodable {
         self.thumb_medium = thumb_medium
         self.thumb_high = thumb_high
 //        self.thumb_maxres = thumb_maxres
-        print("HLVideo-  id: \(id)   db_channel_id: \(db_channel_id)   yt_id: \(yt_id)  duration: \(duration)\n")
+//        print("HLVideo-  id: \(id)   db_channel_id: \(db_channel_id)   yt_id: \(yt_id)  duration: \(duration)\n")
     }
 }

@@ -74,17 +74,25 @@ class ViewController: UIViewController, HLDataProviderProtocol, UITableViewDeleg
             cell.videoImageView?.image = image
         }
         else    {
-   //         let image = UIImage(named: "placeholder.jpg")
-   //         cell.videoImageView?.image = image
+            //  async fetch image 
             self.imageFromUrl(urlString: urlString)
         }
         
         return cell;
     }
-    
+
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.row).")
+        let yt_id = requestVideosCommand.data[indexPath.row].yt_id
+   //     let urlString = "https://www.youtube.com/watch?v=" + yt_id
+   //     let urlString = "http://dev.homerlabs.us/ytsupport/index.html"
+    //    let urlString = "http://apple.seeotter.tv/ios/index3.php?videoID=uVOGnAT9g7Q&width=1280&height=720&device=iPad&exit=true"
+        let urlString = "http://apple.seeotter.tv/ios/index3.php?videoID=" + yt_id + "&width=1280&height=720&device=iPad&exit=true"
+  //      print("urlString: \(urlString).")
+        
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "HLPlayer") as! HLPlayerViewController
+        next.urlString = urlString
+        self.present(next, animated: true, completion: nil)
     }
 }
 

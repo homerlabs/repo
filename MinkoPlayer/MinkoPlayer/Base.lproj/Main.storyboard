@@ -44,5 +44,39 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="83.705357142857139"/>
         </scene>
+        <!--Player View Controller-->
+        <scene sceneID="szP-aO-wJg">
+            <objects>
+                <viewController storyboardIdentifier="HLPlayer" id="Ks9-YL-ZNe" customClass="HLPlayerViewController" customModule="MinkoPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MPH-sd-0Rh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M8d-KO-sVb">
+                                <rect key="frame" x="20" y="44" width="374" height="818"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="M8d-KO-sVb" firstAttribute="top" secondItem="702-Mf-AxP" secondAttribute="top" id="ekJ-16-LkE"/>
+                            <constraint firstItem="M8d-KO-sVb" firstAttribute="bottom" secondItem="702-Mf-AxP" secondAttribute="bottom" id="hrz-PV-ktY"/>
+                            <constraint firstItem="702-Mf-AxP" firstAttribute="trailing" secondItem="M8d-KO-sVb" secondAttribute="trailing" constant="20" id="iwz-tb-qTY"/>
+                            <constraint firstItem="M8d-KO-sVb" firstAttribute="leading" secondItem="702-Mf-AxP" secondAttribute="leading" constant="20" id="lY9-nt-NjJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="702-Mf-AxP"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="M8d-KO-sVb" id="L1d-4h-sJP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yTj-aG-MLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1018.840579710145" y="88.392857142857139"/>
+        </scene>
     </scenes>
 </document>

@@ -7,20 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B030FCCA225FB43500D0C30C /* HLPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B030FCC9225FB43500D0C30C /* HLPlayerViewController.swift */; };
+		B030FCCF225FB5D500D0C30C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B030FCCE225FB5D500D0C30C /* WebKit.framework */; };
 		B0691CE02259559B007D5FD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0691CDF2259559B007D5FD6 /* AppDelegate.swift */; };
 		B0691CE22259559B007D5FD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0691CE12259559B007D5FD6 /* ViewController.swift */; };
 		B0691CE52259559B007D5FD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0691CE32259559B007D5FD6 /* Main.storyboard */; };
 		B0691CE72259559B007D5FD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0691CE62259559B007D5FD6 /* Assets.xcassets */; };
 		B0691CEA2259559B007D5FD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0691CE82259559B007D5FD6 /* LaunchScreen.storyboard */; };
-		B0691CF522595B29007D5FD6 /* HLVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0691CF422595B29007D5FD6 /* HLVideo.swift */; };
-		B07DEE80225AA53B009FA935 /* HLRequestVideosCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07DEE7F225AA53B009FA935 /* HLRequestVideosCommand.swift */; };
 		B07DEE83225AB199009FA935 /* HLVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07DEE81225AB199009FA935 /* HLVideoTableViewCell.swift */; };
 		B07DEE84225AB199009FA935 /* HLVideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B07DEE82225AB199009FA935 /* HLVideoTableViewCell.xib */; };
 		B0CD21F3225BDCE400DAF97D /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0CD21F2225BDCE400DAF97D /* placeholder.jpg */; };
+		B0D4B47A2261131A005064DD /* HLVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4B4792261131A005064DD /* HLVideo.swift */; };
+		B0D4B47C22611325005064DD /* HLRequestVideosCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D4B47B22611325005064DD /* HLRequestVideosCommand.swift */; };
 		B0F71065225C1D84006805BA /* HLDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F71064225C1D84006805BA /* HLDataProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B030FCC9225FB43500D0C30C /* HLPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPlayerViewController.swift; sourceTree = "<group>"; };
+		B030FCCC225FB55200D0C30C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B030FCCE225FB5D500D0C30C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		B0691CDC2259559B007D5FD6 /* MinkoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinkoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0691CDF2259559B007D5FD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0691CE12259559B007D5FD6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,11 +34,11 @@
 		B0691CE92259559B007D5FD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0691CEB2259559B007D5FD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0691CF1225955F8007D5FD6 /* MinkoPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MinkoPlayer.entitlements; sourceTree = "<group>"; };
-		B0691CF422595B29007D5FD6 /* HLVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLVideo.swift; sourceTree = "<group>"; };
-		B07DEE7F225AA53B009FA935 /* HLRequestVideosCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRequestVideosCommand.swift; sourceTree = "<group>"; };
 		B07DEE81225AB199009FA935 /* HLVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLVideoTableViewCell.swift; sourceTree = "<group>"; };
 		B07DEE82225AB199009FA935 /* HLVideoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HLVideoTableViewCell.xib; sourceTree = "<group>"; };
 		B0CD21F2225BDCE400DAF97D /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
+		B0D4B4792261131A005064DD /* HLVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLVideo.swift; sourceTree = "<group>"; };
+		B0D4B47B22611325005064DD /* HLRequestVideosCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRequestVideosCommand.swift; sourceTree = "<group>"; };
 		B0F71064225C1D84006805BA /* HLDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLDataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,20 +47,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B030FCCF225FB5D500D0C30C /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B030FCCB225FB55200D0C30C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B030FCCE225FB5D500D0C30C /* WebKit.framework */,
+				B030FCCC225FB55200D0C30C /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B0691CD32259559B007D5FD6 = {
 			isa = PBXGroup;
 			children = (
 				B0CD21F2225BDCE400DAF97D /* placeholder.jpg */,
-				B07DEE7F225AA53B009FA935 /* HLRequestVideosCommand.swift */,
-				B0691CF422595B29007D5FD6 /* HLVideo.swift */,
 				B0691CDE2259559B007D5FD6 /* MinkoPlayer */,
 				B0691CDD2259559B007D5FD6 /* Products */,
+				B030FCCB225FB55200D0C30C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,11 +84,14 @@
 		B0691CDE2259559B007D5FD6 /* MinkoPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				B0D4B47B22611325005064DD /* HLRequestVideosCommand.swift */,
+				B0D4B4792261131A005064DD /* HLVideo.swift */,
 				B0691CE12259559B007D5FD6 /* ViewController.swift */,
+				B030FCC9225FB43500D0C30C /* HLPlayerViewController.swift */,
+				B0691CE32259559B007D5FD6 /* Main.storyboard */,
 				B0F71064225C1D84006805BA /* HLDataProvider.swift */,
 				B07DEE81225AB199009FA935 /* HLVideoTableViewCell.swift */,
 				B07DEE82225AB199009FA935 /* HLVideoTableViewCell.xib */,
-				B0691CE32259559B007D5FD6 /* Main.storyboard */,
 				B0691CF1225955F8007D5FD6 /* MinkoPlayer.entitlements */,
 				B0691CDF2259559B007D5FD6 /* AppDelegate.swift */,
 				B0691CE62259559B007D5FD6 /* Assets.xcassets */,
@@ -163,11 +180,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0F71065225C1D84006805BA /* HLDataProvider.swift in Sources */,
+				B0D4B47A2261131A005064DD /* HLVideo.swift in Sources */,
 				B0691CE22259559B007D5FD6 /* ViewController.swift in Sources */,
-				B07DEE80225AA53B009FA935 /* HLRequestVideosCommand.swift in Sources */,
+				B030FCCA225FB43500D0C30C /* HLPlayerViewController.swift in Sources */,
 				B07DEE83225AB199009FA935 /* HLVideoTableViewCell.swift in Sources */,
-				B0691CF522595B29007D5FD6 /* HLVideo.swift in Sources */,
 				B0691CE02259559B007D5FD6 /* AppDelegate.swift in Sources */,
+				B0D4B47C22611325005064DD /* HLRequestVideosCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

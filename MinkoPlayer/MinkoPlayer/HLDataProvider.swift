@@ -42,7 +42,7 @@ class HLDataProvider: NSObject {
                         let decoder = JSONDecoder()
                         self.requestVideosCommand = try decoder.decode(HLRequestVideosCommand.self, from: dt     )
              //           print("requestVideosCommand:  \(self.requestVideosCommand).")
-                        print("requestVideosCommanddata:  \(self.requestVideosCommand!.data).")
+             //           print("requestVideosCommanddata:  \(self.requestVideosCommand!.data).")
 
                         DispatchQueue.main.async { [unowned self] in
                             delegate.JSONDownloadCompleted(result: self.requestVideosCommand as Any)
