@@ -19,17 +19,18 @@ class HLDataProvider: NSObject {
 //  singleton class
     static let sharedInstance = HLDataProvider()
     var session: URLSession?
-    let tempAppVer = "0.1.2.3"
 
     let timeoutLimit = 4.0
     let baseURL = "https://raw.seeotter.tv/api/index.php/appletv/"
     //let baseURL = "https://test.minko.int/api/index.php/appletv/"
-    let appName = "funston"
+//    let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
+    let appName = "martha"
+    let tempAppVer = "0.1.2.3"
     var requestVideosCommand: HLRequestVideosCommand?
     
     
     func requestData(delegate: HLDataProviderProtocol)  {
-        let url = URL(string: baseURL + "app_videos_new/martha/0/20/" + tempAppVer)!
+        let url = URL(string: baseURL + "app_videos_new/\(appName)/0/20/" + tempAppVer)!
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error == nil {
