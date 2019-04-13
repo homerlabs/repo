@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class HLPlayerViewController: UIViewController, WKNavigationDelegate {
+class HLPlayerViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
 
    @IBOutlet weak var webView: WKWebView!
    var urlString: String?
@@ -19,12 +19,27 @@ class HLPlayerViewController: UIViewController, WKNavigationDelegate {
             guard let url = URL(string: urlString)  else {  return  }
             let request = URLRequest(url: url)
             webView.navigationDelegate = self
+            webView.uiDelegate = self
             webView.load(request)
         }
     }
     
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        print("didCommit")
+        webView.evaluateJavaScript("iosRequest22()", completionHandler: { any, error in
+//        webView.evaluateJavaScript("window.iosRequest()", completionHandler: { any, error in
+        //webView.evaluateJavaScript("ios_screen", completionHandler: { any, error in
+            print("evaluateJavaScript  any\(String(describing: any))  error\(String(describing: error))")
+        })
+    }
+
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         print(error)
+    }
+    
+    @IBAction func backButtonAction(sender: UIButton)   {
+        print("backButtonAction")
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {

@@ -84,11 +84,11 @@
 		B0691CDE2259559B007D5FD6 /* MinkoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				B0D4B47B22611325005064DD /* HLRequestVideosCommand.swift */,
-				B0D4B4792261131A005064DD /* HLVideo.swift */,
-				B0691CE12259559B007D5FD6 /* ViewController.swift */,
 				B030FCC9225FB43500D0C30C /* HLPlayerViewController.swift */,
 				B0691CE32259559B007D5FD6 /* Main.storyboard */,
+				B0691CE12259559B007D5FD6 /* ViewController.swift */,
+				B0D4B47B22611325005064DD /* HLRequestVideosCommand.swift */,
+				B0D4B4792261131A005064DD /* HLVideo.swift */,
 				B0F71064225C1D84006805BA /* HLDataProvider.swift */,
 				B07DEE81225AB199009FA935 /* HLVideoTableViewCell.swift */,
 				B07DEE82225AB199009FA935 /* HLVideoTableViewCell.xib */,
