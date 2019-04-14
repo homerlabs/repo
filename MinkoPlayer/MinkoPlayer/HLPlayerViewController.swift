@@ -26,10 +26,12 @@ class HLPlayerViewController: UIViewController, WKNavigationDelegate, WKUIDelega
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         print("didCommit")
-        webView.evaluateJavaScript("iosRequest22()", completionHandler: { any, error in
-//        webView.evaluateJavaScript("window.iosRequest()", completionHandler: { any, error in
-        //webView.evaluateJavaScript("ios_screen", completionHandler: { any, error in
-            print("evaluateJavaScript  any\(String(describing: any))  error\(String(describing: error))")
+
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { _ in
+   //         print("timertimertimertimer")
+             webView.evaluateJavaScript("iosTest2(‘some text goes here’)", completionHandler: { any, error in
+                print("timer evaluateJavaScript  any\(String(describing: any))  error\(String(describing: error))")
+            })
         })
     }
 

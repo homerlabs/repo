@@ -26,11 +26,14 @@ class HLDataProvider: NSObject {
 //    let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
     let appName = "martha"
     let tempAppVer = "0.1.2.3"
+    let count = 20
+    let offset = 0
+    let command = "app_videos_new"
     var requestVideosCommand: HLRequestVideosCommand?
     
     
     func requestData(delegate: HLDataProviderProtocol)  {
-        let url = URL(string: baseURL + "app_videos_new/\(appName)/0/20/" + tempAppVer)!
+        let url = URL(string: baseURL + "\(command)/\(appName)/\(offset)/\(count)/" + tempAppVer)!
 
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error == nil {
