@@ -9,17 +9,32 @@
 import UIKit
 import WebKit
 
-class HLPlayerViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
+class HLPlayerViewController: UIViewController, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
 
    @IBOutlet weak var webView: WKWebView!
    var urlString: String?
 
     private func displayWebPage() {
+    
         if let urlString = urlString    {
             guard let url = URL(string: urlString)  else {  return  }
             let request = URLRequest(url: url)
             webView.navigationDelegate = self
             webView.uiDelegate = self
+ 
+ /*       let contentController = WKUserContentController()
+        let userScript = WKUserScript(
+            source: "mobileHeader()",
+            injectionTime: WKUserScriptInjectionTime.atDocumentEnd,
+            forMainFrameOnly: true
+        )
+        contentController.addUserScript(userScript)
+        contentController.add(self, name: "loginAction")
+
+            let config = WKWebViewConfiguration()
+            config.userContentController = contentController    */
+ 
+       
             webView.load(request)
         }
     }
@@ -59,6 +74,14 @@ class HLPlayerViewController: UIViewController, WKNavigationDelegate, WKUIDelega
         displayWebPage()
     }
     
+
+    // MARK: - WKScriptMessageHandler
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "loginAction" {
+            print("JavaScript is sending a message \(message.body)")
+        }
+    }
 
     /*
     // MARK: - Navigation

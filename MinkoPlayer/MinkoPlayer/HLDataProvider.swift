@@ -31,7 +31,28 @@ class HLDataProvider: NSObject {
     let command = "app_videos_new"
     var requestVideosCommand: HLRequestVideosCommand?
     
-    
+//https://raw.seeotter.tv/api/index.php/appletv/martha/channel/2/0/20/0.5.3123
+//https://raw.seeotter.tv/api/index.php/appletv/app_videos_new/martha/0/20/0.1.2.3
+
+    func requestDataPost(delegate: HLDataProviderProtocol)  {
+        let url = URL(string: baseURL + "\(command)/\(appName)/\(offset)/\(count)/" + tempAppVer)!
+
+        let request = NSMutableURLRequest(url: url)
+        let session = URLSession.shared
+        request.httpMethod = "POST"
+
+        let params = ["x-api-key":"9037af91-05b7-488f-8bef-2677d56558bf"] as Dictionary<String, String>
+
+        request.httpBody = try! JSONSerialization.data(withJSONObject: params, options: [])
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+            print("Response: \(String(describing: response))")})
+
+        task.resume()
+    }
+
     func requestData(delegate: HLDataProviderProtocol)  {
         let url = URL(string: baseURL + "\(command)/\(appName)/\(offset)/\(count)/" + tempAppVer)!
 
@@ -63,7 +84,6 @@ class HLDataProvider: NSObject {
         }
         
         task.resume()
-
     }
 
     private override init()  {

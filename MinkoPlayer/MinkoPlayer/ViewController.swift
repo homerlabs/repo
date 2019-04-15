@@ -53,6 +53,7 @@ class ViewController: UIViewController, HLDataProviderProtocol, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "HLVideoTableViewCell", bundle: nil), forCellReuseIdentifier: cellReuseIdentifier)
+        
         dataProvider.requestData(delegate: self)
     }
 
