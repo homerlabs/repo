@@ -25,22 +25,31 @@ class HLPlayerViewController: UIViewController, WKNavigationDelegate, WKUIDelega
     }
     
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        print("didCommit")
+        print("webView-  didCommit")
 
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { _ in
+/*        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { _ in
    //         print("timertimertimertimer")
              webView.evaluateJavaScript("iosTest2(‘some text goes here’)", completionHandler: { any, error in
                 print("timer evaluateJavaScript  any\(String(describing: any))  error\(String(describing: error))")
             })
+        })  */
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        print("webView-  didFinish")
+
+         webView.evaluateJavaScript("iosRequest22()", completionHandler: { any, error in
+            print("evaluateJavaScript  any\(String(describing: any))  error\(String(describing: error))")
         })
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print("webView-  didFail")
         print(error)
     }
     
     @IBAction func backButtonAction(sender: UIButton)   {
-        print("backButtonAction")
+ //       print("backButtonAction")
         self.dismiss(animated: true, completion: nil)
     }
 
