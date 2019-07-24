@@ -118,7 +118,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
     }
 
 
-   @IBAction func openAction(_ sender: Any)  {
+   @IBAction func openAction(_ sender: NSButton)  {
         if let path = filepathManager.getOpenFilePath(title: "Open Sudoku Data File", bookmarkKey: "not used")    {
             let url = URL(fileURLWithPath: path)
             print( "openAction: \(String(describing: path))" )
@@ -139,7 +139,7 @@ class ViewController: NSViewController, WKNavigationDelegate {
         }
     }
     
-   @IBAction func saveAction(_ sender: Any)  {
+   @IBAction func saveAction(_ sender: NSButton)  {
         if let path = filepathManager.getSaveFilePath(title: "Sudoku Solver Save Panel", fileName: "SudokuData", bookmarkKey: "not used")    {
             let url = URL(fileURLWithPath: path)
             print( "saveAction: path" )
@@ -152,11 +152,11 @@ class ViewController: NSViewController, WKNavigationDelegate {
         }
     }
     
-   @IBAction func newPuzzleAction(_ sender: Any)  {
+   @IBAction func newPuzzleAction(_ sender: NSButton)  {
         fetchPuzzle(url: puzzle.url)
     }
     
-    @IBAction func fetchPuzzleAction(_ sender: Any) {
+    @IBAction func fetchPuzzleAction(_ sender: NSButton) {
 //        print( "fetchPuzzleAction" )
         
         let alert = NSAlert()
