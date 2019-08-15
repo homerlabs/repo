@@ -9,7 +9,7 @@
 #import "HLFileManager.h"
 #import <stdio.h>
 
-static HLFileManager *sharedManager = nil;
+static HLFileManager *sharedInstance = nil;
 
 @implementation HLFileManager
 
@@ -220,17 +220,16 @@ int modCounter = 0;
     modSize = size;
 }
 
--(instancetype)init
++ (instancetype)sharedInstance
 {
-    self = [super init];
-    sharedManager = self;
-    return self;
+    if (!sharedInstance)
+        sharedInstance = [[HLFileManager alloc] init];
+    return sharedInstance;
 }
 
-+(instancetype)sharedManager
+/*-(instancetype)init
 {
-    return sharedManager;
-}
-
+   return [HLFileManager sharedInstance];
+}   */
 
 @end

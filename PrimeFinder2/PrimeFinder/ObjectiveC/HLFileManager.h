@@ -38,7 +38,6 @@
 -(void)closeTempFileForRead;
 
 -(void)setModSize:(int)size;
--(instancetype)init;
-+(instancetype)sharedManager;
++(instancetype)sharedInstance;
 
 @end

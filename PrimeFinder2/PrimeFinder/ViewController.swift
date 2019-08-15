@@ -19,7 +19,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBOutlet weak var nicePrimesButton: NSButton!
 
     var primeFinder: HLPrime?
- //   let HLDefaultPrimeFilePathKey       = "PrimeFilePathKey"
     let HLDefaultNicePrimeFilePathKey   = "NicePrimeFilePathKey"
     let HLDefaultTerminalPrimeKey       = "TerminalPrimeKey"
     
@@ -40,16 +39,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
 
     @IBAction func setPrimesPathAction(sender: NSButton) {
-        primesURL = getSaveFilePath(title: "Set Primes file path", fileName: "Primes", bookmarkKey: HLPrimesBookmarkKey)
+        primesURL = getSaveFilePath(title: "Set Primes file path", fileName: "Primes")
         if primesURL != nil  {
             primeFilePathTextField.stringValue = primesURL!.path
-  //          UserDefaults.standard.set(url, forKey:HLDefaultPrimeFilePathKey)
             primeButton.isEnabled = true
         }
     }
 
     @IBAction func setNicePrimesPathAction(sender: NSButton) {
-        if let url = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes", bookmarkKey: HLNicePrimesBookmarkKey)  {
+        if let url = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes")  {
             nicePrimeFilePathTextField.stringValue = url.path
             UserDefaults.standard.set(url, forKey:HLDefaultNicePrimeFilePathKey)
     //        nicePrimesURL = path.getBookmarkFor(key: HLNicePrimesBookmarkKey)
@@ -76,7 +74,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         return path
     }
 
-   func getSaveFilePath(title: String, fileName: String, bookmarkKey: String) -> URL?     {
+   func getSaveFilePath(title: String, fileName: String) -> URL?     {
     
         var url: URL?
         let savePanel = NSSavePanel();
@@ -91,27 +89,28 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
         let i = savePanel.runModal();
         if(i == NSApplication.ModalResponse.OK){
-            url = savePanel.url!
-   //         savePanel.url!.setBookmarkFor(key: bookmarkKey)
+            url = savePanel.url
         }
     
-    print( "getSaveFilePath: \(title),  Bookmark: \(bookmarkKey)  return: \(String(describing: url))" )
+  //      print( "getSaveFilePath: \(title),return: \(String(describing: url))" )
         return url
     }
 
 
     @IBAction func primesStartAction(sender: NSButton) {
         
-        if let url = URL(string: primeFilePathTextField.stringValue)   {
-            primeFinder = HLPrime(primesFileURL: url, delegate: self)
-            
-            if primesURL == nil   {
+        if primesURL != nil   {
+            primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
+            setBookmarkFor(key: HLPrimesBookmarkKey, url: primesURL!)
+        }
+
+
+        if primesURL == nil   {
                 print( "primesURL is nil" )
+                primesURL = getSaveFilePath(title: "Set Primes file path", fileName: "Primes")
                 
-                if let url = getSaveFilePath(title: "Set Primes file path", fileName: "Primes", bookmarkKey: HLPrimesBookmarkKey)  {
-                    primeFilePathTextField.stringValue = url.path
-                    primesURL = getBookmarkFor(key: HLPrimesBookmarkKey)
-                }
+                guard primesURL != nil else { return }
+                primeFilePathTextField.stringValue = primesURL!.path
             }
 
             primeFinder?.findPrimes(maxPrime: HLPrimeType(terminalPrimeTextField.stringValue)!)
@@ -150,8 +149,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             primeFinder?.active = false
         }
         
-        findPrimesInProgress = !findPrimesInProgress    */
-    }
+        findPrimesInProgress = !findPrimesInProgress
+    }   */
     
 
     @IBAction func nicePrimesAction(sender: NSButton) {
@@ -293,7 +292,7 @@ extension ViewController {
                         print("startAccessingSecurityScopedResource-  success: \(success)")
                     }
                 } catch {
-                    print("Warning:  Unable to optain security bookmark for key: \(key) with error: \(error)!")
+           //         print("Warning:  Unable to optain security bookmark for key: \(key) with error: \(error)!")
                 }
         }
         return url

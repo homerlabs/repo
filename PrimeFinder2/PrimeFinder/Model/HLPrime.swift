@@ -21,10 +21,8 @@ public class HLPrime {
     var nicePrimesFileURL: URL?
     let delegate: HLPrimesProtocol
     let primeTable = HLPrimeTable()
-    let fileManager: HLFileManager = HLFileManager.shared()
+    let fileManager: HLFileManager = HLFileManager.sharedInstance()
     
-    var primeFILE: __sFILE?
-
     var pTable: [HLPrimeType] = []  //  used to find / validate primes
     var timeInSeconds = 0     //  time for makePrimes, factorPrimes, or loadBuf to run
     
