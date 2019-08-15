@@ -21,7 +21,7 @@ extension String    {
         else    {   //  not able to convert to Int
             return 0
         }
-    }
+    }   */
     
     func parseLine() -> (index: Int, prime: Int64)  {
         if let index = self.firstIndex(of: "\t") {
@@ -34,5 +34,4 @@ extension String    {
             return (0, 0)
         }
     }
-*/
 }

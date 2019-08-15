@@ -14,27 +14,13 @@ static HLFileManager *sharedInstance = nil;
 @implementation HLFileManager
 
 FILE *primesReadFile, *primesAppendFile;
-FILE *factoredReadFile, *factoredAppendFile;
 FILE *nicePrimesWriteFile;
 FILE *readTempFile;
 int modSize = 1000000;
 int modCounter = 0;
 
 
--(BOOL)createPrimeFileIfNeededWith:(NSString *)path {
-/*    int result = [self openPrimesFileForReadWith: path];
-   
-    NSString *temp = nil;
-    if ( result == 0 )  //  file found, get first line
-    {
-        temp = [self readPrimesFileLine];
-        [self closePrimesFileForRead];
-    }
-    BOOL isFirstLineValid = [temp isEqualToString: @"1\t2"];    //  '\n' has been removed
-
-    //  if open failed, create new file
-    if ( !isFirstLineValid )
-    {   */
+-(void)createPrimeFileWith:(NSString *)path {
         primesAppendFile = fopen(path.UTF8String, "w");    //  create new file
         
         if ( primesAppendFile != nil )
@@ -42,13 +28,7 @@ int modCounter = 0;
             [self appendPrimesLine: @"1\t2\n"];
             [self appendPrimesLine: @"2\t3\n"];
             [self closePrimesFileForAppend];
-            return 1;   //  sucess
         }
-/*    }
-    else
-        return 1;   //  sucess  */
-    
-    return 0;       //  createPrimeFile failed
 }
 
 //************************************************      primes file read        ****************
@@ -67,34 +47,6 @@ int modCounter = 0;
 }
 //************************************************      primes file read        ****************
 
-
-//************************************************      factored file read      ****************
--(int)openFactoredFileForReadWith:(NSString *)path
-{
-    factoredReadFile = fopen(path.UTF8String, "r");
-
-    if ( !factoredReadFile )
-        return -1;  //    error
-    else
-        return 0;   //  no error
-}
--(void)closeFactoredFileForRead
-{
-    fclose( factoredReadFile );
-}
-
--(char *)trimLineEnding:(char *)line
-{
-    unsigned long len = strlen(line);
-    line[len-1] = '\0';       //  need to remove '\n'
-   return line;
-}
-
--(NSString *)readFactoredFileLine
-{
-    return [self readLineFromFile:factoredReadFile];
-}
-//************************************************      factored file read      ****************
 
 //************************************************      primes file append      ****************
 -(void)openPrimesFileForAppendWith:(NSString *)path  {
@@ -125,29 +77,6 @@ int modCounter = 0;
 //************************************************      primes file append      ****************
 
 
-//************************************************      factored file append    ****************
--(int)openFactoredFileForAppendWith:(NSString *)path  {
-    factoredAppendFile = fopen(path.UTF8String, "a");
-    assert( factoredAppendFile );
-    modCounter = 0;
-    return 0;   //  no error
-}
--(void)closeFactoredFileForAppend
-{
-    fclose( factoredAppendFile );
-}
-
--(void)appendFactoredLine:(NSString *)line
-{
-    fprintf(factoredAppendFile, "%s\n", line.UTF8String);
-    if ( modCounter++ % modSize == 0 )
-    {
-        NSLog( @"  ** prime factored: %@", line );
-    }
-}
-//************************************************      factored file append    ****************
-
-
 //************************************************      nice primes file write  ****************
 -(int)openNicePrimesFileForWriteWith:(NSString *)path
 {
@@ -173,15 +102,6 @@ int modCounter = 0;
 //************************************************      nice primes file write  ****************
 
 
-//************************************************      temp file read          ****************
--(void)openTempFileForReadWith:(NSString *)path  {
-    readTempFile = fopen(path.UTF8String, "r");
-}
--(void)closeTempFileForRead
-{
-    fclose( readTempFile );
-}
-
 -(NSString *)readLineFromFile:(FILE *)file
 {
     int lineSize = 1000;
@@ -192,9 +112,8 @@ int modCounter = 0;
     else
         return nil;
 }
-//************************************************      temp file read          ****************
 
--(NSString *)lastLineForFile:(NSString *)path
+/*-(NSString *)lastLineForFile:(NSString *)path
 {
     readTempFile = fopen(path.UTF8String, "r");
     
@@ -213,6 +132,13 @@ int modCounter = 0;
     
     else
         return nil;
+}   */
+
+-(char *)trimLineEnding:(char *)line
+{
+    unsigned long len = strlen(line);
+    line[len-1] = '\0';       //  need to remove '\n'
+   return line;
 }
 
 -(void)setModSize:(int)size
@@ -226,10 +152,5 @@ int modCounter = 0;
         sharedInstance = [[HLFileManager alloc] init];
     return sharedInstance;
 }
-
-/*-(instancetype)init
-{
-   return [HLFileManager sharedInstance];
-}   */
 
 @end

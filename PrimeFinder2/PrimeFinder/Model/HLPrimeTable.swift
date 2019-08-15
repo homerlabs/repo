@@ -13,26 +13,19 @@ public class HLPrimeTable {
     var pTable: [HLPrimeType] = [2, 3]
 
     public func createPTable(maxPrime: HLPrimeType) -> [HLPrimeType] {
-        var lastPrime: HLPrimeType = pTable.last!
-        var lastPrimeCandidate = lastPrime + 2
-        var loopCount: HLPrimeType = 0
+        let maxPTablePrimeRequired = Int64(sqrt(Double(maxPrime)))
+        var primeCandidate = pTable.last! + 2   //  start after the last known prime (3)
+        let startDate = Date()
 
-        //  must build up table in chunks
-        while lastPrimeCandidate < maxPrime {
-            let highestPossiblePrimeCandidate = lastPrime * lastPrime
-            loopCount = (highestPossiblePrimeCandidate - lastPrime) / 2    //  we don't check even numbers for prime
+        while primeCandidate < maxPTablePrimeRequired {
             
-            for _ in 0..<loopCount {
-                if isPrime(lastPrimeCandidate) {
-                    pTable.append(lastPrimeCandidate)
+                if isPrime(primeCandidate) {
+                    pTable.append(primeCandidate)
                 }
-                
-                lastPrimeCandidate += 2
-           }
-            
-            lastPrime = pTable.last!
+                primeCandidate += 2
        }
 
+        print(String(format: "HLPrimeTable-  createPTable completed in %0.2f seconds and has \(pTable.count) values", -Double(startDate.timeIntervalSinceNow)))
         return pTable
     }
     
@@ -51,7 +44,9 @@ public class HLPrimeTable {
             }
 
             index += 1
-            guard index < pTable.count else { return false }    //  don't go past the end of the pTable
+            guard index < pTable.count else {
+                return true  //  if we get here, we have exhausted the pTable
+            }
             testPrime = pTable[index]
         }
         
