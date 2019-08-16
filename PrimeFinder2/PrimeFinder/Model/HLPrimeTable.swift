@@ -26,6 +26,7 @@ public class HLPrimeTable {
        }
 
         print(String(format: "HLPrimeTable-  createPTable completed in %0.2f seconds and has \(pTable.count) values", -Double(startDate.timeIntervalSinceNow)))
+//        print( "pTable last value: \(pTable[self.pTable.count - 1])" )
         return pTable
     }
     

@@ -187,7 +187,6 @@ class HLPrime: NSObject {
                 let (newLastN, newLastP) = self.primeFileLastLine!.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
                 self.actionTimeInSeconds = -Int(startDate.timeIntervalSinceNow)
-                self.pTable.deleteTable()
  //               print( "HLPrime-  makePrimes-  completed.  Time: \(self.formatTime(timeInSeconds: deltaTime))" )
 
                 self.primesDelegate?.findPrimesCompleted(lastLine: output)

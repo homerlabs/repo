@@ -10,21 +10,23 @@
 
 @interface HLFileManager : NSObject
 
--(void)createPrimeFileWith:(NSString *)path;
-//-(NSString *)lastLineForFile:(NSString *)path;
--(NSString *)readLineFromFile:(FILE *)file;
+-(int)createPrimesFileForAppendWith:(NSString *)path;
+-(void)closePrimesFileForAppend;
+-(void)appendPrimesLine:(NSString *)line;
+
 
 -(int)openPrimesFileForReadWith:(NSString *)path;
--(NSString *)readPrimesFileLine;
 -(void)closePrimesFileForRead;
+-(NSString *)readPrimesFileLine;
 
--(void)openPrimesFileForAppendWith:(NSString *)path;
--(void)appendPrimesLine:(NSString *)line;
--(void)closePrimesFileForAppend;
 
--(int)openNicePrimesFileForWriteWith:(NSString *)path;
+-(int)createNicePrimesFileForAppendWith:(NSString *)path;
+-(void)closeNicePrimesFileForAppend;
 -(void)writeNicePrimesFile:(NSString *)line;;
--(void)closeNicePrimesFileForWrite;
+
+
+-(NSString *)readLineFromFile:(FILE *)file;
+
 
 -(void)setModSize:(int)size;
 +(instancetype)sharedInstance;

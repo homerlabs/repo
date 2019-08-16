@@ -13,48 +13,47 @@ static HLFileManager *sharedInstance = nil;
 
 @implementation HLFileManager
 
-FILE *primesReadFile, *primesAppendFile;
-FILE *nicePrimesWriteFile;
+FILE *primesReadFILE, *primesAppendFILE;
+FILE *nicePrimesWriteFILE;
 FILE *readTempFile;
 int modSize = 1000000;
 int modCounter = 0;
 
 
--(void)createPrimeFileWith:(NSString *)path {
-        primesAppendFile = fopen(path.UTF8String, "w");    //  create new file
-        
-        if ( primesAppendFile != nil )
-        {
-            [self appendPrimesLine: @"1\t2\n"];
-            [self appendPrimesLine: @"2\t3\n"];
-            [self closePrimesFileForAppend];
-        }
-}
-
 //************************************************      primes file read        ****************
 -(int)openPrimesFileForReadWith:(NSString *)path  {
-    primesReadFile = fopen(path.UTF8String, "r");
-    return (primesReadFile == nil); //  return 0 for no error
+    primesReadFILE = fopen(path.UTF8String, "r");
+    return (primesReadFILE == nil); //  return 0 for no error
 }
+
 -(void)closePrimesFileForRead
 {
-    fclose( primesReadFile );
+    fclose( primesReadFILE );
 }
 
 -(NSString *)readPrimesFileLine
 {
-    return [self readLineFromFile:primesReadFile];
+    return [self readLineFromFile:primesReadFILE];
 }
 //************************************************      primes file read        ****************
 
 
 //************************************************      primes file append      ****************
--(void)openPrimesFileForAppendWith:(NSString *)path  {
-     primesAppendFile = fopen(path.UTF8String, "a");
+-(int)createPrimesFileForAppendWith:(NSString *)path {
+        primesAppendFILE = fopen(path.UTF8String, "w");    //  create new file
+    
+        if ( primesAppendFILE != nil )
+        {
+            [self appendPrimesLine: @"1\t2\n"];
+            [self appendPrimesLine: @"2\t3\n"];
+       //     [self closePrimesFileForAppend];
+        }
+    return (primesAppendFILE == nil); //  return 0 for no error
 }
+
 -(void)closePrimesFileForAppend
 {
-    fclose( primesAppendFile );
+    fclose( primesAppendFILE );
 }
 
 -(void)appendPrimesLine:(NSString *)line
@@ -72,22 +71,22 @@ int modCounter = 0;
         NSLog( @"** new prime-  lastN: %llu    lastP: %llu    density: %0.3f", lastN, lastP, lastN/(lastP*1.0) );
     }
     
-    fputs(line.UTF8String, primesAppendFile);
+    fputs(line.UTF8String, primesAppendFILE);
 }
 //************************************************      primes file append      ****************
 
 
 //************************************************      nice primes file write  ****************
--(int)openNicePrimesFileForWriteWith:(NSString *)path
+-(int)createNicePrimesFileForAppendWith:(NSString *)path
 {
-    nicePrimesWriteFile = fopen(path.UTF8String, "w");
-    assert( nicePrimesWriteFile );
+    nicePrimesWriteFILE = fopen(path.UTF8String, "w");
+    assert( nicePrimesWriteFILE );
     modCounter = 0;
     return 0;   //  no error
 }
--(void)closeNicePrimesFileForWrite
+-(void)closeNicePrimesFileForAppend
 {
-    fclose( nicePrimesWriteFile );
+    fclose( nicePrimesWriteFILE );
 }
 
 -(void)writeNicePrimesFile:(NSString *)line
@@ -95,7 +94,7 @@ int modCounter = 0;
 //    int n = line.intValue;
 //    if ( n % kMOD_SIZE == 0 )
     
-    fprintf(nicePrimesWriteFile, "%s\n", line.UTF8String);
+    fprintf(nicePrimesWriteFILE, "%s\n", line.UTF8String);
     if ( modCounter++ % modSize == 0 )
         NSLog( @"  ** nice prime: %@", line );
 }
@@ -152,5 +151,9 @@ int modCounter = 0;
         sharedInstance = [[HLFileManager alloc] init];
     return sharedInstance;
 }
+
+/*-(void)openPrimesFileForAppendWith:(NSString *)path  {
+     primesAppendFILE = fopen(path.UTF8String, "a");
+}   */
 
 @end

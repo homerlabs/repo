@@ -19,7 +19,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBOutlet weak var nicePrimesButton: NSButton!
 
     var primeFinder: HLPrime?
-    let HLDefaultNicePrimeFilePathKey   = "NicePrimeFilePathKey"
     let HLDefaultTerminalPrimeKey       = "TerminalPrimeKey"
     
     let defaultTerminalPrime = "1000000"
@@ -47,16 +46,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
 
     @IBAction func setNicePrimesPathAction(sender: NSButton) {
-        if let url = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes")  {
-            nicePrimeFilePathTextField.stringValue = url.path
-            UserDefaults.standard.set(url, forKey:HLDefaultNicePrimeFilePathKey)
-    //        nicePrimesURL = path.getBookmarkFor(key: HLNicePrimesBookmarkKey)
+        nicePrimesURL = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes")
+        if nicePrimesURL != nil  {
+            nicePrimeFilePathTextField.stringValue = nicePrimesURL!.path
+            nicePrimesButton.isEnabled = true
         }
     }
 
-   func getOpenFilePath(title: String, bookmarkKey: String) -> String?     {
+   func getOpenFilePath(title: String, bookmarkKey: String) -> URL?     {
     
-        var path: String?
+        var url: URL?
         let openPanel = NSOpenPanel();
         openPanel.canCreateDirectories = true;
         openPanel.allowedFileTypes = ["txt"];
@@ -65,13 +64,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         openPanel.message = title;
 
         let i = openPanel.runModal();
-        if(i == NSApplication.ModalResponse.OK){
-            path = openPanel.url!.path
-  //         openPanel.url!.setBookmarkFor(key: bookmarkKey)
+        if(i == NSApplication.ModalResponse.OK) {
+            url = openPanel.url!
         }
     
-    print( "getOpenFilePath: \(title),  Bookmark: \(bookmarkKey)  return: \(String(describing: path))" )
-        return path
+        print( "getOpenFilePath: \(title),  Bookmark: \(bookmarkKey)  return: \(String(describing: url))" )
+        return url
     }
 
    func getSaveFilePath(title: String, fileName: String) -> URL?     {
@@ -99,62 +97,47 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
 
     @IBAction func primesStartAction(sender: NSButton) {
         
+        if !findPrimesInProgress {
+            primeButton.title = "Running"
+            nicePrimesButton.isEnabled = false
+
+        if primesURL == nil   {
+      //      print( "primesURL is nil" )
+            primesURL = getSaveFilePath(title: "Set Primes file path", fileName: "Primes")
+        
+            guard primesURL != nil else { return }
+            primeFilePathTextField.stringValue = primesURL!.path
+        }
+
         if primesURL != nil   {
             primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
             setBookmarkFor(key: HLPrimesBookmarkKey, url: primesURL!)
         }
 
-
-        if primesURL == nil   {
-                print( "primesURL is nil" )
-                primesURL = getSaveFilePath(title: "Set Primes file path", fileName: "Primes")
-                
-                guard primesURL != nil else { return }
-                primeFilePathTextField.stringValue = primesURL!.path
-            }
-
             primeFinder?.findPrimes(maxPrime: HLPrimeType(terminalPrimeTextField.stringValue)!)
-        }
-
-/*       if !findPrimesInProgress {
-            primeButton.title = "Running"
-            nicePrimesButton.isEnabled = false
-
-            if primesURL == nil   {
-                print( "primesURL is nil" )
-                
-                if let path = getSaveFilePath(title: "Set Primes file path", fileName: "Primes", bookmarkKey: HLPrimesBookmarkKey)  {
-                    primeFilePathTextField.stringValue = path
-                    UserDefaults.standard.set(path, forKey:HLDefaultPrimeFilePathKey)
-       //             primesURL = path.getBookmarkFor(key: HLPrimesBookmarkKey)
-                }
-            }
             
-            primeFinder = HLPrime(primeFilePath: primeFilePathTextField.stringValue, delegate: self)
-            if primeFinder != nil {
-                primeFinder!.findPrimes(largestPrime: Int64(terminalPrimeTextField.stringValue)!)
-                
-                if terminalPrimeTextField.intValue >= 50000000   {
-                    updateTimeIsSeconds *= 10
-                }
-                
-                timer?.invalidate()
-                timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
-                    self.progressTextField.stringValue = String(self.primeFinder!.lastP)
-                    })
+            if terminalPrimeTextField.intValue >= 50000000   {
+                updateTimeIsSeconds = 10
             }
+            else {
+                updateTimeIsSeconds = 1
+            }
+        
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
+                self.progressTextField.stringValue = String(self.primeFinder!.lastP)
+                })
         }
-        else    {
+        else {
             primeButton.title = primesButtonTitle
-            primeFinder?.active = false
+            primeFinder?.okToRun = false
         }
         
         findPrimesInProgress = !findPrimesInProgress
-    }   */
-    
+        }
 
     @IBAction func nicePrimesAction(sender: NSButton) {
-/*        if !findNicePrimesInProgress {
+        if !findNicePrimesInProgress {
             nicePrimesButton.title = "Running"
             findNicePrimesInProgress = true
             primeButton.isEnabled = false
@@ -162,44 +145,40 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             if primesURL == nil   {
                 print( "primesURL is nil" )
                 
-                if let path = getOpenFilePath(title: "Open Primes file", bookmarkKey: HLPrimesBookmarkKey)  {
-                    primeFilePathTextField.stringValue = path
-                    UserDefaults.standard.set(path, forKey:HLDefaultPrimeFilePathKey)
-            //        primesURL = path.getBookmarkFor(key: HLPrimesBookmarkKey)
-                }
+                primesURL = getOpenFilePath(title: "Open Primes file", bookmarkKey: HLPrimesBookmarkKey)
+                guard primesURL != nil else { return }
+                
+                primeFilePathTextField.stringValue = primesURL!.path
+                primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
             }
             
             if nicePrimesURL == nil   {
                 print( "nicePrimesURL is nil" )
                 
-                if let path = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes", bookmarkKey: HLNicePrimesBookmarkKey)     {
-                    nicePrimeFilePathTextField.stringValue = path
-                    UserDefaults.standard.set(path, forKey:HLDefaultNicePrimeFilePathKey)
-              //      nicePrimesURL = path.getBookmarkFor(key: HLNicePrimesBookmarkKey)
-                }
+                nicePrimesURL = getSaveFilePath(title: "Set NicePrimes file path", fileName: "NicePrimes")
+                guard nicePrimesURL != nil else { return }
+                
+                nicePrimeFilePathTextField.stringValue = nicePrimesURL!.path
+                setBookmarkFor(key: HLNicePrimesBookmarkKey, url: nicePrimesURL!)
             }
             
-            let path = primeFilePathTextField.stringValue
-            primeFinder = HLPrime(primeFilePath: path, delegate: self)
-            if primeFinder != nil {
-                let path2 = nicePrimeFilePathTextField.stringValue
-      //          primeFinder?.makeNicePrimesFile(nicePrimePath: path2, largestPrime: Int64(terminalPrimeTextField.stringValue)!)
-                primeFinder?.scanPrimesFile(nicePrimePath: path2)
-                
-                if terminalPrimeTextField.intValue >= 50000000   {
-                    updateTimeIsSeconds *= 10
-                }
-                
-                timer?.invalidate()
-                timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
-                    self.progressTextField.stringValue = String(self.primeFinder!.lastP)
-                    })
+            //  at this point we know we have valid primesURL and nicePrimesURL
+            primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
+            primeFinder!.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!)
+            
+            if terminalPrimeTextField.intValue >= 50000000   {
+                updateTimeIsSeconds *= 10
             }
+            
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
+                self.progressTextField.stringValue = String(self.primeFinder!.lastP)
+                })
        }
         else    {
             nicePrimesButton.title = nicePrimesButtonTitle
-            primeFinder?.active = false
-        }   */
+            primeFinder?.okToRun = false
+        }
     }
     
     //*************   HLPrimeProtocol     *********************************************************
@@ -242,6 +221,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     override func viewDidDisappear() {
         super.viewDidDisappear()
   //      print( "ViewController-  viewDidDisappear" )
+        
+        primeFinder?.okToRun = false //  force exit loop and close files
         primesURL?.stopAccessingSecurityScopedResource()
         nicePrimesURL?.stopAccessingSecurityScopedResource()
         
@@ -255,16 +236,15 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         nicePrimesButton.isEnabled = false
 
         primesURL = getBookmarkFor(key: HLPrimesBookmarkKey)
-        if let url = primesURL {
-            primeFilePathTextField.stringValue = url.path
+        if primesURL != nil {
+            primeFilePathTextField.stringValue = primesURL!.path
             primeButton.isEnabled = true
         }
 
-        if let nicePrimeFilePath = UserDefaults.standard.string(forKey: HLDefaultNicePrimeFilePathKey)  {
-            nicePrimesURL = getBookmarkFor(key: HLNicePrimesBookmarkKey)
-            if nicePrimesURL != nil {
-                nicePrimeFilePathTextField.stringValue = nicePrimeFilePath
-            }
+        nicePrimesURL = getBookmarkFor(key: HLNicePrimesBookmarkKey)
+        if nicePrimesURL != nil {
+            nicePrimeFilePathTextField.stringValue = nicePrimesURL!.path
+            nicePrimesButton.isEnabled = true
         }
 
         if let terminalPrime = UserDefaults.standard.string(forKey: HLDefaultTerminalPrimeKey)  {
