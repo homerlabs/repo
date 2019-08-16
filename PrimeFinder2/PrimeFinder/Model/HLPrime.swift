@@ -21,25 +21,23 @@ public class HLPrime {
     let primesFileURL: URL          //  set during init()
     var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
-    let primeTable = HLPrimeTable()
 
-    var pTable: [HLPrimeType] = []  //  used to find / validate primes
+    var pTable: [HLPrimeType] = [2, 3]  //  starts out with the first 2 primes, used to find / validate primes
     var startDate: Date!    //  used to calculate timeInSeconds
     var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
 
     var lastN: Int = 0
     var lastP: HLPrimeType = 0
     var lastLine = ""
-    var primeFileLastLine: String?
     var okToRun = true  //  used to exit big loop before app exits
 
     public func findPrimes(maxPrime: HLPrimeType) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .utility).async { [weak self] in
             guard let self = self else { return }
             
-            self.pTable = self.primeTable.createPTable(maxPrime: maxPrime)
+            self.pTable = self.createPTable(maxPrime: maxPrime)
             (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
             
             self.fileManager.createPrimesFileForAppend(with: self.primesFileURL.path)
@@ -67,7 +65,6 @@ public class HLPrime {
         DispatchQueue.main.sync { [weak self] in
                 guard let self = self else { return }
                 self.lastLine.removeLast()
-                self.primeFileLastLine = self.lastLine
                 let (newLastN, newLastP) = self.lastLine.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
 
@@ -81,7 +78,7 @@ public class HLPrime {
         print( "HLPrime-  makeNicePrimesFile" )
         self.nicePrimesFileURL = nicePrimeURL
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .utility).async { [weak self] in
             guard let self = self else { return }
 
             //*******     get last line in prime file to determine maxTestPrime needed in pTable      *********************
@@ -106,7 +103,7 @@ public class HLPrime {
             //*************************************************************************************************************
 
             //  now we can create pTable and begin testing for 'nice' primes
-            self.pTable = self.primeTable.createPTable(maxPrime: self.lastP)
+            self.pTable = self.createPTable(maxPrime: self.lastP)
 
             self.startDate = Date()
             self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
@@ -179,6 +176,23 @@ public class HLPrime {
         
 //        print( "HLPrime-  isPrime: \(value)   isPrime: \(candidateIsPrime)" )
         return candidateIsPrime
+    }
+
+    public func createPTable(maxPrime: HLPrimeType) -> [HLPrimeType] {
+        let maxPTablePrimeRequired = Int64(sqrt(Double(maxPrime)))
+        var primeCandidate = pTable.last! + 2   //  start after the last known prime (3)
+        let startDate = Date()
+
+        while primeCandidate < maxPTablePrimeRequired {
+            
+                if isPrime(primeCandidate) {
+                    pTable.append(primeCandidate)
+                }
+                primeCandidate += 2
+        }
+
+        print(String(format: "HLPrime-  createPTable completed in %0.2f seconds and has \(pTable.count) elements,  pTable last value: \(pTable[self.pTable.count - 1])", -Double(startDate.timeIntervalSinceNow)))
+        return pTable
     }
 
     public init(primesFileURL: URL, delegate: HLPrimesProtocol) {

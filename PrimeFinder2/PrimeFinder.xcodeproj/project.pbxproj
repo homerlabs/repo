@@ -14,7 +14,6 @@
 		B0409143202CF473009E8FA0 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0409142202CF473009E8FA0 /* Help */; };
 		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
 		B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6B2303438300186D26 /* HLPrime.swift */; };
-		B0B1CF6E230344A800186D26 /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6D230344A800186D26 /* HLPrimeTable.swift */; };
 		B0B1CF7323034B4A00186D26 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF7223034B4A00186D26 /* Int+Extension.swift */; };
 		B0B1CF7523034FF700186D26 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF7423034FF700186D26 /* String+Extension.swift */; };
 		B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EE8842230482B1000B90AB /* HLFileManager.m */; };
@@ -42,7 +41,6 @@
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0B1CF6B2303438300186D26 /* HLPrime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
-		B0B1CF6D230344A800186D26 /* HLPrimeTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPrimeTable.swift; sourceTree = "<group>"; };
 		B0B1CF7223034B4A00186D26 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		B0B1CF7423034FF700186D26 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B0EE8841230482B0000B90AB /* Prime Finder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Prime Finder-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				B0B1CF6B2303438300186D26 /* HLPrime.swift */,
-				B0B1CF6D230344A800186D26 /* HLPrimeTable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -266,7 +263,6 @@
 				B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */,
 				B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */,
 				B03242571FCDCC2B003B2265 /* AppDelegate.swift in Sources */,
-				B0B1CF6E230344A800186D26 /* HLPrimeTable.swift in Sources */,
 				B0B1CF7523034FF700186D26 /* String+Extension.swift in Sources */,
 				B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */,
 			);
