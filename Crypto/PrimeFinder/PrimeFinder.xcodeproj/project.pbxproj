@@ -13,14 +13,10 @@
 		B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B032425C1FCDCC2B003B2265 /* Main.storyboard */; };
 		B0409143202CF473009E8FA0 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0409142202CF473009E8FA0 /* Help */; };
 		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
-		B0ADCE5F1FEEED2700EF7FDE /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA271FCDCE7700017C90 /* HLPrime.swift */; };
-		B0ADCE601FEEEEC500EF7FDE /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
-		B0ADCE611FEEEECA00EF7FDE /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA261FCDCE7700017C90 /* HLFileManager.m */; };
-		B0ADCE621FEEEEF000EF7FDE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA281FCDCE7700017C90 /* String+Extension.swift */; };
-		B0DAFA2C1FCDCE7700017C90 /* HLPrimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */; };
-		B0DAFA2D1FCDCE7700017C90 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA261FCDCE7700017C90 /* HLFileManager.m */; };
-		B0DAFA2E1FCDCE7700017C90 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA271FCDCE7700017C90 /* HLPrime.swift */; };
-		B0DAFA2F1FCDCE7700017C90 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DAFA281FCDCE7700017C90 /* String+Extension.swift */; };
+		B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6B2303438300186D26 /* HLPrime.swift */; };
+		B0B1CF7323034B4A00186D26 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF7223034B4A00186D26 /* Int+Extension.swift */; };
+		B0B1CF7523034FF700186D26 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF7423034FF700186D26 /* String+Extension.swift */; };
+		B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EE8842230482B1000B90AB /* HLFileManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,12 +40,12 @@
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrimeTable.swift; sourceTree = "<group>"; };
-		B0DAFA261FCDCE7700017C90 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
-		B0DAFA271FCDCE7700017C90 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
-		B0DAFA281FCDCE7700017C90 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		B0DAFA291FCDCE7700017C90 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
-		B0DAFA311FCDCF3B00017C90 /* PrimeFinder-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrimeFinder-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0B1CF6B2303438300186D26 /* HLPrime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
+		B0B1CF7223034B4A00186D26 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		B0B1CF7423034FF700186D26 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B0EE8841230482B0000B90AB /* Prime Finder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Prime Finder-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0EE8842230482B1000B90AB /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
+		B0EE8843230482B1000B90AB /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B0F7CF592004090200C4F159 /* Prime Finder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Prime Finder.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,9 +70,8 @@
 		B032424A1FCDCC2B003B2265 = {
 			isa = PBXGroup;
 			children = (
-				B0409142202CF473009E8FA0 /* Help */,
 				B03242551FCDCC2B003B2265 /* PrimeFinder */,
-				B0DAFA231FCDCE7700017C90 /* Common */,
+				B0409142202CF473009E8FA0 /* Help */,
 				B0ADCE561FEEEBAE00EF7FDE /* PrimeFinderTests */,
 				B03242541FCDCC2B003B2265 /* Products */,
 			);
@@ -94,13 +89,12 @@
 		B03242551FCDCC2B003B2265 /* PrimeFinder */ = {
 			isa = PBXGroup;
 			children = (
-				B03242581FCDCC2B003B2265 /* ViewController.swift */,
-				B0DAFA311FCDCF3B00017C90 /* PrimeFinder-Bridging-Header.h */,
 				B03242561FCDCC2B003B2265 /* AppDelegate.swift */,
-				B032425A1FCDCC2B003B2265 /* Assets.xcassets */,
-				B032425C1FCDCC2B003B2265 /* Main.storyboard */,
-				B0F7CF592004090200C4F159 /* Prime Finder.entitlements */,
-				B032425F1FCDCC2B003B2265 /* Info.plist */,
+				B0B1CF6F23034AAE00186D26 /* Extensions */,
+				B0B1CF6A230342E400186D26 /* Model */,
+				B0B7D3F423047E9F00C2F9FD /* ObjectiveC */,
+				B0B7D3F123047A4B00C2F9FD /* Resources */,
+				B03242581FCDCC2B003B2265 /* ViewController.swift */,
 			);
 			path = PrimeFinder;
 			sourceTree = "<group>";
@@ -114,17 +108,42 @@
 			path = PrimeFinderTests;
 			sourceTree = "<group>";
 		};
-		B0DAFA231FCDCE7700017C90 /* Common */ = {
+		B0B1CF6A230342E400186D26 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B0DAFA271FCDCE7700017C90 /* HLPrime.swift */,
-				B0DAFA251FCDCE7700017C90 /* HLPrimeTable.swift */,
-				B0DAFA291FCDCE7700017C90 /* HLFileManager.h */,
-				B0DAFA261FCDCE7700017C90 /* HLFileManager.m */,
-				B0DAFA281FCDCE7700017C90 /* String+Extension.swift */,
+				B0B1CF6B2303438300186D26 /* HLPrime.swift */,
 			);
-			name = Common;
-			path = ../Common;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B0B1CF6F23034AAE00186D26 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B0B1CF7223034B4A00186D26 /* Int+Extension.swift */,
+				B0B1CF7423034FF700186D26 /* String+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B0B7D3F123047A4B00C2F9FD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B032425C1FCDCC2B003B2265 /* Main.storyboard */,
+				B032425A1FCDCC2B003B2265 /* Assets.xcassets */,
+				B0F7CF592004090200C4F159 /* Prime Finder.entitlements */,
+				B032425F1FCDCC2B003B2265 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B0B7D3F423047E9F00C2F9FD /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				B0EE8843230482B1000B90AB /* HLFileManager.h */,
+				B0EE8842230482B1000B90AB /* HLFileManager.m */,
+				B0EE8841230482B0000B90AB /* Prime Finder-Bridging-Header.h */,
+			);
+			path = ObjectiveC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,9 +196,12 @@
 				TargetAttributes = {
 					B03242521FCDCC2B003B2265 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -237,12 +259,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0DAFA2C1FCDCE7700017C90 /* HLPrimeTable.swift in Sources */,
-				B0DAFA2D1FCDCE7700017C90 /* HLFileManager.m in Sources */,
-				B0DAFA2E1FCDCE7700017C90 /* HLPrime.swift in Sources */,
+				B0B1CF7323034B4A00186D26 /* Int+Extension.swift in Sources */,
+				B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */,
 				B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */,
-				B0DAFA2F1FCDCE7700017C90 /* String+Extension.swift in Sources */,
 				B03242571FCDCC2B003B2265 /* AppDelegate.swift in Sources */,
+				B0B1CF7523034FF700186D26 /* String+Extension.swift in Sources */,
+				B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,11 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0ADCE601FEEEEC500EF7FDE /* HLPrimeTable.swift in Sources */,
-				B0ADCE611FEEEECA00EF7FDE /* HLFileManager.m in Sources */,
 				B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */,
-				B0ADCE621FEEEEF000EF7FDE /* String+Extension.swift in Sources */,
-				B0ADCE5F1FEEED2700EF7FDE /* HLPrime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,7 +414,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "PrimeFinder/Prime Finder.entitlements";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "PrimeFinder/Resources/Prime Finder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -404,7 +423,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
 				PRODUCT_NAME = "Prime Finder";
-				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/ObjectiveC/Prime Finder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -413,7 +433,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "PrimeFinder/Prime Finder.entitlements";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "PrimeFinder/Resources/Prime Finder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -421,7 +442,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
 				PRODUCT_NAME = "Prime Finder";
-				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/PrimeFinder-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrimeFinder/ObjectiveC/Prime Finder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

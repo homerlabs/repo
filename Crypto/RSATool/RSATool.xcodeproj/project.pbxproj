@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B04CBCDB1FA7B02C00D02AC9 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */; };
+		B001741323077EFA00036576 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B001741223077EFA00036576 /* HLRSA.swift */; };
+		B001741523077F0200036576 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B001741423077F0200036576 /* String+Extension.swift */; };
 		B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765D1F993D2B00772AFC /* AppDelegate.swift */; };
 		B08176601F993D2B00772AFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765F1F993D2B00772AFC /* ViewController.swift */; };
 		B08176621F993D2B00772AFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B08176611F993D2B00772AFC /* Assets.xcassets */; };
 		B08176651F993D2B00772AFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B08176631F993D2B00772AFC /* Main.storyboard */; };
-		B089FDF91FB1FD00006D45DA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B089FDF81FB1FD00006D45DA /* String+Extension.swift */; };
 		B0BC0709202B7B77007ABA77 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0BC0708202B7B77007ABA77 /* Help */; };
 		B0FC2FB91FACD1C50071DD9B /* RSAToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */; };
-		B0FC2FC01FACD25D0071DD9B /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,15 +28,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B001741223077EFA00036576 /* HLRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
+		B001741423077F0200036576 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B01D0F9A201CF9020076E254 /* RSATool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSATool.entitlements; sourceTree = "<group>"; };
-		B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
 		B081765A1F993D2B00772AFC /* HLCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B081765D1F993D2B00772AFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B081765F1F993D2B00772AFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B08176611F993D2B00772AFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B08176641F993D2B00772AFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B08176661F993D2B00772AFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B089FDF81FB1FD00006D45DA /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B0BC0708202B7B77007ABA77 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
 		B0FC2FB61FACD1C50071DD9B /* RSAToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSAToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FC2FB81FACD1C50071DD9B /* RSAToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSAToolTests.swift; sourceTree = "<group>"; };
@@ -62,22 +61,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B0439C0D1FA4063800EC83A0 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				B04CBCDA1FA7B02C00D02AC9 /* HLRSA.swift */,
-				B089FDF81FB1FD00006D45DA /* String+Extension.swift */,
-			);
-			name = Common;
-			path = ../Common;
-			sourceTree = "<group>";
-		};
 		B08176511F993D2B00772AFC = {
 			isa = PBXGroup;
 			children = (
 				B0BC0708202B7B77007ABA77 /* Help */,
 				B081765C1F993D2B00772AFC /* RSATool */,
-				B0439C0D1FA4063800EC83A0 /* Common */,
 				B0FC2FB71FACD1C50071DD9B /* RSAToolTests */,
 				B081765B1F993D2B00772AFC /* Products */,
 			);
@@ -95,6 +83,8 @@
 		B081765C1F993D2B00772AFC /* RSATool */ = {
 			isa = PBXGroup;
 			children = (
+				B001741223077EFA00036576 /* HLRSA.swift */,
+				B001741423077F0200036576 /* String+Extension.swift */,
 				B081765F1F993D2B00772AFC /* ViewController.swift */,
 				B01D0F9A201CF9020076E254 /* RSATool.entitlements */,
 				B08176631F993D2B00772AFC /* Main.storyboard */,
@@ -224,10 +214,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B001741523077F0200036576 /* String+Extension.swift in Sources */,
 				B08176601F993D2B00772AFC /* ViewController.swift in Sources */,
-				B04CBCDB1FA7B02C00D02AC9 /* HLRSA.swift in Sources */,
 				B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */,
-				B089FDF91FB1FD00006D45DA /* String+Extension.swift in Sources */,
+				B001741323077EFA00036576 /* HLRSA.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +225,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0FC2FC01FACD25D0071DD9B /* HLRSA.swift in Sources */,
 				B0FC2FB91FACD1C50071DD9B /* RSAToolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
