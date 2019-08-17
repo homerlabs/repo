@@ -34,13 +34,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     var rsa: HLRSA!
     let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
-    var plainTextURL: URL? = nil
-    var cipherTextURL: URL? = nil
-    var deCipherTextURL: URL? = nil
-
-    let HLDefaultPlaintextFilePathKey   = "PlaintextPathKey"
-    let HLDefaultCiphertextFilePathKey  = "CiphertextPathKey"
-    let HLDefaultDeCiphertextFilePathKey = "DeCiphertextPathKey"
+    var plainTextURL: URL?
+    var cipherTextURL: URL?
+    var deCipherTextURL: URL?
 
     let HLDefaultCharacterSetKey        = "CharacterSetKey"
     let HLDefaultPrimePKey              = "PrimePKey"
@@ -50,67 +46,29 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let HLPlaintextBookmarkKey          = "PlaintextBookmarkKey"
     let HLCiphertextBookmarkKey         = "CiphertextBookmarkKey"
     let HLDeCiphertextBookmarkKey       = "DeCiphertextBookmarkKey"
-
-    
-   func getOpenFilePath(title: String, bookmarkKey: String) -> String     {
-    
-        var path = ""
-        let openPanel = NSOpenPanel();
-        openPanel.canCreateDirectories = true;
-        openPanel.allowedFileTypes = ["txt"];
-        openPanel.showsTagField = false;
-        openPanel.prompt = "Open";
-        openPanel.message = title;
-
-        let i = openPanel.runModal();
-        if(i == NSApplication.ModalResponse.OK){
-            path = openPanel.url!.path
-            openPanel.url!.setBookmarkFor(key: bookmarkKey)
-        }
-    
-        return path
-    }
-   
-   func getSaveFilePath(title: String, fileName: String, bookmarkName: String) -> String     {
-    
-        var path = ""
-        let savePanel = NSSavePanel();
-        savePanel.canCreateDirectories = true;
-        savePanel.title = "RSA Tool Save Panel";
-        savePanel.nameFieldStringValue = fileName;
-        savePanel.showsTagField = false;
-        savePanel.prompt = "Create";
-        savePanel.message = title;
-        savePanel.nameFieldLabel = "Save As:";
-        savePanel.allowedFileTypes = ["txt"];
-
-        let i = savePanel.runModal();
-        if(i == NSApplication.ModalResponse.OK){
-            path = savePanel.url!.path
-            savePanel.url!.setBookmarkFor(key: bookmarkName)
-        }
-        return path
-    }
    
     @IBAction func setPlaintextPathAction(sender: NSButton) {
-        let path = getOpenFilePath(title: "Open Plaintext file", bookmarkKey: HLPlaintextBookmarkKey)
-        plaintextFilePathTextField.stringValue = path
-        UserDefaults.standard.set(path, forKey:HLDefaultPlaintextFilePathKey)
-        plainTextURL = path.getBookmarkFor(key: HLPlaintextBookmarkKey)
+        plainTextURL = getOpenFilePath(title: "Open Plaintext file", bookmarkKey: HLPlaintextBookmarkKey)
+        guard let url = plainTextURL else { return }
+
+        plaintextFilePathTextField.stringValue = url.path
+        UserDefaults.standard.set(url, forKey: HLPlaintextBookmarkKey)
     }
 
     @IBAction func setCiphertextPathAction(sender: NSButton) {
-        let path = getSaveFilePath(title: "Set Ciphertext file path", fileName: "Ciphertext", bookmarkName: HLCiphertextBookmarkKey)
-        ciphertextFilePathTextField.stringValue = path
-        UserDefaults.standard.set(path, forKey:HLDefaultCiphertextFilePathKey)
-        cipherTextURL = path.getBookmarkFor(key: HLCiphertextBookmarkKey)
+        cipherTextURL = getSaveFilePath(title: "HLCrypto Save Panel", message: "Set Ciphertext file path", fileName: "Ciphertext", bookmarkName: HLCiphertextBookmarkKey)
+        guard let url = cipherTextURL else { return }
+
+        ciphertextFilePathTextField.stringValue = url.path
+        UserDefaults.standard.set(url, forKey: HLCiphertextBookmarkKey)
     }
 
     @IBAction func setDeCiphertextPathAction(sender: NSButton) {
-        let path = getSaveFilePath(title: "Set DeCiphertext file path", fileName: "DeCiphertext", bookmarkName: HLDeCiphertextBookmarkKey)
-        deCiphertextFilePathTextField.stringValue = path
-        UserDefaults.standard.set(path, forKey:HLDefaultDeCiphertextFilePathKey)
-        deCipherTextURL = path.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
+        deCipherTextURL = getSaveFilePath(title: "HLCrypto Save Panel", message: "Set DeCiphertext file path", fileName: "DeCiphertext", bookmarkName: HLDeCiphertextBookmarkKey)
+        guard let url = deCipherTextURL else { return }
+
+        deCiphertextFilePathTextField.stringValue = url.path
+        UserDefaults.standard.set(url, forKey: HLDeCiphertextBookmarkKey)
     }
     
     
@@ -133,10 +91,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBAction func decodeAction(sender: NSButton) {
         if cipherTextURL == nil   {
             print( "cipherTextURL is nil" )
-            let path = getOpenFilePath(title: "Open Ciphertext file", bookmarkKey: HLCiphertextBookmarkKey)
-            ciphertextFilePathTextField.stringValue = path
-            UserDefaults.standard.set(path, forKey:HLDefaultCiphertextFilePathKey)
-            cipherTextURL = path.getBookmarkFor(key: HLCiphertextBookmarkKey)
+            cipherTextURL = getOpenFilePath(title: "Open Ciphertext file", bookmarkKey: HLCiphertextBookmarkKey)
+            ciphertextFilePathTextField.stringValue = cipherTextURL!.path
         }
         
         if deCipherTextURL == nil   {
@@ -204,11 +160,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        print( "ViewController-  viewDidDisappear" )
+//        print( "ViewController-  viewDidDisappear" )
+        
         plainTextURL?.stopAccessingSecurityScopedResource()
         cipherTextURL?.stopAccessingSecurityScopedResource()
         deCipherTextURL?.stopAccessingSecurityScopedResource()
-        exit(0)
+        
+        exit(0) //  if main window closes then quit app
     }
     
     override func viewDidLoad() {
@@ -245,28 +203,94 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             characterSetSizeTextField.integerValue = characterSetTextField.stringValue.count
         }
 
-        if let plaintextFilePath = UserDefaults.standard.string(forKey: HLDefaultPlaintextFilePathKey)  {
-            plainTextURL = plaintextFilePath.getBookmarkFor(key: HLPlaintextBookmarkKey)
-            if plainTextURL != nil {
-                plaintextFilePathTextField.stringValue = plaintextFilePath
-            }
+        plainTextURL = getBookmarkFor(key: HLPlaintextBookmarkKey)
+        if plainTextURL != nil  {
+            plaintextFilePathTextField.stringValue = plainTextURL!.path
         }
 
-        if let ciphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultCiphertextFilePathKey)  {
-            cipherTextURL = ciphertextFilePath.getBookmarkFor(key: HLCiphertextBookmarkKey)
-            if cipherTextURL != nil {
-                ciphertextFilePathTextField.stringValue = ciphertextFilePath
-            }
+        cipherTextURL = getBookmarkFor(key: HLCiphertextBookmarkKey)
+        if cipherTextURL != nil  {
+            ciphertextFilePathTextField.stringValue = cipherTextURL!.path
         }
 
-        if let deCiphertextFilePath = UserDefaults.standard.string(forKey: HLDefaultDeCiphertextFilePathKey)  {
-            deCipherTextURL = deCiphertextFilePath.getBookmarkFor(key: HLDeCiphertextBookmarkKey)
-            if deCipherTextURL != nil {
-                deCiphertextFilePathTextField.stringValue = deCiphertextFilePath
-            }
+        deCipherTextURL = getBookmarkFor(key: HLDeCiphertextBookmarkKey)
+        if deCipherTextURL != nil  {
+            deCiphertextFilePathTextField.stringValue = deCipherTextURL!.path
         }
 
         setupRSA()
    }
+}
+
+//  URL Bookmark get and set helpers
+extension ViewController {
+    
+   func getOpenFilePath(title: String, bookmarkKey: String) -> URL?     {
+    
+        var url: URL?
+        let openPanel = NSOpenPanel();
+        openPanel.canCreateDirectories = true;
+        openPanel.allowedFileTypes = ["txt"];
+        openPanel.showsTagField = false;
+        openPanel.prompt = "Open";
+        openPanel.message = title;
+
+        let i = openPanel.runModal();
+        if(i == NSApplication.ModalResponse.OK){
+            url = openPanel.url
+        }
+    
+        print("getOpenFilePath: \(title), Bookmark: \(bookmarkKey), return: \(String(describing: url))")
+        return url
+    }
+   
+   func getSaveFilePath(title: String, message: String, fileName: String, bookmarkName: String) -> URL?     {
+    
+        var url: URL?
+        let savePanel = NSSavePanel();
+        savePanel.canCreateDirectories = true;
+        savePanel.title = title;
+        savePanel.nameFieldStringValue = fileName;
+        savePanel.showsTagField = false;
+        savePanel.prompt = "Create";
+        savePanel.message = message;
+        savePanel.nameFieldLabel = "Save As:";
+        savePanel.allowedFileTypes = ["txt"];
+
+        let i = savePanel.runModal();
+        if(i == NSApplication.ModalResponse.OK) {
+            url = savePanel.url
+            setBookmarkFor(key: bookmarkName, url: url!)
+        }
+    
+        return url
+    }
+    func getBookmarkFor(key: String) -> URL?   {
+        var url: URL? = nil
+        
+        if let data = UserDefaults.standard.data(forKey: key)  {
+            do  {
+                var isStale = false
+                    url = try URL(resolvingBookmarkData: data, options: URL.BookmarkResolutionOptions.withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
+                    let success = url!.startAccessingSecurityScopedResource()
+
+                    if !success {
+                        print("startAccessingSecurityScopedResource-  success: \(success)")
+                    }
+                } catch {
+     //               print("Warning:  Unable to optain security bookmark for key: \(key) with error: \(error)!")
+                }
+        }
+        return url
+    }
+    
+    func setBookmarkFor(key: String, url: URL) {
+        do  {
+            let data = try url.bookmarkData(options: URL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+            UserDefaults.standard.set(data, forKey:key)
+        }   catch   {
+            print("Warning:  Unable to create security bookmark for key: \(key) with error: \(error)!")
+        }
+    }
 }
 
