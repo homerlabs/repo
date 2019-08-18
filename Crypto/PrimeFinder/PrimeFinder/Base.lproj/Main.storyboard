@@ -762,8 +762,8 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4x-m7-xax">
-                                <rect key="frame" x="22" y="120" width="140" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last Prime Processed:" id="8gD-Us-Ode">
+                                <rect key="frame" x="22" y="120" width="223" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last Prime Processed (index prime):" id="8gD-Us-Ode">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -798,8 +798,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3rG-2m-hEe">
-                                <rect key="frame" x="169" y="120" width="69" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" title="Last Prime" id="WKb-nN-a9f">
+                                <rect key="frame" x="249" y="120" width="114" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" title="Last (index prime)" id="WKb-nN-a9f">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -822,7 +822,7 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3rG-2m-hEe" secondAttribute="trailing" constant="20" symbolic="YES" id="P9D-WA-AIf"/>
                             <constraint firstAttribute="bottom" secondItem="0UU-ee-UBx" secondAttribute="bottom" constant="20" id="PuJ-DS-aFq"/>
                             <constraint firstItem="3rG-2m-hEe" firstAttribute="firstBaseline" secondItem="K4x-m7-xax" secondAttribute="firstBaseline" id="Q97-04-jIc"/>
-                            <constraint firstItem="3rG-2m-hEe" firstAttribute="leading" secondItem="K4x-m7-xax" secondAttribute="trailing" constant="11" id="U7d-OE-XaG"/>
+                            <constraint firstItem="3rG-2m-hEe" firstAttribute="leading" secondItem="K4x-m7-xax" secondAttribute="trailing" constant="8" id="U7d-OE-XaG"/>
                             <constraint firstItem="U82-QS-35Z" firstAttribute="firstBaseline" secondItem="Sik-oE-N3h" secondAttribute="firstBaseline" id="VUn-i1-uNa"/>
                             <constraint firstItem="JpO-5X-s5e" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="YP1-18-dfc"/>
                             <constraint firstItem="U82-QS-35Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sik-oE-N3h" secondAttribute="trailing" constant="8" symbolic="YES" id="ZB1-1d-gdJ"/>
