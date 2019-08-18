@@ -691,7 +691,6 @@
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="480" height="270"/>
-                        <value key="maxSize" type="size" width="960" height="270"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -726,10 +725,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0UU-ee-UBx">
-                                <rect key="frame" x="183" y="13" width="115" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="103" id="lYx-Gp-NBJ"/>
-                                </constraints>
+                                <rect key="frame" x="180" y="13" width="121" height="32"/>
                                 <buttonCell key="cell" type="push" title="Find NPrimes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pfH-V2-25l">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -774,10 +770,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="snx-gN-6Hu">
-                                <rect key="frame" x="183" y="52" width="115" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="103" id="8lx-OV-sbn"/>
-                                </constraints>
+                                <rect key="frame" x="180" y="52" width="121" height="32"/>
                                 <buttonCell key="cell" type="push" title="Find Primes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LM4-IB-9rh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -788,9 +781,6 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JpO-5X-s5e">
                                 <rect key="frame" x="18" y="185" width="112" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Z33-fA-gP8"/>
-                                </constraints>
                                 <buttonCell key="cell" type="push" title="Nice Primes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lvK-Vu-tq1">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -821,16 +811,21 @@
                             <constraint firstItem="U82-QS-35Z" firstAttribute="leading" secondItem="nAu-gK-rOB" secondAttribute="leading" id="4GR-ka-H0t"/>
                             <constraint firstItem="wwB-jO-Uc6" firstAttribute="firstBaseline" secondItem="JpO-5X-s5e" secondAttribute="firstBaseline" id="7St-9v-key"/>
                             <constraint firstItem="Sik-oE-N3h" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="7ly-YL-gUn"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U82-QS-35Z" secondAttribute="trailing" constant="20" symbolic="YES" id="ArI-1Y-uSR"/>
                             <constraint firstItem="U82-QS-35Z" firstAttribute="width" secondItem="nAu-gK-rOB" secondAttribute="width" multiplier="0.33" id="BCC-3z-ikE"/>
                             <constraint firstItem="wwB-jO-Uc6" firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" id="C2I-dJ-mra"/>
+                            <constraint firstItem="JpO-5X-s5e" firstAttribute="width" secondItem="uIT-kN-6mk" secondAttribute="width" id="EXT-Vr-AkI"/>
                             <constraint firstItem="JpO-5X-s5e" firstAttribute="top" secondItem="uIT-kN-6mk" secondAttribute="bottom" constant="13" id="Fs0-9A-EaB"/>
                             <constraint firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" constant="24" id="H9z-TD-y6S"/>
                             <constraint firstItem="uIT-kN-6mk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="IyL-AL-O3N"/>
+                            <constraint firstItem="0UU-ee-UBx" firstAttribute="width" secondItem="snx-gN-6Hu" secondAttribute="width" id="Jqe-YH-Pfp"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3rG-2m-hEe" secondAttribute="trailing" constant="20" symbolic="YES" id="P9D-WA-AIf"/>
                             <constraint firstAttribute="bottom" secondItem="0UU-ee-UBx" secondAttribute="bottom" constant="20" id="PuJ-DS-aFq"/>
                             <constraint firstItem="3rG-2m-hEe" firstAttribute="firstBaseline" secondItem="K4x-m7-xax" secondAttribute="firstBaseline" id="Q97-04-jIc"/>
                             <constraint firstItem="3rG-2m-hEe" firstAttribute="leading" secondItem="K4x-m7-xax" secondAttribute="trailing" constant="11" id="U7d-OE-XaG"/>
                             <constraint firstItem="U82-QS-35Z" firstAttribute="firstBaseline" secondItem="Sik-oE-N3h" secondAttribute="firstBaseline" id="VUn-i1-uNa"/>
                             <constraint firstItem="JpO-5X-s5e" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="YP1-18-dfc"/>
+                            <constraint firstItem="U82-QS-35Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sik-oE-N3h" secondAttribute="trailing" constant="8" symbolic="YES" id="ZB1-1d-gdJ"/>
                             <constraint firstItem="K4x-m7-xax" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="e2s-jB-aUf"/>
                             <constraint firstItem="0UU-ee-UBx" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eR7-px-jSn"/>
                             <constraint firstItem="K4x-m7-xax" firstAttribute="top" secondItem="Sik-oE-N3h" secondAttribute="bottom" constant="18" id="gdl-7f-UEY"/>
