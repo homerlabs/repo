@@ -89,12 +89,13 @@
 		B03242551FCDCC2B003B2265 /* PrimeFinder */ = {
 			isa = PBXGroup;
 			children = (
+				B03242581FCDCC2B003B2265 /* ViewController.swift */,
+				B032425C1FCDCC2B003B2265 /* Main.storyboard */,
 				B03242561FCDCC2B003B2265 /* AppDelegate.swift */,
 				B0B1CF6F23034AAE00186D26 /* Extensions */,
 				B0B1CF6A230342E400186D26 /* Model */,
 				B0B7D3F423047E9F00C2F9FD /* ObjectiveC */,
 				B0B7D3F123047A4B00C2F9FD /* Resources */,
-				B03242581FCDCC2B003B2265 /* ViewController.swift */,
 			);
 			path = PrimeFinder;
 			sourceTree = "<group>";
@@ -128,7 +129,6 @@
 		B0B7D3F123047A4B00C2F9FD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B032425C1FCDCC2B003B2265 /* Main.storyboard */,
 				B032425A1FCDCC2B003B2265 /* Assets.xcassets */,
 				B0F7CF592004090200C4F159 /* Prime Finder.entitlements */,
 				B032425F1FCDCC2B003B2265 /* Info.plist */,
