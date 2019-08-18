@@ -30,16 +30,16 @@ extension ViewController {
         return url
     }
     
-    func getSaveFilePath(title: String, fileName: String) -> URL?     {
+    func getSaveFilePath(title: String, message: String, fileName: String) -> URL?     {
         
         var url: URL?
         let savePanel = NSSavePanel();
         savePanel.canCreateDirectories = true;
-        savePanel.title = "PrimeFinder Save Panel";
+        savePanel.title = title;
         savePanel.nameFieldStringValue = fileName;
         savePanel.showsTagField = false;
         savePanel.prompt = "Create";
-        savePanel.message = title;
+        savePanel.message = message;
         savePanel.nameFieldLabel = "Save As:";
         savePanel.allowedFileTypes = ["txt"];
         
