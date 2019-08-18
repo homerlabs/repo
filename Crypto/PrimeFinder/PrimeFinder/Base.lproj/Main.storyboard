@@ -708,49 +708,11 @@
             <objects>
                 <viewController title="HLP" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="ViewController" customModule="Prime_Finder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="267"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sik-oE-N3h">
-                                <rect key="frame" x="22" y="190" width="106" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Terminal Prime:" id="2Ms-gH-hyk">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nAu-gK-rOB">
-                                <rect key="frame" x="134" y="262" width="322" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/Primes.txt" drawsBackground="YES" usesSingleLineMode="YES" id="j38-nk-d1d">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U82-QS-35Z">
-                                <rect key="frame" x="134" y="190" width="102" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="10000000" drawsBackground="YES" usesSingleLineMode="YES" id="6xi-3A-nQv">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </textFieldCell>
-                                <connections>
-                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="1Zc-j6-m2c"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4x-m7-xax">
-                                <rect key="frame" x="22" y="153" width="140" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last Prime Processed:" id="8gD-Us-Ode">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uIT-kN-6mk">
-                                <rect key="frame" x="18" y="252" width="112" height="32"/>
+                                <rect key="frame" x="18" y="219" width="112" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Gw2-GV-ZKL"/>
                                 </constraints>
@@ -762,39 +724,63 @@
                                     <action selector="setPrimesPathActionWithSender:" target="XfG-lQ-9wD" id="Ws1-Ve-gao"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="snx-gN-6Hu">
-                                <rect key="frame" x="183" y="85" width="115" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Find Primes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LM4-IB-9rh">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="primesStartActionWithSender:" target="XfG-lQ-9wD" id="Ffs-nf-tOw"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UU-ee-UBx">
-                                <rect key="frame" x="184" y="46" width="112" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0UU-ee-UBx">
+                                <rect key="frame" x="183" y="13" width="115" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="lYx-Gp-NBJ"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="Find NPrimes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pfH-V2-25l">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="nicePrimesActionWithSender:" target="XfG-lQ-9wD" id="VYU-kE-YuO"/>
-                                </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNL-s0-YqP">
-                                <rect key="frame" x="168" y="153" width="166" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="last prime" drawsBackground="YES" usesSingleLineMode="YES" id="WGz-73-EpV">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sik-oE-N3h">
+                                <rect key="frame" x="22" y="155" width="98" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Terminal Prime:" id="2Ms-gH-hyk">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nAu-gK-rOB">
+                                <rect key="frame" x="134" y="229" width="322" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/Primes.txt" drawsBackground="YES" usesSingleLineMode="YES" id="j38-nk-d1d">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U82-QS-35Z">
+                                <rect key="frame" x="134" y="155" width="106" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="10000000" drawsBackground="YES" usesSingleLineMode="YES" id="6xi-3A-nQv">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textFieldCell>
+                                <connections>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="1Zc-j6-m2c"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4x-m7-xax">
+                                <rect key="frame" x="22" y="120" width="140" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last Prime Processed:" id="8gD-Us-Ode">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="snx-gN-6Hu">
+                                <rect key="frame" x="183" y="52" width="115" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="103" id="8lx-OV-sbn"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Find Primes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LM4-IB-9rh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JpO-5X-s5e">
-                                <rect key="frame" x="18" y="218" width="112" height="32"/>
+                                <rect key="frame" x="18" y="185" width="112" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Z33-fA-gP8"/>
                                 </constraints>
@@ -803,43 +789,64 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="setNicePrimesPathActionWithSender:" target="XfG-lQ-9wD" id="6U3-df-1DR"/>
+                                    <action selector="setNicePrimesPathActionWithSender:" target="XfG-lQ-9wD" id="tZX-dE-nNJ"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wwB-jO-Uc6">
-                                <rect key="frame" x="134" y="228" width="322" height="17"/>
+                                <rect key="frame" x="134" y="195" width="322" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/NicePrimes.txt" drawsBackground="YES" usesSingleLineMode="YES" id="J3h-eN-OOF">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3rG-2m-hEe">
+                                <rect key="frame" x="169" y="120" width="69" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" title="Last Prime" id="WKb-nN-a9f">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="0UU-ee-UBx" firstAttribute="top" secondItem="snx-gN-6Hu" secondAttribute="bottom" constant="18" id="2yD-ut-AWe"/>
+                            <constraint firstItem="U82-QS-35Z" firstAttribute="leading" secondItem="nAu-gK-rOB" secondAttribute="leading" id="4GR-ka-H0t"/>
                             <constraint firstItem="wwB-jO-Uc6" firstAttribute="firstBaseline" secondItem="JpO-5X-s5e" secondAttribute="firstBaseline" id="7St-9v-key"/>
+                            <constraint firstItem="Sik-oE-N3h" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="7ly-YL-gUn"/>
+                            <constraint firstItem="U82-QS-35Z" firstAttribute="width" secondItem="nAu-gK-rOB" secondAttribute="width" multiplier="0.33" id="BCC-3z-ikE"/>
                             <constraint firstItem="wwB-jO-Uc6" firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" id="C2I-dJ-mra"/>
                             <constraint firstItem="JpO-5X-s5e" firstAttribute="top" secondItem="uIT-kN-6mk" secondAttribute="bottom" constant="13" id="Fs0-9A-EaB"/>
                             <constraint firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" constant="24" id="H9z-TD-y6S"/>
                             <constraint firstItem="uIT-kN-6mk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="IyL-AL-O3N"/>
+                            <constraint firstAttribute="bottom" secondItem="0UU-ee-UBx" secondAttribute="bottom" constant="20" id="PuJ-DS-aFq"/>
+                            <constraint firstItem="3rG-2m-hEe" firstAttribute="firstBaseline" secondItem="K4x-m7-xax" secondAttribute="firstBaseline" id="Q97-04-jIc"/>
+                            <constraint firstItem="3rG-2m-hEe" firstAttribute="leading" secondItem="K4x-m7-xax" secondAttribute="trailing" constant="11" id="U7d-OE-XaG"/>
+                            <constraint firstItem="U82-QS-35Z" firstAttribute="firstBaseline" secondItem="Sik-oE-N3h" secondAttribute="firstBaseline" id="VUn-i1-uNa"/>
                             <constraint firstItem="JpO-5X-s5e" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="YP1-18-dfc"/>
+                            <constraint firstItem="K4x-m7-xax" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="e2s-jB-aUf"/>
+                            <constraint firstItem="0UU-ee-UBx" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eR7-px-jSn"/>
+                            <constraint firstItem="K4x-m7-xax" firstAttribute="top" secondItem="Sik-oE-N3h" secondAttribute="bottom" constant="18" id="gdl-7f-UEY"/>
                             <constraint firstItem="wwB-jO-Uc6" firstAttribute="leading" secondItem="JpO-5X-s5e" secondAttribute="trailing" constant="10" id="h5l-9a-ppT"/>
+                            <constraint firstItem="Sik-oE-N3h" firstAttribute="top" secondItem="JpO-5X-s5e" secondAttribute="bottom" constant="20" id="i9I-wN-CZF"/>
                             <constraint firstItem="nAu-gK-rOB" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="trailing" constant="10" id="jbC-Aw-S4G"/>
                             <constraint firstItem="uIT-kN-6mk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="24" id="job-pG-mH9"/>
                             <constraint firstItem="nAu-gK-rOB" firstAttribute="firstBaseline" secondItem="uIT-kN-6mk" secondAttribute="firstBaseline" id="mMD-hf-Yvb"/>
+                            <constraint firstItem="snx-gN-6Hu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="oBk-Ju-AJT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="nicePrimeFilePathTextField" destination="wwB-jO-Uc6" id="rDE-6R-nCJ"/>
-                        <outlet property="nicePrimesButton" destination="0UU-ee-UBx" id="YNp-Ky-3jV"/>
-                        <outlet property="primeButton" destination="snx-gN-6Hu" id="bt8-eO-ZQl"/>
+                        <outlet property="nicePrimesButton" destination="0UU-ee-UBx" id="uIe-XS-OTM"/>
+                        <outlet property="primeButton" destination="snx-gN-6Hu" id="EKR-Fa-P9I"/>
                         <outlet property="primeFilePathTextField" destination="nAu-gK-rOB" id="z2r-HF-o2b"/>
-                        <outlet property="progressTextField" destination="CNL-s0-YqP" id="75i-sN-OP2"/>
+                        <outlet property="progressTextField" destination="3rG-2m-hEe" id="FDr-DJ-b9L"/>
                         <outlet property="terminalPrimeTextField" destination="U82-QS-35Z" id="Gux-I7-8yI"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="738"/>
+            <point key="canvasLocation" x="75" y="721.5"/>
         </scene>
     </scenes>
 </document>
