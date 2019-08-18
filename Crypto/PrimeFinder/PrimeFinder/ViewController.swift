@@ -18,8 +18,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBOutlet weak var primeButton: NSButton!
     @IBOutlet weak var nicePrimesButton: NSButton!
 
-    var primeFinder: HLPrime?
-    let HLDefaultTerminalPrimeKey       = "TerminalPrimeKey"
+    let HLPrimesBookmarkKey         = "HLPrimesBookmarkKey"
+    let HLNicePrimesBookmarkKey     = "HLNicePrimesBookmarkKey"
+    let HLDefaultTerminalPrimeKey   = "TerminalPrimeKey"
+    var primesURL: URL?
+    var nicePrimesURL: URL?
+    
+    var primeFinder: HLPrime?   //  the Model in MVC
     
     let defaultTerminalPrime = "1000000"
     let primesButtonTitle       = "Find Primes"
@@ -30,11 +35,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var errorCode = 0
     var timer: Timer?
     var updateTimeIsSeconds = 1.0   //  set to 10.0 for terminalCount > 50000000
-
-    var primesURL: URL? = nil
-    var nicePrimesURL: URL? = nil
-    let HLPrimesBookmarkKey         = "HLPrimesBookmarkKey"
-    let HLNicePrimesBookmarkKey     = "HLNicePrimesBookmarkKey"
 
 
     @IBAction func setPrimesPathAction(sender: NSButton) {
@@ -53,14 +53,13 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
     }
 
-    @IBAction func primesStartAction(sender: NSButton) {
+    @IBAction func findPrimesStartAction(sender: NSButton) {
         
         if !findPrimesInProgress {
             primeButton.title = "Running"
             nicePrimesButton.isEnabled = false
 
         if primesURL == nil   {
-      //      print( "primesURL is nil" )
             primesURL = getSaveFilePath(title: "Set Primes file path", fileName: "Primes")
         
             guard primesURL != nil else { return }
@@ -94,7 +93,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         findPrimesInProgress = !findPrimesInProgress
         }
 
-    @IBAction func nicePrimesAction(sender: NSButton) {
+    @IBAction func findNicePrimesAction(sender: NSButton) {
         if !findNicePrimesInProgress {
             nicePrimesButton.title = "Running"
             findNicePrimesInProgress = true
