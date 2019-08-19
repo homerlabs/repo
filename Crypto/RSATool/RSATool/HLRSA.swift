@@ -19,7 +19,7 @@ import Cocoa
 
 typealias HLPrimeType = Int64
 
-class HLRSA: NSObject {
+class HLRSA {
 
     let N: HLPrimeType
     let Phi: HLPrimeType
@@ -392,6 +392,5 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         chuckSize = Int(chuckSizeDouble)
         
         print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chuckSizeDouble]))" )
-        super.init()
     }
 }
