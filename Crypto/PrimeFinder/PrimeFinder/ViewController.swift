@@ -25,7 +25,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var primesURL: URL?
     var nicePrimesURL: URL?
     
-    var primeFinder: HLPrime!   //  the Model in MVC
+    var primeFinder: HLPrime?   //  the Model in MVC
     
     let defaultTerminalPrime = "1000000"
     let primesButtonTitle       = "Find Primes"
@@ -40,7 +40,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     @IBAction func quiitAction(_ sender: Any) {
         print( "quiitAction" )
         
-        primeFinder.okToRun = false //  force exit loop and close files
+        primeFinder?.okToRun = false //  force exit loop and close files
         primesURL?.stopAccessingSecurityScopedResource()
         nicePrimesURL?.stopAccessingSecurityScopedResource()
     }
@@ -79,7 +79,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             setBookmarkFor(key: HLPrimesBookmarkKey, url: primesURL!)
         }
 
-            primeFinder.findPrimes(maxPrime: HLPrimeType(terminalPrimeTextField.stringValue)!)
+            primeFinder?.findPrimes(maxPrime: HLPrimeType(terminalPrimeTextField.stringValue)!)
             
             if terminalPrimeTextField.intValue >= 50000000   {
                 updateTimeIsSeconds = 10
@@ -95,7 +95,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
         else {
             primeButton.title = primesButtonTitle
-            primeFinder.okToRun = false
+            primeFinder?.okToRun = false
         }
         
         findPrimesInProgress = !findPrimesInProgress
@@ -142,7 +142,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
        }
         else    {
             nicePrimesButton.title = nicePrimesButtonTitle
-            primeFinder.okToRun = false
+            primeFinder?.okToRun = false
         }
     }
     
@@ -183,16 +183,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         return true
     }
     
-/*    override func viewDidDisappear() {
+    override func viewDidDisappear() {
         super.viewDidDisappear()
   //      print( "ViewController-  viewDidDisappear" )
         
-//        primeFinder.okToRun = false //  force exit loop and close files
-//        primesURL?.stopAccessingSecurityScopedResource()
-//        nicePrimesURL?.stopAccessingSecurityScopedResource()
+        primeFinder?.okToRun = false //  force exit loop and close files
+        primesURL?.stopAccessingSecurityScopedResource()
+        nicePrimesURL?.stopAccessingSecurityScopedResource()
         
-//        exit(0) //  if main window closes then quit app
-    }   */
+        NSApplication.shared.terminate(self) //  if main window closes then quit app
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
