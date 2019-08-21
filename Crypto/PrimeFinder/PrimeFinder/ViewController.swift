@@ -62,6 +62,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     }
 
     @IBAction func findPrimesStartAction(sender: NSButton) {
+    
+        guard let maxPrime = HLPrimeType(terminalPrimeTextField.stringValue) else {
+            displayAlert(title: "Terminal Prime is not a valid integer.", message: "Please correct this field.")
+            return
+        }
         
         if !findPrimesInProgress {
             primeButton.title = "Running"
@@ -79,7 +84,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             setBookmarkFor(key: HLPrimesBookmarkKey, url: primesURL!)
         }
 
-            primeFinder?.findPrimes(maxPrime: HLPrimeType(terminalPrimeTextField.stringValue)!)
+            primeFinder?.findPrimes(maxPrime: maxPrime)
             
             if terminalPrimeTextField.intValue >= 50000000   {
                 updateTimeIsSeconds = 10
@@ -99,7 +104,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
         
         findPrimesInProgress = !findPrimesInProgress
-        }
+    }
 
     @IBAction func findNicePrimesAction(sender: NSButton) {
         if !findNicePrimesInProgress {
