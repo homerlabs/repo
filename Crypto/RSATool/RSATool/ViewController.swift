@@ -73,6 +73,11 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
     
     @IBAction func encodeAction(sender: NSButton) {
+        guard rsa.keyPrivate != -1 else {
+            displayAlert(title: "Calculated Key cannot be equal to -1", message: "Please enter valid Chosen Key value.")
+            return
+        }
+
         if plainTextURL == nil   {
             print( "plainTextURL is nil" )
             setPlaintextPathAction(sender: sender) //  wrong button but any button will do
@@ -89,7 +94,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
 
     @IBAction func decodeAction(sender: NSButton) {
-        if cipherTextURL == nil   {
+         guard rsa.keyPrivate != -1 else {
+            displayAlert(title: "Calculated Key cannot be equal to -1", message: "Please enter valid Chosen Key value.")
+            return
+        }
+
+       if cipherTextURL == nil   {
             print( "cipherTextURL is nil" )
             cipherTextURL = getOpenFilePath(title: "Open Ciphertext file", bookmarkKey: HLCiphertextBookmarkKey)
             ciphertextFilePathTextField.stringValue = cipherTextURL!.path
@@ -109,16 +119,29 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
         if control == primePTextField    {
+            guard let value = HLPrimeType(primePTextField.stringValue), value > 1 else {
+                displayAlert(title: "Prime P must be an integer > 1", message: "Please enter valid Prime P value.")
+                return false
+            }
             setupRSA()
             UserDefaults.standard.set(primePTextField.stringValue, forKey:HLDefaultPrimePKey)
         }
 
         else if control == primeQTextField    {
+            guard let value = HLPrimeType(primeQTextField.stringValue), value > 1 else {
+                displayAlert(title: "Prime Q must be an integer > 1", message: "Please enter valid Prime Q value.")
+                return false
+            }
             setupRSA()
             UserDefaults.standard.set(primeQTextField.stringValue, forKey:HLDefaultPrimeQKey)
         }
 
         else if control == publicKeyTextField    {
+            //  allow the public key == 1 to see what happens (calculated key will equal 1 also)
+            guard let value = HLPrimeType(publicKeyTextField.stringValue), value > 0 else {
+                displayAlert(title: "Public Key must be an integer > 0", message: "Please enter valid Public Key value.")
+                return false
+            }
             setupKeys()
             UserDefaults.standard.set(publicKeyTextField.stringValue, forKey:HLDefaultPublicKey)
         }
