@@ -711,11 +711,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="267"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uIT-kN-6mk">
-                                <rect key="frame" x="18" y="219" width="112" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Gw2-GV-ZKL"/>
-                                </constraints>
+                            <button horizontalHuggingPriority="260" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uIT-kN-6mk">
+                                <rect key="frame" x="18" y="219" width="113" height="32"/>
                                 <buttonCell key="cell" type="push" title="Primes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yTe-bH-Duo">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -743,7 +740,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nAu-gK-rOB">
-                                <rect key="frame" x="134" y="229" width="322" height="17"/>
+                                <rect key="frame" x="135" y="229" width="325" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/Primes.txt" drawsBackground="YES" usesSingleLineMode="YES" id="j38-nk-d1d">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -751,7 +748,10 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U82-QS-35Z">
-                                <rect key="frame" x="134" y="155" width="106" height="17"/>
+                                <rect key="frame" x="126" y="155" width="106" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="106" id="MaA-zS-TER"/>
+                                </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" title="10000000" drawsBackground="YES" usesSingleLineMode="YES" id="6xi-3A-nQv">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -762,7 +762,7 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K4x-m7-xax">
-                                <rect key="frame" x="22" y="120" width="223" height="17"/>
+                                <rect key="frame" x="22" y="118" width="223" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Last Prime Processed (index prime):" id="8gD-Us-Ode">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -780,7 +780,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JpO-5X-s5e">
-                                <rect key="frame" x="18" y="185" width="112" height="32"/>
+                                <rect key="frame" x="18" y="185" width="113" height="32"/>
                                 <buttonCell key="cell" type="push" title="Nice Primes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lvK-Vu-tq1">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -790,7 +790,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wwB-jO-Uc6">
-                                <rect key="frame" x="134" y="195" width="322" height="17"/>
+                                <rect key="frame" x="135" y="195" width="325" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" placeholderString="/Users/mhomer/Desktop/NicePrimes.txt" drawsBackground="YES" usesSingleLineMode="YES" id="J3h-eN-OOF">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -798,8 +798,8 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3rG-2m-hEe">
-                                <rect key="frame" x="249" y="120" width="114" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" title="Last (index prime)" id="WKb-nN-a9f">
+                                <rect key="frame" x="249" y="118" width="114" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" alignment="left" placeholderString="Last (index prime)" id="WKb-nN-a9f">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -807,34 +807,32 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="0UU-ee-UBx" firstAttribute="top" secondItem="snx-gN-6Hu" secondAttribute="bottom" constant="18" id="2yD-ut-AWe"/>
-                            <constraint firstItem="U82-QS-35Z" firstAttribute="leading" secondItem="nAu-gK-rOB" secondAttribute="leading" id="4GR-ka-H0t"/>
-                            <constraint firstItem="wwB-jO-Uc6" firstAttribute="firstBaseline" secondItem="JpO-5X-s5e" secondAttribute="firstBaseline" id="7St-9v-key"/>
-                            <constraint firstItem="Sik-oE-N3h" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="7ly-YL-gUn"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U82-QS-35Z" secondAttribute="trailing" constant="20" symbolic="YES" id="ArI-1Y-uSR"/>
-                            <constraint firstItem="U82-QS-35Z" firstAttribute="width" secondItem="nAu-gK-rOB" secondAttribute="width" multiplier="0.33" id="BCC-3z-ikE"/>
-                            <constraint firstItem="wwB-jO-Uc6" firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" id="C2I-dJ-mra"/>
-                            <constraint firstItem="JpO-5X-s5e" firstAttribute="width" secondItem="uIT-kN-6mk" secondAttribute="width" id="EXT-Vr-AkI"/>
-                            <constraint firstItem="JpO-5X-s5e" firstAttribute="top" secondItem="uIT-kN-6mk" secondAttribute="bottom" constant="13" id="Fs0-9A-EaB"/>
-                            <constraint firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" constant="24" id="H9z-TD-y6S"/>
-                            <constraint firstItem="uIT-kN-6mk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="IyL-AL-O3N"/>
-                            <constraint firstItem="0UU-ee-UBx" firstAttribute="width" secondItem="snx-gN-6Hu" secondAttribute="width" id="Jqe-YH-Pfp"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3rG-2m-hEe" secondAttribute="trailing" constant="20" symbolic="YES" id="P9D-WA-AIf"/>
-                            <constraint firstAttribute="bottom" secondItem="0UU-ee-UBx" secondAttribute="bottom" constant="20" id="PuJ-DS-aFq"/>
-                            <constraint firstItem="3rG-2m-hEe" firstAttribute="firstBaseline" secondItem="K4x-m7-xax" secondAttribute="firstBaseline" id="Q97-04-jIc"/>
-                            <constraint firstItem="3rG-2m-hEe" firstAttribute="leading" secondItem="K4x-m7-xax" secondAttribute="trailing" constant="8" id="U7d-OE-XaG"/>
-                            <constraint firstItem="U82-QS-35Z" firstAttribute="firstBaseline" secondItem="Sik-oE-N3h" secondAttribute="firstBaseline" id="VUn-i1-uNa"/>
-                            <constraint firstItem="JpO-5X-s5e" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="YP1-18-dfc"/>
-                            <constraint firstItem="U82-QS-35Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sik-oE-N3h" secondAttribute="trailing" constant="8" symbolic="YES" id="ZB1-1d-gdJ"/>
-                            <constraint firstItem="K4x-m7-xax" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="e2s-jB-aUf"/>
-                            <constraint firstItem="0UU-ee-UBx" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eR7-px-jSn"/>
-                            <constraint firstItem="K4x-m7-xax" firstAttribute="top" secondItem="Sik-oE-N3h" secondAttribute="bottom" constant="18" id="gdl-7f-UEY"/>
-                            <constraint firstItem="wwB-jO-Uc6" firstAttribute="leading" secondItem="JpO-5X-s5e" secondAttribute="trailing" constant="10" id="h5l-9a-ppT"/>
-                            <constraint firstItem="Sik-oE-N3h" firstAttribute="top" secondItem="JpO-5X-s5e" secondAttribute="bottom" constant="20" id="i9I-wN-CZF"/>
-                            <constraint firstItem="nAu-gK-rOB" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="trailing" constant="10" id="jbC-Aw-S4G"/>
-                            <constraint firstItem="uIT-kN-6mk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="24" id="job-pG-mH9"/>
-                            <constraint firstItem="nAu-gK-rOB" firstAttribute="firstBaseline" secondItem="uIT-kN-6mk" secondAttribute="firstBaseline" id="mMD-hf-Yvb"/>
-                            <constraint firstItem="snx-gN-6Hu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="oBk-Ju-AJT"/>
+                            <constraint firstItem="wwB-jO-Uc6" firstAttribute="leading" secondItem="JpO-5X-s5e" secondAttribute="trailing" constant="10" id="3lg-Xj-a6o"/>
+                            <constraint firstItem="K4x-m7-xax" firstAttribute="leading" secondItem="Sik-oE-N3h" secondAttribute="leading" id="9TU-gl-UHC"/>
+                            <constraint firstAttribute="trailing" secondItem="nAu-gK-rOB" secondAttribute="trailing" constant="20" id="F0O-gQ-pYs"/>
+                            <constraint firstItem="nAu-gK-rOB" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="trailing" constant="10" id="FuA-xd-E0E"/>
+                            <constraint firstItem="JpO-5X-s5e" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="H5u-9f-5VV"/>
+                            <constraint firstAttribute="trailing" secondItem="wwB-jO-Uc6" secondAttribute="trailing" constant="20" id="Kmf-bs-SIl"/>
+                            <constraint firstAttribute="bottom" secondItem="0UU-ee-UBx" secondAttribute="bottom" constant="20" symbolic="YES" id="Q83-Zl-GyK"/>
+                            <constraint firstItem="JpO-5X-s5e" firstAttribute="top" secondItem="uIT-kN-6mk" secondAttribute="bottom" constant="13" id="R0n-6a-AiM"/>
+                            <constraint firstItem="U82-QS-35Z" firstAttribute="leading" secondItem="Sik-oE-N3h" secondAttribute="trailing" constant="8" id="WUc-Zl-GFm"/>
+                            <constraint firstItem="uIT-kN-6mk" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="24" id="X61-mP-JXv"/>
+                            <constraint firstItem="JpO-5X-s5e" firstAttribute="width" secondItem="uIT-kN-6mk" secondAttribute="width" id="Yao-zH-s7e"/>
+                            <constraint firstItem="0UU-ee-UBx" firstAttribute="top" secondItem="snx-gN-6Hu" secondAttribute="bottom" constant="18" id="ZjJ-jL-OBB"/>
+                            <constraint firstItem="U82-QS-35Z" firstAttribute="firstBaseline" secondItem="Sik-oE-N3h" secondAttribute="firstBaseline" id="adO-5T-cA0"/>
+                            <constraint firstItem="3rG-2m-hEe" firstAttribute="leading" secondItem="K4x-m7-xax" secondAttribute="trailing" constant="8" id="btO-Ib-xmO"/>
+                            <constraint firstItem="3rG-2m-hEe" firstAttribute="firstBaseline" secondItem="K4x-m7-xax" secondAttribute="firstBaseline" id="cla-tJ-E81"/>
+                            <constraint firstItem="K4x-m7-xax" firstAttribute="top" secondItem="Sik-oE-N3h" secondAttribute="bottom" constant="20" id="dNf-Ml-4yp"/>
+                            <constraint firstItem="wwB-jO-Uc6" firstAttribute="firstBaseline" secondItem="JpO-5X-s5e" secondAttribute="firstBaseline" id="dTg-Du-uhB"/>
+                            <constraint firstItem="Sik-oE-N3h" firstAttribute="top" secondItem="JpO-5X-s5e" secondAttribute="bottom" constant="20" id="dfD-e6-E6i"/>
+                            <constraint firstItem="snx-gN-6Hu" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="eDr-Dm-PVk"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3rG-2m-hEe" secondAttribute="trailing" constant="20" symbolic="YES" id="joL-Gt-byN"/>
+                            <constraint firstItem="uIT-kN-6mk" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="k0A-Rf-kkZ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U82-QS-35Z" secondAttribute="trailing" constant="20" symbolic="YES" id="oET-qJ-c2R"/>
+                            <constraint firstItem="0UU-ee-UBx" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="q6L-5u-h6v"/>
+                            <constraint firstItem="nAu-gK-rOB" firstAttribute="firstBaseline" secondItem="uIT-kN-6mk" secondAttribute="firstBaseline" id="que-hC-F27"/>
+                            <constraint firstItem="Sik-oE-N3h" firstAttribute="leading" secondItem="uIT-kN-6mk" secondAttribute="leading" id="rki-vj-sMl"/>
+                            <constraint firstItem="0UU-ee-UBx" firstAttribute="width" secondItem="snx-gN-6Hu" secondAttribute="width" id="uAT-sE-neM"/>
                         </constraints>
                     </view>
                     <connections>
