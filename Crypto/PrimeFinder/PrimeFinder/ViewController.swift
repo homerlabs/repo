@@ -37,14 +37,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
     var timer: Timer?
     var updateTimeIsSeconds = 1.0   //  set to 10.0 for terminalCount > 50000000
 
-    @IBAction func quiitAction(_ sender: Any) {
-        print( "quiitAction" )
-        
-        primeFinder?.okToRun = false //  force exit loop and close files
-        primesURL?.stopAccessingSecurityScopedResource()
-        nicePrimesURL?.stopAccessingSecurityScopedResource()
-    }
-
     @IBAction func setPrimesPathAction(sender: NSButton) {
         primesURL = getSaveFilePath(title: HLSavePanelTitle, message: "Set Primes file path", fileName: "Primes")
         if primesURL != nil  {
@@ -95,7 +87,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
-                self.progressTextField.stringValue = String(self.primeFinder!.lastP)
+                self.progressTextField.stringValue = "\(self.primeFinder!.lastN) : \(self.primeFinder!.lastP)"
                 })
         }
         else {
@@ -156,7 +148,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         let elaspsedTime = primeFinder!.timeInSeconds.formatTime()
         print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
         findPrimesInProgress = false
-        progressTextField.stringValue = lastLine
+        let (lastN, lastP) = lastLine.parseLine()
+        progressTextField.stringValue = "\(lastN) : \(lastP)"
         primeButton.title = primesButtonTitle
         nicePrimesButton.isEnabled = true
         timer?.invalidate()

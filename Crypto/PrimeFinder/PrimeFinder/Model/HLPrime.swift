@@ -64,7 +64,7 @@ public class HLPrime {
             
         DispatchQueue.main.sync { [weak self] in
                 guard let self = self else { return }
-                self.lastLine.removeLast()
+                self.lastLine.removeLast()  //  remove "\n"
                 let (newLastN, newLastP) = self.lastLine.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
 
