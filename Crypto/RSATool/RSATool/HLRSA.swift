@@ -7,7 +7,7 @@
 //
 
 //************************************************************************
-//        Z(N) = { 1, 2, ... N-1 } but I don't use '1' so it is really
+//        Z(N) = { 1, 2, ... N-1 } but I don't use '1' so it becomes
 //        Z(N) = { 2, 3, ... N-1 }
 //        N = RSA_P * RSA_Q
 //        Gamma = lcm( RSA_P-1, RSA_Q-1 )
@@ -29,8 +29,8 @@ class HLRSA {
     let asciiRange = 35..<127
     let chuckSizeDouble: Double
 
-    let charSetSize: HLPrimeType            //  use HLPrimeType instead of int to avoid typecasting
-    let charSetSizePlusOne: HLPrimeType     //  use HLPrimeType instead of int to avoid typecasting
+    let charSetSize: HLPrimeType
+    let charSetSizePlusOne: HLPrimeType
     var charSet: [Character]
     
     
@@ -388,7 +388,6 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         Phi = (p-1) * (q-1)
 
         chuckSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
-    //    print( "HLRSA-  init-  x: \(x)" )
         chuckSize = Int(chuckSizeDouble)
         
         print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chuckSizeDouble]))" )

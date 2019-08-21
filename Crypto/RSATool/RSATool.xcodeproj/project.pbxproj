@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B001741323077EFA00036576 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B001741223077EFA00036576 /* HLRSA.swift */; };
-		B001741523077F0200036576 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B001741423077F0200036576 /* String+Extension.swift */; };
 		B080EEAA230A0F5300DB100F /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080EEA9230A0F5300DB100F /* ViewController+Extension.swift */; };
 		B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765D1F993D2B00772AFC /* AppDelegate.swift */; };
 		B08176601F993D2B00772AFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765F1F993D2B00772AFC /* ViewController.swift */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		B001741223077EFA00036576 /* HLRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
-		B001741423077F0200036576 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B01D0F9A201CF9020076E254 /* RSATool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSATool.entitlements; sourceTree = "<group>"; };
 		B080EEA9230A0F5300DB100F /* ViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
 		B081765A1F993D2B00772AFC /* HLCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,12 +92,11 @@
 		B081765C1F993D2B00772AFC /* RSATool */ = {
 			isa = PBXGroup;
 			children = (
-				B080EEA8230A0F5300DB100F /* CommonCrypto */,
-				B001741223077EFA00036576 /* HLRSA.swift */,
-				B001741423077F0200036576 /* String+Extension.swift */,
 				B081765F1F993D2B00772AFC /* ViewController.swift */,
-				B01D0F9A201CF9020076E254 /* RSATool.entitlements */,
 				B08176631F993D2B00772AFC /* Main.storyboard */,
+				B001741223077EFA00036576 /* HLRSA.swift */,
+				B080EEA8230A0F5300DB100F /* CommonCrypto */,
+				B01D0F9A201CF9020076E254 /* RSATool.entitlements */,
 				B081765D1F993D2B00772AFC /* AppDelegate.swift */,
 				B08176611F993D2B00772AFC /* Assets.xcassets */,
 				B08176661F993D2B00772AFC /* Info.plist */,
@@ -226,7 +223,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B001741523077F0200036576 /* String+Extension.swift in Sources */,
 				B08176601F993D2B00772AFC /* ViewController.swift in Sources */,
 				B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */,
 				B080EEAA230A0F5300DB100F /* ViewController+Extension.swift in Sources */,
