@@ -43,6 +43,7 @@ public class HLPrime {
             (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
             
             self.fileManager.createPrimesFileForAppend(with: self.primesFileURL.path)
+            self.lastLine = "2\t3\n"
         
  //           print( "HLPrime-  findPrimes-  entering main loop ..." )
             self.startDate = Date()  //  don't count the time to create pTable
@@ -66,7 +67,6 @@ public class HLPrime {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.lastLine.removeLast()  //  remove "\n"
                 let (newLastN, newLastP) = self.lastLine.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
                 completion(self.lastLine)

@@ -150,7 +150,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
                 let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
                 print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
                 self.findNicePrimesInProgress = false
-                self.progressTextField.stringValue = result
+                let (lastN, lastP) = result.parseLine()
+                self.progressTextField.stringValue = "\(lastN) : \(lastP)"
                 self.nicePrimesButton.title = self.nicePrimesButtonTitle
                 self.primeButton.isEnabled = true
                 self.timer?.invalidate()
