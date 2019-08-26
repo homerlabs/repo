@@ -12,6 +12,7 @@
 		B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B032425A1FCDCC2B003B2265 /* Assets.xcassets */; };
 		B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B032425C1FCDCC2B003B2265 /* Main.storyboard */; };
 		B0409143202CF473009E8FA0 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0409142202CF473009E8FA0 /* Help */; };
+		B0884FFD231472A900289489 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0884FFC231472A900289489 /* HLPrime+Extension.swift */; };
 		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
 		B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6B2303438300186D26 /* HLPrime.swift */; };
 		B0B1CF7323034B4A00186D26 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF7223034B4A00186D26 /* Int+Extension.swift */; };
@@ -37,6 +38,7 @@
 		B032425A1FCDCC2B003B2265 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B032425D1FCDCC2B003B2265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0409142202CF473009E8FA0 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
+		B0884FFC231472A900289489 /* HLPrime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HLPrime+Extension.swift"; sourceTree = "<group>"; };
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				B0B1CF6B2303438300186D26 /* HLPrime.swift */,
+				B0884FFC231472A900289489 /* HLPrime+Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				B0B1CF7323034B4A00186D26 /* Int+Extension.swift in Sources */,
 				B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */,
 				B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */,
+				B0884FFD231472A900289489 /* HLPrime+Extension.swift in Sources */,
 				B0D35FFF230A0E1500B39102 /* ViewController+Extension.swift in Sources */,
 				B03242571FCDCC2B003B2265 /* AppDelegate.swift in Sources */,
 				B0B1CF7523034FF700186D26 /* String+Extension.swift in Sources */,

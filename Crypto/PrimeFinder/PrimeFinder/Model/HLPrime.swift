@@ -14,7 +14,6 @@ public typealias HLCompletionClosure = (String) -> Void
 
 public class HLPrime {
 
- //   let delegate: HLPrimesProtocol  //  set during init()
     let primesFileURL: URL          //  set during init()
     var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
@@ -27,6 +26,12 @@ public class HLPrime {
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
+
+    //  these are used in findPrimesMultithreaded()
+    var holdingDict: [Int : [HLPrimeType]] = [:]
+    var waitingForBatchId = 0
+    let primeBatchSize = 20000  //  MUST BE AN EVEN VALUE!!
+    
 
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
@@ -130,7 +135,7 @@ public class HLPrime {
             self.fileManager.closePrimesFileForRead()
             
             DispatchQueue.main.async {
-                print( "DispatchQueue.main.async" )
+          //      print( "DispatchQueue.main.async" )
                 completion(self.lastLine)
 
             }
@@ -183,6 +188,5 @@ public class HLPrime {
     public init(primesFileURL: URL) {
         print("HLPrime-  init: \(primesFileURL)")
         self.primesFileURL = primesFileURL
-  //      self.delegate = delegate
     }
 }
