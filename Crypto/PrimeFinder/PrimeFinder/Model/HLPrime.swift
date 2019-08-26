@@ -10,14 +10,11 @@ import Foundation
 
 public typealias HLPrimeType = Int64
 
-public protocol HLPrimesProtocol {
-    func findPrimesCompleted(lastLine: String)
-    func findNicePrimesCompleted(lastLine: String)
-}
+public typealias HLCompletionClosure = (String) -> Void
 
 public class HLPrime {
 
-    let delegate: HLPrimesProtocol  //  set during init()
+ //   let delegate: HLPrimesProtocol  //  set during init()
     let primesFileURL: URL          //  set during init()
     var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
@@ -31,10 +28,10 @@ public class HLPrime {
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
 
-    public func findPrimes(maxPrime: HLPrimeType) {
+    public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
 
-        DispatchQueue.global(qos: .utility).async { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
             self.pTable = self.createPTable(maxPrime: maxPrime)
@@ -62,96 +59,84 @@ public class HLPrime {
             self.fileManager.closePrimesFileForAppend()
             self.pTable.removeAll()
             
-        DispatchQueue.main.sync { [weak self] in
+            DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.lastLine.removeLast()  //  remove "\n"
                 let (newLastN, newLastP) = self.lastLine.parseLine()
                 print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
-
-                self.delegate.findPrimesCompleted(lastLine: self.lastLine)
+                completion(self.lastLine)
             }
         }
     }
     
     //  a prime (p) is 'nice' if (p-1) / 2 is also prime
-    func makeNicePrimesFile(nicePrimeURL: URL)    {
+    func makeNicePrimesFile(nicePrimeURL: URL, completion: @escaping HLCompletionClosure)    {
         print( "HLPrime-  makeNicePrimesFile" )
         self.nicePrimesFileURL = nicePrimeURL
 
-        DispatchQueue.global(qos: .utility).async { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
 
             //*******     get last line in prime file to determine maxTestPrime needed in pTable      *********************
             self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
             var line = self.fileManager.readPrimesFileLine()
-            
-            //  watch for present but empty file
-            guard line != nil else {
-                self.fileManager.closePrimesFileForRead()
-                return
-            }
             var previousline = line
-
-            while line != nil {
-                previousline = line
-                line = self.fileManager.readPrimesFileLine()
-            }
-            self.fileManager.closePrimesFileForRead()
-
-            (_, self.lastP) = previousline!.parseLine()
-            let lastPrimeInPrimeFile = self.lastP
-            //*************************************************************************************************************
-
-            //  now we can create pTable and begin testing for 'nice' primes
-            self.pTable = self.createPTable(maxPrime: self.lastP)
-
-            self.startDate = Date()
-            self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
-            self.fileManager.createNicePrimesFileForAppend(with: self.nicePrimesFileURL!.path)
-        
-            line = self.fileManager.readPrimesFileLine()    //  don't check prime '2' for niceness
-            line = self.fileManager.readPrimesFileLine()    //  don't check prime '3' for niceness
-            line = self.fileManager.readPrimesFileLine()    //  start at '5' which turns out to be nice as (5-1)/2 == 2
-
-            guard line != nil else {
-                 self.makeNicePrimesFileDidFinish()
-                return
-            }
             
-            (_, self.lastP) = line!.parseLine()
-        
-            while self.lastP<=lastPrimeInPrimeFile && self.okToRun   {
-                let possiblePrime = (self.lastP-1) / 2
-             
-                if self.isPrime(possiblePrime) {
-                    self.fileManager.writeNicePrimesFile(line)
-                    self.lastLine = line!
+            if line != nil {    //  have to protect against missing prime file
+                while line != nil {
+                    previousline = line
+                    line = self.fileManager.readPrimesFileLine()
                 }
-
-                line = self.fileManager.readPrimesFileLine()
-                guard line != nil else {
-                     self.makeNicePrimesFileDidFinish()
-                    return
+                self.fileManager.closePrimesFileForRead()
+                
+                (_, self.lastP) = previousline!.parseLine()
+                let lastPrimeInPrimeFile = self.lastP
+                //*************************************************************************************************************
+                
+                //  now we can create pTable and begin testing for 'nice' primes
+                self.pTable = self.createPTable(maxPrime: self.lastP)
+                
+                self.startDate = Date()
+                self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
+                self.fileManager.createNicePrimesFileForAppend(with: self.nicePrimesFileURL!.path)
+                
+                line = self.fileManager.readPrimesFileLine()    //  don't check prime '2' for niceness
+                line = self.fileManager.readPrimesFileLine()    //  don't check prime '3' for niceness
+                line = self.fileManager.readPrimesFileLine()    //  start at '5' which turns out to be nice as (5-1)/2 == 2
+                
+                if line != nil  {
+                    (_, self.lastP) = line!.parseLine()
                 }
                 
-                (_, self.lastP) = line!.parseLine()
+                while line != nil && self.lastP<=lastPrimeInPrimeFile && self.okToRun   {
+                    let possiblePrime = (self.lastP-1) / 2
+                    
+                    if self.isPrime(possiblePrime) {
+                        self.fileManager.writeNicePrimesFile(line)
+                        self.lastLine = line!
+                    }
+                    
+                    line = self.fileManager.readPrimesFileLine()
+                    if line != nil {
+                        (_, self.lastP) = line!.parseLine()
+                    }
+                }
+                
+                self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
             }
 
-            self.makeNicePrimesFileDidFinish()
-        }
-    }
-    
-    func makeNicePrimesFileDidFinish() {
-        DispatchQueue.main.async {
             self.pTable.removeAll()
             self.fileManager.closeNicePrimesFileForAppend()
             self.fileManager.closePrimesFileForRead()
+            
+            DispatchQueue.main.async {
+                print( "DispatchQueue.main.async" )
+                completion(self.lastLine)
 
-            self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
-            self.delegate.findNicePrimesCompleted(lastLine: self.lastLine)
+            }
         }
     }
-
+    
     func isPrime(_ value: HLPrimeType) -> Bool    {
         var candidateIsPrime = true
         let maxTestPrime = Int64(sqrt(Double(value)))
@@ -183,7 +168,7 @@ public class HLPrime {
         var primeCandidate = pTable.last! + 2   //  start after the last known prime (3)
         let startDate = Date()
 
-        while primeCandidate < maxPTablePrimeRequired {
+        while primeCandidate <= maxPTablePrimeRequired {
             
                 if isPrime(primeCandidate) {
                     pTable.append(primeCandidate)
@@ -195,9 +180,9 @@ public class HLPrime {
         return pTable
     }
 
-    public init(primesFileURL: URL, delegate: HLPrimesProtocol) {
+    public init(primesFileURL: URL) {
         print("HLPrime-  init: \(primesFileURL)")
         self.primesFileURL = primesFileURL
-        self.delegate = delegate
+  //      self.delegate = delegate
     }
 }

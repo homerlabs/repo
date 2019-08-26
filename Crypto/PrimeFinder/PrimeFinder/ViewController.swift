@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesProtocol {
+class ViewController: NSViewController, NSControlTextEditingDelegate {
 
     @IBOutlet weak var primeFilePathTextField: NSTextField!
     @IBOutlet weak var nicePrimeFilePathTextField: NSTextField!
@@ -72,23 +72,34 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
 
         if primesURL != nil   {
-            primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
+            primeFinder = HLPrime(primesFileURL: primesURL!)
             setBookmarkFor(key: HLPrimesBookmarkKey, url: primesURL!)
         }
-
-            primeFinder?.findPrimes(maxPrime: maxPrime)
             
-            if terminalPrimeTextField.intValue >= 50000000   {
-                updateTimeIsSeconds = 10
+        if terminalPrimeTextField.intValue >= 50000000   {
+            updateTimeIsSeconds = 10
+        }
+        else {
+            updateTimeIsSeconds = 1
+        }
+    
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
+            self.progressTextField.stringValue = "\(self.primeFinder!.lastN) : \(self.primeFinder!.lastP)"
+        })
+            
+        primeFinder?.findPrimes(maxPrime: maxPrime) { [weak self] result in
+            guard let self = self else { return }
+            
+            let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
+            print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
+            self.findPrimesInProgress = false
+            let (lastN, lastP) = result.parseLine()
+            self.progressTextField.stringValue = "\(lastN) : \(lastP)"
+            self.primeButton.title = self.primesButtonTitle
+            self.nicePrimesButton.isEnabled = true
+            self.timer?.invalidate()
             }
-            else {
-                updateTimeIsSeconds = 1
-            }
-        
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
-                self.progressTextField.stringValue = "\(self.primeFinder!.lastN) : \(self.primeFinder!.lastP)"
-                })
         }
         else {
             primeButton.title = primesButtonTitle
@@ -111,7 +122,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
                 guard primesURL != nil else { return }
                 
                 primeFilePathTextField.stringValue = primesURL!.path
-                primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
+                primeFinder = HLPrime(primesFileURL: primesURL!)
             }
             
             if nicePrimesURL == nil   {
@@ -124,10 +135,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
                 setBookmarkFor(key: HLNicePrimesBookmarkKey, url: nicePrimesURL!)
             }
             
-            //  at this point we know we have valid primesURL and nicePrimesURL
-            primeFinder = HLPrime(primesFileURL: primesURL!, delegate: self)
-            primeFinder!.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!)
-            
             if terminalPrimeTextField.intValue >= 50000000   {
                 updateTimeIsSeconds *= 10
             }
@@ -136,6 +143,18 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
             timer = Timer.scheduledTimer(withTimeInterval: updateTimeIsSeconds, repeats: true, block: {_ in
                 self.progressTextField.stringValue = String(self.primeFinder!.lastP)
                 })
+            
+            //  at this point we know we have valid primesURL and nicePrimesURL
+            primeFinder = HLPrime(primesFileURL: primesURL!)
+            primeFinder!.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { result in
+                let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
+                print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
+                self.findNicePrimesInProgress = false
+                self.progressTextField.stringValue = result
+                self.nicePrimesButton.title = self.nicePrimesButtonTitle
+                self.primeButton.isEnabled = true
+                self.timer?.invalidate()
+            }
        }
         else    {
             nicePrimesButton.title = nicePrimesButtonTitle
@@ -143,30 +162,6 @@ class ViewController: NSViewController, NSControlTextEditingDelegate, HLPrimesPr
         }
     }
     
-    //*************   HLPrimeProtocol     *********************************************************
-    func findPrimesCompleted(lastLine: String)  {
-        let elaspsedTime = primeFinder!.timeInSeconds.formatTime()
-        print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
-        findPrimesInProgress = false
-        let (lastN, lastP) = lastLine.parseLine()
-        progressTextField.stringValue = "\(lastN) : \(lastP)"
-        primeButton.title = primesButtonTitle
-        nicePrimesButton.isEnabled = true
-        timer?.invalidate()
-    }
-    
-    func findNicePrimesCompleted(lastLine: String)  {
-        let elaspsedTime = primeFinder!.timeInSeconds.formatTime()
-        print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
-        findNicePrimesInProgress = false
-        progressTextField.stringValue = lastLine
-        nicePrimesButton.title = nicePrimesButtonTitle
-        primeButton.isEnabled = true
-        timer?.invalidate()
-    }
-    //*************   HLPrimeProtocol     *********************************************************
-
-
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
         print( "ViewController-  textShouldEndEditing-  control: \(control.stringValue)" )
         
