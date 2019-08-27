@@ -81,10 +81,13 @@ extension ViewController {
            //         print("Warning:  Unable to optain security bookmark for key: \(key) with error: \(error)!")
                 }
         }
+        
+ //       print("getBookmarkFor-  key: \(key)  url: \(String(describing: url))")
         return url
     }
 
     func setBookmarkFor(key: String, url: URL) {
+  //      print("setBookmarkFor-  key: \(key)  url: \(url)")
         do  {
             let data = try url.bookmarkData(options: URL.BookmarkCreationOptions.withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(data, forKey:key)

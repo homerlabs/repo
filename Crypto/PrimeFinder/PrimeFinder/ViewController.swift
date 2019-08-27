@@ -62,6 +62,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         
         if !findPrimesInProgress {
             primeButton.title = "Running"
+            progressTextField.stringValue = ""
             nicePrimesButton.isEnabled = false
 
         if primesURL == nil   {
@@ -112,7 +113,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBAction func findNicePrimesAction(sender: NSButton) {
         if !findNicePrimesInProgress {
             nicePrimesButton.title = "Running"
-            findNicePrimesInProgress = true
+            progressTextField.stringValue = ""
             primeButton.isEnabled = false
 
             if primesURL == nil   {
@@ -132,8 +133,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
                 guard nicePrimesURL != nil else { return }
                 
                 nicePrimeFilePathTextField.stringValue = nicePrimesURL!.path
-                setBookmarkFor(key: HLNicePrimesBookmarkKey, url: nicePrimesURL!)
             }
+            
+            setBookmarkFor(key: HLNicePrimesBookmarkKey, url: nicePrimesURL!)
             
             if terminalPrimeTextField.intValue >= 50000000   {
                 updateTimeIsSeconds *= 10
@@ -161,6 +163,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             nicePrimesButton.title = nicePrimesButtonTitle
             primeFinder?.okToRun = false
         }
+        
+        findNicePrimesInProgress = !findNicePrimesInProgress
     }
     
     func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool    {
