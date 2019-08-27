@@ -14,7 +14,7 @@ public typealias HLCompletionClosure = (String) -> Void
 
 public class HLPrime {
 
-    let primesFileURL: URL          //  set during init()
+    let primesFileURL: URL  //  set during init()
     var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
 
@@ -30,7 +30,7 @@ public class HLPrime {
     //  these are used in findPrimesMultithreaded()
     var holdingDict: [Int : [HLPrimeType]] = [:]
     var waitingForBatchId = 0
-    let primeBatchSize = 20000  //  MUST BE AN EVEN VALUE!!
+    let primeBatchSize = 50000  //  MUST BE AN EVEN VALUE!!
     
 
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {

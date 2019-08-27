@@ -13,7 +13,7 @@ import Foundation
 
 extension HLPrime {
     
-    func findPrimesMultithreaded(maxPrime: HLPrimeType, completion: @escaping () -> Void) {
+    func findPrimes2(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
         
         pTable = createPTable(maxPrime: maxPrime)
@@ -31,7 +31,7 @@ extension HLPrime {
             dispatchGroup.enter()
             let block = DispatchWorkItem(flags: .inheritQoS) {
                 self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime) { [weak self] result in
-        //            print("getPrimes completion block: \(batchNumber)   holdingDict.count: \(self!.holdingDict.count)")
+       //             print("getPrimes completion block: \(batchNumber)   holdingDict.count: \(self!.holdingDict.count)")
                     
                     self?.holdingDict[batchNumber] = result
                     self?.drainHoldingDict()
@@ -46,7 +46,8 @@ extension HLPrime {
             self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
             self.fileManager.closePrimesFileForAppend()
             self.pTable.removeAll()
-            completion()
+            let lastLine = String(format: "%d\t%ld", self.lastN, self.lastP)
+            completion(lastLine)
         }
     }
     
@@ -55,16 +56,14 @@ extension HLPrime {
 
             var result: [HLPrimeType] = []
             var primeCandidate = HLPrimeType(batchNumber * self.primeBatchSize * 2 + 3)   //  we start with primes 2 and 3 already included
- //       print( "batchNumber: \(batchNumber)  primeCandidate: \(primeCandidate)   isMainThread: \(Thread.isMainThread)" )
+ //      print( "batchNumber: \(batchNumber)  primeCandidate: \(primeCandidate)" )
 
             for _ in 0..<self.primeBatchSize {
                 primeCandidate += 2
                 
-                if primeCandidate <= maxPrime   {
-                    if self.isPrime(primeCandidate) {
-                        result.append(primeCandidate)
-                    }
-                }
+                if primeCandidate > maxPrime   { break }
+                
+                if self.isPrime(primeCandidate) { result.append(primeCandidate) }
             }
             
             DispatchQueue.main.async {
@@ -76,16 +75,19 @@ extension HLPrime {
     func drainHoldingDict() {
         while let batchResult = holdingDict[waitingForBatchId] {
             var compoundLine = ""
+            var lastLine = "\n"
             for item in batchResult {
                 lastN += 1
                 lastP = item
                 lastLine = String(format: "%d\t%ld\n", self.lastN, item)
                 compoundLine.append(lastLine)
             }
-            fileManager.appendPrimesLine(compoundLine)
+            if lastLine.count > 1 {
+                fileManager.appendPrimesLine(compoundLine)
+            }
 
             holdingDict.removeValue(forKey: waitingForBatchId)
-   //         print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  lastLine: \(lastLine)  holdingDict.count: \(holdingDict.count)  Thread.current: \(Thread.current)  isMainThread: \(Thread.isMainThread)")
+    //        print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  lastLine: '\(lastLine.removeLast())'  holdingDict.count: \(holdingDict.count)")
             waitingForBatchId += 1
         }
     }
