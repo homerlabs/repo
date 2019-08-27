@@ -62,7 +62,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         
         if !findPrimesInProgress {
             primeButton.title = "Running"
-            progressTextField.stringValue = ""
+            progressTextField.stringValue = " " //  note this is not an empty string
             nicePrimesButton.isEnabled = false
 
         if primesURL == nil   {
@@ -113,7 +113,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBAction func findNicePrimesAction(sender: NSButton) {
         if !findNicePrimesInProgress {
             nicePrimesButton.title = "Running"
-            progressTextField.stringValue = ""
+            progressTextField.stringValue = " " //  note this is not an empty string
             primeButton.isEnabled = false
 
             if primesURL == nil   {
