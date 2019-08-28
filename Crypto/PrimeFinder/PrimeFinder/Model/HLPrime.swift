@@ -31,7 +31,10 @@ public class HLPrime {
     var holdingDict: [Int : [HLPrimeType]] = [:]
     var waitingForBatchId = 0
     let primeBatchSize = 50000  //  MUST BE AN EVEN VALUE!!
-    
+    //  these are used in findPrimes3()
+    let numberOfBatches = 3
+    let fileManagerPlus = HLFileManagerPlus()
+
 
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )

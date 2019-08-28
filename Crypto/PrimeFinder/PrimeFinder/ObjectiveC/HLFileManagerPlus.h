@@ -11,6 +11,8 @@
 @interface HLFileManagerPlus : HLFileManager
 
 -(int)createPrimesFilesForAppendWith:(NSString *)basePath numberOfFiles:(int)count;
--(void)closeNicePrimesFileForAppend2;
+-(void)closePrimesFileForAppend;
+
+-(void)appendLine:(NSString *)line fileId: (int)fileId;
 
 @end
