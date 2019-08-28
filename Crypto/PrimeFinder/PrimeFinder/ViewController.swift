@@ -90,16 +90,16 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         })
             
         primeFinder?.findPrimes(maxPrime: maxPrime) { [weak self] result in
-            guard let self = self else { return }
+                guard let self = self else { return }
             
-            let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
-            print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
-            self.findPrimesInProgress = false
-            let (lastN, lastP) = result.parseLine()
-            self.progressTextField.stringValue = "\(lastN) : \(lastP)"
-            self.primeButton.title = self.primesButtonTitle
-            self.nicePrimesButton.isEnabled = true
-            self.timer?.invalidate()
+                let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
+                print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
+                self.findPrimesInProgress = false
+                let (lastN, lastP) = result.parseLine()
+                self.progressTextField.stringValue = "\(lastN) : \(lastP)"
+                self.primeButton.title = self.primesButtonTitle
+                self.nicePrimesButton.isEnabled = true
+                self.timer?.invalidate()
             }
         }
         else {

@@ -46,7 +46,6 @@ int modCounter = 0;
         {
             [self appendPrimesLine: @"1\t2\n"];
             [self appendPrimesLine: @"2\t3\n"];
-       //     [self closePrimesFileForAppend];
         }
     return (primesAppendFILE == nil); //  return 0 for no error
 }
@@ -58,6 +57,13 @@ int modCounter = 0;
 
 -(void)appendPrimesLine:(NSString *)line
 {
+    if (line.length < 1 )
+    {
+//        NSLog( @"HLFileManager-  appendPrimesLine-  empty line ignored" );
+//        assert( 0 );
+        return;
+    }
+    
     int n = line.intValue;
     if ( n % modSize == 0 )
     {

@@ -85,11 +85,14 @@ extension HLPrime {
         var blocks: [DispatchWorkItem] = []
         
         for batchNumber in 0...maxBatchNumber {
+            print( "findPrimes2-  starting batchNumber: \(batchNumber)" )
+            
             dispatchGroup.enter()
-            let block = DispatchWorkItem(flags: .inheritQoS) {
+            let block = DispatchWorkItem(qos: .userInitiated) {
                 let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
        //             print("getPrimes completion block: \(batchNumber)   holdingDict.count: \(self!.holdingDict.count)")
-                    
+                
+                //  even if result is empty we don't want a gap in batchNumbers
                 self.holdingDict[batchNumber] = result
                 self.drainHoldingDict()
                 dispatchGroup.leave()
@@ -125,18 +128,19 @@ extension HLPrime {
         while let batchResult = holdingDict[waitingForBatchId] {
             var compoundLine = ""
             var lastLine = "\n"
+            
             for item in batchResult {
                 lastN += 1
                 lastP = item
                 lastLine = String(format: "%d\t%ld\n", self.lastN, item)
                 compoundLine.append(lastLine)
             }
-            if compoundLine.count > 1 {
-                fileManager.appendPrimesLine(compoundLine)
-            }
+            
+            //  often, compoundLine will be "" on the last batch
+            fileManager.appendPrimesLine(compoundLine)
 
             holdingDict.removeValue(forKey: waitingForBatchId)
- //           print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  holdingDict.count: \(holdingDict.count)")
+            print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  holdingDict.keys: \(holdingDict.keys)")
             waitingForBatchId += 1
         }
     }
