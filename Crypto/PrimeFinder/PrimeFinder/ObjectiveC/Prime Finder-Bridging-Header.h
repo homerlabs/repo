@@ -3,3 +3,4 @@
 //
 
 #import "HLFileManager.h"
+#import "HLFileManagerPlus.h"

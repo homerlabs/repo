@@ -22,7 +22,7 @@
 
 -(int)createNicePrimesFileForAppendWith:(NSString *)path;
 -(void)closeNicePrimesFileForAppend;
--(void)writeNicePrimesFile:(NSString *)line;;
+-(void)writeNicePrimesFile:(NSString *)line;
 
 
 -(NSString *)readLineFromFile:(FILE *)file;

@@ -13,6 +13,44 @@ import Foundation
 
 extension HLPrime {
     
+    func findPrimes3(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
+        print( "\nHLPrime-  findPrimesMultithreaded3-  maxPrime: \(maxPrime)" )
+        
+        pTable = createPTable(maxPrime: maxPrime)
+        (self.lastN, self.lastP) = (2, 3)   //  this is our starting point
+        self.fileManager.createPrimesFileForAppend(with: self.primesFileURL.path)
+    
+//           print( "HLPrime-  findPrimes-  entering main loop ..." )
+        self.startDate = Date()  //  don't count the time to create pTable
+        
+        let numberOfBatches = 2
+        let dispatchGroup = DispatchGroup()
+        var blocks: [DispatchWorkItem] = []
+        
+        for batchNumber in 0..<numberOfBatches {
+            dispatchGroup.enter()
+            let block = DispatchWorkItem(flags: .inheritQoS) {
+                self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime) { [weak self] result in
+       //             print("getPrimes completion block: \(batchNumber)   holdingDict.count: \(self!.holdingDict.count)")
+                    
+                    self?.holdingDict[batchNumber] = result
+                    self?.drainHoldingDict()
+                    dispatchGroup.leave()
+                }
+            }
+            blocks.append(block)
+            DispatchQueue.global().async(execute: block)
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
+            self.fileManager.closePrimesFileForAppend()
+            self.pTable.removeAll()
+            let lastLine = String(format: "%d\t%ld", self.lastN, self.lastP)
+            completion(lastLine)
+        }
+    }
+    
     func findPrimes2(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
         

@@ -13,6 +13,7 @@
 		B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B032425C1FCDCC2B003B2265 /* Main.storyboard */; };
 		B0409143202CF473009E8FA0 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0409142202CF473009E8FA0 /* Help */; };
 		B0884FFD231472A900289489 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0884FFC231472A900289489 /* HLPrime+Extension.swift */; };
+		B08D836D2316052900F4FE86 /* HLFileManagerPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = B08D836C2316052900F4FE86 /* HLFileManagerPlus.m */; };
 		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
 		B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6B2303438300186D26 /* HLPrime.swift */; };
 		B0B1CF7323034B4A00186D26 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF7223034B4A00186D26 /* Int+Extension.swift */; };
@@ -39,6 +40,8 @@
 		B032425D1FCDCC2B003B2265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0409142202CF473009E8FA0 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
 		B0884FFC231472A900289489 /* HLPrime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HLPrime+Extension.swift"; sourceTree = "<group>"; };
+		B08D836B231604F200F4FE86 /* HLFileManagerPlus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLFileManagerPlus.h; sourceTree = "<group>"; };
+		B08D836C2316052900F4FE86 /* HLFileManagerPlus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLFileManagerPlus.m; sourceTree = "<group>"; };
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
 		B0ADCE591FEEEBAE00EF7FDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 		B0B7D3F423047E9F00C2F9FD /* ObjectiveC */ = {
 			isa = PBXGroup;
 			children = (
+				B08D836B231604F200F4FE86 /* HLFileManagerPlus.h */,
+				B08D836C2316052900F4FE86 /* HLFileManagerPlus.m */,
 				B0EE8843230482B1000B90AB /* HLFileManager.h */,
 				B0EE8842230482B1000B90AB /* HLFileManager.m */,
 				B0EE8841230482B0000B90AB /* Prime Finder-Bridging-Header.h */,
@@ -280,6 +285,7 @@
 				B03242571FCDCC2B003B2265 /* AppDelegate.swift in Sources */,
 				B0B1CF7523034FF700186D26 /* String+Extension.swift in Sources */,
 				B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */,
+				B08D836D2316052900F4FE86 /* HLFileManagerPlus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
