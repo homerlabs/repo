@@ -26,7 +26,6 @@ class HLRSA {
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
-    let asciiRange = 35..<127
     let chuckSizeDouble: Double
 
     let charSetSize: HLPrimeType
@@ -97,7 +96,7 @@ class HLRSA {
             count -= weight[j]
         }
 
-        return Int64(partialResult)
+        return HLPrimeType(partialResult)
     }
     
     
@@ -378,7 +377,7 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         else                {   return -1            }
     }
     
-    init(p: Int64, q: Int64, characterSet: String) {
+    init(p: HLPrimeType, q: HLPrimeType, characterSet: String) {
     
         charSet = Array(characterSet)
         charSetSize = Int64(charSet.count)

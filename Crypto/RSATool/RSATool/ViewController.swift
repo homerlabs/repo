@@ -159,7 +159,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
     
     func setupKeys()    {
-        let publicKey = Int64(publicKeyTextField.stringValue)!
+        let publicKey = HLPrimeType(publicKeyTextField.stringValue)!
         let privateKey = rsa.calculateKey(publicKey: publicKey)
         privateKeyTextField.stringValue = String(privateKey)
         rsa.keyPublic = publicKey
@@ -169,8 +169,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     
     func setupRSA() {
         let charSet = characterSetTextField.stringValue
-        let p = Int64(primePTextField.stringValue)!
-        let q = Int64(primeQTextField.stringValue)!
+        let p = HLPrimeType(primePTextField.stringValue)!
+        let q = HLPrimeType(primeQTextField.stringValue)!
         let n = p * q
         let gamma = (p-1) * (q-1)
         nTextField.stringValue = String(n)
