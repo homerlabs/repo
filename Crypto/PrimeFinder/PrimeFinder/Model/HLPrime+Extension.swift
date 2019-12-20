@@ -80,7 +80,7 @@ extension HLPrime {
 //           print( "HLPrime-  findPrimes-  entering main loop ..." )
         self.startDate = Date()  //  don't count the time to create pTable
         
-        let maxBatchNumber = Int(maxPrime) / (primeBatchSize * 2)   //  always add 2 for next find prime itereation
+        let maxBatchNumber = Int(maxPrime) / (primeBatchSize * 2)   //  multiply by 2 because we imcrement by 2
         let dispatchGroup = DispatchGroup()
         var blocks: [DispatchWorkItem] = []
         
@@ -88,7 +88,7 @@ extension HLPrime {
             print( "findPrimes2-  starting batchNumber: \(batchNumber)" )
             
             dispatchGroup.enter()
-            let block = DispatchWorkItem(qos: .userInitiated) {
+            let block = DispatchWorkItem(qos: .userInitiated, flags: .barrier) {    //  need the .barrier flag to protect var waitingForBatchId
                 let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
        //             print("getPrimes completion block: \(batchNumber)   holdingDict.count: \(self!.holdingDict.count)")
                 
@@ -127,12 +127,11 @@ extension HLPrime {
     func drainHoldingDict() {
         while let batchResult = holdingDict[waitingForBatchId] {
             var compoundLine = ""
-            var lastLine = "\n"
             
             for item in batchResult {
                 lastN += 1
                 lastP = item
-                lastLine = String(format: "%d\t%ld\n", self.lastN, item)
+                let lastLine = String(format: "%d\t%ld\n", self.lastN, item)
                 compoundLine.append(lastLine)
             }
             
@@ -140,8 +139,8 @@ extension HLPrime {
             fileManager.appendPrimesLine(compoundLine)
 
             holdingDict.removeValue(forKey: waitingForBatchId)
-            print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  holdingDict.keys: \(holdingDict.keys)")
             waitingForBatchId += 1
         }
+        print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  holdingDict.keys: \(holdingDict.keys)")
     }
 }
