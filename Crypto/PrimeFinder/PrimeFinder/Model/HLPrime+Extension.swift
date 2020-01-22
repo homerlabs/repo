@@ -89,6 +89,7 @@ extension HLPrime {
             
             dispatchGroup.enter()
             let block = DispatchWorkItem(qos: .userInitiated, flags: .barrier) {    //  need the .barrier flag to protect var waitingForBatchId
+      //      let block = DispatchWorkItem(qos: .userInitiated) {    //  need the .barrier flag to protect var waitingForBatchId
                 let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
        //             print("getPrimes completion block: \(batchNumber)   holdingDict.count: \(self!.holdingDict.count)")
                 
@@ -107,6 +108,7 @@ extension HLPrime {
             self.pTable.removeAll()
             let lastLine = String(format: "%d\t%ld", self.lastN, self.lastP)
             completion(lastLine)
+            print("inside completion block:  holdingDict.keys: \(self.holdingDict.keys)")
         }
     }
     
@@ -125,6 +127,7 @@ extension HLPrime {
     }
 
     func drainHoldingDict() {
+        print("drainHoldingDict-  batchId: \(waitingForBatchId)  holdingDict.keys: \(holdingDict.keys)")
         while let batchResult = holdingDict[waitingForBatchId] {
             var compoundLine = ""
             
@@ -141,6 +144,5 @@ extension HLPrime {
             holdingDict.removeValue(forKey: waitingForBatchId)
             waitingForBatchId += 1
         }
-        print("drainHoldingDict-  drainingBatchId: \(waitingForBatchId)  holdingDict.keys: \(holdingDict.keys)")
     }
 }
