@@ -14,6 +14,8 @@ public typealias HLCompletionClosure = (String) -> Void
 
 public class HLPrime {
 
+    public static let HLPrimesBookmarkKey = "HLPrimesBookmarkKey"
+    
     let primesFileURL: URL  //  set during init()
     var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
@@ -27,13 +29,26 @@ public class HLPrime {
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
 
+    //**********************************************************************************************
     //  these are used in findPrimesMultithreaded()
-    var holdingDict: [Int : [HLPrimeType]] = [:]
-    var waitingForBatchId = 0
-    let primeBatchSize = 100000  //  MUST BE AN EVEN VALUE!!
-    //  these are used in findPrimes3()
-    let numberOfBatches = 3
-    let fileManagerPlus = HLFileManagerPlus()
+    
+    //  used in findPrimes2
+    let primeBatchSize = 50000
+        
+    //  used in findPrimes3
+    let batchCount = 10
+
+    var holdingDict: [Int:[HLPrimeType]] = [:]    //  needs to be protected for multithread
+    var waitingForBatchId = 0                       //  needs to be protected for multithread
+
+    let queue0 = DispatchQueue(label: "PrimeFinderQueue0")
+    let queue1 = DispatchQueue(label: "PrimeFinderQueue1")
+    let queue2 = DispatchQueue(label: "PrimeFinderQueue2")
+    let queue3 = DispatchQueue(label: "PrimeFinderQueue3")
+    let queue4 = DispatchQueue(label: "PrimeFinderQueue4")
+    let dispatchGroup = DispatchGroup()
+    let fileManager2 = FileManager.default
+    var writeFileHandle: FileHandle?
 
 
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
@@ -45,7 +60,9 @@ public class HLPrime {
             self.pTable = self.createPTable(maxPrime: maxPrime)
             (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
             
-            self.fileManager.createPrimesFileForAppend(with: self.primesFileURL.path)
+            let error = self.fileManager.createPrimesFileForAppend(with: self.primesFileURL.path)
+            assert(error==0, "createPrimesFileForAppend failed with error: \(error)")
+            
             self.lastLine = "2\t3\n"
         
  //           print( "HLPrime-  findPrimes-  entering main loop ..." )

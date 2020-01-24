@@ -18,7 +18,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBOutlet weak var primeButton: NSButton!
     @IBOutlet weak var nicePrimesButton: NSButton!
 
-    let HLPrimesBookmarkKey         = "HLPrimesBookmarkKey"
+//    let HLPrimesBookmarkKey         = "HLPrimesBookmarkKey"
     let HLNicePrimesBookmarkKey     = "HLNicePrimesBookmarkKey"
     let HLDefaultTerminalPrimeKey   = "TerminalPrimeKey"
     let HLSavePanelTitle            = "PrimeFinder Save Panel"
@@ -74,7 +74,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
         if primesURL != nil   {
             primeFinder = HLPrime(primesFileURL: primesURL!)
-            setBookmarkFor(key: HLPrimesBookmarkKey, url: primesURL!)
+            setBookmarkFor(key: HLPrime.HLPrimesBookmarkKey, url: primesURL!)
         }
             
         if terminalPrimeTextField.intValue >= 50000000   {
@@ -119,7 +119,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             if primesURL == nil   {
                 print( "primesURL is nil" )
                 
-                primesURL = getOpenFilePath(title: "Open Primes file", bookmarkKey: HLPrimesBookmarkKey)
+                primesURL = getOpenFilePath(title: "Open Primes file", bookmarkKey: HLPrime.HLPrimesBookmarkKey)
                 guard primesURL != nil else { return }
                 
                 primeFilePathTextField.stringValue = primesURL!.path
@@ -198,7 +198,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         primeButton.isEnabled = false
         nicePrimesButton.isEnabled = false
 
-        primesURL = getBookmarkFor(key: HLPrimesBookmarkKey)
+        primesURL = getBookmarkFor(key: HLPrime.HLPrimesBookmarkKey)
         if primesURL != nil {
             primeFilePathTextField.stringValue = primesURL!.path
             primeButton.isEnabled = true
