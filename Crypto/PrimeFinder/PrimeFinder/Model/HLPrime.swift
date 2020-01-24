@@ -14,8 +14,9 @@ public typealias HLCompletionClosure = (String) -> Void
 
 public class HLPrime {
 
-    public static let HLPrimesBookmarkKey = "HLPrimesBookmarkKey"
-    
+    public static let PrimesBookmarkKey       = "HLPrimesBookmarkKey"
+    public static let NicePrimesBookmarkKey   = "HLNicePrimesBookmarkKey"
+
     let primesFileURL: URL  //  set during init()
     var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
@@ -186,6 +187,42 @@ public class HLPrime {
         
 //        print( "HLPrime-  isPrime: \(value)   isPrime: \(candidateIsPrime)" )
         return candidateIsPrime
+    }
+    
+    //  return not valid if next count is not one more than last count and
+    //  return not valid if next prime is <= last prime
+    func primeFileIsValid() -> Bool {
+        var returnValue = true
+        fileManager.openPrimesFileForRead(with: primesFileURL.path)
+        var line = fileManager.readPrimesFileLine()
+        var currentCount = 0
+        var currentPrime: HLPrimeType = 0
+        
+        var previousCount = 1
+        var previousPrime: HLPrimeType = 2
+
+        if line != nil  {
+            (currentCount, currentPrime) = line!.parseLine()
+        }
+        
+        while line != nil    {
+            line = self.fileManager.readPrimesFileLine()
+            if line != nil {
+                (currentCount, currentPrime) = line!.parseLine()
+                
+                if currentCount != previousCount+1 {
+                    returnValue = false
+                    break
+                }
+                if previousPrime >= currentPrime {
+                    returnValue = false
+                    break
+                }
+                previousPrime = currentPrime
+                previousCount = currentCount
+            }
+        }
+        return returnValue
     }
 
     public func createPTable(maxPrime: HLPrimeType) -> [HLPrimeType] {

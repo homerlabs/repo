@@ -7,7 +7,6 @@
 //
 
 import XCTest
-//import HLPrime
 
 class PrimeFinderTests: XCTestCase {
 
@@ -17,19 +16,6 @@ class PrimeFinderTests: XCTestCase {
     
     let hightestPrime: HLPrimeType = 100000
     let timeout: TimeInterval = 10
-
-
-    //*************   HLPrimeProtocol     *********************************************************
-/*    func findPrimesCompleted(lastLine: String) {
-        print( "findPrimesCompleted-  lastLine: \(lastLine)" )
-        currentExpectation?.fulfill()
-    }
-    
-    func findNicePrimesCompleted(lastLine: String) {
-        currentExpectation?.fulfill()
-    }*/
-    //*************   HLPrimeProtocol     *********************************************************
- 
 
     override func setUp() {
         super.setUp()
@@ -41,7 +27,7 @@ class PrimeFinderTests: XCTestCase {
         
         if primesURL != nil {
             primeFinder = HLPrime(primesFileURL: primesURL!)
-            primesURL?.setBookmarkFor(key: HLPrime.HLPrimesBookmarkKey)
+            primesURL?.setBookmarkFor(key: HLPrime.PrimesBookmarkKey)
         }
     }
     
@@ -51,28 +37,31 @@ class PrimeFinderTests: XCTestCase {
         super.tearDown()
     }
     
+    func testPrimeFile() {
+        let isValid = primeFinder!.primeFileIsValid()
+        XCTAssert(isValid, "primeFinder.primeFileIsValid() failed!")
+    }
+    
     func testPrimes() {
-        currentExpectation = expectation(description: "Primes passed")
-        primeFinder!.findPrimes(maxPrime: hightestPrime, completion: { [weak self] result in
-            guard let self = self else { return }
-        
-            let (lastN, lastP) = result.parseLine()
-            print( "    *********   testPrimes completed    result: \(result)" )
-            print( "    *********   testPrimes completed    \(lastN) : \(lastP)" )
+        if primeFinder == nil {
+            print( "    *********   ERROR:  primeFinder is nil!!    *********\n" )
+            XCTAssert(false, "primeFinder is nil!")
+        }
+        else {
+            currentExpectation = expectation(description: "Primes passed")
+            primeFinder!.findPrimes(maxPrime: hightestPrime, completion: { [weak self] result in
+                guard let self = self else { return }
+            
+                let (lastN, lastP) = result.parseLine()
+                print( "    *********   testPrimes completed    result: \(result)" )
+                print( "    *********   testPrimes completed    \(lastN) : \(lastP)" )
 
-            self.currentExpectation?.fulfill()
-
-/*           let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
-            print( "    *********   findPrimes completed in \(elaspsedTime)    *********\n" )
-            self.findPrimesInProgress = false
-            let (lastN, lastP) = result.parseLine()
-            self.progressTextField.stringValue = "\(lastN) : \(lastP)"
-            self.primeButton.title = self.primesButtonTitle
-            self.nicePrimesButton.isEnabled = true
-            self.timer?.invalidate()*/
-        })
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        wait(for: [currentExpectation!], timeout: timeout)
-        print( "    *********   testPrimes completed" )
+                self.currentExpectation?.fulfill()
+            })
+            
+            // Use XCTAssert and related functions to verify your tests produce the correct results.
+            wait(for: [currentExpectation!], timeout: timeout)
+            print( "    *********   testPrimes completed" )
+        }
     }
 }

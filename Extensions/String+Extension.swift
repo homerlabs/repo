@@ -11,6 +11,44 @@ import Foundation
 
 extension String    {
 
+    func getBookmark() -> URL?   {
+        var url: URL? = nil
+        
+        if let data = UserDefaults.standard.data(forKey: self)  {
+            do  {
+                var isStale = false
+                    url = try URL(resolvingBookmarkData: data, options: URL.BookmarkResolutionOptions.withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &isStale)
+                    let success = url!.startAccessingSecurityScopedResource()
+
+                    if !success {
+                        print("startAccessingSecurityScopedResource-  success: \(success)")
+                    }
+                } catch {
+                    print("HLWarning:  Unable to optain security bookmark for key: \(self)!")
+                }
+        }
+        return url
+    }
+    
+    func getOpenFilePath(title: String) -> URL?     {
+        
+        var url: URL?
+        let openPanel = NSOpenPanel();
+        openPanel.canCreateDirectories = true;
+        openPanel.allowedFileTypes = ["txt"];
+        openPanel.showsTagField = false;
+        openPanel.prompt = "Open";
+        openPanel.message = title;
+        
+        let i = openPanel.runModal();
+        if(i == NSApplication.ModalResponse.OK) {
+            url = openPanel.url
+        }
+        
+        print( "getOpenFilePath: \(title),  Bookmark: \(self)  return: \(String(describing: url))" )
+        return url
+    }
+
     func getSaveFilePath(title: String, message: String) -> URL?     {
         
         var url: URL?
@@ -34,7 +72,7 @@ extension String    {
     }
     
 
-    func parseLine() -> (index: Int, prime: Int64)  {
+    func parseLine() -> (index: Int, prime: HLPrimeType)  {
         guard self.count > 2 else { return (0, 0) }
         var str = self
         if str.last == "\n" {
@@ -45,7 +83,7 @@ extension String    {
             let index2 = str.index(after: index)
             let lastN = str.prefix(upTo: index)
             let lastP = str.suffix(from: index2)
-            return (Int(lastN)!, Int64(lastP)!)
+            return (Int(lastN)!, HLPrimeType(lastP)!)
         }
         else    { return (0, 0) }
     }
