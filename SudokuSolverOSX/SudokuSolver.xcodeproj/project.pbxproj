@@ -14,12 +14,25 @@
 		B0576D7921BD75DC00EDFEE0 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */; };
 		B0576D7A21BD75DC00EDFEE0 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */; };
 		B05B2B6B21C174120062620D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B2B6A21C174120062620D /* Int+Extension.swift */; };
+		B0625EF423DC9072003A7201 /* Sudoku_SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0625EF323DC9072003A7201 /* Sudoku_SolverTests.swift */; };
+		B0625EFB23DC92E2003A7201 /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */; };
+		B0625EFC23DC92F4003A7201 /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */; };
 		B074CD41203656E30053FC11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD40203656E30053FC11 /* AppDelegate.swift */; };
 		B074CD43203656E30053FC11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074CD42203656E30053FC11 /* ViewController.swift */; };
 		B074CD45203656E30053FC11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B074CD44203656E30053FC11 /* Assets.xcassets */; };
 		B074CD48203656E30053FC11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B074CD46203656E30053FC11 /* Main.storyboard */; };
 		B074CD522036577E0053FC11 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B074CD512036577E0053FC11 /* WebKit.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0625EF623DC9072003A7201 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B074CD35203656E30053FC11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B074CD3C203656E30053FC11;
+			remoteInfo = "Sudoku Solver";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B00EB7B321C8140700C2724A /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
@@ -29,6 +42,9 @@
 		B0576D7721BD75DC00EDFEE0 /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B0576D7821BD75DC00EDFEE0 /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B05B2B6A21C174120062620D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		B0625EF123DC9072003A7201 /* Sudoku SolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sudoku SolverTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0625EF323DC9072003A7201 /* Sudoku_SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sudoku_SolverTests.swift; sourceTree = "<group>"; };
+		B0625EF523DC9072003A7201 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B074CD3D203656E30053FC11 /* Sudoku Solver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sudoku Solver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074CD40203656E30053FC11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B074CD42203656E30053FC11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +56,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B0625EEE23DC9072003A7201 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B074CD3A203656E30053FC11 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,12 +84,22 @@
 			path = ../SudokuSolverCommon;
 			sourceTree = "<group>";
 		};
+		B0625EF223DC9072003A7201 /* Sudoku SolverTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0625EF323DC9072003A7201 /* Sudoku_SolverTests.swift */,
+				B0625EF523DC9072003A7201 /* Info.plist */,
+			);
+			path = "Sudoku SolverTests";
+			sourceTree = "<group>";
+		};
 		B074CD34203656E30053FC11 = {
 			isa = PBXGroup;
 			children = (
 				B00EB7B321C8140700C2724A /* Help */,
 				B074CD3F203656E30053FC11 /* SudokuSolver */,
 				B0576D7621BD75DC00EDFEE0 /* SudokuSolverCommon */,
+				B0625EF223DC9072003A7201 /* Sudoku SolverTests */,
 				B074CD3E203656E30053FC11 /* Products */,
 				B074CD502036577E0053FC11 /* Frameworks */,
 			);
@@ -76,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				B074CD3D203656E30053FC11 /* Sudoku Solver.app */,
+				B0625EF123DC9072003A7201 /* Sudoku SolverTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +142,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B0625EF023DC9072003A7201 /* Sudoku SolverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0625EFA23DC9072003A7201 /* Build configuration list for PBXNativeTarget "Sudoku SolverTests" */;
+			buildPhases = (
+				B0625EED23DC9072003A7201 /* Sources */,
+				B0625EEE23DC9072003A7201 /* Frameworks */,
+				B0625EEF23DC9072003A7201 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0625EF723DC9072003A7201 /* PBXTargetDependency */,
+			);
+			name = "Sudoku SolverTests";
+			productName = "Sudoku SolverTests";
+			productReference = B0625EF123DC9072003A7201 /* Sudoku SolverTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B074CD3C203656E30053FC11 /* Sudoku Solver */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B074CD4D203656E30053FC11 /* Build configuration list for PBXNativeTarget "Sudoku Solver" */;
@@ -131,10 +183,15 @@
 		B074CD35203656E30053FC11 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Matthew Homer";
 				TargetAttributes = {
+					B0625EF023DC9072003A7201 = {
+						CreatedOnToolsVersion = 11.3.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B074CD3C203656E30053FC11;
+					};
 					B074CD3C203656E30053FC11 = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 1020;
@@ -161,11 +218,19 @@
 			projectRoot = "";
 			targets = (
 				B074CD3C203656E30053FC11 /* Sudoku Solver */,
+				B0625EF023DC9072003A7201 /* Sudoku SolverTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B0625EEF23DC9072003A7201 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B074CD3B203656E30053FC11 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -180,6 +245,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B0625EED23DC9072003A7201 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0625EFC23DC92F4003A7201 /* HLSolver.swift in Sources */,
+				B0625EFB23DC92E2003A7201 /* HLMatrix.swift in Sources */,
+				B0625EF423DC9072003A7201 /* Sudoku_SolverTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B074CD39203656E30053FC11 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,6 +271,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B0625EF723DC9072003A7201 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B074CD3C203656E30053FC11 /* Sudoku Solver */;
+			targetProxy = B0625EF623DC9072003A7201 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		B074CD46203656E30053FC11 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -208,6 +291,45 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B0625EF823DC9072003A7201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = "Sudoku SolverTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "homerlabs.Sudoku-SolverTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sudoku Solver.app/Contents/MacOS/Sudoku Solver";
+			};
+			name = Debug;
+		};
+		B0625EF923DC9072003A7201 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = "Sudoku SolverTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "homerlabs.Sudoku-SolverTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sudoku Solver.app/Contents/MacOS/Sudoku Solver";
+			};
+			name = Release;
+		};
 		B074CD4B203656E30053FC11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -355,6 +477,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B0625EFA23DC9072003A7201 /* Build configuration list for PBXNativeTarget "Sudoku SolverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0625EF823DC9072003A7201 /* Debug */,
+				B0625EF923DC9072003A7201 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B074CD38203656E30053FC11 /* Build configuration list for PBXProject "SudokuSolver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
