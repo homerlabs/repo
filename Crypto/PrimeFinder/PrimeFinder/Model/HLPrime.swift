@@ -212,10 +212,12 @@ public class HLPrime {
                 
                 if currentCount != previousCount+1 {
                     returnValue = false
+                    print("FAILED:  currentCount != previousCount+1: \(currentCount) != \( previousCount+1)")
                     break
                 }
                 if previousPrime >= currentPrime {
                     returnValue = false
+                    print("FAILED:  previousPrime >= currentPrime: \(previousPrime) >= \( currentPrime)")
                     break
                 }
                 previousPrime = currentPrime

@@ -45,17 +45,12 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
 
     @IBAction func setNicePrimesPathAction(sender: NSButton) {
-        let isValid = self.primeFinder!.primeFileIsValid()
-        if !isValid {
-            print( "    *********   findPrimes completed but primeFileIsValid() failed!!    *********\n" )
-        }
-
-/*        let path = "NicePrimes"
+        let path = "NicePrimes"
         nicePrimesURL = path.getSaveFilePath(title: HLSavePanelTitle, message: "Set NicePrimes file path")
         if nicePrimesURL != nil  {
             nicePrimeFilePathTextField.stringValue = nicePrimesURL!.path
             nicePrimesButton.isEnabled = true
-        }   */
+        }   
     }
 
     @IBAction func findPrimesStartAction(sender: NSButton) {

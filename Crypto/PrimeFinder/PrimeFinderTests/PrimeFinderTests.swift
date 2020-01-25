@@ -7,6 +7,7 @@
 //
 
 import XCTest
+//@testable import HLPrime
 
 class PrimeFinderTests: XCTestCase {
 
@@ -19,7 +20,9 @@ class PrimeFinderTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        
+ //       print("running setUp")
+ //       primesURL = HLPrime.PrimesBookmarkKey.getBookmark()
+
         if primesURL == nil {
             let path = "/Volumes/USB64/Primes.txt"
             primesURL = path.getSaveFilePath(title: "PrimeFinder Save Panel", message: "Set Primes file path for test")
@@ -38,7 +41,10 @@ class PrimeFinderTests: XCTestCase {
     }
     
     func testPrimeFile() {
-        let isValid = primeFinder!.primeFileIsValid()
+        var isValid = false
+        if primeFinder != nil {
+            isValid = primeFinder!.primeFileIsValid()
+        }
         XCTAssert(isValid, "primeFinder.primeFileIsValid() failed!")
     }
     

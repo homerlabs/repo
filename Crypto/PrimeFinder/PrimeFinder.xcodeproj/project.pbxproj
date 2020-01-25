@@ -22,6 +22,7 @@
 		B0B6F85C23DB5A3D008D4F88 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F85523DB58F2008D4F88 /* String+Extension.swift */; };
 		B0CF6AEF23DB46AC0055E059 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6B2303438300186D26 /* HLPrime.swift */; };
 		B0D35FFF230A0E1500B39102 /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D35FFE230A0E1500B39102 /* ViewController+Extension.swift */; };
+		B0D66E3323DB9A8E00C0F770 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EE8842230482B1000B90AB /* HLFileManager.m */; };
 		B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EE8842230482B1000B90AB /* HLFileManager.m */; };
 /* End PBXBuildFile section */
 
@@ -299,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0D66E3323DB9A8E00C0F770 /* HLFileManager.m in Sources */,
 				B0B6F85A23DB59A1008D4F88 /* String+Extension.swift in Sources */,
 				B0B6F85923DB599C008D4F88 /* URL+Extension.swift in Sources */,
 				B0CF6AEF23DB46AC0055E059 /* HLPrime.swift in Sources */,
@@ -482,7 +484,6 @@
 		B0ADCE5C1FEEEBAE00EF7FDE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -501,7 +502,6 @@
 		B0ADCE5D1FEEEBAE00EF7FDE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
