@@ -48,7 +48,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     let HLDeCiphertextBookmarkKey       = "DeCiphertextBookmarkKey"
    
     @IBAction func setPlaintextPathAction(sender: NSButton) {
-        plainTextURL = getOpenFilePath(title: "Open Plaintext file", bookmarkKey: HLPlaintextBookmarkKey)
+        plainTextURL = HLPlaintextBookmarkKey.getOpenFilePath(title: "Open Plaintext file")
         guard let url = plainTextURL else { return }
 
         plaintextFilePathTextField.stringValue = url.path
@@ -56,7 +56,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
 
     @IBAction func setCiphertextPathAction(sender: NSButton) {
-        cipherTextURL = getSaveFilePath(title: "HLCrypto Save Panel", message: "Set Ciphertext file path", fileName: "Ciphertext")
+        let filename = "Ciphertext"
+        cipherTextURL = filename.getSaveFilePath(title: "HLCrypto Save Panel", message: "Set Ciphertext file path")
         guard let url = cipherTextURL else { return }
 
         ciphertextFilePathTextField.stringValue = url.path
@@ -64,7 +65,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     }
 
     @IBAction func setDeCiphertextPathAction(sender: NSButton) {
-        deCipherTextURL = getSaveFilePath(title: "HLCrypto Save Panel", message: "Set DeCiphertext file path", fileName: "DeCiphertext")
+        let filename = "DeCiphertext"
+        deCipherTextURL = filename.getSaveFilePath(title: "HLCrypto Save Panel", message: "Set DeCiphertext file path")
         guard let url = deCipherTextURL else { return }
 
         deCiphertextFilePathTextField.stringValue = url.path
@@ -101,7 +103,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
 
        if cipherTextURL == nil   {
             print( "cipherTextURL is nil" )
-            cipherTextURL = getOpenFilePath(title: "Open Ciphertext file", bookmarkKey: HLCiphertextBookmarkKey)
+            cipherTextURL = HLCiphertextBookmarkKey.getOpenFilePath(title: "Open Ciphertext file")
             ciphertextFilePathTextField.stringValue = cipherTextURL!.path
         }
         
@@ -226,17 +228,17 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             characterSetSizeTextField.integerValue = characterSetTextField.stringValue.count
         }
 
-        plainTextURL = getBookmarkFor(key: HLPlaintextBookmarkKey)
+        plainTextURL = HLPlaintextBookmarkKey.getBookmark()
         if plainTextURL != nil  {
             plaintextFilePathTextField.stringValue = plainTextURL!.path
         }
 
-        cipherTextURL = getBookmarkFor(key: HLCiphertextBookmarkKey)
+        cipherTextURL = HLCiphertextBookmarkKey.getBookmark()
         if cipherTextURL != nil  {
             ciphertextFilePathTextField.stringValue = cipherTextURL!.path
         }
 
-        deCipherTextURL = getBookmarkFor(key: HLDeCiphertextBookmarkKey)
+        deCipherTextURL = HLDeCiphertextBookmarkKey.getBookmark()
         if deCipherTextURL != nil  {
             deCiphertextFilePathTextField.stringValue = deCipherTextURL!.path
         }
