@@ -15,7 +15,7 @@ extension URL    {
                                     includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(data, forKey:key)
         }   catch   {
-            print("HLWarning:  Unable to create security bookmark for key: \(key)!")
+            print("****************************     HLWarning:  Unable to create security bookmark for key: \(key)!")
         }
     }
 }

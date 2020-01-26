@@ -158,8 +158,4 @@ int modCounter = 0;
     return sharedInstance;
 }
 
-/*-(void)openPrimesFileForAppendWith:(NSString *)path  {
-     primesAppendFILE = fopen(path.UTF8String, "a");
-}   */
-
 @end

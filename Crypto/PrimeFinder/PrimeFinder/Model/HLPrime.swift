@@ -51,7 +51,15 @@ public class HLPrime {
     let fileManager2 = FileManager.default
     var writeFileHandle: FileHandle?
 
-
+    //  special experimental approach
+    lazy var imgSaveQueue: OperationQueue = {
+        var queue = OperationQueue()
+        queue.name = "HLPrimeFinderQueue"
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+    
+    
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
 

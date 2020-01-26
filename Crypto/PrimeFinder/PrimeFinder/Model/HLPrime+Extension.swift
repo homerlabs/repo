@@ -8,9 +8,6 @@
 
 import Foundation
 
-//typealias BatchFindPrimesCompletionClosure = () -> Void
-//typealias PartialCompletionClosure = ([HLPrimeType]) -> Void
-
 extension HLPrime {
     
        func findPrimes3(maxPrime: HLPrimeType, completion: @escaping (String) -> Void)  {

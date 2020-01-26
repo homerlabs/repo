@@ -20,8 +20,8 @@ class PrimeFinderTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
- //       print("running setUp")
- //       primesURL = HLPrime.PrimesBookmarkKey.getBookmark()
+        primesURL = HLPrime.PrimesBookmarkKey.getBookmark()
+  //      print("running setUp with primesURL: \(String(describing: primesURL))")
 
         if primesURL == nil {
             let path = "/Volumes/USB64/Primes.txt"
