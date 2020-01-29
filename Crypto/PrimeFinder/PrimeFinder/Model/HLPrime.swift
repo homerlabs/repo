@@ -32,18 +32,14 @@ public class HLPrime {
     //**********************************************************************************************
     //  these are used in findPrimesMultithreaded()
     
-    //  used in findPrimes2
-    let primeBatchSize = 50000
-        
-    //  used in findPrimes3
     let batchCount = 10
-
+    let primeBatchSize = 50000
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
-    var lastN: Int = 0
+    var lastN: Int = 2  //  output file already contains primes 2 and 3
 
-    let queue0 = DispatchQueue(label: "PrimeFinderQueue0")
-    let fileManager2 = FileManager.default
+    let queue0 = DispatchQueue.init(label: "PrimeFinderQueue0", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
+//    let queue0 = DispatchQueue(label: "PrimeFinderQueue0")
     var writeFileHandle: FileHandle?
 
     lazy var findPrimesQueue: OperationQueue = {

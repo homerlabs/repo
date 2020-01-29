@@ -18,23 +18,6 @@ extension HLPrime {
         }
     }
 
-    //  used in findPrimes2
-    func getPrimes(batchNumber: Int, maxPrime: HLPrimeType) -> [HLPrimeType] {
-        var result: [HLPrimeType] = []
-        let batchSize = self.batchSize(maxPrime: maxPrime)
-        var primeCandidate = HLPrimeType(batchNumber) * batchSize + 3   //  we start with primes 2 and 3 already included
-        //      print( "getPrimes batchNumber: \(batchNumber)   primeCandidate: \(primeCandidate+2)" )
-        //       let adjustedBatchSize = batchSize / 2
-
-        for _ in 0..<batchSize {
-            primeCandidate += 2
-            if primeCandidate > maxPrime   { break }
-            if isPrime(primeCandidate) { result.append(primeCandidate) }
-        }
-
-        return result
-    }
-
     func getBatchRanges(maxPrime: HLPrimeType) {
         let batchSize = self.batchSize(maxPrime: maxPrime)
         for batchNumber in 0..<HLPrimeType(batchCount) {
@@ -64,7 +47,7 @@ extension HLPrime {
 
                   self.queue0.sync {
                       self.holdingDict[batchNumber] = result
-                      print("drainHoldingDict-  waitingForBatchId: \(self.waitingForBatchId)    batchId: \(batchNumber)   result.count: \(result.count)    holdingDict.keys: \(self.holdingDict.keys)")
+             //         print("drainHoldingDict-  waitingForBatchId: \(self.waitingForBatchId)    batchId: \(batchNumber)   result.count: \(result.count)    holdingDict.keys: \(self.holdingDict.keys)")
                       self.drainHoldingDict()
                   }
                }
@@ -92,16 +75,6 @@ extension HLPrime {
               completion(self.lastLine)
           }
       }
-
-
-    
-    func batchSize(maxPrime: HLPrimeType) -> HLPrimeType {
-        let roundOff: HLPrimeType = 10
-        var size = maxPrime / HLPrimeType(batchCount)
-        size /= roundOff
-        size *= roundOff
-        return size
-    }
     
     //  findPrimes2 stuff
     //***************************************************************************************************
@@ -147,20 +120,48 @@ extension HLPrime {
         }
     }
     
+    func batchSize(maxPrime: HLPrimeType) -> HLPrimeType {
+        let roundOff: HLPrimeType = 10
+        var size = maxPrime / HLPrimeType(batchCount)
+        size /= roundOff
+        size *= roundOff
+        return size
+    }
+
+    func getPrimes(batchNumber: Int, maxPrime: HLPrimeType) -> [HLPrimeType] {
+        var result: [HLPrimeType] = []
+        let batchSize = self.batchSize(maxPrime: maxPrime)
+        var primeCandidate = HLPrimeType(batchNumber) * batchSize + 5   //  we start with primes 2 and 3 already included
+        let lastPrime = min(primeCandidate+batchSize, maxPrime)
+ //       print( "getPrimes batchNumber: \(batchNumber)   primeCandidate: \(primeCandidate+2)" )
+
+        while primeCandidate < lastPrime {
+            if isPrime(primeCandidate) { result.append(primeCandidate) }
+            primeCandidate += 2
+        }
+
+        return result
+    }
+
     func drainHoldingDict() {
         while let batchResult = holdingDict[waitingForBatchId] {
             var compoundLine = ""
+            var lastLine = ""
 
             for item in batchResult {
                 lastN += 1
                 lastP = item
-                let lastLine = String(format: "%d\t%ld\n", self.lastN, item)
+                lastLine = String(format: "%d\t%ld\n", lastN, lastP)
                 compoundLine.append(lastLine)
             }
 
             //  often, compoundLine will be "" on the last batch
-            fileManager.appendPrimesLine(compoundLine)
-
+      //      fileManager.appendPrimesLine(compoundLine)    //  old way
+            if let data = compoundLine.data(using: .utf8) {
+                writeFileHandle?.write(data)
+            }
+            
+ //           print("waitingForBatchId: \(waitingForBatchId)    lastLine: \(lastLine)")
             holdingDict.removeValue(forKey: waitingForBatchId)
             waitingForBatchId += 1
         }
