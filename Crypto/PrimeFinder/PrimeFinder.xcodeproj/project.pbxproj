@@ -11,8 +11,8 @@
 		B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03242581FCDCC2B003B2265 /* ViewController.swift */; };
 		B032425B1FCDCC2B003B2265 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B032425A1FCDCC2B003B2265 /* Assets.xcassets */; };
 		B032425E1FCDCC2B003B2265 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B032425C1FCDCC2B003B2265 /* Main.storyboard */; };
+		B03CE3E723E221F200AA79C0 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0884FFC231472A900289489 /* HLPrime+Extension.swift */; };
 		B0409143202CF473009E8FA0 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0409142202CF473009E8FA0 /* Help */; };
-		B079923F23DE0371003E0B7A /* HLPrime+Extension2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B079923E23DE0371003E0B7A /* HLPrime+Extension2.swift */; };
 		B0ADCE581FEEEBAE00EF7FDE /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */; };
 		B0B1CF6C2303438300186D26 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B1CF6B2303438300186D26 /* HLPrime.swift */; };
 		B0B6F85623DB58F2008D4F88 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6F85323DB58F2008D4F88 /* Int+Extension.swift */; };
@@ -43,7 +43,6 @@
 		B032425A1FCDCC2B003B2265 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B032425D1FCDCC2B003B2265 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0409142202CF473009E8FA0 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
-		B079923E23DE0371003E0B7A /* HLPrime+Extension2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HLPrime+Extension2.swift"; sourceTree = "<group>"; };
 		B0884FFC231472A900289489 /* HLPrime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HLPrime+Extension.swift"; sourceTree = "<group>"; };
 		B0ADCE551FEEEBAE00EF7FDE /* PrimeFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrimeFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0ADCE571FEEEBAE00EF7FDE /* PrimeFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
@@ -125,7 +124,6 @@
 			children = (
 				B0B1CF6B2303438300186D26 /* HLPrime.swift */,
 				B0884FFC231472A900289489 /* HLPrime+Extension.swift */,
-				B079923E23DE0371003E0B7A /* HLPrime+Extension2.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,9 +280,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B03CE3E723E221F200AA79C0 /* HLPrime+Extension.swift in Sources */,
 				B0B6F85C23DB5A3D008D4F88 /* String+Extension.swift in Sources */,
 				B0B6F85B23DB5A38008D4F88 /* URL+Extension.swift in Sources */,
-				B079923F23DE0371003E0B7A /* HLPrime+Extension2.swift in Sources */,
 				B0EE8844230482B1000B90AB /* HLFileManager.m in Sources */,
 				B0B6F85623DB58F2008D4F88 /* Int+Extension.swift in Sources */,
 				B03242591FCDCC2B003B2265 /* ViewController.swift in Sources */,

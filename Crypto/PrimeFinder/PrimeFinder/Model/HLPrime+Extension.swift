@@ -10,68 +10,90 @@ import Foundation
 
 extension HLPrime {
     
-       func findPrimes3(maxPrime: HLPrimeType, completion: @escaping (String) -> Void)  {
-           print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
-           
-           pTable = createPTable(maxPrime: maxPrime)
-           (self.lastN, self.lastP) = (2, 3)   //  this is our starting point
-           fileManager.createPrimesFileForAppend(with: primesFileURL.path)
-           fileManager.closePrimesFileForAppend()
-           var batchStartingIndex = 2
-           
-           writeFileHandle = FileHandle(forWritingAtPath: primesFileURL.path)
-           writeFileHandle?.seekToEndOfFile()
+    func findPrimes3(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
+        print( "\nHLPrime-  findPrimes3-  maxPrime: \(maxPrime)" )
+        let dispatchQueue = DispatchQueue.init(label: "FindPrimes0Queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
+        dispatchQueue.async {
+            self.findPrimesBlocking(maxPrime: maxPrime, completion: completion)
+        }
+    }
 
-           var blocks: [DispatchWorkItem] = []
-           let batchSize = maxPrime / HLPrimeType(batchCount) / 2
-           print( "HLPrime-  findPrimesMultithreaded2-  batchSize: \(batchSize)" )
+    //  used in findPrimes2
+    func getPrimes(batchNumber: Int, maxPrime: HLPrimeType) -> [HLPrimeType] {
+        var result: [HLPrimeType] = []
+        let batchSize = self.batchSize(maxPrime: maxPrime)
+        var primeCandidate = HLPrimeType(batchNumber) * batchSize + 3   //  we start with primes 2 and 3 already included
+        //      print( "getPrimes batchNumber: \(batchNumber)   primeCandidate: \(primeCandidate+2)" )
+        //       let adjustedBatchSize = batchSize / 2
 
-           startDate = Date()  //  don't count the time to create pTable
+        for _ in 0..<batchSize {
+            primeCandidate += 2
+            if primeCandidate > maxPrime   { break }
+            if isPrime(primeCandidate) { result.append(primeCandidate) }
+        }
 
-           for batchNumber in 0..<batchCount {
-               print( "findPrimes2-  starting batchNumber: \(batchNumber)   batchCount: \(batchCount)" )
-               
-               dispatchGroup.enter()
-               let block = DispatchWorkItem(qos: .userInitiated, flags: .barrier, block: {
-                   let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
-                   //  updating holdingDict in sequential queue
-                   self.queue0.sync {
-                       self.updateHoldingDictWith(batchId: batchNumber, startingIndex: batchStartingIndex, result: result)
-                       batchStartingIndex += result.count
-                   }
-                   self.dispatchGroup.leave()
-               })
+        return result
+    }
 
-               blocks.append(block)
-               if batchNumber % 4 == 0 {
-                   queue1.async(execute: block)
+    func getBatchRanges(maxPrime: HLPrimeType) {
+        let batchSize = self.batchSize(maxPrime: maxPrime)
+        for batchNumber in 0..<HLPrimeType(batchCount) {
+        let startRange = batchNumber * batchSize
+        print( "getBatchRanges-  batchNumber: \(batchNumber)    startRange: \(startRange)" )
+        }
+    }
+
+      func findPrimesBlocking(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
+   //       print( "batchSize(maxPrime: maxPrime): \(batchSize(maxPrime: maxPrime))" )
+
+          pTable = createPTable(maxPrime: maxPrime)
+          (self.lastN, self.lastP) = (2, 3)   //  this is our starting point
+          fileManager.createPrimesFileForAppend(with: primesFileURL.path)
+          fileManager.closePrimesFileForAppend()
+
+          writeFileHandle = FileHandle(forWritingAtPath: primesFileURL.path)
+          writeFileHandle?.seekToEndOfFile()
+
+          self.startDate = Date()  //  don't count the time to create pTable
+          var operations: [Operation] = []
+
+          for batchNumber in 0..<batchCount {
+              let task = {
+                  let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
+          //        print( "findPrimes0-  finished batchNumber: \(batchNumber) result.count: \(result.count)" )
+
+                  self.queue0.sync {
+                      self.holdingDict[batchNumber] = result
+                      print("drainHoldingDict-  waitingForBatchId: \(self.waitingForBatchId)    batchId: \(batchNumber)   result.count: \(result.count)    holdingDict.keys: \(self.holdingDict.keys)")
+                      self.drainHoldingDict()
+                  }
                }
-               else if batchNumber % 4 == 1 {
-                   queue2.async(execute: block)
-               }
-               else if batchNumber % 4 == 2 {
-                   queue3.async(execute: block)
-               }
-               else if batchNumber % 4 == 3 {
-                   queue4.async(execute: block)
-               }
-           }
+              
+              let block = BlockOperation(block: task)
+         //     dependentBlock.addDependency(block, block)
+              operations.append(block)
+          }
+          
+          findPrimesQueue.addOperations(operations, waitUntilFinished: true)
 
-           dispatchGroup.notify(queue: DispatchQueue.main) {
-               print("Inside completion code:    holdingDict.keys: \(self.holdingDict.keys)")
-               self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
-    
-     //          self.fileManager.closePrimesFileForAppend()
-               self.writeFileHandle?.closeFile()
-               
-               self.pTable.removeAll()
-               let lastLine = String(format: "%d\t%ld", self.lastN, self.lastP)
-               completion(lastLine)
-           }
-       }
-       
-    //  findPrimes3 stuff
-    //***************************************************************************************************
+          print("Inside completion code:    holdingDict.keys: \(self.holdingDict.keys)")
+          self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
+
+          //          self.fileManager.closePrimesFileForAppend()
+          self.writeFileHandle?.closeFile()
+
+          self.pTable.removeAll()
+          self.lastLine = String(format: "%d\t%ld", self.lastN, self.lastP)
+   
+          DispatchQueue.main.async { [weak self] in
+              guard let self = self else { return }
+              let (newLastN, newLastP) = self.lastLine.parseLine()
+              print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
+              completion(self.lastLine)
+          }
+      }
+
+
     
     func batchSize(maxPrime: HLPrimeType) -> HLPrimeType {
         let roundOff: HLPrimeType = 10
@@ -80,7 +102,6 @@ extension HLPrime {
         size *= roundOff
         return size
     }
-    
     
     //  findPrimes2 stuff
     //***************************************************************************************************
@@ -94,7 +115,7 @@ extension HLPrime {
 //           print( "HLPrime-  findPrimes-  entering main loop ..." )
         self.startDate = Date()  //  don't count the time to create pTable
         
-        let maxBatchNumber = Int(maxPrime / HLPrimeType((primeBatchSize * 2)))   //  multiply by 2 because we imcrement by 2
+        let maxBatchNumber = Int(maxPrime / HLPrimeType((primeBatchSize * 2)))   //  multiply by 2 because we increment by 2
         let dispatchGroup = DispatchGroup()
         var blocks: [DispatchWorkItem] = []
         
@@ -126,78 +147,22 @@ extension HLPrime {
         }
     }
     
-    //  used in findPrimes3
-    func getPrimes(batchNumber: Int, maxPrime: HLPrimeType) -> [HLPrimeType] {
-        var result: [HLPrimeType] = []
-        let batchSize3 = batchSize(maxPrime: maxPrime)
-        var primeCandidate = HLPrimeType(batchNumber) * batchSize3 * 2 + 3   //  we start with primes 2 and 3 already included
-    //        print( "getPrimes batchNumber: \(batchNumber)   primeCandidate: \(primeCandidate+2)" )
-
-        for _ in 0..<batchSize3 {
-            primeCandidate += 2
-            if primeCandidate > maxPrime   { break }
-            if isPrime(primeCandidate) { result.append(primeCandidate) }
-        }
-
-        return result
-    }
-
-    //  used in findPrimes2
     func drainHoldingDict() {
-      print("drainHoldingDict-  batchId: \(waitingForBatchId)  holdingDict.keys: \(holdingDict.keys)")
-      while let batchResult = holdingDict[waitingForBatchId] {
-          var compoundLine = ""
-          
-          for item in batchResult {
-              lastN += 1
-              lastP = item
-              let lastLine = String(format: "%d\t%ld\n", self.lastN, item)
-              compoundLine.append(lastLine)
-          }
-          
-          //  often, compoundLine will be "" on the last batch
-          fileManager.appendPrimesLine(compoundLine)
-
-          holdingDict.removeValue(forKey: waitingForBatchId)
-          waitingForBatchId += 1
-      }
-    }
-
-    //  used in findPrimes3
-    func updateHoldingDictWith(batchId: Int, startingIndex: Int, result: [HLPrimeType]) {
-        holdingDict[batchId] = result
-        print("updateHoldingDictWith-  batchId: \(batchId)  startingIndex: \(startingIndex)  holdingDict.keys: \(holdingDict.keys)")
-
         while let batchResult = holdingDict[waitingForBatchId] {
-          var compoundLine = ""
-          var lastLine = ""
-          var index = startingIndex
+            var compoundLine = ""
 
-          for item in batchResult {
-              index += 1
-        //            lastP = item
-              lastLine = String(format: "%d\t%ld\n", index, item)
-              compoundLine.append(lastLine)
-          }
-          
-          if let data = compoundLine.data(using: .utf8)
-           {
-              writeFileHandle?.seekToEndOfFile()
-              writeFileHandle?.write(data)
-          }
-          
-          //  sometimes, compoundLine will be "" on the last batch
-        //          fileManager.appendPrimesLine(compoundLine)
+            for item in batchResult {
+                lastN += 1
+                lastP = item
+                let lastLine = String(format: "%d\t%ld\n", self.lastN, item)
+                compoundLine.append(lastLine)
+            }
 
-          let x = holdingDict.removeValue(forKey: waitingForBatchId)
-        //          print("drained-  waitingForBatchId: \(waitingForBatchId)  lastLine: \(lastLine)")
-          if x == nil {
-              print("**************************** updateHoldingDictWith-  drainingBatchId: \(waitingForBatchId) returned nil.\n")
-          }
-          else if x!.count == 0 {
-              print("**************************** updateHoldingDictWith-  drainingBatchId: \(waitingForBatchId) returned empty.\n")
-          }
-          waitingForBatchId += 1
+            //  often, compoundLine will be "" on the last batch
+            fileManager.appendPrimesLine(compoundLine)
+
+            holdingDict.removeValue(forKey: waitingForBatchId)
+            waitingForBatchId += 1
         }
     }
 }

@@ -81,9 +81,9 @@ extension String    {
 
         if let index = str.firstIndex(of: "\t") {
             let index2 = str.index(after: index)
-            let lastN = str.prefix(upTo: index)
-            let lastP = str.suffix(from: index2)
-            return (Int(lastN)!, HLPrimeType(lastP)!)
+            guard let lastN = Int(str.prefix(upTo: index)) else { return (0, 0) }
+            guard let lastP = HLPrimeType(str.suffix(from: index2)) else { return (0, 0) }
+            return (lastN, lastP)
         }
         else    { return (0, 0) }
     }

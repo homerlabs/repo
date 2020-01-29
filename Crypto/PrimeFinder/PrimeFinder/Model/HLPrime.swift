@@ -25,7 +25,6 @@ public class HLPrime {
     var startDate: Date!    //  used to calculate timeInSeconds
     var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
 
-    var lastN: Int = 0
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
@@ -39,23 +38,18 @@ public class HLPrime {
     //  used in findPrimes3
     let batchCount = 10
 
-    var holdingDict: [Int:[HLPrimeType]] = [:]    //  needs to be protected for multithread
-    var waitingForBatchId = 0                       //  needs to be protected for multithread
+    var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
+    var waitingForBatchId = 0                   //  needs to be protected for multithread
+    var lastN: Int = 0
 
     let queue0 = DispatchQueue(label: "PrimeFinderQueue0")
-    let queue1 = DispatchQueue(label: "PrimeFinderQueue1")
-    let queue2 = DispatchQueue(label: "PrimeFinderQueue2")
-    let queue3 = DispatchQueue(label: "PrimeFinderQueue3")
-    let queue4 = DispatchQueue(label: "PrimeFinderQueue4")
-    let dispatchGroup = DispatchGroup()
     let fileManager2 = FileManager.default
     var writeFileHandle: FileHandle?
 
-    //  special experimental approach
-    lazy var imgSaveQueue: OperationQueue = {
+    lazy var findPrimesQueue: OperationQueue = {
         var queue = OperationQueue()
         queue.name = "HLPrimeFinderQueue"
-        queue.maxConcurrentOperationCount = 1
+        queue.maxConcurrentOperationCount = 4
         return queue
     }()
     
