@@ -90,7 +90,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             self.progressTextField.stringValue = "\(self.primeFinder!.lastN) : \(self.primeFinder!.lastP)"
         })
             
-        primeFinder?.findPrimes3(maxPrime: maxPrime) { [weak self] result in
+        primeFinder?.findPrimes(maxPrime: maxPrime) { [weak self] result in
                 guard let self = self else { return }
             
                 let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()

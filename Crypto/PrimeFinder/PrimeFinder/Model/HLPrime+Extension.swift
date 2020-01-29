@@ -57,7 +57,7 @@ extension HLPrime {
               operations.append(block)
           }
           
-          findPrimesQueue.addOperations(operations, waitUntilFinished: true)
+          operationsQueue.addOperations(operations, waitUntilFinished: true)
 
           print("Inside completion code:    holdingDict.keys: \(self.holdingDict.keys)")
           self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
@@ -161,7 +161,6 @@ extension HLPrime {
                 writeFileHandle?.write(data)
             }
             
- //           print("waitingForBatchId: \(waitingForBatchId)    lastLine: \(lastLine)")
             holdingDict.removeValue(forKey: waitingForBatchId)
             waitingForBatchId += 1
         }

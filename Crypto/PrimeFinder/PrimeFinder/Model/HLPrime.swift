@@ -32,7 +32,7 @@ public class HLPrime {
     //**********************************************************************************************
     //  these are used in findPrimesMultithreaded()
     
-    let batchCount = 10
+    let batchCount = 50
     let primeBatchSize = 50000
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
@@ -41,15 +41,8 @@ public class HLPrime {
     let queue0 = DispatchQueue.init(label: "PrimeFinderQueue0", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
 //    let queue0 = DispatchQueue(label: "PrimeFinderQueue0")
     var writeFileHandle: FileHandle?
-
-    lazy var findPrimesQueue: OperationQueue = {
-        var queue = OperationQueue()
-        queue.name = "HLPrimeFinderQueue"
-        queue.maxConcurrentOperationCount = 4
-        return queue
-    }()
-    
-    
+    var operationsQueue = OperationQueue()
+        
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
 
@@ -154,7 +147,6 @@ public class HLPrime {
             self.fileManager.closePrimesFileForRead()
             
             DispatchQueue.main.async {
-          //      print( "DispatchQueue.main.async" )
                 completion(self.lastLine)
 
             }
@@ -243,7 +235,12 @@ public class HLPrime {
     }
 
     public init(primesFileURL: URL) {
-        print("HLPrime-  init: \(primesFileURL)")
         self.primesFileURL = primesFileURL
+        let processInfo = ProcessInfo()
+        let numberOfCores = processInfo.processorCount
+        let numberOfCores2 = processInfo.activeProcessorCount
+        operationsQueue.name = "HLPrimeFinderQueue"
+        operationsQueue.maxConcurrentOperationCount = numberOfCores
+        print("HLPrime-  init: \(primesFileURL)   numberOfCores: \(numberOfCores) or \(numberOfCores2)")
     }
 }
