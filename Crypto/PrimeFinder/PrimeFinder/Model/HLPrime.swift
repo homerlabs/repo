@@ -31,7 +31,6 @@ public class HLPrime {
 
     //**********************************************************************************************
     //  these are used in findPrimesMultithreaded()
-    
     let batchCount = 50
     let primeBatchSize = 50000
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
@@ -56,8 +55,6 @@ public class HLPrime {
             assert(error==0, "createPrimesFileForAppend failed with error: \(error)")
             
             self.lastLine = "2\t3\n"
-        
- //           print( "HLPrime-  findPrimes-  entering main loop ..." )
             self.startDate = Date()  //  don't count the time to create pTable
 
 
@@ -237,10 +234,9 @@ public class HLPrime {
     public init(primesFileURL: URL) {
         self.primesFileURL = primesFileURL
         let processInfo = ProcessInfo()
-        let numberOfCores = processInfo.processorCount
-        let numberOfCores2 = processInfo.activeProcessorCount
+        let numberOfCores = processInfo.activeProcessorCount
         operationsQueue.name = "HLPrimeFinderQueue"
         operationsQueue.maxConcurrentOperationCount = numberOfCores
-        print("HLPrime-  init: \(primesFileURL)   numberOfCores: \(numberOfCores) or \(numberOfCores2)")
+        print("HLPrime-  init: \(primesFileURL)   numberOfCores: \(numberOfCores)")
     }
 }
