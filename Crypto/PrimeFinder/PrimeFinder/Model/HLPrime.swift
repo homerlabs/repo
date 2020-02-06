@@ -25,6 +25,7 @@ public class HLPrime {
     var startDate: Date!    //  used to calculate timeInSeconds
     var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
 
+    var lastN: Int = 2  //  output file already contains primes 2 and 3
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
@@ -32,10 +33,8 @@ public class HLPrime {
     //**********************************************************************************************
     //  these are used in findPrimesMultithreaded()
     let batchCount = 50
-    let primeBatchSize = 50000
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
-    var lastN: Int = 2  //  output file already contains primes 2 and 3
 
     let queue0 = DispatchQueue.init(label: "PrimeFinderQueue0", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
 //    let queue0 = DispatchQueue(label: "PrimeFinderQueue0")

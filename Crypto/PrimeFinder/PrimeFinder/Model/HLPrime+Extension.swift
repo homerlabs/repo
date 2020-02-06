@@ -39,14 +39,6 @@ extension HLPrime {
         }
     }
 
-    func getBatchRanges(maxPrime: HLPrimeType) {
-        let batchSize = self.batchSize(maxPrime: maxPrime)
-        for batchNumber in 0..<HLPrimeType(batchCount) {
-        let startRange = batchNumber * batchSize
-        print( "getBatchRanges-  batchNumber: \(batchNumber)    startRange: \(startRange)" )
-        }
-    }
-
     func findPrimesBlocking(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         //       print( "batchSize(maxPrime: maxPrime): \(batchSize(maxPrime: maxPrime))" )
 
@@ -76,13 +68,12 @@ extension HLPrime {
     func findPrimes2(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
         
-        let maxBatchNumber = Int(maxPrime / HLPrimeType((primeBatchSize * 2)))   //  multiply by 2 because we increment by 2
+        fpSetup(maxPrime: maxPrime)
+
         let dispatchGroup = DispatchGroup()
         var blocks: [DispatchWorkItem] = []
         
-        fpSetup(maxPrime: maxPrime)
-
-        for batchNumber in 0..<maxBatchNumber {
+        for batchNumber in 0..<batchCount {
             print( "findPrimes2-  starting batchNumber: \(batchNumber)" )
             
             dispatchGroup.enter()
@@ -105,24 +96,26 @@ extension HLPrime {
         }
     }
     
+    //  returns batchSize rounding up and making sure the value is even
+    //  batchSize needs to be even because its multipled to determine startPrimeCandidate
     func batchSize(maxPrime: HLPrimeType) -> HLPrimeType {
-        let roundOff: HLPrimeType = 10
-        var size = maxPrime / HLPrimeType(batchCount)
-        size /= roundOff
-        size *= roundOff
-        return size
+        var batchSize = (maxPrime / HLPrimeType(batchCount)) + 1
+        if batchSize % HLPrimeType(2) == 1 {
+            batchSize += 1
+        }
+        return batchSize
     }
-
+    
     func getPrimes(batchNumber: Int, maxPrime: HLPrimeType) -> [HLPrimeType] {
-        var result: [HLPrimeType] = []
         let batchSize = self.batchSize(maxPrime: maxPrime)
+        var result: [HLPrimeType] = []
         var primeCandidate = HLPrimeType(batchNumber) * batchSize + 5   //  we start with primes 2 and 3 already included
-        let lastPrime = min(primeCandidate+batchSize, maxPrime)
+        let lastPrime = min(primeCandidate+batchSize, maxPrime) - 2
  //       print( "getPrimes batchNumber: \(batchNumber)   primeCandidate: \(primeCandidate+2)" )
 
-        while primeCandidate < lastPrime {
-            if isPrime(primeCandidate) { result.append(primeCandidate) }
+        while primeCandidate <= lastPrime {
             primeCandidate += 2
+            if isPrime(primeCandidate) { result.append(primeCandidate) }
         }
 
         return result
