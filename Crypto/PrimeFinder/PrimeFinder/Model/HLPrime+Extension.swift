@@ -113,7 +113,7 @@ extension HLPrime {
         let lastPrime = min(primeCandidate+batchSize, maxPrime) - 2
  //       print( "getPrimes batchNumber: \(batchNumber)   primeCandidate: \(primeCandidate+2)" )
 
-        while primeCandidate <= lastPrime {
+        while primeCandidate <= lastPrime && okToRun {
             primeCandidate += 2
             if isPrime(primeCandidate) { result.append(primeCandidate) }
         }
