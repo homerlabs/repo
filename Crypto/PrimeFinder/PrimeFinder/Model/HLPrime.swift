@@ -218,7 +218,7 @@ public class HLPrime {
         var primeCandidate = pTable.last! + 2   //  start after the last known prime (3)
         let startDate = Date()
 
-        while primeCandidate <= maxPTablePrimeRequired {
+        while primeCandidate <= maxPTablePrimeRequired && okToRun {
             
                 if isPrime(primeCandidate) {
                     pTable.append(primeCandidate)
