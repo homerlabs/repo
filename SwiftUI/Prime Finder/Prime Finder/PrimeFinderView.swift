@@ -10,7 +10,6 @@ import SwiftUI
 
 struct PrimeFinderView: View {
 
-    var primeFinder: HLPrime?
     @ObservedObject var pfViewModel = PrimeFinderViewModel()
     let HLSavePanelTitle = "Prime Finder Save Panel"
 
@@ -29,13 +28,11 @@ struct PrimeFinderView: View {
                     }) {
                         Text(" Set Primes ")
                     }
+
                     
                     if pfViewModel.primesURL != nil {
                         Text(pfViewModel.primesURL!.path)
-                        //pfViewModel.setBookMark()
-                  //      let url = pfViewModel.primesURL
-               //   let url = URL(string: "k")
-                   //     pfViewModel.primesURL!.setBookmarkFor(key: HLPrime.PrimesBookmarkKey)
+
                     } else {
                         Text("Prime file path not set")
                     }
@@ -51,12 +48,13 @@ struct PrimeFinderView: View {
                     }) {
                         Text("Set NPrimes")
                     }
-                    
+
                     if pfViewModel.nicePrimesURL != nil {
                         Text(pfViewModel.nicePrimesURL!.path)
                     } else {
                         Text("Nice Prime file path not set")
                     }
+
                     Spacer()
                 }
 
@@ -68,28 +66,40 @@ struct PrimeFinderView: View {
                 }
             }
             
+            //  Status
             HStack {
                 Text("Status: ")
                 Text(pfViewModel.status)
                 Spacer()
             }
         
+            //  FindPrimes Button
             Button(action: {
                 print("Find primes Button clicked")
+                self.pfViewModel.findPrimes()
             }) {
-                Text(" Find Primes ")
+                if pfViewModel.findPrimesInProgress {
+                    Text("Running ")
+                } else {
+                    Text("Find Primes")
+                }
             }
+            .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
+            //  FindNPrimes Button
             Button(action: {
                 print("Find nice primes Button clicked")
+                self.pfViewModel.findNPrimes()
             }) {
-                Text("Find NPrimes")
+                if pfViewModel.findNPrimesInProgress {
+                     Text("Running ")
+                 } else {
+                     Text("Find NPrimes")
+                 }
             }
-            
+            .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
+
             Spacer()
-        }
-        .onAppear() {
-         //   primeFileURL
         }
     }
 }
