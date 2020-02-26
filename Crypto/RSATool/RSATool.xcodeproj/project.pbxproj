@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B001741323077EFA00036576 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B001741223077EFA00036576 /* HLRSA.swift */; };
 		B080D01023DB653E004D90FF /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080D00D23DB653E004D90FF /* Int+Extension.swift */; };
-		B080D01123DB653E004D90FF /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080D00E23DB653E004D90FF /* URL+Extension.swift */; };
 		B080D01223DB653E004D90FF /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080D00F23DB653E004D90FF /* String+Extension.swift */; };
 		B080EEAA230A0F5300DB100F /* ViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080EEA9230A0F5300DB100F /* ViewController+Extension.swift */; };
 		B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081765D1F993D2B00772AFC /* AppDelegate.swift */; };
@@ -34,7 +33,6 @@
 		B001741223077EFA00036576 /* HLRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
 		B01D0F9A201CF9020076E254 /* RSATool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RSATool.entitlements; sourceTree = "<group>"; };
 		B080D00D23DB653E004D90FF /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		B080D00E23DB653E004D90FF /* URL+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		B080D00F23DB653E004D90FF /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B080EEA9230A0F5300DB100F /* ViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Extension.swift"; sourceTree = "<group>"; };
 		B081765A1F993D2B00772AFC /* HLCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,7 +69,6 @@
 			isa = PBXGroup;
 			children = (
 				B080D00D23DB653E004D90FF /* Int+Extension.swift */,
-				B080D00E23DB653E004D90FF /* URL+Extension.swift */,
 				B080D00F23DB653E004D90FF /* String+Extension.swift */,
 			);
 			name = Extensions;
@@ -247,7 +244,6 @@
 				B081765E1F993D2B00772AFC /* AppDelegate.swift in Sources */,
 				B080EEAA230A0F5300DB100F /* ViewController+Extension.swift in Sources */,
 				B001741323077EFA00036576 /* HLRSA.swift in Sources */,
-				B080D01123DB653E004D90FF /* URL+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,8 +18,8 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
     @IBOutlet weak var primeButton: NSButton!
     @IBOutlet weak var nicePrimesButton: NSButton!
 
-    let HLDefaultTerminalPrimeKey   = "TerminalPrimeKey"
-    let HLSavePanelTitle            = "PrimeFinder Save Panel"
+    let HLTerminalPrimeKey  = "TerminalPrimeKey"
+    let HLSavePanelTitle    = "PrimeFinder Save Panel"
     var primesURL: URL?
     var nicePrimesURL: URL?
     
@@ -155,7 +155,9 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             
             //  at this point we know we have valid primesURL and nicePrimesURL
             primeFinder = HLPrime(primesFileURL: primesURL!)
-            primeFinder!.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { result in
+            primeFinder!.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { [weak self] result in
+                guard let self = self else { return }
+
                 let elaspsedTime = self.primeFinder!.timeInSeconds.formatTime()
                 print( "    *********   findNicePrimes completed in \(elaspsedTime)    *********\n" )
                 self.findNicePrimesInProgress = false
@@ -179,7 +181,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
         
         if control == terminalPrimeTextField    {
             terminalPrimeTextField.stringValue = control.stringValue
-            UserDefaults.standard.set(control.stringValue, forKey:HLDefaultTerminalPrimeKey)
+            UserDefaults.standard.set(control.stringValue, forKey:HLTerminalPrimeKey)
         }
 
         else    {   assert( false )     }
@@ -217,7 +219,7 @@ class ViewController: NSViewController, NSControlTextEditingDelegate {
             nicePrimesButton.isEnabled = true
         }
 
-        if let terminalPrime = UserDefaults.standard.string(forKey: HLDefaultTerminalPrimeKey)  {
+        if let terminalPrime = UserDefaults.standard.string(forKey: HLTerminalPrimeKey)  {
             terminalPrimeTextField.stringValue = terminalPrime
         }
         else    {
