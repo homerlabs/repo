@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HLFileManager : NSObject
+@interface HLFileManager: NSObject
 
 -(int)createPrimesFileForAppendWith:(NSString *)path;
 -(void)closePrimesFileForAppend;

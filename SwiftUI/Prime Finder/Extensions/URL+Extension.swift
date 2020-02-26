@@ -9,13 +9,15 @@
 import Foundation
 
 extension URL    {
+
+    //  TODO check for presence of file before try
     func setBookmarkFor(key: String) {
         do  {
             let data = try self.bookmarkData(options: URL.BookmarkCreationOptions.withSecurityScope,
                                     includingResourceValuesForKeys: nil, relativeTo: nil)
             UserDefaults.standard.set(data, forKey:key)
         }   catch   {
-            print("****************************     HLWarning:  Unable to create security bookmark for key: \(key)!")
+            print("****************************     HLWarning:  Unable to create security bookmark for key: \(key)   Error: \(error)!")
         }
     }
 }

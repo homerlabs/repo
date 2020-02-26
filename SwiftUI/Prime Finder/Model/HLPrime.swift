@@ -14,8 +14,9 @@ public typealias HLCompletionClosure = (String) -> Void
 
 public class HLPrime {
 
-    public static let PrimesBookmarkKey       = "HLPrimesBookmarkKey"
-    public static let NicePrimesBookmarkKey   = "HLNicePrimesBookmarkKey"
+    public static let HLPrimesBookmarkKey     = "HLPrimesBookmarkKey"
+    public static let HLNicePrimesBookmarkKey = "HLNicePrimesBookmarkKey"
+    public static let HLTerminalPrimeKey      = "HLTerminalPrimeKey"
 
     let primesFileURL: URL  //  set during init()
     var nicePrimesFileURL: URL?
