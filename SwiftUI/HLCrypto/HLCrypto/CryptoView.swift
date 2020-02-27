@@ -12,6 +12,7 @@ struct CryptoView: View {
 
     @ObservedObject var cryptoViewModel = HLCryptoViewModel()
     let HLSavePanelTitle = "HLCrypto Save Panel"
+    let HLOpenPanelTitle = "HLCrypto Open Panel"
 
     var body: some View {
         VStack {
@@ -21,17 +22,16 @@ struct CryptoView: View {
                 Button(action: {
                     print("PlainTextPath")
                     let path = "PlainText.txt"
-                    
-                    //  will come back nil if user cancels
-                    if let url = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set PlainText File Path") {
-                        self.cryptoViewModel.plainTextPath = url.path
-                    }
+                    self.cryptoViewModel.plainTextURL = path.getOpenFilePath(title: self.HLOpenPanelTitle)
                 }) {
-                    Text("    PlainText   ")
+                    Text("PlainText")
                 }
                 
-                Text(cryptoViewModel.plainTextPath)
-            //        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                if cryptoViewModel.plainTextURL != nil {
+                    Text(cryptoViewModel.plainTextURL!.path)
+                } else {
+                    Text("Plaintext Path not set")
+                }
                 Spacer()
             }
             
@@ -40,16 +40,16 @@ struct CryptoView: View {
                 Button(action: {
                     print("CipherTextPath")
                     let path = "CipherText.txt"
-                    
-                    //  will come back nil if user cancels
-                    if let url = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set CipherText File Path") {
-                        self.cryptoViewModel.cipherTextPath = url.path
-                    }
-}) {
-                    Text("  CipherText  ")
+                    self.cryptoViewModel.cipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set CipherText File Path")
+                }) {
+                    Text("CipherText")
                 }
                 
-                Text(cryptoViewModel.cipherTextPath)
+                if cryptoViewModel.cipherTextURL != nil {
+                    Text(cryptoViewModel.cipherTextURL!.path)
+                } else {
+                    Text("Ciphertext Path not set")
+                }
                 Spacer()
             }
             
@@ -58,21 +58,36 @@ struct CryptoView: View {
                 Button(action: {
                     print("DeCipherTextPath")
                     let path = "DeCipherText.txt"
-                    
-                    //  will come back nil if user cancels
-                    if let url = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set DeCipher Text File Path") {
-                        self.cryptoViewModel.decipherTextPath = url.path
-                    }
+                    self.cryptoViewModel.decipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set DeCipherText File Path")
                 }) {
                     Text("DeCipherText")
                 }
                 
-                Text(cryptoViewModel.decipherTextPath)
+                if cryptoViewModel.decipherTextURL != nil {
+                    Text(cryptoViewModel.decipherTextURL!.path)
+                } else {
+                    Text("DeCiphertext Path not set")
+                }
                 Spacer()
             }
             
             Form {
-            //  set P, Q
+                HStack {
+                    Text("Character Set:")
+                    Spacer()
+                    Text("Chunk Size:")
+                    Text(cryptoViewModel.chunkSize)
+                    Spacer()
+                    Text("Character Set Size:")
+                    Text(cryptoViewModel.characterSetCountString)
+                }
+                
+                TextField(cryptoViewModel.characterSet, text: $cryptoViewModel.characterSet)
+                Spacer()
+            }
+                
+            Form {
+              //  set P, Q
               HStack {
                   Text("P:")
                   TextField(cryptoViewModel.pString, text: $cryptoViewModel.pString)
@@ -80,11 +95,9 @@ struct CryptoView: View {
                   Text("Q:")
                   TextField(cryptoViewModel.qString, text: $cryptoViewModel.qString)
                   Spacer()
-                  Text("P*Q: \(cryptoViewModel.pTimesQ())")
+                  Text("P*Q: \(cryptoViewModel.pqString)")
                   Spacer()
-                  Text("(P-1)(Q-1)): \(cryptoViewModel.pMinus1QMinus1())")
-            //      let value = (Int(cryptoViewModel.qString) - 1) * (Int(cryptoViewModel.qString) - 1)
-                  Spacer()
+                  Text("(P-1)(Q-1): \(cryptoViewModel.gammaString)")
               }
 
               //  set chosenKey
@@ -92,10 +105,7 @@ struct CryptoView: View {
                   Text("Chosen Key:")
                   TextField(cryptoViewModel.chosenKeyString, text: $cryptoViewModel.chosenKeyString)
                   Spacer()
-                  Text("Calculated Key:")
-                  Text("42")
-            //      let value = (Int(cryptoViewModel.qString) - 1) * (Int(cryptoViewModel.qString) - 1)
-                  Spacer()
+                  Text("Calculated Key:"+cryptoViewModel.calculatedKeyString)
               }
 
               //  Encode and Decode Buttons
@@ -106,17 +116,23 @@ struct CryptoView: View {
                   }) {
                       Text("Encode")
                   }
+                  .disabled(cryptoViewModel.plainTextURL == nil || cryptoViewModel.cipherTextURL == nil)
                   Spacer()
+                  
                   Button(action: {
                       print("Decode")
                   }) {
                       Text("Decode")
                   }
+                  .disabled(cryptoViewModel.cipherTextURL == nil || cryptoViewModel.decipherTextURL == nil)
                   Spacer()
               }
             }
 
             Spacer()
+        }
+        .onAppear() {
+            self.cryptoViewModel.setupRSA()
         }
     }
 }

@@ -26,7 +26,7 @@ class HLRSA {
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
-    let chuckSizeDouble: Double
+    let chunkSizeDouble: Double
 
     let charSetSize: HLPrimeType
     let charSetSizePlusOne: HLPrimeType
@@ -386,9 +386,9 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         N = p * q
         Phi = (p-1) * (q-1)
 
-        chuckSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
-        chuckSize = Int(chuckSizeDouble)
+        chunkSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
+        chuckSize = Int(chunkSizeDouble)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chuckSizeDouble]))" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
     }
 }
