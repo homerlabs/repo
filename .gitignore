@@ -1,5 +1,11 @@
 *.DS_Store
 
+SwiftUI/Prime\ Finder/Prime\ Finder.xcodeproj/xcuserdata
+SwiftUI/Prime\ Finder/Prime\ Finder.xcodeproj/project.xcworkspace/xcuserdata
+
+SwiftUI/HLCyrpto/HLCyrpto.xcodeproj/xcuserdata
+SwiftUI/HLCyrpto/HLCyrpto.xcodeproj/project.xcworkspace/xcuserdata
+
 Crypto/RSATool/RSATool.xcodeproj/xcuserdata
 Crypto/RSATool/RSATool.xcodeproj/project.xcworkspace/xcuserdata
 
@@ -12,23 +18,8 @@ Crypto/PrimeToolCPP/PrimeTool.xcodeproj/project.xcworkspace/xcuserdata
 PrimeFinder2/PrimeFinder.xcodeproj/xcuserdata
 PrimeFinder2/PrimeFinder.xcodeproj/project.xcworkspace/xcuserdata
 
-Phidget1018/Phidget1018.xcodeproj/xcuserdata
-Phidget1018/Phidget1018.xcodeproj/project.xcworkspace/xcuserdata
-
-HLPong/HLPong.xcodeproj/xcuserdata
-HLPong/HLPong.xcodeproj/project.xcworkspace/xcuserdata
-
 Sudoku\ Solver/Sudoku\ Solver.xcodeproj/xcuserdata
 Sudoku\ Solver/Sudoku\ Solver.xcodeproj/project.xcworkspace/xcuserdata
 
 SudokuSolverOSX/SudokuSolver.xcodeproj/xcuserdata
 SudokuSolverOSX/SudokuSolver.xcodeproj/project.xcworkspace/xcuserdata
-
-ResourceEater/ResourceEater.xcodeproj/xcuserdata
-ResourceEater/ResourceEater.xcodeproj/project.xcworkspace/xcuserdata
-
-HLPlayer/HLPlayer.xcodeproj/xcuserdata
-HLPlayer/HLPlayer.xcodeproj/project.xcworkspace/xcuserdata
-
-Disk\ Tester/Disk\ Tester.xcodeproj/xcuserdata
-Disk\ Tester/Disk\ Tester.xcodeproj/project.xcworkspace/xcuserdata
