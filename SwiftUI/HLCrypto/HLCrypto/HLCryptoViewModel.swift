@@ -16,14 +16,11 @@ class HLCryptoViewModel: ObservableObject {
     @Published var qString = "251"
     @Published var chosenKeyString = "36083"
     @Published var calculatedKeyString = "0"
-    @Published var characterSet = "abcdefghijklmnopqrstuvwxyz"
+    @Published var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
     @Published var characterSetCountString = "0"
 
     @Published var pqString = "0"
     @Published var gammaString = "0"
-
-//    @Published var pq: HLPrimeType = 0
-//    @Published var gamma: HLPrimeType = 0
     @Published var chunkSize = "0.0"
 
     let HLPlainTextPathKey      = "PlainTextPathKey"

@@ -17,8 +17,6 @@ struct PrimeFinderView: View {
         
         VStack {
             Form {
-                Spacer()
-
                 //  prime url
                 HStack {
                     Button(action: {
@@ -29,14 +27,12 @@ struct PrimeFinderView: View {
                         Text(" Set Primes ")
                     }
 
-                    
                     if pfViewModel.primesURL != nil {
                         Text(pfViewModel.primesURL!.path)
 
                     } else {
-                        Text("Prime file path not set")
+                        Text("Primes file path not set")
                     }
-                    Spacer()
                 }
                             
                 //  nice prime url
@@ -52,20 +48,20 @@ struct PrimeFinderView: View {
                     if pfViewModel.nicePrimesURL != nil {
                         Text(pfViewModel.nicePrimesURL!.path)
                     } else {
-                        Text("Nice Prime file path not set")
+                        Text("Nice Primes file path not set")
                     }
-
-                    Spacer()
                 }
+                .padding(.bottom)
 
                 //  terminal prime
                 HStack {
                     Text("Terminal Prime: ")
                     TextField(pfViewModel.terminalPrime, text: $pfViewModel.terminalPrime)
-                    Spacer()
+             //       Spacer()
                 }
             }
-            
+            .padding(.bottom)
+
             //  Status
             HStack {
                 Text("Status: ")
@@ -73,34 +69,27 @@ struct PrimeFinderView: View {
                 Spacer()
             }
         
-            //  FindPrimes Button
-            Button(action: {
-                print("Find primes Button clicked")
-                self.pfViewModel.findPrimes()
-            }) {
-                if pfViewModel.findPrimesInProgress {
-                    Text("Running ")
-                } else {
-                    Text("Find Primes")
+            VStack {
+                //  FindPrimes Button
+                Button(action: {
+                    print("Find primes Button clicked")
+                    self.pfViewModel.findPrimes()
+                }) {
+                    pfViewModel.findPrimesInProgress ? Text("Running ") : Text("Find Primes")
                 }
-            }
-            .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
+                .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
-            //  FindNPrimes Button
-            Button(action: {
-                print("Find nice primes Button clicked")
-                self.pfViewModel.findNPrimes()
-            }) {
-                if pfViewModel.findNPrimesInProgress {
-                     Text("Running ")
-                 } else {
-                     Text("Find NPrimes")
-                 }
+                //  FindNPrimes Button
+                Button(action: {
+                    print("Find nice primes Button clicked")
+                    self.pfViewModel.findNPrimes()
+                }) {
+                    pfViewModel.findNPrimesInProgress ? Text("Running ") : Text("Find NPrimes")
+                }
+                .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
             }
-            .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
-
-            Spacer()
         }
+        .padding()
     }
 }
 

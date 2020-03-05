@@ -16,62 +16,64 @@ struct CryptoView: View {
 
     var body: some View {
         VStack {
-        
-            //  set Plaintext path
-            HStack {
-                Button(action: {
-                    print("PlainTextPath")
-                    let path = "PlainText.txt"
-                    self.cryptoViewModel.plainTextURL = path.getOpenFilePath(title: self.HLOpenPanelTitle)
-                }) {
-                    Text("PlainText")
-                }
-                
-                if cryptoViewModel.plainTextURL != nil {
-                    Text(cryptoViewModel.plainTextURL!.path)
-                } else {
-                    Text("Plaintext Path not set")
-                }
-                Spacer()
-            }
-            
-            //  set Ciphertext path
-            HStack {
-                Button(action: {
-                    print("CipherTextPath")
-                    let path = "CipherText.txt"
-                    self.cryptoViewModel.cipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set CipherText File Path")
-                }) {
-                    Text("CipherText")
-                }
-                
-                if cryptoViewModel.cipherTextURL != nil {
-                    Text(cryptoViewModel.cipherTextURL!.path)
-                } else {
-                    Text("Ciphertext Path not set")
-                }
-                Spacer()
-            }
-            
-            //  set DeCiphertext path
-            HStack {
-                Button(action: {
-                    print("DeCipherTextPath")
-                    let path = "DeCipherText.txt"
-                    self.cryptoViewModel.decipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set DeCipherText File Path")
-                }) {
-                    Text("DeCipherText")
-                }
-                
-                if cryptoViewModel.decipherTextURL != nil {
-                    Text(cryptoViewModel.decipherTextURL!.path)
-                } else {
-                    Text("DeCiphertext Path not set")
-                }
-                Spacer()
-            }
-            
             Form {
+                //  set Plaintext path
+                HStack {
+                    Button(action: {
+                        print("PlainTextPath")
+                        let path = "PlainText.txt"
+                        self.cryptoViewModel.plainTextURL = path.getOpenFilePath(title: self.HLOpenPanelTitle)
+                    }) {
+                        Text("PlainText")
+                    }
+                    
+                    if cryptoViewModel.plainTextURL != nil {
+                        Text(cryptoViewModel.plainTextURL!.path)
+                    } else {
+                        Text("Plaintext Path not set")
+                    }
+                    Spacer()
+                }
+                
+                //  set Ciphertext path
+                HStack {
+                    Button(action: {
+                        print("CipherTextPath")
+                        let path = "CipherText.txt"
+                        self.cryptoViewModel.cipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set CipherText File Path")
+                    }) {
+                        Text("CipherText")
+                    }
+                    
+                    if cryptoViewModel.cipherTextURL != nil {
+                        Text(cryptoViewModel.cipherTextURL!.path)
+                    } else {
+                        Text("Ciphertext Path not set")
+                    }
+                    Spacer()
+                }
+                
+                //  set DeCiphertext path
+                HStack {
+                    Button(action: {
+                        print("DeCipherTextPath")
+                        let path = "DeCipherText.txt"
+                        self.cryptoViewModel.decipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set DeCipherText File Path")
+                    }) {
+                        Text("DeCipherText")
+                    }
+                    
+                    if cryptoViewModel.decipherTextURL != nil {
+                        Text(cryptoViewModel.decipherTextURL!.path)
+                    } else {
+                        Text("DeCiphertext Path not set")
+                    }
+                    Spacer()
+                }
+            }
+            
+            VStack {
+                //  Character Set, Chunk Size, and Character Set Size
                 HStack {
                     Text("Character Set:")
                     Spacer()
@@ -83,9 +85,10 @@ struct CryptoView: View {
                 }
                 
                 TextField(cryptoViewModel.characterSet, text: $cryptoViewModel.characterSet)
-                Spacer()
+                .lineLimit(2)
             }
-                
+             .padding(.vertical)
+             
             Form {
               //  set P, Q
               HStack {
@@ -107,7 +110,7 @@ struct CryptoView: View {
                   Spacer()
                   Text("Calculated Key:"+cryptoViewModel.calculatedKeyString)
               }
-
+            .padding(.bottom)
               //  Encode and Decode Buttons
               HStack {
                   Spacer()
@@ -117,8 +120,9 @@ struct CryptoView: View {
                       Text("Encode")
                   }
                   .disabled(cryptoViewModel.plainTextURL == nil || cryptoViewModel.cipherTextURL == nil)
+
                   Spacer()
-                  
+
                   Button(action: {
                       print("Decode")
                   }) {
@@ -128,9 +132,8 @@ struct CryptoView: View {
                   Spacer()
               }
             }
-
-            Spacer()
         }
+        .padding()
         .onAppear() {
             self.cryptoViewModel.setupRSA()
         }
