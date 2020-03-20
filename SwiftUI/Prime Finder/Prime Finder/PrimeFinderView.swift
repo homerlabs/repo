@@ -12,6 +12,8 @@ struct PrimeFinderView: View {
 
     @ObservedObject var pfViewModel = PrimeFinderViewModel()
     let HLSavePanelTitle = "Prime Finder Save Panel"
+    let terminalPrimeWidth: CGFloat = 100.0
+    let startMessage = "Creating PTable"
 
     var body: some View {
         
@@ -51,15 +53,16 @@ struct PrimeFinderView: View {
                         Text("Nice Primes file path not set")
                     }
                 }
-                .padding(.bottom)
 
                 //  terminal prime
                 HStack {
                     Text("Terminal Prime: ")
                     TextField(pfViewModel.terminalPrime, text: $pfViewModel.terminalPrime)
-             //       Spacer()
+                        .frame(width: terminalPrimeWidth)
+                    Spacer()
                 }
-            }
+                .padding(.vertical)
+}
             .padding(.bottom)
 
             //  Status
@@ -72,16 +75,14 @@ struct PrimeFinderView: View {
             VStack {
                 //  FindPrimes Button
                 Button(action: {
-                    print("Find primes Button clicked")
                     self.pfViewModel.findPrimes()
                 }) {
-                    pfViewModel.findPrimesInProgress ? Text("Running ") : Text("Find Primes")
+                    pfViewModel.findPrimesInProgress ? Text("Running ") : Text(" Find Primes ")
                 }
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
                 //  FindNPrimes Button
                 Button(action: {
-                    print("Find nice primes Button clicked")
                     self.pfViewModel.findNPrimes()
                 }) {
                     pfViewModel.findNPrimesInProgress ? Text("Running ") : Text("Find NPrimes")

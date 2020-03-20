@@ -12,8 +12,28 @@ class HLCryptoViewModel: ObservableObject {
     @Published var plainTextURL: URL?
     @Published var cipherTextURL: URL?
     @Published var decipherTextURL: URL?
-    @Published var pString = "257"
-    @Published var qString = "251"
+    @Published var pString = "257" {
+        didSet {
+            print("pString:  \(pString)")
+            if let number = HLPrimeType(pString) {
+                primeP = number
+            } else {
+          //      primeP = 1
+            }
+  //          setupRSA()
+        }
+    }
+    @Published var qString = "251" {
+        didSet {
+            print("qString:  \(qString)")
+            if let number = HLPrimeType(qString) {
+                primeQ = number
+            } else {
+        //        primeQ = 1
+            }
+  //          setupRSA()
+        }
+    }
     @Published var chosenKeyString = "36083"
     @Published var calculatedKeyString = "0"
     @Published var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
@@ -28,8 +48,58 @@ class HLCryptoViewModel: ObservableObject {
     let HLDeCipherTextPathKey   = "DeCipherTextPathKey"
     let HL_PKey                 = "RSA_PKey"
     let HL_QKey                 = "RSA_QKey"
+    
+    var primeP: HLPrimeType {
+        get {
+            let num = HLPrimeType(pString)
+            if num != nil {
+                return num!
+            } else {
+                return 1
+            }
+        }
+        
+        set {
+        //    self.primeP = newValue
+            print("primeP-  set:  \(newValue)")
+            setupRSA()
+        }
+    }
+    
+    var primeQ: HLPrimeType {
+        get {
+            let num = HLPrimeType(qString)
+            if num != nil {
+                return num!
+            } else {
+                return 1
+            }
+        }
+        
+        set {
+        //    self.primeQ = newValue
+            print("primeQ-  set:  \(newValue)")
+            setupRSA()
+        }
+    }
+    
+    var pTimesQ: HLPrimeType {
+        get {
+            primeP * primeQ
+        }
+    }
 
-    @Published var rsa: HLRSA?
+    var rsa: HLRSA?
+    
+    func encode() {
+        setupRSA()
+        rsa?.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
+    }
+    
+    func decode() {
+        setupRSA()
+        rsa?.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
+    }
     
     func setupKeys() {
         if let publicKey = HLPrimeType(chosenKeyString) {

@@ -17,9 +17,9 @@
 //************************************************************************
 import Cocoa
 
-typealias HLPrimeType = Int64
+public typealias HLPrimeType = Int64
 
-class HLRSA {
+public struct HLRSA {
 
     let N: HLPrimeType
     let Phi: HLPrimeType

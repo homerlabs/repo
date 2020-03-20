@@ -13,6 +13,7 @@ struct CryptoView: View {
     @ObservedObject var cryptoViewModel = HLCryptoViewModel()
     let HLSavePanelTitle = "HLCrypto Save Panel"
     let HLOpenPanelTitle = "HLCrypto Open Panel"
+    let HLTextFieldWidth: CGFloat = 110
 
     var body: some View {
         VStack {
@@ -24,7 +25,7 @@ struct CryptoView: View {
                         let path = "PlainText.txt"
                         self.cryptoViewModel.plainTextURL = path.getOpenFilePath(title: self.HLOpenPanelTitle)
                     }) {
-                        Text("PlainText")
+                        Text("    PlainText    ")
                     }
                     
                     if cryptoViewModel.plainTextURL != nil {
@@ -42,7 +43,7 @@ struct CryptoView: View {
                         let path = "CipherText.txt"
                         self.cryptoViewModel.cipherTextURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set CipherText File Path")
                     }) {
-                        Text("CipherText")
+                        Text("  CipherText   ")
                     }
                     
                     if cryptoViewModel.cipherTextURL != nil {
@@ -92,11 +93,14 @@ struct CryptoView: View {
             Form {
               //  set P, Q
               HStack {
-                  Text("P:")
+                  Text("P: ")
                   TextField(cryptoViewModel.pString, text: $cryptoViewModel.pString)
+                    .frame(width: HLTextFieldWidth)
+               //     .on
                   Spacer()
-                  Text("Q:")
+                  Text("Q: ")
                   TextField(cryptoViewModel.qString, text: $cryptoViewModel.qString)
+                    .frame(width: HLTextFieldWidth)
                   Spacer()
                   Text("P*Q: \(cryptoViewModel.pqString)")
                   Spacer()
@@ -105,33 +109,37 @@ struct CryptoView: View {
 
               //  set chosenKey
               HStack {
-                  Text("Chosen Key:")
+                  Text("Chosen Key: ")
                   TextField(cryptoViewModel.chosenKeyString, text: $cryptoViewModel.chosenKeyString)
+                    .frame(width: HLTextFieldWidth)
+                  
+       //           Spacer()
+                  Text("Calculated Key:  " + cryptoViewModel.calculatedKeyString)
+                  .padding(.horizontal)
                   Spacer()
-                  Text("Calculated Key:"+cryptoViewModel.calculatedKeyString)
               }
             .padding(.bottom)
+        }
+
               //  Encode and Decode Buttons
-              HStack {
-                  Spacer()
+              VStack {
                   Button(action: {
-                      print("Encode")
+                      self.cryptoViewModel.encode()
                   }) {
                       Text("Encode")
                   }
                   .disabled(cryptoViewModel.plainTextURL == nil || cryptoViewModel.cipherTextURL == nil)
 
-                  Spacer()
+                .padding(.bottom)
 
                   Button(action: {
-                      print("Decode")
+                      self.cryptoViewModel.decode()
                   }) {
                       Text("Decode")
                   }
                   .disabled(cryptoViewModel.cipherTextURL == nil || cryptoViewModel.decipherTextURL == nil)
-                  Spacer()
               }
-            }
+              
         }
         .padding()
         .onAppear() {
