@@ -20,7 +20,6 @@ class HLCryptoViewModel: ObservableObject {
             } else {
           //      primeP = 1
             }
-  //          setupRSA()
         }
     }
     @Published var qString = "251" {
@@ -31,10 +30,18 @@ class HLCryptoViewModel: ObservableObject {
             } else {
         //        primeQ = 1
             }
-  //          setupRSA()
         }
     }
-    @Published var chosenKeyString = "36083"
+    @Published var chosenKeyString = "36083" {
+        didSet {
+            print("chosenKeyString:  \(chosenKeyString)")
+            if let number = HLPrimeType(chosenKeyString) {
+                chosenKey = number
+            } else {
+          //      chosenKey = 1
+            }
+        }
+    }
     @Published var calculatedKeyString = "0"
     @Published var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
     @Published var characterSetCountString = "0"
@@ -83,9 +90,21 @@ class HLCryptoViewModel: ObservableObject {
         }
     }
     
-    var pTimesQ: HLPrimeType {
+    var chosenKey: HLPrimeType {
         get {
-            primeP * primeQ
+            let num = HLPrimeType(chosenKeyString)
+            if num != nil {
+                return num!
+            } else {
+                return 1
+            }
+        }
+        
+        set {
+        //    self.primeQ = newValue
+            print("chosenKey-  set:  \(newValue)")
+            setupKeys()
+            
         }
     }
 
@@ -106,7 +125,7 @@ class HLCryptoViewModel: ObservableObject {
             let privateKey = rsa!.calculateKey(publicKey: publicKey)
             rsa?.keyPublic = publicKey
             rsa?.keyPrivate = privateKey
-            calculatedKeyString = String(privateKey)
+            privateKey == -1 ? (calculatedKeyString = "CHOSEN KEY IS INVALID!") : (calculatedKeyString = String(privateKey))
         }
     }
     

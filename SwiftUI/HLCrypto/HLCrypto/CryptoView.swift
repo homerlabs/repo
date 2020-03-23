@@ -128,7 +128,9 @@ struct CryptoView: View {
                   }) {
                       Text("Encode")
                   }
-                  .disabled(cryptoViewModel.plainTextURL == nil || cryptoViewModel.cipherTextURL == nil)
+                  .disabled(cryptoViewModel.plainTextURL == nil ||
+                            cryptoViewModel.cipherTextURL == nil ||
+                            HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
 
                 .padding(.bottom)
 
@@ -137,7 +139,9 @@ struct CryptoView: View {
                   }) {
                       Text("Decode")
                   }
-                  .disabled(cryptoViewModel.cipherTextURL == nil || cryptoViewModel.decipherTextURL == nil)
+                  .disabled(cryptoViewModel.cipherTextURL == nil ||
+                            cryptoViewModel.decipherTextURL == nil ||
+                            HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
               }
               
         }
