@@ -12,7 +12,7 @@
 		B0685171242944AD006E532E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0685170242944AD006E532E /* README.md */; };
 		B06C830224293ECC007C169C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C830124293ECC007C169C /* AppDelegate.swift */; };
 		B06C830424293ECC007C169C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C830324293ECC007C169C /* SceneDelegate.swift */; };
-		B06C830624293ECC007C169C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C830524293ECC007C169C /* ContentView.swift */; };
+		B06C830624293ECC007C169C /* PuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C830524293ECC007C169C /* PuzzleView.swift */; };
 		B06C830824293ECD007C169C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06C830724293ECD007C169C /* Assets.xcassets */; };
 		B06C830B24293ECD007C169C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06C830A24293ECD007C169C /* Preview Assets.xcassets */; };
 		B06C830E24293ECD007C169C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B06C830C24293ECD007C169C /* LaunchScreen.storyboard */; };
@@ -36,7 +36,7 @@
 		B06C82FE24293ECC007C169C /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06C830124293ECC007C169C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B06C830324293ECC007C169C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B06C830524293ECC007C169C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B06C830524293ECC007C169C /* PuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleView.swift; sourceTree = "<group>"; };
 		B06C830724293ECD007C169C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B06C830A24293ECD007C169C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B06C830D24293ECD007C169C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 			children = (
 				B06C830124293ECC007C169C /* AppDelegate.swift */,
 				B06C830324293ECC007C169C /* SceneDelegate.swift */,
-				B06C830524293ECC007C169C /* ContentView.swift */,
+				B06C830524293ECC007C169C /* PuzzleView.swift */,
 				B06C830724293ECD007C169C /* Assets.xcassets */,
 				B06C830C24293ECD007C169C /* LaunchScreen.storyboard */,
 				B06C830F24293ECD007C169C /* Info.plist */,
@@ -230,7 +230,7 @@
 				B06C830224293ECC007C169C /* AppDelegate.swift in Sources */,
 				B06C830424293ECC007C169C /* SceneDelegate.swift in Sources */,
 				B068516E2429425A006E532E /* HLMatrix.swift in Sources */,
-				B06C830624293ECC007C169C /* ContentView.swift in Sources */,
+				B06C830624293ECC007C169C /* PuzzleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
