@@ -19,9 +19,15 @@ class HLCryptoTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCalculateKey() {
+        let p: HLPrimeType = 251
+        let q: HLPrimeType = 257
+        let secretKey: HLPrimeType = 101
+        let publicKey: HLPrimeType = 1901
+        let characterSet = "1234567890"
+        let rsa = HLRSA(p: p, q: q, characterSet: characterSet)
+        let calculatedKey = rsa.calculateKey(publicKey: secretKey)
+        XCTAssert(calculatedKey == publicKey, "calculatedKey was '\(calculatedKey)', should have been '\(publicKey)'")
     }
 
     func testPerformanceExample() {

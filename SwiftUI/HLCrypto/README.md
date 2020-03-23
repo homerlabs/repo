@@ -8,5 +8,6 @@ To Decode, provide ciphertext path is not already present and provide decipherte
 
 TODO:
     update Help files
-    add unit tests
-    repair projects missing xctest product
+    add more/better unit tests
+    test everything and get ready to ship
+    add Firebase?

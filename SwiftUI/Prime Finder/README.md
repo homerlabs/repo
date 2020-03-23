@@ -6,4 +6,5 @@ TODO:
     update Help files
     add more/better unit tests
     test everything and get ready to ship
-    and Firebase?
+    add Firebase?
+    fix project's missing product xctest
