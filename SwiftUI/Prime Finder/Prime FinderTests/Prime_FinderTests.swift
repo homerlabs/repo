@@ -19,9 +19,26 @@ class Prime_FinderTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testPTableCreateSmall() {
+        if let url = URL(string: "Primes.txt") {
+            let pFinder = HLPrime(primesFileURL: url)
+            let maxPrime: HLPrimeType = 1000
+            let pTableCount = 11
+            let pTable = pFinder.createPTable(maxPrime: maxPrime)
+            print("pTable: \(pTable.count)")
+            XCTAssert(pTable.count == pTableCount, "pTable.count was '\(pTable.count)', should have been '\(pTableCount)'")
+        }
+    }
+
+    func testPTableCreateBig() {
+        if let url = URL(string: "Primes.txt") {
+            let pFinder = HLPrime(primesFileURL: url)
+            let maxPrime: HLPrimeType = 100000000
+            let pTableCount = 1229
+            let pTable = pFinder.createPTable(maxPrime: maxPrime)
+            print("pTable: \(pTable.count)")
+            XCTAssert(pTable.count == pTableCount, "pTable.count was '\(pTable.count)', should have been '\(pTableCount)'")
+        }
     }
 
     func testPerformanceExample() {

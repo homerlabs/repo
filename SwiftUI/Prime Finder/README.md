@@ -4,4 +4,6 @@ Prime Finder finds all primes up to a terminal prime value.  It creates a rather
 
 TODO:
     update Help files
-    add unit tests
+    add more/better unit tests
+    test everything and get ready to ship
+    and Firebase?
