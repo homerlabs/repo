@@ -7,6 +7,6 @@ To Encode, select plaintext file and provide name/path for ciphertext file.  Onc
 To Decode, provide ciphertext path is not already present and provide deciphertext name/path.  Once the Decode is completed, a Encode is performed comparing the result with the original ciphertext.  This verifies the correctness of the Decode.
 
 TODO:
-    add Help
-    add icon files
-    add uut(s)
+    update Help files
+    add unit tests
+    repair projects missing xctest product
