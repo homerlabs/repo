@@ -11,6 +11,7 @@
 		B03964801B54962C00BA226A /* HLCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */; };
 		B05E3D8C204C720B00BCA8FA /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8B204C720B00BCA8FA /* GameKit.framework */; };
 		B05E3D8E204C720F00BCA8FA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B05E3D8D204C720F00BCA8FA /* StoreKit.framework */; };
+		B068517324295631006E532E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B068517224295631006E532E /* GoogleService-Info.plist */; };
 		B0986EBA1B54775600DEA64D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0986EB91B54775600DEA64D /* AppDelegate.swift */; };
 		B0986EBF1B54775600DEA64D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0986EBD1B54775600DEA64D /* Main.storyboard */; };
 		B0986EC11B54775600DEA64D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0986EC01B54775600DEA64D /* Images.xcassets */; };
@@ -45,6 +46,7 @@
 		B039647E1B54962C00BA226A /* HLCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HLCollectionViewCell.xib; sourceTree = "<group>"; };
 		B05E3D8B204C720B00BCA8FA /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		B05E3D8D204C720F00BCA8FA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B068517224295631006E532E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0986EB41B54775600DEA64D /* HLSudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLSudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0986EB81B54775600DEA64D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0986EB91B54775600DEA64D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		B0986EB61B54775600DEA64D /* Sudoku Solver */ = {
 			isa = PBXGroup;
 			children = (
+				B068517224295631006E532E /* GoogleService-Info.plist */,
 				B0986EDB1B54781900DEA64D /* HLSolverViewController.swift */,
 				B0B6F8182043AE3E00E31EEB /* HLHelpViewController.swift */,
 				B0986EB91B54775600DEA64D /* AppDelegate.swift */,
@@ -279,6 +282,7 @@
 				B0DA334621CFF71900A5F1AA /* ColorBrown.png in Resources */,
 				B0DA334021CFF71900A5F1AA /* Overview.pdf in Resources */,
 				B0986EC11B54775600DEA64D /* Images.xcassets in Resources */,
+				B068517324295631006E532E /* GoogleService-Info.plist in Resources */,
 				B0DA334121CFF71900A5F1AA /* ColorRed.png in Resources */,
 				B0DA334421CFF71900A5F1AA /* ColorGreen.png in Resources */,
 			);
