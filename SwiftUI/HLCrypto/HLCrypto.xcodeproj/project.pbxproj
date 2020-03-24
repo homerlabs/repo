@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B06210E92405B7C9006D1906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210E82405B7C9006D1906 /* AppDelegate.swift */; };
-		B06210EB2405B7C9006D1906 /* CryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210EA2405B7C9006D1906 /* CryptoView.swift */; };
+		B06210EB2405B7C9006D1906 /* HLCryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210EA2405B7C9006D1906 /* HLCryptoView.swift */; };
 		B06210ED2405B7CB006D1906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06210EC2405B7CB006D1906 /* Assets.xcassets */; };
 		B06210F02405B7CB006D1906 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06210EF2405B7CB006D1906 /* Preview Assets.xcassets */; };
 		B06210F32405B7CB006D1906 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B06210F12405B7CB006D1906 /* Main.storyboard */; };
@@ -35,7 +35,7 @@
 /* Begin PBXFileReference section */
 		B06210E52405B7C9006D1906 /* HLCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06210E82405B7C9006D1906 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B06210EA2405B7C9006D1906 /* CryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoView.swift; sourceTree = "<group>"; };
+		B06210EA2405B7C9006D1906 /* HLCryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCryptoView.swift; sourceTree = "<group>"; };
 		B06210EC2405B7CB006D1906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B06210EF2405B7CB006D1906 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B06210F22405B7CB006D1906 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -75,8 +75,8 @@
 			isa = PBXGroup;
 			children = (
 				B0D252C324291C01004EAB59 /* README.md */,
-				B0BA086D24293119001628BE /* Help */,
 				B06210E72405B7C9006D1906 /* HLCrypto */,
+				B0BA086D24293119001628BE /* Help */,
 				B06210FD2405B7CB006D1906 /* HLCryptoTests */,
 				B06210E62405B7C9006D1906 /* Products */,
 			);
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */,
-				B06210EA2405B7C9006D1906 /* CryptoView.swift */,
+				B06210EA2405B7C9006D1906 /* HLCryptoView.swift */,
 				B062110E2405C915006D1906 /* Extensions */,
 				B062110B2405BC98006D1906 /* Model */,
 				B06210E82405B7C9006D1906 /* AppDelegate.swift */,
@@ -250,7 +250,7 @@
 				B06211142405C915006D1906 /* String+Extension.swift in Sources */,
 				B062110D2405BC98006D1906 /* HLRSA.swift in Sources */,
 				B062110A2405BAF0006D1906 /* HLCryptoViewModel.swift in Sources */,
-				B06210EB2405B7C9006D1906 /* CryptoView.swift in Sources */,
+				B06210EB2405B7C9006D1906 /* HLCryptoView.swift in Sources */,
 				B06210E92405B7C9006D1906 /* AppDelegate.swift in Sources */,
 				B06211132405C915006D1906 /* URL+Extension.swift in Sources */,
 			);

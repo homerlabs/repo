@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CryptoView: View {
+struct HLCryptoView: View {
 
     @ObservedObject var cryptoViewModel = HLCryptoViewModel()
     let HLSavePanelTitle = "HLCrypto Save Panel"
@@ -155,6 +155,6 @@ struct CryptoView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        CryptoView()
+        HLCryptoView()
     }
 }
