@@ -13,6 +13,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
 
     @Published var data: [Set<String>] = Array(repeating: ["1", "2"], count: 81)
     @Published var status: [HLCellStatus] = Array(repeating: HLCellStatus.givenStatus, count: 81)
+    @Published var puzzleName = "Puzzle not found"
+    @Published var puzzleState = HLPuzzleState.initial
 
     let url = URL(string: "https://nine.websudoku.com/?level=4")!
     var solver = HLSolver()

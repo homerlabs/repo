@@ -19,16 +19,16 @@ enum HLCellStatus: Int
 
 enum HLAlgorithmMode: Int
 {
-    case MonoCell
-    case FindSets
-    case MonoSector
+    case monoCell
+    case findSets
+    case monoSector
 }
 
 enum HLPuzzleState: Int
 {
-    case Initial
-    case Solving
-    case Final
+    case initial
+    case solving
+    case final
 }
 
 class HLSolver: NSObject {
@@ -45,7 +45,7 @@ class HLSolver: NSObject {
     var dataSet = Matrix(rows:9, columns:9)
     var previousDataSet = Matrix(rows:9, columns:9)
     var puzzleName = "No Puzzle Found"
-    var puzzleState: HLPuzzleState
+    var puzzleState = HLPuzzleState.initial
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
     let blockIndexSet = [
@@ -435,7 +435,6 @@ class HLSolver: NSObject {
         let puzzleName  = aDecoder.decodeObject(forKey: kNameKey)
         let data        = aDecoder.decodeObject(forKey: kDataKey) as! Set<String>
         let status      = aDecoder.decodeInteger(forKey: kStatusKey)
-        puzzleState = .Initial
 
         print("data: \(data)   status: \(status)   puzzleName: \(String(describing: puzzleName))")
     }
@@ -698,7 +697,6 @@ class HLSolver: NSObject {
             dataSet[index] = (fullSet, .unsolvedStatus)
         }
         previousDataSet = dataSet
-        puzzleState = .Initial
 
         super.init()
     }
@@ -707,7 +705,6 @@ class HLSolver: NSObject {
         print("HLSolver-  init(html: String)")
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
-        puzzleState = .Initial
         
         for index in 0..<kCellCount    {
             dataSet[index] = (fullSet, .unsolvedStatus)
