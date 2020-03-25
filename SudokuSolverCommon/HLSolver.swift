@@ -9,7 +9,7 @@
 import Foundation
 
 
-enum HLCellStatus: Int
+public enum HLCellStatus: Int
 {
     case givenStatus
     case unsolvedStatus
@@ -17,21 +17,21 @@ enum HLCellStatus: Int
     case solvedStatus   //  keep this one last as its used as enum count
 }
 
-enum HLAlgorithmMode: Int
+public enum HLAlgorithmMode: Int
 {
     case MonoCell
     case FindSets
     case MonoSector
 }
 
-enum HLPuzzleState: Int
+public enum HLPuzzleState: Int
 {
     case Initial
     case Solving
     case Final
 }
 
-class HLSolver: NSObject {
+public class HLSolver: NSObject {
     let url = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
     let kDataKey    = "Data"

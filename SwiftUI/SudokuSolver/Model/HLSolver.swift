@@ -731,7 +731,7 @@ class HLSolver: NSObject {
                 }
             }
             
-  //          print( "puzzleString: \(puzzleString)" )
+    //        print( "puzzleString: \(puzzleString)" )
             if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
                 puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
