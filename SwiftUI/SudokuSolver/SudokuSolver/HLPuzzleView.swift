@@ -12,45 +12,56 @@ struct HLPuzzleView: View {
 
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
     let hlCellSize: CGFloat = 40
+    let textColor = [Color.red, Color.blue, Color.green, Color.orange]
 
     var body: some View {
         VStack {
-                VStack {
-                    HStack {
-                       Toggle(isOn: $puzzleViewModel.testRows) {
-                            Text("Rows")
-                        }
-                        Spacer()
+            VStack {
+                HStack {
+                   Toggle(isOn: $puzzleViewModel.testRows) {
+                        Text("Rows")
                     }
-                        Toggle(isOn: $puzzleViewModel.testColumns) {
-                            Text("Columns")
-                        //        .padding(.horizontal)
-                        }
-                        
-                        Toggle(isOn: $puzzleViewModel.testBlocks) {
-                            Text("Blocks")
-                        }
-         //       Spacer()
-         //        Text("Help!!!")
-           }
-           
+                    Spacer()
+                }
+                    Toggle(isOn: $puzzleViewModel.testColumns) {
+                        Text("Columns")
+                    //        .padding(.horizontal)
+                    }
+                    
+                    Toggle(isOn: $puzzleViewModel.testBlocks) {
+                        Text("Blocks")
+                    }
+                    
+                Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
+            }
+            Spacer()
+          
             VStack {
                 ForEach(0..<9) { indexI in
                     HStack {
-                //    Spacer()
-                    ForEach(0..<9) { indexJ in
-                        Text(self.setToString(self.puzzleViewModel.dataArray[indexI*9+indexJ]))
-                            .frame(width: self.hlCellSize, height: self.hlCellSize, alignment: .center)
-                            .padding()
-                            .background(Color.yellow)
-                    }
-                        .padding(2)
+                        ForEach(0..<9) { indexJ in
+                            Text(self.setToString(self.puzzleViewModel.dataArray[indexI*9+indexJ]))
+                                .frame(width: self.hlCellSize, height: self.hlCellSize, alignment: .center)
+                                .font(.footnote)
+                                .padding()
+                                .background(Color.yellow)
+                     //           .foregroundColor(textColor[self.puzzleViewModel.statusArray[indexI*9+indexJ]])
+                                .foregroundColor(Color.blue)
+                        }
+                    }.padding(.vertical, 3)
                 }
-            }
-      //      Spacer()
-        }
-                .padding()
-                
+            }.background(Color.gray)
+            //    .padding()
+            
+            Spacer()
+            Picker(selection: $puzzleViewModel.algorithmSelected, label: Text("Not Used")) {
+                Text("Mono Cell").tag(0)
+                Text("Find Sets").tag(1)
+                Text("Mono Sector").tag(2)
+            }.pickerStyle(SegmentedPickerStyle())
+            .padding()
+            Spacer()
+
             HStack {
                 Button(action: {
                     print("New Puzzle Button")

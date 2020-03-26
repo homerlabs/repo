@@ -15,6 +15,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var statusArray: [HLCellStatus] = Array(repeating: HLCellStatus.givenStatus, count: 81)
     @Published var puzzleName = "Puzzle not found"
     @Published var puzzleState = HLPuzzleState.initial
+    @Published var algorithmSelected = 0
+    @Published var unsolvedNodeCount = 0
     @Published var testRows = true
     @Published var testColumns = true
     @Published var testBlocks = true
@@ -36,7 +38,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         for index in 0..<self.solver.dataSet.grid.count {
             (tempData[index], self.statusArray[index]) = self.solver.dataSet.grid[index]
         }
-        self.dataArray = tempData
+        dataArray = tempData
+        unsolvedNodeCount = solver.unsolvedCount()
     }
 
     func getNewPuzzle() {
