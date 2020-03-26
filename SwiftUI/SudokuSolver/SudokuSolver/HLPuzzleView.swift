@@ -11,26 +11,67 @@ import SwiftUI
 struct HLPuzzleView: View {
 
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
+    let hlCellSize: CGFloat = 40
 
     var body: some View {
         VStack {
-            List() {
-                Spacer()
+                VStack {
+                    HStack {
+                       Toggle(isOn: $puzzleViewModel.testRows) {
+                            Text("Rows")
+                        }
+                        Spacer()
+                    }
+                        Toggle(isOn: $puzzleViewModel.testColumns) {
+                            Text("Columns")
+                        //        .padding(.horizontal)
+                        }
+                        
+                        Toggle(isOn: $puzzleViewModel.testBlocks) {
+                            Text("Blocks")
+                        }
+         //       Spacer()
+         //        Text("Help!!!")
+           }
+           
+            VStack {
                 ForEach(0..<9) { indexI in
                     HStack {
-                    Spacer()
+                //    Spacer()
                     ForEach(0..<9) { indexJ in
-                        Text(self.setToString(self.puzzleViewModel.data[indexI*9+indexJ]))
-                        .padding()
-                        .background(Color.yellow)
+                        Text(self.setToString(self.puzzleViewModel.dataArray[indexI*9+indexJ]))
+                            .frame(width: self.hlCellSize, height: self.hlCellSize, alignment: .center)
+                            .padding()
+                            .background(Color.yellow)
                     }
-                    Spacer()
+                        .padding(2)
                 }
             }
       //      Spacer()
         }
-        Text("JJ")
-        Spacer()
+                .padding()
+                
+            HStack {
+                Button(action: {
+                    print("New Puzzle Button")
+                    self.puzzleViewModel.getNewPuzzle()
+                }) {
+                    Text("New Puzzle")
+                        .padding()
+                }
+                
+                Spacer()
+                Text(puzzleViewModel.puzzleName)
+                    .padding()
+                Spacer()
+                
+                Button(action: {
+                    print("Solve Button")
+                    self.puzzleViewModel.solveAction()
+                }) {
+                    puzzleViewModel.puzzleState == HLPuzzleState.initial ? Text("Prune").padding() : Text("Solve").padding()
+                }
+            }
         }
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 
 
-enum HLCellStatus: Int
+public enum HLCellStatus: Int
 {
     case givenStatus
     case unsolvedStatus
@@ -17,21 +17,21 @@ enum HLCellStatus: Int
     case solvedStatus   //  keep this one last as its used as enum count
 }
 
-enum HLAlgorithmMode: Int
+public enum HLAlgorithmMode: Int
 {
     case monoCell
     case findSets
     case monoSector
 }
 
-enum HLPuzzleState: Int
+public enum HLPuzzleState: Int
 {
     case initial
     case solving
     case final
 }
 
-class HLSolver: NSObject {
+public class HLSolver {
     let url = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
     let kDataKey    = "Data"
@@ -691,14 +691,12 @@ class HLSolver: NSObject {
         print("\n")
     }
 
-    override init() {
+    init() {
         print("HLSolver-  init")
         for index in 0..<kCellCount    {
             dataSet[index] = (fullSet, .unsolvedStatus)
         }
         previousDataSet = dataSet
-
-        super.init()
     }
     
     init(html: String) {
@@ -709,8 +707,6 @@ class HLSolver: NSObject {
         for index in 0..<kCellCount    {
             dataSet[index] = (fullSet, .unsolvedStatus)
         }
-        
-        super.init()
         
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
             puzzleString = String(puzzleString[range.lowerBound...])
