@@ -55,9 +55,9 @@ struct HLPuzzleView: View {
             
             Spacer()
             Picker(selection: $puzzleViewModel.algorithmSelected, label: Text("Not Used")) {
-                Text("Mono Cell").tag(0)
-                Text("Find Sets").tag(1)
-                Text("Mono Sector").tag(2)
+                Text("Mono Cell").tag(HLAlgorithmMode.monoCell)
+                Text("Find Sets").tag(HLAlgorithmMode.findSets)
+                Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
             }.pickerStyle(SegmentedPickerStyle())
             .padding()
             Spacer()

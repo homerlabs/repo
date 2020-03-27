@@ -15,11 +15,16 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var statusArray: [HLCellStatus] = Array(repeating: HLCellStatus.givenStatus, count: 81)
     @Published var puzzleName = "Puzzle not found"
     @Published var puzzleState = HLPuzzleState.initial
-    @Published var algorithmSelected = 0
+    @Published var algorithmSelected: HLAlgorithmMode = .monoCell
     @Published var unsolvedNodeCount = 0
     @Published var testRows = true
     @Published var testColumns = true
     @Published var testBlocks = true
+    
+    let hlKeySettingRow = "hlKeySettingRow"
+    let hlKeySettingColumn = "hlKeySettingColumn"
+    let hlKeySettingBlock = "hlKeySettingBlock"
+    let hlKeySettingAlgorithm = "hlKeySettingAlgorithm"
 
     let url = URL(string: "https://nine.websudoku.com/?level=4")!
     var solver = HLSolver()
@@ -29,8 +34,22 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         if puzzleState == .initial {
             puzzleState = .solving
             solver.prunePuzzle(rows: true, columns: true, blocks: true)
-            tempXFerData()
         }
+        else {
+            switch algorithmSelected {
+                case HLAlgorithmMode.monoCell:
+                    solver.findMonoCells(rows: testRows, columns: testBlocks)
+                
+                case HLAlgorithmMode.findSets:
+                    solver.findPuzzleSets(rows: testRows, columns: testColumns, blocks: testBlocks)
+                
+                case HLAlgorithmMode.monoSector:
+                    solver.findMonoSectors(rows: testRows, columns: testColumns)
+            }
+        }
+            
+        tempXFerData()  //  this is temporary (honest)
+        saveSetting()   //  this also
     }
     
     func tempXFerData() {
@@ -42,6 +61,14 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         unsolvedNodeCount = solver.unsolvedCount()
     }
 
+    func saveSetting() {
+        //  by negating the returned value we change the default to true
+        UserDefaults.standard.set(!testRows, forKey: hlKeySettingRow)
+        UserDefaults.standard.set(!testColumns, forKey: hlKeySettingColumn)
+        UserDefaults.standard.set(!testBlocks, forKey: hlKeySettingBlock)
+        UserDefaults.standard.set(algorithmSelected.rawValue, forKey: hlKeySettingAlgorithm)
+    }
+    
     func getNewPuzzle() {
         puzzleState = HLPuzzleState.initial
         puzzleName = ""
@@ -67,6 +94,10 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         })
     }
 
+    deinit {
+        print("HLPuzzleViewModel-  deinit")
+    }
+    
     override init() {
         print("HLPuzzleViewModel-  init")
         super.init()
@@ -75,5 +106,11 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         hlWebView.navigationDelegate = self
         
         getNewPuzzle()
+        
+        //  by negating the returned value we change the default to true
+        testRows = !UserDefaults.standard.bool(forKey: hlKeySettingRow)
+        testColumns = !UserDefaults.standard.bool(forKey: hlKeySettingColumn)
+        testBlocks = !UserDefaults.standard.bool(forKey: hlKeySettingBlock)
+        algorithmSelected = HLAlgorithmMode(rawValue: UserDefaults.standard.integer(forKey: hlKeySettingAlgorithm))!
     }
 }
