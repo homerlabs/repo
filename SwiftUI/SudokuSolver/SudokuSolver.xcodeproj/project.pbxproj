@@ -18,6 +18,7 @@
 		B06C830E24293ECD007C169C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B06C830C24293ECD007C169C /* LaunchScreen.storyboard */; };
 		B06C831924293ECD007C169C /* SudokuSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C831824293ECD007C169C /* SudokuSolverTests.swift */; };
 		B0988DF7242A8D4F005BDCE4 /* HLPuzzleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */; };
+		B0E1161C243241CB00CE073C /* HLGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1161B243241CB00CE073C /* HLGridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		B06C831824293ECD007C169C /* SudokuSolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolverTests.swift; sourceTree = "<group>"; };
 		B06C831A24293ECD007C169C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPuzzleViewModel.swift; sourceTree = "<group>"; };
+		B0E1161B243241CB00CE073C /* HLGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLGridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			children = (
 				B06C830124293ECC007C169C /* AppDelegate.swift */,
 				B06C830724293ECD007C169C /* Assets.xcassets */,
+				B0E1161B243241CB00CE073C /* HLGridView.swift */,
 				B06C830524293ECC007C169C /* HLPuzzleView.swift */,
 				B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */,
 				B06C830F24293ECD007C169C /* Info.plist */,
@@ -232,6 +235,7 @@
 				B0988DF7242A8D4F005BDCE4 /* HLPuzzleViewModel.swift in Sources */,
 				B068516F2429425A006E532E /* HLSolver.swift in Sources */,
 				B06C830224293ECC007C169C /* AppDelegate.swift in Sources */,
+				B0E1161C243241CB00CE073C /* HLGridView.swift in Sources */,
 				B06C830424293ECC007C169C /* SceneDelegate.swift in Sources */,
 				B068516E2429425A006E532E /* HLMatrix.swift in Sources */,
 				B06C830624293ECC007C169C /* HLPuzzleView.swift in Sources */,

@@ -12,46 +12,51 @@ struct HLPuzzleView: View {
 
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
     let hlCellSize: CGFloat = 40
+    let hlToggleSize: CGFloat = 150
+    let mainPadding: CGFloat = 40
     let textColor = [Color.red, Color.blue, Color.green, Color.orange]
+    let numberOfColumns = 9
 
     var body: some View {
         VStack {
+            Spacer()
             VStack {
                 HStack {
-                   Toggle(isOn: $puzzleViewModel.testRows) {
+                   Toggle(isOn: $puzzleViewModel.testRows, label:  {
                         Text("Rows")
-                    }
+                    })
+                    .frame(width: hlToggleSize)
                     Spacer()
                 }
+                HStack {
                     Toggle(isOn: $puzzleViewModel.testColumns) {
                         Text("Columns")
-                    //        .padding(.horizontal)
                     }
+                    .frame(width: hlToggleSize)
+                    Spacer()
+                }
                     
+                HStack {
                     Toggle(isOn: $puzzleViewModel.testBlocks) {
                         Text("Blocks")
                     }
+                    .frame(width: hlToggleSize)
+                    Spacer()
+                }
                     
                 Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
             }
+            .padding(mainPadding)
             Spacer()
-          
-            VStack {
-                ForEach(0..<9) { indexI in
-                    HStack {
-                        ForEach(0..<9) { indexJ in
-                            Text(self.setToString(self.puzzleViewModel.dataArray[indexI*9+indexJ]))
-                                .frame(width: self.hlCellSize, height: self.hlCellSize, alignment: .center)
-                                .font(.footnote)
-                                .padding()
-                                .background(Color.yellow)
-                     //           .foregroundColor(textColor[self.puzzleViewModel.statusArray[indexI*9+indexJ]])
-                                .foregroundColor(Color.blue)
-                        }
-                    }.padding(.vertical, 3)
+            
+            HLGridView(columns: numberOfColumns, items: puzzleViewModel.dataArray) { item in
+                VStack {
+                    Text(self.setToString(item))
+                        .font(.subheadline)
+                        .background(Color.yellow)
+                   //     .foregroundColor(textColor[puzzleViewModel.cellStatus])
                 }
-            }.background(Color.gray)
-            //    .padding()
+            }
             
             Spacer()
             Picker(selection: $puzzleViewModel.algorithmSelected, label: Text("Not Used")) {
@@ -59,7 +64,7 @@ struct HLPuzzleView: View {
                 Text("Find Sets").tag(HLAlgorithmMode.findSets)
                 Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
             }.pickerStyle(SegmentedPickerStyle())
-            .padding()
+            .padding(mainPadding)
             Spacer()
 
             HStack {
@@ -83,16 +88,22 @@ struct HLPuzzleView: View {
                     puzzleViewModel.puzzleState == HLPuzzleState.initial ? Text("Prune").padding() : Text("Solve").padding()
                 }
             }
-        }
+             .padding(mainPadding)
+//           Spacer()
+       }
     }
     
     func setToString(_ aSet: Set<String>)->String     {
         let list = Array(aSet.sorted(by: <))
-        var returnString = ""
-        if list.count < 9   {
-            for index in 0..<list.count     {   returnString += list[index]     }
+        
+        if list.count == 0 {
+            return "123456789"
         }
-        return returnString
+        else   {
+            var returnString = ""
+            for index in 0..<list.count     {   returnString += list[index]     }
+            return returnString
+        }
     }
 }
 
