@@ -19,7 +19,6 @@ public class HLPrime {
     public static let HLTerminalPrimeKey      = "HLTerminalPrimeKey"
 
     let primesFileURL: URL  //  set during init()
-    var nicePrimesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
 
     var pTable: [HLPrimeType] = [2, 3]  //  starts out with the first 2 primes, used to find / validate primes
@@ -86,13 +85,18 @@ public class HLPrime {
     //  a prime (p) is 'nice' if (p-1) / 2 is also prime
     func makeNicePrimesFile(nicePrimeURL: URL, completion: @escaping HLCompletionClosure)    {
         print( "HLPrime-  makeNicePrimesFile" )
-        self.nicePrimesFileURL = nicePrimeURL
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
 
             //*******     get last line in prime file to determine maxTestPrime needed in pTable      *********************
-            self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
+            if !self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) {
+                DispatchQueue.main.async {
+                    completion("1\t1\n")
+                }
+                return
+            }
+            
             var line = self.fileManager.readPrimesFileLine()
             var previousline = line
             
@@ -112,7 +116,7 @@ public class HLPrime {
                 
                 self.startDate = Date()
                 self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
-                self.fileManager.createNicePrimesFileForAppend(with: self.nicePrimesFileURL!.path)
+                self.fileManager.createNicePrimesFileForAppend(with: nicePrimeURL.path)
                 
                 line = self.fileManager.readPrimesFileLine()    //  don't check prime '2' for niceness
                 line = self.fileManager.readPrimesFileLine()    //  don't check prime '3' for niceness
@@ -145,7 +149,6 @@ public class HLPrime {
             
             DispatchQueue.main.async {
                 completion(self.lastLine)
-
             }
         }
     }

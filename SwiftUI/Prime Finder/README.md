@@ -7,4 +7,3 @@ TODO:
     add more/better unit tests
     test everything and get ready to ship
     add Firebase?
-    fix project's missing product xctest
