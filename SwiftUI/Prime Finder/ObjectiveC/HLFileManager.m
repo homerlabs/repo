@@ -21,9 +21,9 @@ int modCounter = 0;
 
 
 //************************************************      primes file read        ****************
--(int)openPrimesFileForReadWith:(NSString *)path  {
+-(BOOL)openPrimesFileForReadWith:(NSString *)path  {
     primesReadFILE = fopen(path.UTF8String, "r");
-    return (primesReadFILE == nil); //  return 0 for no error
+    return (primesReadFILE != nil); //  return true for success
 }
 
 -(void)closePrimesFileForRead

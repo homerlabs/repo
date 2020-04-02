@@ -15,7 +15,7 @@
 -(void)appendPrimesLine:(NSString *)line;
 
 
--(int)openPrimesFileForReadWith:(NSString *)path;
+-(BOOL)openPrimesFileForReadWith:(NSString *)path;
 -(void)closePrimesFileForRead;
 -(NSString *)readPrimesFileLine;
 
