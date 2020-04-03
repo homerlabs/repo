@@ -10,19 +10,22 @@ import Foundation
 
 extension HLPrime {
 
-    func fpSetup(maxPrime: HLPrimeType) {
+    func findPrimesSetup(maxPrime: HLPrimeType) {
         pTable = createPTable(maxPrime: maxPrime)
         (self.lastN, self.lastP) = (2, 3)   //  this is our starting point
-        fileManager.createPrimesFileForAppend(with: primesFileURL.path)
-        fileManager.closePrimesFileForAppend()
+        
+        if let primeURL = primesFileURL {
+            fileManager.createPrimesFileForAppend(with: primeURL.path)
+            fileManager.closePrimesFileForAppend()
 
-        writeFileHandle = FileHandle(forWritingAtPath: primesFileURL.path)
-        writeFileHandle?.seekToEndOfFile()
+            writeFileHandle = FileHandle(forWritingAtPath: primeURL.path)
+            writeFileHandle?.seekToEndOfFile()
+        }
 
         self.startDate = Date()  //  don't count the time to create pTable
     }
     
-    func fpCompletion(completion: @escaping (String) -> Void) {
+    func findPrimesCompletion(completion: @escaping (String) -> Void) {
         timeInSeconds = -Int(startDate.timeIntervalSinceNow)
         pTable.removeAll()
         writeFileHandle?.closeFile()
@@ -43,7 +46,7 @@ extension HLPrime {
         //       print( "batchSize(maxPrime: maxPrime): \(batchSize(maxPrime: maxPrime))" )
 
         var operations: [Operation] = []
-        fpSetup(maxPrime: maxPrime)
+        findPrimesSetup(maxPrime: maxPrime)
         
         for batchNumber in 0..<batchCount {
             let task = {
@@ -59,7 +62,7 @@ extension HLPrime {
 
         operationsQueue.addOperations(operations, waitUntilFinished: true)
         DispatchQueue.main.async { [weak self] in
-            self?.fpCompletion(completion: completion)
+            self?.findPrimesCompletion(completion: completion)
         }
     }
     
@@ -68,7 +71,7 @@ extension HLPrime {
     func findPrimes2(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
         
-        fpSetup(maxPrime: maxPrime)
+        findPrimesSetup(maxPrime: maxPrime)
 
         let dispatchGroup = DispatchGroup()
         var blocks: [DispatchWorkItem] = []
@@ -92,7 +95,7 @@ extension HLPrime {
         }
         
         dispatchGroup.notify(queue: DispatchQueue.main) {
-            self.fpCompletion(completion: completion)
+            self.findPrimesCompletion(completion: completion)
         }
     }
     

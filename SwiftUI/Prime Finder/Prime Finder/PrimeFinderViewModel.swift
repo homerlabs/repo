@@ -16,68 +16,79 @@ class PrimeFinderViewModel: ObservableObject {
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
     
-    private var primeFinder: HLPrime?
+    private var primeFinder: HLPrime
     private var timer = Timer()
     private var updateTimeInSeconds = 5.0
     
-    func findPrimes() {
+    //  returns true for success
+    func findPrimes() -> Bool {
         print("PrimeFinderViewModel-  findPrimes")
         
-        if let url = primesURL {
-            primeFinder = HLPrime(primesFileURL: url)
-            findPrimesInProgress = true
-            status = ""
-            timer.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
-                self.status = "\(self.primeFinder!.lastN) : \(self.primeFinder!.lastP)"
-            })
+        primeFinder.primesFileURL = primesURL
+        let result = primeFinder.isPrimeURLValid()
+        guard result else { return false }
+
+        findPrimesInProgress = true
+        status = ""
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
+            self.status = "\(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
+        })
+        
+        //  TODO  handle non-int failure
+        let maxPrime = HLPrimeType(terminalPrime)!
+        primeFinder.findPrimes(maxPrime: maxPrime) { [weak self] result in
+            guard let self = self else { return }
+            let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
+            print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
+            self.timer.invalidate()
+            self.findPrimesInProgress = false
+            let (lastN, lastP) = result.parseLine()
+            self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
             
-            //  TODO  handle non-int failure
-            let maxPrime = HLPrimeType(terminalPrime)!
-            primeFinder?.findPrimes(maxPrime: maxPrime) { [weak self] result in
-                guard let self = self else { return }
-                let elaspedTime = self.primeFinder!.timeInSeconds.formatTime()
-                print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
-                self.timer.invalidate()
-                self.findPrimesInProgress = false
-                let (lastN, lastP) = result.parseLine()
-                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-                
-                let isValid = self.primeFinder!.primeFileIsValid()
-                if !isValid {
-                    print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
-                }
+            let isValid = self.primeFinder.primeFileIsValid()
+            if !isValid {
+                print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
             }
         }
+        
+        return true
     }
     
-    func findNPrimes() {
-        print("PrimeFinderViewModel-  findNPrimes")
-        //  not really neccessary as Find NPrimes button will be disabled if no urls
-        guard primesURL != nil, nicePrimesURL != nil else { return }
+    //  returns true for success
+    func findNPrimes() -> Bool {
         
-            primeFinder = HLPrime(primesFileURL: primesURL!)
-            findNPrimesInProgress = true
-            status = ""
-            timer.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
-                self.status = "\(self.primeFinder!.lastN) : \(self.primeFinder!.lastP)"
-            })
+        //  not really neccessary as Find NPrimes button will be disabled if no urls
+        guard primesURL != nil, nicePrimesURL != nil else { return false }
+        
+        primeFinder.primesFileURL = primesURL
+        guard primeFinder.isPrimeURLValid() else { return false }
+        
+        
+        findNPrimesInProgress = true
+        status = ""
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
+            self.status = "\(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
+        })
 
-            primeFinder?.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { [weak self] result in
-                guard let self = self else { return }
+        primeFinder.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { [weak self] result in
+            guard let self = self else { return }
 
-                let elaspedTime = self.primeFinder!.timeInSeconds.formatTime()
-                print("    *********  findNicePrimes completed in \(elaspedTime)       ********* \n")
-                self.timer.invalidate()
-                self.findNPrimesInProgress = false
-                let (lastN, lastP) = result.parseLine()
-                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            }
+            let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
+            print("    *********  findNicePrimes completed in \(elaspedTime)       ********* \n")
+            self.timer.invalidate()
+            self.findNPrimesInProgress = false
+            let (lastN, lastP) = result.parseLine()
+            self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+        }
+        
+        return true
     }
 
     init() {
         print("PrimeFinderViewModel-  init")
+        primeFinder = HLPrime()
         primesURL = HLPrime.HLPrimesBookmarkKey.getBookmark()
         nicePrimesURL = HLPrime.HLNicePrimesBookmarkKey.getBookmark()
         let value = UserDefaults.standard.integer(forKey: HLPrime.HLTerminalPrimeKey)

@@ -18,7 +18,7 @@ public class HLPrime {
     public static let HLNicePrimesBookmarkKey = "HLNicePrimesBookmarkKey"
     public static let HLTerminalPrimeKey      = "HLTerminalPrimeKey"
 
-    let primesFileURL: URL  //  set during init()
+    var primesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
 
     var pTable: [HLPrimeType] = [2, 3]  //  starts out with the first 2 primes, used to find / validate primes
@@ -50,7 +50,7 @@ public class HLPrime {
             self.pTable = self.createPTable(maxPrime: maxPrime)
             (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
             
-            let error = self.fileManager.createPrimesFileForAppend(with: self.primesFileURL.path)
+            let error = self.fileManager.createPrimesFileForAppend(with: self.primesFileURL!.path)
             assert(error==0, "createPrimesFileForAppend failed with error: \(error)")
             
             self.lastLine = "2\t3\n"
@@ -90,9 +90,10 @@ public class HLPrime {
             guard let self = self else { return }
 
             //*******     get last line in prime file to determine maxTestPrime needed in pTable      *********************
-            if !self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path) {
+            let returnSuccess = self.fileManager.openPrimesFileForRead(with: self.primesFileURL!.path)
+            if !returnSuccess {
                 DispatchQueue.main.async {
-                    completion("1\t1\n")
+                    completion("0\t1\n")
                 }
                 return
             }
@@ -115,7 +116,7 @@ public class HLPrime {
                 self.pTable = self.createPTable(maxPrime: self.lastP)
                 
                 self.startDate = Date()
-                self.fileManager.openPrimesFileForRead(with: self.primesFileURL.path)
+                self.fileManager.openPrimesFileForRead(with: self.primesFileURL!.path)
                 self.fileManager.createNicePrimesFileForAppend(with: nicePrimeURL.path)
                 
                 line = self.fileManager.readPrimesFileLine()    //  don't check prime '2' for niceness
@@ -151,6 +152,8 @@ public class HLPrime {
                 completion(self.lastLine)
             }
         }
+        
+        return
     }
     
     func isPrime(_ value: HLPrimeType) -> Bool    {
@@ -179,41 +182,54 @@ public class HLPrime {
         return candidateIsPrime
     }
     
+    func isPrimeURLValid() -> Bool {
+        var success = false
+        if let url = primesFileURL {
+            success = fileManager.openPrimesFileForRead(with: url.path)
+            fileManager.closePrimesFileForRead()
+        }
+        
+        return success
+    }
+    
     //  return not valid if next count is not one more than last count and
     //  return not valid if next prime is <= last prime
     func primeFileIsValid() -> Bool {
         var returnValue = true
-        fileManager.openPrimesFileForRead(with: primesFileURL.path)
-        var line = fileManager.readPrimesFileLine()
-        var currentCount = 0
-        var currentPrime: HLPrimeType = 0
-        
-        var previousCount = 1
-        var previousPrime: HLPrimeType = 2
+        if let url = primesFileURL {
+            fileManager.openPrimesFileForRead(with: url.path)
+            var line = fileManager.readPrimesFileLine()
+            var currentCount = 0
+            var currentPrime: HLPrimeType = 0
+            
+            var previousCount = 1
+            var previousPrime: HLPrimeType = 2
 
-        if line != nil  {
-            (currentCount, currentPrime) = line!.parseLine()
-        }
-        
-        while line != nil    {
-            line = self.fileManager.readPrimesFileLine()
-            if line != nil {
+            if line != nil  {
                 (currentCount, currentPrime) = line!.parseLine()
-                
-                if currentCount != previousCount+1 {
-                    returnValue = false
-                    print("FAILED:  currentCount != previousCount+1: \(currentCount) != \( previousCount+1)")
-                    break
+            }
+            
+            while line != nil    {
+                line = self.fileManager.readPrimesFileLine()
+                if line != nil {
+                    (currentCount, currentPrime) = line!.parseLine()
+                    
+                    if currentCount != previousCount+1 {
+                        returnValue = false
+                        print("FAILED:  currentCount != previousCount+1: \(currentCount) != \( previousCount+1)")
+                        break
+                    }
+                    if previousPrime >= currentPrime {
+                        returnValue = false
+                        print("FAILED:  previousPrime >= currentPrime: \(previousPrime) >= \( currentPrime)")
+                        break
+                    }
+                    previousPrime = currentPrime
+                    previousCount = currentCount
                 }
-                if previousPrime >= currentPrime {
-                    returnValue = false
-                    print("FAILED:  previousPrime >= currentPrime: \(previousPrime) >= \( currentPrime)")
-                    break
-                }
-                previousPrime = currentPrime
-                previousCount = currentCount
             }
         }
+        
         return returnValue
     }
 
@@ -234,12 +250,16 @@ public class HLPrime {
         return pTable
     }
 
-    public init(primesFileURL: URL) {
-        self.primesFileURL = primesFileURL
+    public init() {
         let processInfo = ProcessInfo()
         let numberOfCores = processInfo.activeProcessorCount
         operationsQueue.name = "HLPrimeFinderQueue"
         operationsQueue.maxConcurrentOperationCount = numberOfCores
-        print("HLPrime-  init: \(primesFileURL)   numberOfCores: \(numberOfCores)")
+        print("HLPrime-  init: numberOfCores: \(numberOfCores)")
+    }
+
+    public convenience init(primesFileURL: URL?) {
+        self.init()
+        self.primesFileURL = primesFileURL
     }
 }

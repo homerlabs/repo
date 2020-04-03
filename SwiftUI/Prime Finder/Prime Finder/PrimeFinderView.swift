@@ -11,9 +11,11 @@ import SwiftUI
 struct PrimeFinderView: View {
 
     @ObservedObject var pfViewModel = PrimeFinderViewModel()
+    @State private var showErrorFindPrimes: Bool = false
+    @State private var showErrorFindNicePrimes: Bool = false
     let HLSavePanelTitle = "Prime Finder Save Panel"
     let terminalPrimeWidth: CGFloat = 100.0
-    let startMessage = "Creating PTable"
+    let startingMessage = "Starting ..."
 
     var body: some View {
         
@@ -74,19 +76,29 @@ struct PrimeFinderView: View {
         
             VStack {
                 //  FindPrimes Button
-                Button(action: {
-                    self.pfViewModel.findPrimes()
-                }) {
-                    pfViewModel.findPrimesInProgress ? Text("Running ") : Text(" Find Primes ")
-                }
+                Button(pfViewModel.findPrimesInProgress ? "  Running  " : " Find Primes ", action: {
+                    let success = self.pfViewModel.findPrimes()
+                    self.pfViewModel.status = self.startingMessage
+                   if !success {
+                        self.pfViewModel.primesURL = nil
+                        self.showErrorFindPrimes = true
+                    }
+                })
+                .alert(isPresented: $showErrorFindPrimes) {
+                    Alert(title: Text("Prime Finder Encountered Serious Error!"), message: Text("Bad Prime File Path."))}
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
                 //  FindNPrimes Button
-                Button(action: {
-                    self.pfViewModel.findNPrimes()
-                }) {
-                    pfViewModel.findNPrimesInProgress ? Text("Running ") : Text("Find NPrimes")
-                }
+                Button(pfViewModel.findNPrimesInProgress ? "  Running  " : "Find NPrimes", action: {
+                    let success = self.pfViewModel.findNPrimes()
+                    self.pfViewModel.status = self.startingMessage
+                    if !success {
+                        self.pfViewModel.primesURL = nil
+                        self.showErrorFindNicePrimes = true
+                    }
+                })
+                .alert(isPresented: $showErrorFindNicePrimes) {
+                    Alert(title: Text("Prime Finder Encountered Serious Error!"), message: Text("Bad Prime File Path."))}
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
             }
         }
