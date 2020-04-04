@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 enum HLErrorEnum {
     case noError
@@ -28,10 +29,9 @@ class PrimeFinderViewModel: ObservableObject {
     private var updateTimeInSeconds = 4.0
     private let startingMessage = "Starting ..."
     
-    //  returns true for success
+    //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
         
-        primeFinder.primesFileURL = primesURL
         let result = setup(primesURL)
         if result != .noError {
             return result
@@ -129,5 +129,10 @@ class PrimeFinderViewModel: ObservableObject {
         if let value = HLPrimeType(terminalPrime) {
             UserDefaults.standard.set(value, forKey: HLPrime.HLTerminalPrimeKey)
         }
+        
+        primeFinder.okToRun = false
+        primesURL?.stopAccessingSecurityScopedResource()
+        nicePrimesURL?.stopAccessingSecurityScopedResource()
+        NSApplication.shared.terminate(self)    //  quit app if dealloc
     }
 }

@@ -103,6 +103,7 @@ struct PrimeFinderView: View {
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
             }
         }
+    //    .frame(width: 500, height: 200, alignment: .center)
         .padding(outsidePaddingValue)
     }
 }

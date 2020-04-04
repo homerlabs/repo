@@ -100,8 +100,6 @@
 		B04A496F23FF4731007D0D81 /* Prime Finder */ = {
 			isa = PBXGroup;
 			children = (
-				B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */,
-				B04A497223FF4731007D0D81 /* PrimeFinderView.swift */,
 				B04A497023FF4731007D0D81 /* AppDelegate.swift */,
 				B04A497423FF4732007D0D81 /* Assets.xcassets */,
 				B0B8B66D240485D4003D6FC4 /* Extensions */,
@@ -111,6 +109,8 @@
 				B0B89CB7240487A0004E7BC7 /* ObjectiveC */,
 				B04A497623FF4732007D0D81 /* Preview Content */,
 				B04A497D23FF4732007D0D81 /* Prime_Finder.entitlements */,
+				B04A497223FF4731007D0D81 /* PrimeFinderView.swift */,
+				B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */,
 			);
 			path = "Prime Finder";
 			sourceTree = "<group>";
