@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  PrimeFinderView.swift
 //  Prime Finder
 //
 //  Created by Matthew Homer on 2/20/20.
@@ -15,13 +15,14 @@ struct PrimeFinderView: View {
     @State private var showErrorFindNicePrimes: Bool = false
     let HLSavePanelTitle = "Prime Finder Save Panel"
     let terminalPrimeWidth: CGFloat = 100.0
-    let startingMessage = "Starting ..."
+    let outsidePaddingValue: CGFloat = 16
+    let verticalPaddingValue: CGFloat = 12
 
     var body: some View {
         
         VStack {
             Form {
-                //  prime url
+                //**********  primes url
                 HStack {
                     Button(action: {
                         print("Primes Button clicked")
@@ -39,7 +40,7 @@ struct PrimeFinderView: View {
                     }
                 }
                             
-                //  nice prime url
+                //**********  nice primes url
                 HStack {
                     Button(action: {
                         print("Nice primes Button clicked")
@@ -56,30 +57,31 @@ struct PrimeFinderView: View {
                     }
                 }
 
-                //  terminal prime
+                //**********  terminal prime
                 HStack {
                     Text("Terminal Prime: ")
                     TextField(pfViewModel.terminalPrime, text: $pfViewModel.terminalPrime)
                         .frame(width: terminalPrimeWidth)
                     Spacer()
-                }
-                .padding(.vertical)
-}
-            .padding(.bottom)
+                 
+                    Text("Percent completed: \(pfViewModel.progress)")
+               }
+                .padding(.top, verticalPaddingValue)
+            }
 
-            //  Status
+            //**********  Status
             HStack {
                 Text("Status: ")
                 Text(pfViewModel.status)
                 Spacer()
             }
+            .padding(.bottom, verticalPaddingValue)
         
             VStack {
-                //  FindPrimes Button
-                Button(pfViewModel.findPrimesInProgress ? "  Running  " : " Find Primes ", action: {
-                    let success = self.pfViewModel.findPrimes()
-                    self.pfViewModel.status = self.startingMessage
-                   if !success {
+                //**********  FindPrimes Button
+                Button(pfViewModel.findPrimesInProgress ? "   Running   " : " Find Primes ", action: {
+                    let result = self.pfViewModel.findPrimes()
+                    if result != .noError {
                         self.pfViewModel.primesURL = nil
                         self.showErrorFindPrimes = true
                     }
@@ -88,11 +90,10 @@ struct PrimeFinderView: View {
                     Alert(title: Text("Prime Finder Encountered Serious Error!"), message: Text("Bad Prime File Path."))}
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
-                //  FindNPrimes Button
-                Button(pfViewModel.findNPrimesInProgress ? "  Running  " : "Find NPrimes", action: {
-                    let success = self.pfViewModel.findNPrimes()
-                    self.pfViewModel.status = self.startingMessage
-                    if !success {
+                //**********  FindNPrimes Button
+                Button(pfViewModel.findNPrimesInProgress ? "   Running   " : "Find NPrimes", action: {
+                    let result = self.pfViewModel.findNPrimes()
+                    if result != .noError {
                         self.pfViewModel.primesURL = nil
                         self.showErrorFindNicePrimes = true
                     }
@@ -102,7 +103,7 @@ struct PrimeFinderView: View {
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
             }
         }
-        .padding()
+        .padding(outsidePaddingValue)
     }
 }
 

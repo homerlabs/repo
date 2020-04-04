@@ -8,43 +8,48 @@
 
 import Foundation
 
+enum HLErrorEnum {
+    case noError
+    case badFilePathError
+    case invalidDataError
+}
+
 class PrimeFinderViewModel: ObservableObject {
     @Published var terminalPrime = "1000"
     @Published var findPrimesInProgress = false
     @Published var findNPrimesInProgress = false
     @Published var status = "Idle"
+    @Published var progress = "0"
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
     
     private var primeFinder: HLPrime
     private var timer = Timer()
-    private var updateTimeInSeconds = 5.0
+    private var updateTimeInSeconds = 4.0
+    private let startingMessage = "Starting ..."
     
     //  returns true for success
-    func findPrimes() -> Bool {
-        print("PrimeFinderViewModel-  findPrimes")
+    func findPrimes() -> HLErrorEnum {
         
         primeFinder.primesFileURL = primesURL
-        let result = primeFinder.isPrimeURLValid()
-        guard result else { return false }
+        let result = setup(primesURL)
+        if result != .noError {
+            return result
+        }
 
         findPrimesInProgress = true
-        status = ""
-        timer.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
-            self.status = "\(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
-        })
-        
-        //  TODO  handle non-int failure
         let maxPrime = HLPrimeType(terminalPrime)!
+        
         primeFinder.findPrimes(maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
+            
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
             print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
             self.timer.invalidate()
             self.findPrimesInProgress = false
             let (lastN, lastP) = result.parseLine()
             self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+            self.progress = "100"
             
             let isValid = self.primeFinder.primeFileIsValid()
             if !isValid {
@@ -52,25 +57,18 @@ class PrimeFinderViewModel: ObservableObject {
             }
         }
         
-        return true
+        return .noError
     }
     
-    //  returns true for success
-    func findNPrimes() -> Bool {
+    //  returns HLErrorEnum
+    func findNPrimes() -> HLErrorEnum {
         
-        //  not really neccessary as Find NPrimes button will be disabled if no urls
-        guard primesURL != nil, nicePrimesURL != nil else { return false }
-        
-        primeFinder.primesFileURL = primesURL
-        guard primeFinder.isPrimeURLValid() else { return false }
-        
+        let result = setup(primesURL)
+        if result != .noError {
+            return result
+        }
         
         findNPrimesInProgress = true
-        status = ""
-        timer.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
-            self.status = "\(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
-        })
 
         primeFinder.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { [weak self] result in
             guard let self = self else { return }
@@ -81,9 +79,30 @@ class PrimeFinderViewModel: ObservableObject {
             self.findNPrimesInProgress = false
             let (lastN, lastP) = result.parseLine()
             self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+            self.progress = "100"
         }
         
-        return true
+        return .noError
+    }
+    
+    //  returns HLErrorEnum
+    //  checks primesURL by performing a file open (then close)
+    //  checks the text terminalPrime can be converted to HLPrimeType
+    //  sets up timer for status and progress updates
+    func setup(_ primesURL: URL?) -> HLErrorEnum {
+        primeFinder.primesFileURL = primesURL
+        guard primeFinder.isPrimeURLValid() else { return .badFilePathError }
+        guard HLPrimeType(terminalPrime) != nil else { return .invalidDataError }
+        
+        status = startingMessage
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
+            self.status = "Processed (lastN : lastP): \(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
+            let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
+            self.progress = String(percent)
+        })
+        
+        return .noError
     }
 
     init() {
