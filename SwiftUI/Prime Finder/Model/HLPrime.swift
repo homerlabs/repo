@@ -21,7 +21,7 @@ public class HLPrime {
     var primesFileURL: URL?
     let fileManager: HLFileManager = HLFileManager.sharedInstance()
 
-    var pTable: [HLPrimeType] = [2, 3]  //  starts out with the first 2 primes, used to find / validate primes
+    var pTable: [HLPrimeType] = []
     var startDate: Date!    //  used to calculate timeInSeconds
     var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
 
@@ -47,6 +47,7 @@ public class HLPrime {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             
+            self.okToRun = true //  must be above call to createPTable()
             self.pTable = self.createPTable(maxPrime: maxPrime)
             (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
             
@@ -57,7 +58,7 @@ public class HLPrime {
             self.startDate = Date()  //  don't count the time to create pTable
 
 
-            //***********************************************************************************
+           //***********************************************************************************
             while( maxPrime >= self.lastP && self.okToRun ) {
                 if self.isPrime(self.lastP)    {
                     self.lastLine = String(format: "%d\t%ld\n", self.lastN, self.lastP)
@@ -127,6 +128,7 @@ public class HLPrime {
                     (_, self.lastP) = line!.parseLine()
                 }
                 
+                self.okToRun = true
                 while line != nil && self.lastP<=lastPrimeInPrimeFile && self.okToRun   {
                     let possiblePrime = (self.lastP-1) / 2
                     
@@ -235,6 +237,7 @@ public class HLPrime {
 
     public func createPTable(maxPrime: HLPrimeType) -> [HLPrimeType] {
         let maxPTablePrimeRequired = Int64(sqrt(Double(maxPrime)))
+        pTable = [2, 3]
         var primeCandidate = pTable.last! + 2   //  start after the last known prime (3)
         let startDate = Date()
 

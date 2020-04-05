@@ -32,6 +32,8 @@ class PrimeFinderViewModel: ObservableObject {
     //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
         
+        guard HLPrimeType(terminalPrime) != nil else { return .invalidDataError }
+
         let result = setup(primesURL)
         if result != .noError {
             return result
@@ -49,7 +51,13 @@ class PrimeFinderViewModel: ObservableObject {
             self.findPrimesInProgress = false
             let (lastN, lastP) = result.parseLine()
             self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            self.progress = "100"
+            
+            if self.primeFinder.okToRun {
+                self.progress = "100"
+            } else {
+                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
+                self.progress = String(percent)
+            }
             
             let isValid = self.primeFinder.primeFileIsValid()
             if !isValid {
@@ -79,7 +87,13 @@ class PrimeFinderViewModel: ObservableObject {
             self.findNPrimesInProgress = false
             let (lastN, lastP) = result.parseLine()
             self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            self.progress = "100"
+            
+            if self.primeFinder.okToRun {
+                self.progress = "100"
+            } else {
+                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
+                self.progress = String(percent)
+            }
         }
         
         return .noError
@@ -87,14 +101,13 @@ class PrimeFinderViewModel: ObservableObject {
     
     //  returns HLErrorEnum
     //  checks primesURL by performing a file open (then close)
-    //  checks the text terminalPrime can be converted to HLPrimeType
     //  sets up timer for status and progress updates
     func setup(_ primesURL: URL?) -> HLErrorEnum {
         primeFinder.primesFileURL = primesURL
         guard primeFinder.isPrimeURLValid() else { return .badFilePathError }
-        guard HLPrimeType(terminalPrime) != nil else { return .invalidDataError }
         
         status = startingMessage
+        progress = "0"
         timer.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
             self.status = "Processed (lastN : lastP): \(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
@@ -103,6 +116,10 @@ class PrimeFinderViewModel: ObservableObject {
         })
         
         return .noError
+    }
+    
+    func stopProcess() {
+        primeFinder.okToRun = false
     }
 
     init() {

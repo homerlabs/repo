@@ -13,6 +13,7 @@ struct PrimeFinderView: View {
     @ObservedObject var pfViewModel = PrimeFinderViewModel()
     @State private var showErrorFindPrimes: Bool = false
     @State private var showErrorFindNicePrimes: Bool = false
+    @State private var showErrorInvalidData: Bool = false
     let HLSavePanelTitle = "Prime Finder Save Panel"
     let terminalPrimeWidth: CGFloat = 100.0
     let outsidePaddingValue: CGFloat = 16
@@ -80,26 +81,42 @@ struct PrimeFinderView: View {
             VStack {
                 //**********  FindPrimes Button
                 Button(pfViewModel.findPrimesInProgress ? "   Running   " : " Find Primes ", action: {
-                    let result = self.pfViewModel.findPrimes()
-                    if result != .noError {
-                        self.pfViewModel.primesURL = nil
-                        self.showErrorFindPrimes = true
+                    if self.pfViewModel.findPrimesInProgress {
+                        self.pfViewModel.stopProcess()
+                    } else {
+                        switch self.pfViewModel.findPrimes() {
+                            
+                            case .invalidDataError:
+                                self.showErrorInvalidData = true
+                            
+                            case .badFilePathError:
+                                self.pfViewModel.primesURL = nil
+                                self.showErrorFindPrimes = true
+                            
+                            case .noError:
+                                break
+                        }
                     }
                 })
                 .alert(isPresented: $showErrorFindPrimes) {
-                    Alert(title: Text("Prime Finder Encountered Serious Error!"), message: Text("Bad Prime File Path."))}
+                    Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Primes file not found."))}
+                .alert(isPresented: $showErrorInvalidData) {
+                    Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Terminal Prime must be an integer."))}
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
                 //**********  FindNPrimes Button
                 Button(pfViewModel.findNPrimesInProgress ? "   Running   " : "Find NPrimes", action: {
-                    let result = self.pfViewModel.findNPrimes()
-                    if result != .noError {
-                        self.pfViewModel.primesURL = nil
-                        self.showErrorFindNicePrimes = true
+                    if self.pfViewModel.findNPrimesInProgress {
+                        self.pfViewModel.stopProcess()
+                    } else {
+                        if self.pfViewModel.findNPrimes() != .noError {
+                            self.pfViewModel.primesURL = nil
+                            self.showErrorFindNicePrimes = true
+                        }
                     }
                 })
                 .alert(isPresented: $showErrorFindNicePrimes) {
-                    Alert(title: Text("Prime Finder Encountered Serious Error!"), message: Text("Bad Prime File Path."))}
+                    Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Primes file not found."))}
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
             }
         }
