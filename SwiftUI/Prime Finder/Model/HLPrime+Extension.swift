@@ -31,6 +31,11 @@ extension HLPrime {
         writeFileHandle?.closeFile()
         print( "findPrimes-  final lastN: \(lastN)    lastP: \(lastP)" )
         lastLine = String(format: "%d\t%ld", self.lastN, lastP)
+        
+        if !primeFileIsValid() {
+            print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
+        }
+
         completion(lastLine)
     }
     

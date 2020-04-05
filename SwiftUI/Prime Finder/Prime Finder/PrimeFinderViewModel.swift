@@ -31,14 +31,10 @@ class PrimeFinderViewModel: ObservableObject {
     
     //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
-        
         guard HLPrimeType(terminalPrime) != nil else { return .invalidDataError }
 
-        let result = setup(primesURL)
-        if result != .noError {
-            return result
-        }
-
+        primeFinder.primesFileURL = primesURL
+        setup()
         findPrimesInProgress = true
         let maxPrime = HLPrimeType(terminalPrime)!
         
@@ -58,11 +54,6 @@ class PrimeFinderViewModel: ObservableObject {
                 let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
                 self.progress = String(percent)
             }
-            
-            let isValid = self.primeFinder.primeFileIsValid()
-            if !isValid {
-                print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
-            }
         }
         
         return .noError
@@ -70,12 +61,10 @@ class PrimeFinderViewModel: ObservableObject {
     
     //  returns HLErrorEnum
     func findNPrimes() -> HLErrorEnum {
-        
-        let result = setup(primesURL)
-        if result != .noError {
-            return result
-        }
-        
+        primeFinder.primesFileURL = primesURL
+        guard primeFinder.isPrimeURLValid() else { return .badFilePathError }
+
+        setup()
         findNPrimesInProgress = true
 
         primeFinder.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { [weak self] result in
@@ -99,13 +88,8 @@ class PrimeFinderViewModel: ObservableObject {
         return .noError
     }
     
-    //  returns HLErrorEnum
-    //  checks primesURL by performing a file open (then close)
     //  sets up timer for status and progress updates
-    func setup(_ primesURL: URL?) -> HLErrorEnum {
-        primeFinder.primesFileURL = primesURL
-        guard primeFinder.isPrimeURLValid() else { return .badFilePathError }
-        
+    func setup()  {
         status = startingMessage
         progress = "0"
         timer.invalidate()
@@ -114,8 +98,6 @@ class PrimeFinderViewModel: ObservableObject {
             let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
             self.progress = String(percent)
         })
-        
-        return .noError
     }
     
     func stopProcess() {
