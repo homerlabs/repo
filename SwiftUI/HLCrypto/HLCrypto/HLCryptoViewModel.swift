@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 class HLCryptoViewModel: ObservableObject {
     @Published var plainTextURL: URL?
@@ -15,20 +16,22 @@ class HLCryptoViewModel: ObservableObject {
     @Published var pString = "257" {
         didSet {
             print("pString:  \(pString)")
-            if let number = HLPrimeType(pString) {
-                primeP = number
+            let number = HLPrimeType(pString)
+            if number != nil && number != 0 {
+                primeP = number!
             } else {
-          //      primeP = 1
+                primeP = 1
             }
         }
     }
     @Published var qString = "251" {
         didSet {
             print("qString:  \(qString)")
-            if let number = HLPrimeType(qString) {
-                primeQ = number
+            let number = HLPrimeType(qString)
+            if number != nil && number != 0 {
+                primeQ = number!
             } else {
-        //        primeQ = 1
+                primeQ = 1
             }
         }
     }
@@ -130,15 +133,16 @@ class HLCryptoViewModel: ObservableObject {
     }
     
     func setupRSA() {
-        let p = HLPrimeType(pString)
-        let q = HLPrimeType(qString)
-        guard p != nil, q != nil else { return }
+  //      let p = HLPrimeType(pString)
+   //     let q = HLPrimeType(qString)
+  //      guard primeQ != nil, primeQ != nil else { return }
+        guard primeP != 0, primeQ != 0 else { return }
         
-        pqString = String(p! * q!)
-        gammaString = String((p!-1) * (q!-1))
+        pqString = String(primeP * primeQ)
+        gammaString = String((primeP-1) * (primeQ-1))
         characterSetCountString = String(characterSet.count)
         
-        rsa = HLRSA(p: p!, q: q!, characterSet: characterSet)
+        rsa = HLRSA(p: primeP, q: primeQ, characterSet: characterSet)
         chunkSize = String.init(format: "%0.1f", arguments: [rsa!.chunkSizeDouble])
 
         setupKeys()
@@ -187,5 +191,6 @@ class HLCryptoViewModel: ObservableObject {
         plainTextURL?.stopAccessingSecurityScopedResource()
         cipherTextURL?.stopAccessingSecurityScopedResource()
         decipherTextURL?.stopAccessingSecurityScopedResource()
+        NSApplication.shared.terminate(self)    //  quit if app deallocs
     }
 }

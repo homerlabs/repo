@@ -11,6 +11,7 @@ import SwiftUI
 struct HLCryptoView: View {
 
     @ObservedObject var cryptoViewModel = HLCryptoViewModel()
+    @State private var displayInvalidPMessage = false
     let HLSavePanelTitle = "HLCrypto Save Panel"
     let HLOpenPanelTitle = "HLCrypto Open Panel"
     let HLTextFieldWidth: CGFloat = 110
@@ -18,7 +19,7 @@ struct HLCryptoView: View {
     var body: some View {
         VStack {
             Form {
-                //  set Plaintext path
+                //**********  set Plaintext path
                 HStack {
                     Button(action: {
                         print("PlainTextPath")
@@ -36,7 +37,7 @@ struct HLCryptoView: View {
                     Spacer()
                 }
                 
-                //  set Ciphertext path
+                //**********  set Ciphertext path
                 HStack {
                     Button(action: {
                         print("CipherTextPath")
@@ -54,7 +55,7 @@ struct HLCryptoView: View {
                     Spacer()
                 }
                 
-                //  set DeCiphertext path
+                //**********  set DeCiphertext path
                 HStack {
                     Button(action: {
                         print("DeCipherTextPath")
@@ -74,7 +75,7 @@ struct HLCryptoView: View {
             }
             
             VStack {
-                //  Character Set, Chunk Size, and Character Set Size
+                //**********  Character Set, Chunk Size, and Character Set Size
                 HStack {
                     Text("Character Set:")
                     Spacer()
@@ -91,23 +92,25 @@ struct HLCryptoView: View {
              .padding(.vertical)
              
             Form {
-              //  set P, Q
+              //**********  set P, Q
               HStack {
                   Text("P: ")
                   TextField(cryptoViewModel.pString, text: $cryptoViewModel.pString)
                     .frame(width: HLTextFieldWidth)
-               //     .on
                   Spacer()
+                  
                   Text("Q: ")
                   TextField(cryptoViewModel.qString, text: $cryptoViewModel.qString)
                     .frame(width: HLTextFieldWidth)
                   Spacer()
+                  
                   Text("P*Q: \(cryptoViewModel.pqString)")
                   Spacer()
+                  
                   Text("(P-1)(Q-1): \(cryptoViewModel.gammaString)")
               }
 
-              //  set chosenKey
+              //**********  set chosenKey
               HStack {
                   Text("Chosen Key: ")
                   TextField(cryptoViewModel.chosenKeyString, text: $cryptoViewModel.chosenKeyString)
