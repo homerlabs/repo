@@ -11,9 +11,11 @@ import SwiftUI
 struct HLCryptoView: View {
 
     @ObservedObject var cryptoViewModel = HLCryptoViewModel()
-    @State private var displayInvalidPMessage = false
+    @State var zeroPrimePMessage = false
+    @State var zeroPrimeQMessage = false
     let HLSavePanelTitle = "HLCrypto Save Panel"
     let HLOpenPanelTitle = "HLCrypto Open Panel"
+    let HLErrorInvalidDataTitle = "Data in TextField is not valid"
     let HLTextFieldWidth: CGFloat = 110
 
     var body: some View {
@@ -95,20 +97,35 @@ struct HLCryptoView: View {
               //**********  set P, Q
               HStack {
                   Text("P: ")
-                  TextField(cryptoViewModel.pString, text: $cryptoViewModel.pString)
+                  TextField(String(cryptoViewModel.primeP), value: $cryptoViewModel.primeP, formatter: NumberFormatter(), onCommit: {
+                        if self.cryptoViewModel.primeP != 0 {
+                            self.cryptoViewModel.setupRSA()
+                        } else {
+                            self.zeroPrimePMessage = true
+                        }
+                  })
                     .frame(width: HLTextFieldWidth)
                   Spacer()
                   
                   Text("Q: ")
-                  TextField(cryptoViewModel.qString, text: $cryptoViewModel.qString)
+                  TextField(String(cryptoViewModel.primeQ), value: $cryptoViewModel.primeQ, formatter: NumberFormatter(), onCommit: {
+                        if self.cryptoViewModel.primeQ != 0 {
+                            self.cryptoViewModel.setupRSA()
+                        } else {
+                            self.zeroPrimeQMessage = true
+                        }
+                  })
                     .frame(width: HLTextFieldWidth)
                   Spacer()
                   
                   Text("P*Q: \(cryptoViewModel.pqString)")
                   Spacer()
-                  
                   Text("(P-1)(Q-1): \(cryptoViewModel.gammaString)")
               }
+              .alert(isPresented: $zeroPrimePMessage) {
+                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'P' value must be a non-zero integer"))}
+              .alert(isPresented: $zeroPrimeQMessage) {
+                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'Q' value must be a non-zero integer"))}
 
               //**********  set chosenKey
               HStack {

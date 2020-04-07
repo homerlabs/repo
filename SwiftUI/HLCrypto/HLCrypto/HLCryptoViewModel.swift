@@ -13,28 +13,9 @@ class HLCryptoViewModel: ObservableObject {
     @Published var plainTextURL: URL?
     @Published var cipherTextURL: URL?
     @Published var decipherTextURL: URL?
-    @Published var pString = "257" {
-        didSet {
-            print("pString:  \(pString)")
-            let number = HLPrimeType(pString)
-            if number != nil && number != 0 {
-                primeP = number!
-            } else {
-                primeP = 1
-            }
-        }
-    }
-    @Published var qString = "251" {
-        didSet {
-            print("qString:  \(qString)")
-            let number = HLPrimeType(qString)
-            if number != nil && number != 0 {
-                primeQ = number!
-            } else {
-                primeQ = 1
-            }
-        }
-    }
+    @Published var primeP = HLPrimeType(257)
+    @Published var primeQ = HLPrimeType(253)
+    
     @Published var chosenKeyString = "36083" {
         didSet {
             print("chosenKeyString:  \(chosenKeyString)")
@@ -53,45 +34,13 @@ class HLCryptoViewModel: ObservableObject {
     @Published var gammaString = "0"
     @Published var chunkSize = "0.0"
 
+    private var rsa: HLRSA?
+
     let HLPlainTextPathKey      = "PlainTextPathKey"
     let HLCipherTextPathKey     = "CipherTextPathKey"
     let HLDeCipherTextPathKey   = "DeCipherTextPathKey"
     let HL_PKey                 = "RSA_PKey"
     let HL_QKey                 = "RSA_QKey"
-    
-    var primeP: HLPrimeType {
-        get {
-            let num = HLPrimeType(pString)
-            if num != nil {
-                return num!
-            } else {
-                return 1
-            }
-        }
-        
-        set {
-        //    self.primeP = newValue
-            print("primeP-  set:  \(newValue)")
-            setupRSA()
-        }
-    }
-    
-    var primeQ: HLPrimeType {
-        get {
-            let num = HLPrimeType(qString)
-            if num != nil {
-                return num!
-            } else {
-                return 1
-            }
-        }
-        
-        set {
-        //    self.primeQ = newValue
-            print("primeQ-  set:  \(newValue)")
-            setupRSA()
-        }
-    }
     
     var chosenKey: HLPrimeType {
         get {
@@ -110,16 +59,14 @@ class HLCryptoViewModel: ObservableObject {
             
         }
     }
-
-    var rsa: HLRSA?
     
     func encode() {
-        setupRSA()
+     //   setupRSA()
         rsa?.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
     }
     
     func decode() {
-        setupRSA()
+    //    setupRSA()
         rsa?.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
     }
     
@@ -154,14 +101,12 @@ class HLCryptoViewModel: ObservableObject {
         cipherTextURL = HLCipherTextPathKey.getBookmark()
         decipherTextURL = HLDeCipherTextPathKey.getBookmark()
         
-        let valueP = UserDefaults.standard.integer(forKey: HL_PKey)
-        if valueP != 0 {
-            pString = String(valueP)
+        if let valueP = UserDefaults.standard.object(forKey: HL_PKey) as? NSNumber {
+            primeP = valueP.int64Value
         }
         
-        let valueQ = UserDefaults.standard.integer(forKey: HL_QKey)
-        if valueQ != 0 {
-            qString = String(valueQ)
+        if let valueQ = UserDefaults.standard.object(forKey: HL_QKey) as? NSNumber {
+            primeQ = valueQ.int64Value
         }
     }
     
@@ -180,14 +125,8 @@ class HLCryptoViewModel: ObservableObject {
             url.setBookmarkFor(key: HLDeCipherTextPathKey)
         }
         
-        if let value = HLPrimeType(pString) {
-            UserDefaults.standard.set(value, forKey: HL_PKey)
-        }
-        
-        if let value = HLPrimeType(qString) {
-            UserDefaults.standard.set(value, forKey: HL_QKey)
-        }
-        
+        UserDefaults.standard.set(primeP, forKey: HL_PKey)
+        UserDefaults.standard.set(primeQ, forKey: HL_QKey)
         plainTextURL?.stopAccessingSecurityScopedResource()
         cipherTextURL?.stopAccessingSecurityScopedResource()
         decipherTextURL?.stopAccessingSecurityScopedResource()
