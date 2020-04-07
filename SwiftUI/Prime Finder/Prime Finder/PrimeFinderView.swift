@@ -61,12 +61,18 @@ struct PrimeFinderView: View {
                 //**********  terminal prime
                 HStack {
                     Text("Terminal Prime: ")
-                    TextField(pfViewModel.terminalPrime, text: $pfViewModel.terminalPrime)
+                    TextField(String(pfViewModel.terminalPrime), value: $pfViewModel.terminalPrime, formatter: NumberFormatter(), onCommit: {
+                        if self.pfViewModel.terminalPrime == 0 {
+                            self.showErrorInvalidData = true
+                        }
+                  })
                         .frame(width: terminalPrimeWidth)
                     Spacer()
                  
                     Text("Percent completed: \(pfViewModel.progress)")
                }
+              .alert(isPresented: $showErrorInvalidData) {
+                    Alert(title: Text("Invalid data in TextField"), message: Text("'Terminal Prime' value must be a non-zero integer"))}
                 .padding(.top, verticalPaddingValue)
             }
 
@@ -100,8 +106,6 @@ struct PrimeFinderView: View {
                 })
                 .alert(isPresented: $showErrorFindPrimes) {
                     Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Primes file not found."))}
-                .alert(isPresented: $showErrorInvalidData) {
-                    Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Terminal Prime must be an integer."))}
                 .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
 
                 //**********  FindNPrimes Button

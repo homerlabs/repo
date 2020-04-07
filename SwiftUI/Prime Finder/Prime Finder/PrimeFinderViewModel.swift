@@ -16,7 +16,7 @@ enum HLErrorEnum {
 }
 
 class PrimeFinderViewModel: ObservableObject {
-    @Published var terminalPrime = "1000"
+    @Published var terminalPrime = HLPrimeType(1000)
     @Published var findPrimesInProgress = false
     @Published var findNPrimesInProgress = false
     @Published var status = "Idle"
@@ -31,12 +31,10 @@ class PrimeFinderViewModel: ObservableObject {
     
     //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
-        guard HLPrimeType(terminalPrime) != nil else { return .invalidDataError }
-
         primeFinder.primesFileURL = primesURL
         setup()
         findPrimesInProgress = true
-        let maxPrime = HLPrimeType(terminalPrime)!
+        let maxPrime = HLPrimeType(terminalPrime)
         
         primeFinder.findPrimes(maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
@@ -51,7 +49,7 @@ class PrimeFinderViewModel: ObservableObject {
             if self.primeFinder.okToRun {
                 self.progress = "100"
             } else {
-                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
+                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
                 self.progress = String(percent)
             }
         }
@@ -80,7 +78,7 @@ class PrimeFinderViewModel: ObservableObject {
             if self.primeFinder.okToRun {
                 self.progress = "100"
             } else {
-                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
+                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
                 self.progress = String(percent)
             }
         }
@@ -95,7 +93,7 @@ class PrimeFinderViewModel: ObservableObject {
         timer.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
             self.status = "Processed (lastN : lastP): \(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
-            let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime)! * 100)
+            let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
             self.progress = String(percent)
         })
     }
@@ -109,9 +107,9 @@ class PrimeFinderViewModel: ObservableObject {
         primeFinder = HLPrime()
         primesURL = HLPrime.HLPrimesBookmarkKey.getBookmark()
         nicePrimesURL = HLPrime.HLNicePrimesBookmarkKey.getBookmark()
-        let value = UserDefaults.standard.integer(forKey: HLPrime.HLTerminalPrimeKey)
-        if value > 0 {
-            terminalPrime = String(value)
+
+        if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLTerminalPrimeKey) as? NSNumber {
+            terminalPrime = valueP.int64Value
         }
     }
     
@@ -125,9 +123,7 @@ class PrimeFinderViewModel: ObservableObject {
             url.setBookmarkFor(key: HLPrime.HLNicePrimesBookmarkKey)
         }
         
-        if let value = HLPrimeType(terminalPrime) {
-            UserDefaults.standard.set(value, forKey: HLPrime.HLTerminalPrimeKey)
-        }
+        UserDefaults.standard.set(terminalPrime, forKey: HLPrime.HLTerminalPrimeKey)
         
         primeFinder.okToRun = false
         primesURL?.stopAccessingSecurityScopedResource()
