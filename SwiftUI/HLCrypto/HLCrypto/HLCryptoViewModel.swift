@@ -15,17 +15,7 @@ class HLCryptoViewModel: ObservableObject {
     @Published var decipherTextURL: URL?
     @Published var primeP = HLPrimeType(257)
     @Published var primeQ = HLPrimeType(253)
-    
-    @Published var chosenKeyString = "36083" {
-        didSet {
-            print("chosenKeyString:  \(chosenKeyString)")
-            if let number = HLPrimeType(chosenKeyString) {
-                chosenKey = number
-            } else {
-          //      chosenKey = 1
-            }
-        }
-    }
+    @Published var chosenKey = HLPrimeType(36083)
     @Published var calculatedKeyString = "0"
     @Published var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
     @Published var characterSetCountString = "0"
@@ -42,24 +32,6 @@ class HLCryptoViewModel: ObservableObject {
     let HL_PKey                 = "RSA_PKey"
     let HL_QKey                 = "RSA_QKey"
     
-    var chosenKey: HLPrimeType {
-        get {
-            let num = HLPrimeType(chosenKeyString)
-            if num != nil {
-                return num!
-            } else {
-                return 1
-            }
-        }
-        
-        set {
-        //    self.primeQ = newValue
-            print("chosenKey-  set:  \(newValue)")
-            setupKeys()
-            
-        }
-    }
-    
     func encode() {
      //   setupRSA()
         rsa?.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
@@ -71,13 +43,11 @@ class HLCryptoViewModel: ObservableObject {
     }
     
     func setupKeys() {
-        if let publicKey = HLPrimeType(chosenKeyString) {
-            let privateKey = rsa!.calculateKey(publicKey: publicKey)
-            rsa?.keyPublic = publicKey
-            rsa?.keyPrivate = privateKey
-            privateKey == -1 ? (calculatedKeyString = "CHOSEN KEY IS INVALID!") : (calculatedKeyString = String(privateKey))
-        }
-    }
+        let privateKey = rsa!.calculateKey(publicKey: chosenKey)
+        rsa?.keyPublic = chosenKey
+        rsa?.keyPrivate = privateKey
+        privateKey == -1 ? (calculatedKeyString = "CHOSEN KEY IS INVALID!") : (calculatedKeyString = String(privateKey))
+}
     
     func setupRSA() {
   //      let p = HLPrimeType(pString)

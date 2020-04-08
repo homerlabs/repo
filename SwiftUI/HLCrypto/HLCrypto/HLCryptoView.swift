@@ -13,6 +13,7 @@ struct HLCryptoView: View {
     @ObservedObject var cryptoViewModel = HLCryptoViewModel()
     @State var zeroPrimePMessage = false
     @State var zeroPrimeQMessage = false
+    @State var zeroChosenKeyMessage = false
     let HLSavePanelTitle = "HLCrypto Save Panel"
     let HLOpenPanelTitle = "HLCrypto Open Panel"
     let HLErrorInvalidDataTitle = "Data in TextField is not valid"
@@ -130,7 +131,13 @@ struct HLCryptoView: View {
               //**********  set chosenKey
               HStack {
                   Text("Chosen Key: ")
-                  TextField(cryptoViewModel.chosenKeyString, text: $cryptoViewModel.chosenKeyString)
+                  TextField(String(cryptoViewModel.chosenKey), value: $cryptoViewModel.chosenKey, formatter: NumberFormatter(), onCommit: {
+                        if self.cryptoViewModel.chosenKey != 0 {
+                            self.cryptoViewModel.setupKeys()
+                        } else {
+                             self.zeroChosenKeyMessage = true
+                        }
+                  })
                     .frame(width: HLTextFieldWidth)
                   
        //           Spacer()
@@ -138,7 +145,9 @@ struct HLCryptoView: View {
                   .padding(.horizontal)
                   Spacer()
               }
-            .padding(.bottom)
+                .alert(isPresented: $zeroChosenKeyMessage) {
+                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'Chosen Key' value must be a non-zero integer"))}
+                .padding(.bottom)
         }
 
               //  Encode and Decode Buttons
