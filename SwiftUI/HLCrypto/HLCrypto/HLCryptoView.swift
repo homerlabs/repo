@@ -105,6 +105,8 @@ struct HLCryptoView: View {
                             self.zeroPrimePMessage = true
                         }
                   })
+                    .alert(isPresented: $zeroPrimePMessage) {
+                        Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'P' value must be a non-zero integer"))}
                     .frame(width: HLTextFieldWidth)
                   Spacer()
                   
@@ -116,6 +118,8 @@ struct HLCryptoView: View {
                             self.zeroPrimeQMessage = true
                         }
                   })
+                    .alert(isPresented: $zeroPrimeQMessage) {
+                        Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'Q' value must be a non-zero integer"))}
                     .frame(width: HLTextFieldWidth)
                   Spacer()
                   
@@ -123,10 +127,6 @@ struct HLCryptoView: View {
                   Spacer()
                   Text("(P-1)(Q-1): \(cryptoViewModel.gammaString)")
               }
-              .alert(isPresented: $zeroPrimePMessage) {
-                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'P' value must be a non-zero integer"))}
-              .alert(isPresented: $zeroPrimeQMessage) {
-                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'Q' value must be a non-zero integer"))}
 
               //**********  set chosenKey
               HStack {
@@ -150,28 +150,28 @@ struct HLCryptoView: View {
                 .padding(.bottom)
         }
 
-              //  Encode and Decode Buttons
-              VStack {
-                  Button(action: {
-                      self.cryptoViewModel.encode()
-                  }) {
-                      Text("Encode")
-                  }
-                  .disabled(cryptoViewModel.plainTextURL == nil ||
-                            cryptoViewModel.cipherTextURL == nil ||
-                            HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+          //  Encode and Decode Buttons
+          VStack {
+            Button(action: {
+                self.cryptoViewModel.encode()
+            }) {
+                Text("Encode")
+            }
+             .disabled(cryptoViewModel.plainTextURL == nil ||
+                        cryptoViewModel.cipherTextURL == nil ||
+                        HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
 
-                .padding(.bottom)
+            .padding(.bottom)
 
-                  Button(action: {
-                      self.cryptoViewModel.decode()
-                  }) {
-                      Text("Decode")
-                  }
-                  .disabled(cryptoViewModel.cipherTextURL == nil ||
-                            cryptoViewModel.decipherTextURL == nil ||
-                            HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+              Button(action: {
+                  self.cryptoViewModel.decode()
+              }) {
+                  Text("Decode")
               }
+              .disabled(cryptoViewModel.cipherTextURL == nil ||
+                        cryptoViewModel.decipherTextURL == nil ||
+                        HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+          }
               
         }
         .padding()
