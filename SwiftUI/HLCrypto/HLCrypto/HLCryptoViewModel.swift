@@ -24,28 +24,29 @@ class HLCryptoViewModel: ObservableObject {
     @Published var gammaString = "0"
     @Published var chunkSize = "0.0"
 
-    private var rsa: HLRSA?
+    private var rsa: HLRSA = HLRSA(p: 257, q: 253, characterSet: "1234567890")
 
     let HLPlainTextPathKey      = "PlainTextPathKey"
     let HLCipherTextPathKey     = "CipherTextPathKey"
     let HLDeCipherTextPathKey   = "DeCipherTextPathKey"
     let HL_PKey                 = "RSA_PKey"
     let HL_QKey                 = "RSA_QKey"
-    
+    let HL_CharacterSetKey      = "RSA_CharacterSetKey"
+
     func encode() {
      //   setupRSA()
-        rsa?.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
+        rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
     }
     
     func decode() {
     //    setupRSA()
-        rsa?.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
+        rsa.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
     }
     
     func setupKeys() {
-        let privateKey = rsa!.calculateKey(publicKey: chosenKey)
-        rsa?.keyPublic = chosenKey
-        rsa?.keyPrivate = privateKey
+        let privateKey = rsa.calculateKey(publicKey: chosenKey)
+        rsa.keyPublic = chosenKey
+        rsa.keyPrivate = privateKey
         privateKey == -1 ? (calculatedKeyString = "CHOSEN KEY IS INVALID!") : (calculatedKeyString = String(privateKey))
 }
     
@@ -60,7 +61,7 @@ class HLCryptoViewModel: ObservableObject {
         characterSetCountString = String(characterSet.count)
         
         rsa = HLRSA(p: primeP, q: primeQ, characterSet: characterSet)
-        chunkSize = String.init(format: "%0.1f", arguments: [rsa!.chunkSizeDouble])
+        chunkSize = String.init(format: "%0.1f", arguments: [rsa.chunkSizeDouble])
 
         setupKeys()
     }
@@ -77,6 +78,10 @@ class HLCryptoViewModel: ObservableObject {
         
         if let valueQ = UserDefaults.standard.object(forKey: HL_QKey) as? NSNumber {
             primeQ = valueQ.int64Value
+        }
+        
+        if let characters = UserDefaults.standard.object(forKey: HL_CharacterSetKey) as? String {
+            characterSet = characters
         }
     }
     
@@ -95,6 +100,7 @@ class HLCryptoViewModel: ObservableObject {
             url.setBookmarkFor(key: HLDeCipherTextPathKey)
         }
         
+        UserDefaults.standard.set(primeP, forKey: HL_PKey)
         UserDefaults.standard.set(primeP, forKey: HL_PKey)
         UserDefaults.standard.set(primeQ, forKey: HL_QKey)
         plainTextURL?.stopAccessingSecurityScopedResource()

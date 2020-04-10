@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()
+        window.title = "HLCrypto"
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
@@ -36,4 +37,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 }
-

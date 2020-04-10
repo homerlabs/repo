@@ -94,15 +94,15 @@
 		B06210E72405B7C9006D1906 /* HLCrypto */ = {
 			isa = PBXGroup;
 			children = (
-				B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */,
-				B06210EA2405B7C9006D1906 /* HLCryptoView.swift */,
-				B062110E2405C915006D1906 /* Extensions */,
-				B062110B2405BC98006D1906 /* Model */,
 				B06210E82405B7C9006D1906 /* AppDelegate.swift */,
 				B06210EC2405B7CB006D1906 /* Assets.xcassets */,
-				B06210F12405B7CB006D1906 /* Main.storyboard */,
-				B06210F42405B7CB006D1906 /* Info.plist */,
+				B062110E2405C915006D1906 /* Extensions */,
 				B06210F52405B7CB006D1906 /* HLCrypto.entitlements */,
+				B06210EA2405B7C9006D1906 /* HLCryptoView.swift */,
+				B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */,
+				B06210F42405B7CB006D1906 /* Info.plist */,
+				B06210F12405B7CB006D1906 /* Main.storyboard */,
+				B062110B2405BC98006D1906 /* Model */,
 				B06210EE2405B7CB006D1906 /* Preview Content */,
 			);
 			path = HLCrypto;
