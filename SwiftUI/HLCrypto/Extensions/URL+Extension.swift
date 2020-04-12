@@ -18,4 +18,8 @@ extension URL    {
             print("****************************     HLWarning:  Unable to create security bookmark for key: \(key)!")
         }
     }
+    
+    func isFilePresent() -> Bool {
+        FileManager.default.fileExists(atPath: self.path)
+    }
 }

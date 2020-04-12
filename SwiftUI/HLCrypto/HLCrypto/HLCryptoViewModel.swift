@@ -9,12 +9,17 @@
 import Foundation
 import Cocoa
 
+enum HLErrorEnum {
+    case noError
+    case fileMissingError
+}
+
 class HLCryptoViewModel: ObservableObject {
     @Published var plainTextURL: URL?
     @Published var cipherTextURL: URL?
     @Published var decipherTextURL: URL?
-    @Published var primeP = HLPrimeType(257)
-    @Published var primeQ = HLPrimeType(253)
+    @Published var primeP = HLPrimeType(503)
+    @Published var primeQ = HLPrimeType(983)
     @Published var chosenKey = HLPrimeType(36083)
     @Published var calculatedKeyString = "0"
     @Published var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
@@ -23,8 +28,12 @@ class HLCryptoViewModel: ObservableObject {
     @Published var pqString = "0"
     @Published var gammaString = "0"
     @Published var chunkSize = "0.0"
+    
+    @Published var plaintextFileMissingMessage = false
+    @Published var ciphertextFileMissingMessage = false
 
-    private var rsa: HLRSA = HLRSA(p: 257, q: 253, characterSet: "1234567890")
+    //  these values are arbitrary as the true defaults are set above
+    private var rsa: HLRSA = HLRSA(p: 11, q: 23, characterSet: "1234567890")
 
     let HLPlainTextPathKey      = "PlainTextPathKey"
     let HLCipherTextPathKey     = "CipherTextPathKey"
@@ -34,13 +43,21 @@ class HLCryptoViewModel: ObservableObject {
     let HL_CharacterSetKey      = "RSA_CharacterSetKey"
 
     func encode() {
-     //   setupRSA()
-        rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
+        plaintextFileMissingMessage = !plainTextURL!.isFilePresent()
+        if plaintextFileMissingMessage {
+            plainTextURL = nil
+        } else {
+            rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
+        }
     }
     
     func decode() {
-    //    setupRSA()
-        rsa.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
+        ciphertextFileMissingMessage = !cipherTextURL!.isFilePresent()
+        if ciphertextFileMissingMessage {
+            cipherTextURL = nil
+        } else {
+            rsa.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
+        }
     }
     
     func setupKeys() {

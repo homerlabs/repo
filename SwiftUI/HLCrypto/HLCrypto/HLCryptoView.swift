@@ -157,9 +157,12 @@ struct HLCryptoView: View {
             }) {
                 Text("Encode")
             }
-             .disabled(cryptoViewModel.plainTextURL == nil ||
-                        cryptoViewModel.cipherTextURL == nil ||
-                        HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+            .alert(isPresented: $cryptoViewModel.plaintextFileMissingMessage) {
+                Alert(title: Text("Serious Error!"), message: Text("Plaintext file missing!"))}
+            .disabled(cryptoViewModel.plainTextURL == nil ||
+                    cryptoViewModel.cipherTextURL == nil ||
+                    !cryptoViewModel.plainTextURL!.isFilePresent() ||
+                    HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
 
             .padding(.bottom)
 
@@ -168,9 +171,12 @@ struct HLCryptoView: View {
               }) {
                   Text("Decode")
               }
+              .alert(isPresented: $cryptoViewModel.ciphertextFileMissingMessage) {
+                  Alert(title: Text("Serious Error!"), message: Text("Ciphertext file missing!"))}
               .disabled(cryptoViewModel.cipherTextURL == nil ||
-                        cryptoViewModel.decipherTextURL == nil ||
-                        HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+                    cryptoViewModel.decipherTextURL == nil ||
+                    !cryptoViewModel.cipherTextURL!.isFilePresent() ||
+                    HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
           }
               
         }
