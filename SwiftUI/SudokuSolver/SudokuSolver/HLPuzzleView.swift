@@ -49,12 +49,12 @@ struct HLPuzzleView: View {
             .padding(mainPadding)
             Spacer()
             
-            HLGridView(columns: numberOfColumns, items: puzzleViewModel.dataArray) { item in
+            HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
                 VStack {
-                    Text(self.setToString(item))
+                    Text(self.setToString(item.0))
                         .font(.subheadline)
                         .background(Color.yellow)
-                   //     .foregroundColor(textColor[puzzleViewModel.cellStatus])
+                        .foregroundColor(self.textColor[(item.1).rawValue])
                 }
             }
             
@@ -77,7 +77,7 @@ struct HLPuzzleView: View {
                 }
                 
                 Spacer()
-                Text(puzzleViewModel.puzzleName)
+                Text(puzzleViewModel.solver.puzzleName)
                     .padding()
                 Spacer()
                 

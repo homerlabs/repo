@@ -11,9 +11,7 @@ import WebKit
 
 class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
 
-    @Published var dataArray: [Set<String>] = Array(repeating: [], count: 81)
-    @Published var statusArray: [HLCellStatus] = Array(repeating: HLCellStatus.givenStatus, count: 81)
-    @Published var puzzleName = "Puzzle not found"
+    @Published var solver = HLSolver()
     @Published var puzzleState = HLPuzzleState.initial
     @Published var algorithmSelected: HLAlgorithmMode = .monoCell
     @Published var unsolvedNodeCount = 0
@@ -27,7 +25,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     let hlKeySettingAlgorithm = "hlKeySettingAlgorithm"
 
     let url = URL(string: "https://nine.websudoku.com/?level=4")!
-    var solver = HLSolver()
     var hlWebView = WKWebView()
     
     func solveAction() {
@@ -48,19 +45,9 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             }
         }
             
-        tempXFerData()  //  this is temporary (honest)
-        saveSetting()   //  this also
+        saveSetting()
     }
     
-    func tempXFerData() {
-        var tempData: [Set<String>] = Array(repeating: [], count: 81)
-        for index in 0..<self.solver.dataSet.grid.count {
-            (tempData[index], self.statusArray[index]) = self.solver.dataSet.grid[index]
-        }
-        dataArray = tempData
-        unsolvedNodeCount = solver.unsolvedCount()
-    }
-
     func saveSetting() {
         //  by negating the returned value we change the default to true
         UserDefaults.standard.set(!testRows, forKey: hlKeySettingRow)
@@ -71,7 +58,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     
     func getNewPuzzle() {
         puzzleState = HLPuzzleState.initial
-        puzzleName = ""
+    //    puzzleName = ""
         let request = URLRequest(url: url)
         hlWebView.load(request)
     }
@@ -84,8 +71,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             
                 if let puzzleString = html as? String   {
                     self.solver = HLSolver(html: puzzleString)
-                    self.tempXFerData()
-                    self.puzzleName = self.solver.puzzleName
                     
            //         self.updateDisplay()
             //        self.undoButton.isEnabled = false
