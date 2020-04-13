@@ -89,7 +89,9 @@ struct HLCryptoView: View {
                     Text(cryptoViewModel.characterSetCountString)
                 }
                 
-                TextField(cryptoViewModel.characterSet, text: $cryptoViewModel.characterSet)
+                TextField(cryptoViewModel.characterSet, text: $cryptoViewModel.characterSet, onCommit: {
+                    self.cryptoViewModel.setupRSA() //  need to recalculate characterSetCount and chunkSize
+                })
                 .lineLimit(2)
             }
              .padding(.vertical)

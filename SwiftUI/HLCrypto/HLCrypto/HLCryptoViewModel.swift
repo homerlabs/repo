@@ -22,7 +22,7 @@ class HLCryptoViewModel: ObservableObject {
     @Published var primeQ = HLPrimeType(983)
     @Published var chosenKey = HLPrimeType(36083)
     @Published var calculatedKeyString = "0"
-    @Published var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
+    @Published var characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
     @Published var characterSetCountString = "0"
 
     @Published var pqString = "0"
@@ -97,7 +97,7 @@ class HLCryptoViewModel: ObservableObject {
             primeQ = valueQ.int64Value
         }
         
-        if let characters = UserDefaults.standard.object(forKey: HL_CharacterSetKey) as? String {
+        if let characters = UserDefaults.standard.string(forKey: HL_CharacterSetKey) {
             characterSet = characters
         }
     }
@@ -112,14 +112,13 @@ class HLCryptoViewModel: ObservableObject {
             url.setBookmarkFor(key: HLCipherTextPathKey)
         }
         
-        
         if let url = decipherTextURL {
             url.setBookmarkFor(key: HLDeCipherTextPathKey)
         }
         
         UserDefaults.standard.set(primeP, forKey: HL_PKey)
-        UserDefaults.standard.set(primeP, forKey: HL_PKey)
         UserDefaults.standard.set(primeQ, forKey: HL_QKey)
+        UserDefaults.standard.set(characterSet, forKey: HL_CharacterSetKey)
         plainTextURL?.stopAccessingSecurityScopedResource()
         cipherTextURL?.stopAccessingSecurityScopedResource()
         decipherTextURL?.stopAccessingSecurityScopedResource()
