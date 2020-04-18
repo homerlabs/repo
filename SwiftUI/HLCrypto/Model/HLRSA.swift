@@ -30,7 +30,7 @@ public struct HLRSA {
 
     let charSetSize: HLPrimeType
     let charSetSizePlusOne: HLPrimeType
-    var charSet: [Character]
+    let charSet: [Character]
     
     
     func chunker(workingString: inout String) -> String   {
@@ -217,57 +217,31 @@ public struct HLRSA {
         
         return outputString
     }
-    
-    
-    func decodeFile(inputFilepath: String, outputFilepath: String)  {
-//        print( "HLRSA-  decode: \(path)" )
+        
+    public func encodeFile(inputFilepath: String, outputFilepath: String, encodeKey: HLPrimeType, decodeKey: HLPrimeType)  {
+//        print( "HLRSA-  encode: \(path)" )
         do {
             let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            var workingString = validateCharactersInSet( data: dataIn )
-            var dataOut = ""
-//            print( "HLRSA-  decodeFile-  text: \(dataIn)" )
-            
-            var chunk = chunker(workingString: &workingString)
- //           print( "HLRSA1-  decodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
+            let dataOut = encodeString(input: dataIn, encodeKey: encodeKey, decodeKey: decodeKey)
 
-            while chunk.count > 0 {
-
-                let cipherInt = stringToInt(text: chunk)
-     //           let deCipherInt = encode(m: ciphertextInt, key: keyPublic)
-                let deCipherInt = encode(m: cipherInt, key: keyPrivate)
-                let deCipherChunk = intToString(n: deCipherInt)
-                
-                dataOut.append(deCipherChunk)
-                
-    //            let reCypherInt = encode(m: cypher, key: keyPrivate)
-                let reCipherInt = encode(m: deCipherInt, key: keyPublic)
-                let reCipherChunk = intToString(n: reCipherInt)
-print( "cipherChunk: \(chunk)    cipherInt: \(cipherInt)    deCipherInt: \(deCipherInt)    deCipherChunk: \(deCipherChunk)    reCipherChunk: \(reCipherChunk)" )
-
-                chunk = chunker(workingString: &workingString)
-            }
-            
             try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    
-    func encodeFile(inputFilepath: String, outputFilepath: String)  {
-//        print( "HLRSA-  encode: \(path)" )
-        do {
-            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            var workingString = validateCharactersInSet( data: dataIn )
+    func encodeString(input: String, encodeKey: HLPrimeType, decodeKey: HLPrimeType) -> String  {
+//        print( "HLRSA-  encodeString: \(input)" )
+            var workingString = validateCharactersInSet( data: input )
             var dataOut = ""
-//            print( "HLRSA-  encodeFile-  text: \(dataIn)" )
             
             var chunk = chunker(workingString: &workingString)
  //           print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
 
             while chunk.count > 0 {
                 let plaintextInt = stringToInt(text: chunk)
-                let cipher = encode(m: plaintextInt, key: keyPublic)
+                let cipher = encode(m: plaintextInt, key: encodeKey)
+                
       //           let cipher = encode(m: plaintextInt, key: keyPrivate)
                let cipherChunk = intToString(n: cipher)
 
@@ -281,10 +255,7 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
                 chunk = chunker(workingString: &workingString)
             }
             
-            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
-        } catch {
-            print(error.localizedDescription)
-        }
+            return dataOut
     }
     
     //  for a give char, return it's index in the charSet
