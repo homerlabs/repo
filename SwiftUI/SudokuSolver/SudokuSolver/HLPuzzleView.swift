@@ -53,9 +53,9 @@ struct HLPuzzleView: View {
                 VStack {
                     Text(self.setToString(item.0))
                         .font(.subheadline)
-                        .background(Color.yellow)
-                        .foregroundColor(self.textColor[(item.1).rawValue])
+                        .foregroundColor(self.textColor[item.1.rawValue])
                 }
+                    .background(Color.init(red: 0.9, green: 0.9, blue: 0.9))
             }
             
             Spacer()
