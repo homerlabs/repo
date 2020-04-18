@@ -166,7 +166,7 @@ struct HLCryptoView: View {
                     !cryptoViewModel.plainTextURL!.isFilePresent() ||
                     HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
 
-            .padding(.bottom)
+            .padding(.bottom, 8)
 
               Button(action: {
                   self.cryptoViewModel.decode()

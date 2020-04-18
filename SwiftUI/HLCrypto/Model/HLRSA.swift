@@ -181,7 +181,7 @@ public struct HLRSA {
         var result = ""
         var workingN = n
         var power = charSetSizePlusOne
-        while power < n {   power *= charSetSizePlusOne}
+        while power < n {   power *= charSetSizePlusOne }
         
         while power > 1 {
             power /= charSetSizePlusOne
@@ -223,6 +223,8 @@ public struct HLRSA {
         do {
             let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
             let dataOut = encodeString(input: dataIn, encodeKey: encodeKey, decodeKey: decodeKey)
+            let dataVerify = encodeString(input: dataOut, encodeKey: decodeKey, decodeKey: encodeKey)
+            assert(dataIn == dataVerify, "Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
 
             try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
         } catch {
@@ -231,31 +233,29 @@ public struct HLRSA {
     }
     
     func encodeString(input: String, encodeKey: HLPrimeType, decodeKey: HLPrimeType) -> String  {
-//        print( "HLRSA-  encodeString: \(input)" )
-            var workingString = validateCharactersInSet( data: input )
-            var dataOut = ""
-            
-            var chunk = chunker(workingString: &workingString)
- //           print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
+        print( "HLRSA-  encodeString: \(input)   encodeKey: \(encodeKey)   decodeKey: \(decodeKey)" )
+        var workingString = validateCharactersInSet( data: input )
+        var dataOut = ""
+        
+        var chunk = chunker(workingString: &workingString)
+//           print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
 
-            while chunk.count > 0 {
-                let plaintextInt = stringToInt(text: chunk)
-                let cipher = encode(m: plaintextInt, key: encodeKey)
-                
-      //           let cipher = encode(m: plaintextInt, key: keyPrivate)
-               let cipherChunk = intToString(n: cipher)
-
-                dataOut.append(cipherChunk)
-                
-                let deCipherInt = encode(m: cipher, key: keyPrivate)
-    //            let deCipherInt = encode(m: cypher, key: keyPublic)
-                let deCipherString = intToString(n: deCipherInt)
-print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt: \(cipher)    cipherChunk: \(cipherChunk)    deCipherChunk: \(deCipherString)" )
-                
-                chunk = chunker(workingString: &workingString)
-            }
+        while chunk.count > 0 {
+            let plaintextInt = stringToInt(text: chunk)
+            let cipherInt = encode(m: plaintextInt, key: encodeKey)
+            let cipherChunk = intToString(n: cipherInt)
+            dataOut.append(cipherChunk)
             
-            return dataOut
+            let deCipherInt = encode(m: cipherInt, key: decodeKey)
+            let deCipherString = intToString(n: deCipherInt)
+            
+            print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cipherInt: \(cipherInt)    cipherChunk: \(cipherChunk)    deCipherChunk: \(deCipherString)" )
+            assert(chunk == deCipherString, "Error-  chunk: \(chunk) decoded back to \(deCipherString)")
+            
+            chunk = chunker(workingString: &workingString)
+        }
+        
+        return dataOut
     }
     
     //  for a give char, return it's index in the charSet
@@ -360,6 +360,7 @@ print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cyipherInt:
         chunkSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
         chuckSize = Int(chunkSizeDouble)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)    charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)" )
+        print( "HLRSA-  init-  characterSet: \(characterSet)   charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
     }
 }

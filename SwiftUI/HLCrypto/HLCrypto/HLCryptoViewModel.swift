@@ -40,6 +40,7 @@ class HLCryptoViewModel: ObservableObject {
     let HLDeCipherTextPathKey   = "DeCipherTextPathKey"
     let HL_PKey                 = "RSA_PKey"
     let HL_QKey                 = "RSA_QKey"
+    let HL_ChosenKeyKey         = "RSA_ChosenKeyKey"
     let HL_CharacterSetKey      = "RSA_CharacterSetKey"
 
     func encode() {
@@ -97,6 +98,10 @@ class HLCryptoViewModel: ObservableObject {
             primeQ = valueQ.int64Value
         }
         
+        if let valueKey = UserDefaults.standard.object(forKey: HL_ChosenKeyKey) as? NSNumber {
+            chosenKey = valueKey.int64Value
+        }
+        
         if let characters = UserDefaults.standard.string(forKey: HL_CharacterSetKey) {
             characterSet = characters
         }
@@ -118,10 +123,11 @@ class HLCryptoViewModel: ObservableObject {
         
         UserDefaults.standard.set(primeP, forKey: HL_PKey)
         UserDefaults.standard.set(primeQ, forKey: HL_QKey)
+        UserDefaults.standard.set(chosenKey, forKey: HL_ChosenKeyKey)
         UserDefaults.standard.set(characterSet, forKey: HL_CharacterSetKey)
         plainTextURL?.stopAccessingSecurityScopedResource()
         cipherTextURL?.stopAccessingSecurityScopedResource()
         decipherTextURL?.stopAccessingSecurityScopedResource()
-        NSApplication.shared.terminate(self)    //  quit if app deallocs
+        NSApplication.shared.terminate(self)    //  quit if view deallocs
     }
 }
