@@ -125,16 +125,16 @@ struct HLCryptoView: View {
                     .frame(width: HLTextFieldWidth)
                   Spacer()
                   
-                  Text("P*Q: \(cryptoViewModel.pqString)")
+                  Text("P*Q:  \(cryptoViewModel.pq)")
                   Spacer()
-                  Text("(P-1)(Q-1): \(cryptoViewModel.gammaString)")
+                  Text("(P-1)(Q-1):  \(cryptoViewModel.phi)")
               }
 
               //**********  set chosenKey
               HStack {
                   Text("Chosen Key: ")
                   TextField(String(cryptoViewModel.chosenKey), value: $cryptoViewModel.chosenKey, formatter: NumberFormatter(), onCommit: {
-                        if self.cryptoViewModel.chosenKey != 0 {
+                        if self.cryptoViewModel.chosenKey > 0 && self.cryptoViewModel.chosenKey < self.cryptoViewModel.phi {
                             self.cryptoViewModel.setupKeys()
                         } else {
                              self.zeroChosenKeyMessage = true
@@ -143,7 +143,7 @@ struct HLCryptoView: View {
                     .frame(width: HLTextFieldWidth)
                   
        //           Spacer()
-                  Text("Calculated Key:  " + cryptoViewModel.calculatedKeyString)
+                  Text("Calculated Key:  \(cryptoViewModel.calculatedKey)")
                   .padding(.horizontal)
                   Spacer()
               }
@@ -164,7 +164,7 @@ struct HLCryptoView: View {
             .disabled(cryptoViewModel.plainTextURL == nil ||
                     cryptoViewModel.cipherTextURL == nil ||
                     !cryptoViewModel.plainTextURL!.isFilePresent() ||
-                    HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+                    cryptoViewModel.calculatedKey > 0)
 
             .padding(.bottom, 8)
 
@@ -178,7 +178,7 @@ struct HLCryptoView: View {
               .disabled(cryptoViewModel.cipherTextURL == nil ||
                     cryptoViewModel.decipherTextURL == nil ||
                     !cryptoViewModel.cipherTextURL!.isFilePresent() ||
-                    HLPrimeType(cryptoViewModel.calculatedKeyString) == nil)
+                    cryptoViewModel.calculatedKey > 0)
           }
               
         }

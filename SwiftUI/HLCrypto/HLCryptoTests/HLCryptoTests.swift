@@ -12,6 +12,8 @@ import XCTest
 class HLCryptoTests: XCTestCase {
 
     let characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
+    let p1: HLPrimeType = 503
+    let q1: HLPrimeType = 983
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,7 +24,7 @@ class HLCryptoTests: XCTestCase {
     }
     
     func testSingleChunk() {
-        let rsa = HLRSA(p: 503, q: 983, characterSet: characterSet)
+        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
  //       let secretKey: HLPrimeType = 36083
         let secretKey: HLPrimeType = 300023
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
@@ -35,7 +37,7 @@ class HLCryptoTests: XCTestCase {
     }
 
     func testIntToStringBackToInt() {
-        let rsa = HLRSA(p: 503, q: 983, characterSet: characterSet)
+        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
         let initialInts: [HLPrimeType] = [1451, 91413]
         
         for testInt in initialInts {
@@ -51,7 +53,7 @@ class HLCryptoTests: XCTestCase {
     }
 
     func testEncodeDecodeSingleInt() {
-        let rsa = HLRSA(p: 503, q: 983, characterSet: characterSet)
+        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
         let secretKey: HLPrimeType = 36083
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
         let initialInts: [HLPrimeType] = [1, 42, 24, 10000, 100]

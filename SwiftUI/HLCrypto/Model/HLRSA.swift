@@ -22,7 +22,7 @@ public typealias HLPrimeType = Int64
 public struct HLRSA {
 
     let N: HLPrimeType
-    let Phi: HLPrimeType
+    let phi: HLPrimeType
     var keyPrivate: HLPrimeType = 0
     var keyPublic: HLPrimeType = 0
     let chuckSize: Int
@@ -277,7 +277,7 @@ public struct HLRSA {
     
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
-        let bigGamma = Float80(exactly: Phi)!
+        let bigGamma = Float80(exactly: phi)!
         var s: [Float80] = Array(repeating: 0, count: arraySize)
         var t: [Float80] = Array(repeating: 0, count: arraySize)
         var r: [Float80] = Array(repeating: 0, count: arraySize)
@@ -322,7 +322,7 @@ public struct HLRSA {
         s[1] = 0
         t[0] = 0
         t[1] = 1
-        r[0] = Phi
+        r[0] = phi
         r[1] = publicKey
         var i = 1
         
@@ -337,10 +337,10 @@ public struct HLRSA {
 
         if r[i] == 1        {
             var privateKey = t[i]
-            if privateKey <= 0     {   privateKey += Phi       }
+            if privateKey <= 0     {   privateKey += phi       }
             
             let product = Float80(exactly: publicKey)! * Float80(exactly: privateKey)!
-            let keyVerify = product.truncatingRemainder(dividingBy: Float80(exactly: Phi)!)
+            let keyVerify = product.truncatingRemainder(dividingBy: Float80(exactly: phi)!)
             assert( keyVerify == 1 )
             return privateKey
         }
@@ -355,12 +355,12 @@ public struct HLRSA {
         charSetSizePlusOne = charSetSize + 1
 
         N = p * q
-        Phi = (p-1) * (q-1)
+        phi = (p-1) * (q-1)
 
         chunkSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
         chuckSize = Int(chunkSizeDouble)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(Phi)" )
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(phi)" )
         print( "HLRSA-  init-  characterSet: \(characterSet)   charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
     }
 }

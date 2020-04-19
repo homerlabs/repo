@@ -18,15 +18,15 @@ class HLCryptoViewModel: ObservableObject {
     @Published var plainTextURL: URL?
     @Published var cipherTextURL: URL?
     @Published var decipherTextURL: URL?
-    @Published var primeP = HLPrimeType(503)
-    @Published var primeQ = HLPrimeType(983)
-    @Published var chosenKey = HLPrimeType(36083)
-    @Published var calculatedKeyString = "0"
+    @Published var primeP: HLPrimeType  = 503
+    @Published var primeQ: HLPrimeType  = 983
+    @Published var chosenKey: HLPrimeType = 36083
+    @Published var calculatedKey: HLPrimeType = 0
     @Published var characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
     @Published var characterSetCountString = "0"
 
-    @Published var pqString = "0"
-    @Published var gammaString = "0"
+    @Published var pq: HLPrimeType = 0
+    @Published var phi: HLPrimeType = 0
     @Published var chunkSize = "0.0"
     
     @Published var plaintextFileMissingMessage = false
@@ -42,7 +42,7 @@ class HLCryptoViewModel: ObservableObject {
     let HL_QKey                 = "RSA_QKey"
     let HL_ChosenKeyKey         = "RSA_ChosenKeyKey"
     let HL_CharacterSetKey      = "RSA_CharacterSetKey"
-
+    
     func encode() {
         plaintextFileMissingMessage = !plainTextURL!.isFilePresent()
         if plaintextFileMissingMessage {
@@ -62,10 +62,9 @@ class HLCryptoViewModel: ObservableObject {
     }
     
     func setupKeys() {
-        let privateKey = rsa.calculateKey(publicKey: chosenKey)
+        calculatedKey = rsa.calculateKey(publicKey: chosenKey)
         rsa.keyPublic = chosenKey
-        rsa.keyPrivate = privateKey
-        privateKey == -1 ? (calculatedKeyString = "CHOSEN KEY IS INVALID!") : (calculatedKeyString = String(privateKey))
+        rsa.keyPrivate = calculatedKey
 }
     
     func setupRSA() {
@@ -74,8 +73,8 @@ class HLCryptoViewModel: ObservableObject {
   //      guard primeQ != nil, primeQ != nil else { return }
         guard primeP != 0, primeQ != 0 else { return }
         
-        pqString = String(primeP * primeQ)
-        gammaString = String((primeP-1) * (primeQ-1))
+        pq = primeP * primeQ
+        phi = (primeP - 1) * (primeQ - 1)
         characterSetCountString = String(characterSet.count)
         
         rsa = HLRSA(p: primeP, q: primeQ, characterSet: characterSet)
