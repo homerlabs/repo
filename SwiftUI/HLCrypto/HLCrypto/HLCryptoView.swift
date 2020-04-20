@@ -18,6 +18,8 @@ struct HLCryptoView: View {
     let HLOpenPanelTitle = "HLCrypto Open Panel"
     let HLErrorInvalidDataTitle = "Data in TextField is not valid"
     let HLTextFieldWidth: CGFloat = 110
+    let textFieldBackgroundColor = Color(red: 0.9, green: 0.9, blue: 0.9)
+    let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.92)
 
     var body: some View {
         VStack {
@@ -34,12 +36,14 @@ struct HLCryptoView: View {
                     
                     if cryptoViewModel.plainTextURL != nil {
                         Text(cryptoViewModel.plainTextURL!.path)
+                        .background(textFieldBackgroundColor)
                     } else {
                         Text("Plaintext Path not set")
+                        .background(textFieldBackgroundColor)
                     }
                     Spacer()
                 }
-                
+               
                 //**********  set Ciphertext path
                 HStack {
                     Button(action: {
@@ -52,8 +56,10 @@ struct HLCryptoView: View {
                     
                     if cryptoViewModel.cipherTextURL != nil {
                         Text(cryptoViewModel.cipherTextURL!.path)
+                        .background(textFieldBackgroundColor)
                     } else {
                         Text("Ciphertext Path not set")
+                        .background(textFieldBackgroundColor)
                     }
                     Spacer()
                 }
@@ -70,23 +76,23 @@ struct HLCryptoView: View {
                     
                     if cryptoViewModel.decipherTextURL != nil {
                         Text(cryptoViewModel.decipherTextURL!.path)
+                        .background(textFieldBackgroundColor)
                     } else {
                         Text("DeCiphertext Path not set")
+                        .background(textFieldBackgroundColor)
                     }
                     Spacer()
                 }
             }
-            
+           
             VStack {
                 //**********  Character Set, Chunk Size, and Character Set Size
                 HStack {
                     Text("Character Set:")
                     Spacer()
-                    Text("Chunk Size:")
-                    Text(cryptoViewModel.chunkSize)
+                    Text("Chunk Size:  \(cryptoViewModel.chunkSize)")
                     Spacer()
-                    Text("Character Set Size:")
-                    Text(cryptoViewModel.characterSetCountString)
+                    Text("Character Set Size:  \(cryptoViewModel.characterSetCount)")
                 }
                 
                 TextField(cryptoViewModel.characterSet, text: $cryptoViewModel.characterSet, onCommit: {
@@ -164,7 +170,7 @@ struct HLCryptoView: View {
             .disabled(cryptoViewModel.plainTextURL == nil ||
                     cryptoViewModel.cipherTextURL == nil ||
                     !cryptoViewModel.plainTextURL!.isFilePresent() ||
-                    cryptoViewModel.calculatedKey > 0)
+                    cryptoViewModel.calculatedKey < 1)
 
             .padding(.bottom, 8)
 
@@ -178,11 +184,12 @@ struct HLCryptoView: View {
               .disabled(cryptoViewModel.cipherTextURL == nil ||
                     cryptoViewModel.decipherTextURL == nil ||
                     !cryptoViewModel.cipherTextURL!.isFilePresent() ||
-                    cryptoViewModel.calculatedKey > 0)
+                    cryptoViewModel.calculatedKey < 1)
           }
               
         }
         .padding()
+        .background(windowBackgroundColor)
         .onAppear() {
             self.cryptoViewModel.setupRSA()
         }

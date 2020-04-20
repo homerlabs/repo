@@ -29,7 +29,6 @@ public struct HLRSA {
     let chunkSizeDouble: Double
 
     let charSetSize: HLPrimeType
-    let charSetSizePlusOne: HLPrimeType
     let charSet: [Character]
     
     
@@ -167,8 +166,8 @@ public struct HLRSA {
         var result: HLPrimeType = 0
         
         for char in text    {
-            result *= charSetSizePlusOne
-            let n = Int64(indexForChar(c: char)+1)
+            result *= charSetSize
+            let n = Int64(indexForChar(c: char))
      //       print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
             result += n
        }
@@ -180,19 +179,19 @@ public struct HLRSA {
     func intToString( n: HLPrimeType ) -> String {
         var result = ""
         var workingN = n
-        var power = charSetSizePlusOne
-        while power < n {   power *= charSetSizePlusOne }
+        var power = charSetSize
+        while power < n {   power *= charSetSize }
         
         while power > 1 {
-            power /= charSetSizePlusOne
+            power /= charSetSize
             if workingN >= power {
                 let index = Int(workingN / power)
                 
-     //           print( "intToString-  workingN: \(workingN)  power: \(power)" )
-                result.append(charSet[index-1])
+    //            print( "intToString-  workingN: \(workingN)  power: \(power)" )
+                result.append(charSet[index])
            }
             workingN %= power
-  //          print( "intToString-  result: \(result)" )
+   //         print( "intToString-  result: \(result)" )
         }
         
         return result
@@ -352,12 +351,11 @@ public struct HLRSA {
     
         charSet = Array(characterSet)
         charSetSize = Int64(charSet.count)
-        charSetSizePlusOne = charSetSize + 1
 
         N = p * q
         phi = (p-1) * (q-1)
 
-        chunkSizeDouble = log(Double(N)) / log(Double(charSetSizePlusOne))
+        chunkSizeDouble = log(Double(N)) / log(Double(charSetSize))
         chuckSize = Int(chunkSizeDouble)
         
         print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(phi)" )

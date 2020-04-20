@@ -23,7 +23,7 @@ class HLCryptoViewModel: ObservableObject {
     @Published var chosenKey: HLPrimeType = 36083
     @Published var calculatedKey: HLPrimeType = 0
     @Published var characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
-    @Published var characterSetCountString = "0"
+    @Published var characterSetCount = 0
 
     @Published var pq: HLPrimeType = 0
     @Published var phi: HLPrimeType = 0
@@ -68,14 +68,11 @@ class HLCryptoViewModel: ObservableObject {
 }
     
     func setupRSA() {
-  //      let p = HLPrimeType(pString)
-   //     let q = HLPrimeType(qString)
-  //      guard primeQ != nil, primeQ != nil else { return }
         guard primeP != 0, primeQ != 0 else { return }
         
         pq = primeP * primeQ
         phi = (primeP - 1) * (primeQ - 1)
-        characterSetCountString = String(characterSet.count)
+        characterSetCount = characterSet.count
         
         rsa = HLRSA(p: primeP, q: primeQ, characterSet: characterSet)
         chunkSize = String.init(format: "%0.1f", arguments: [rsa.chunkSizeDouble])
