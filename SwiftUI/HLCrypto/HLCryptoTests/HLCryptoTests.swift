@@ -11,9 +11,11 @@ import XCTest
 
 class HLCryptoTests: XCTestCase {
 
-    let characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
+//    let characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
+    let characterSet = "0123456789"
     let p1: HLPrimeType = 503
     let q1: HLPrimeType = 983
+    let secretKey: HLPrimeType = 300023
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -25,20 +27,18 @@ class HLCryptoTests: XCTestCase {
     
     func testSingleChunk() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
- //       let secretKey: HLPrimeType = 36083
-        let secretKey: HLPrimeType = 300023
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
         let plaintextChunk = "90"
         
         let cipherChunk = rsa.encodeString(input: plaintextChunk, encodeKey: secretKey, decodeKey: calculatedKey)
         let deCipherChunk = rsa.encodeString(input: cipherChunk, encodeKey: calculatedKey, decodeKey: secretKey)
         
-        XCTAssert(plaintextChunk == deCipherChunk, "testInt '\(plaintextChunk)' converted back to '\(deCipherChunk)'")
+        XCTAssert(plaintextChunk == deCipherChunk, "plaintextChunk '\(plaintextChunk)' converted back to '\(deCipherChunk)'")
     }
 
     func testStringToInt() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let initialStrings = ["90", "VA"]
+        let initialStrings = ["0", "9", "10", "11"]
         
         for testString in initialStrings {
             let resultInt = rsa.stringToInt(text: testString)
@@ -54,7 +54,7 @@ class HLCryptoTests: XCTestCase {
 
     func testIntToString() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let initialInts: [HLPrimeType] = [1451, 91413]
+        let initialInts: [HLPrimeType] = [1, 10]
         
         for testInt in initialInts {
             let str = rsa.intToString(n: testInt)
@@ -70,13 +70,13 @@ class HLCryptoTests: XCTestCase {
 
     func testEncodeDecodeSingleInt() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let secretKey: HLPrimeType = 300023
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        let initialInts: [HLPrimeType] = [2305, 91413]
+        let initialInts: [HLPrimeType] = [2305]
         
         for testInt in initialInts {
             let encodedValue = rsa.encode(m: testInt, key: secretKey)
             let decodedValue = rsa.encode(m: encodedValue, key: calculatedKey)
+            print("testInt: \(testInt)  encodedValue: \(encodedValue)  decodedValue: \(decodedValue)")
             if testInt != decodedValue {
                 XCTAssert(false, "testInt '\(testInt)' encodedValue '\(encodedValue)' converted back to '\(decodedValue)'")
             }

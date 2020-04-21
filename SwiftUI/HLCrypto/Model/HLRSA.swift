@@ -28,8 +28,8 @@ public struct HLRSA {
     let chuckSize: Int
     let chunkSizeDouble: Double
 
-    let charSetSize: HLPrimeType
-    let charSet: [Character]
+    let characterSetSize: HLPrimeType   //  used in calculations involving HLPrimetypes
+    let characterSet: [Character]
     
     
     func chunker(workingString: inout String) -> String   {
@@ -161,35 +161,48 @@ public struct HLRSA {
     }
     
     
+    //  for a give char, return it's index in the charSet
+    func indexForChar( c: Character) -> Int {
+        for index in 0..<Int(characterSetSize) {
+            if c == characterSet[index] {
+                return index
+            }
+        }
+        
+        assert(false, "indexForChar failed to find character")
+        return 0    //  returns 0 if not found
+    }
+    
+    
     //  have to add one to the index to avoid zero
     func stringToInt(text: String) -> HLPrimeType {
         var result: HLPrimeType = 0
         
         for char in text    {
-            result *= charSetSize
-            let n = Int64(indexForChar(c: char))
+            result *= characterSetSize
+            let n = HLPrimeType(indexForChar(c: char))
      //       print( "stringToInt-  char: \(char)  result: \(result)    n: \(n)" )
-            result += n
+            result += n //  adding one to avoid 0 index
        }
         
-        return result
+        return result + 1
     }
     
     //  have to subtract one to make up for the add one in stringToInt()
     func intToString( n: HLPrimeType ) -> String {
         var result = ""
-        var workingN = n
-        var power = charSetSize
-        while power < n {   power *= charSetSize }
+        var workingN = n - 1
+        var power = characterSetSize
+        while power < n {   power *= characterSetSize }
         
         while power > 1 {
-            power /= charSetSize
-            if workingN >= power {
+            power /= characterSetSize
+        //    if workingN >= power {
                 let index = Int(workingN / power)
                 
     //            print( "intToString-  workingN: \(workingN)  power: \(power)" )
-                result.append(charSet[index])
-           }
+                result.append(characterSet[index])
+      //     }
             workingN %= power
    //         print( "intToString-  result: \(result)" )
         }
@@ -206,9 +219,9 @@ public struct HLRSA {
 
         while inputString.count > 0    {
             var char = inputString.removeFirst()
-            if !charSet.contains(char)   {
+            if !characterSet.contains(char)   {
                 print( "Warning:  Invalid character: '\(char)' in string!" )
-                char = charSet[0]   //  use the first char as the default
+                char = characterSet[0]   //  use the first char as the default
             }
 
             outputString.append(char)
@@ -256,23 +269,6 @@ public struct HLRSA {
         
         return dataOut
     }
-    
-    //  for a give char, return it's index in the charSet
-    //  return 1 not 0 for the first index
-    func indexForChar( c: Character) -> Int {
-        var index = Int(charSetSize - 1)
-        while index >= 0  {
-            let d = charSet[index]
-            if c == d   {
-                break
-            }
-            
-            index -= 1
-        }
-        
-        return index
-    }
-    
     
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
@@ -349,16 +345,16 @@ public struct HLRSA {
     
     init(p: HLPrimeType, q: HLPrimeType, characterSet: String) {
     
-        charSet = Array(characterSet)
-        charSetSize = Int64(charSet.count)
+        self.characterSet = Array(characterSet)
+        characterSetSize = Int64(characterSet.count)
 
         N = p * q
         phi = (p-1) * (q-1)
 
-        chunkSizeDouble = log(Double(N)) / log(Double(charSetSize))
+        chunkSizeDouble = log(Double(N)) / log(Double(characterSetSize))
         chuckSize = Int(chunkSizeDouble)
         
         print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(phi)" )
-        print( "HLRSA-  init-  characterSet: \(characterSet)   charSetSize: \(charSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
+        print( "HLRSA-  init-  characterSet: \(characterSet)   charSetSize: \(characterSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
     }
 }

@@ -19,7 +19,7 @@ struct HLCryptoView: View {
     let HLErrorInvalidDataTitle = "Data in TextField is not valid"
     let HLTextFieldWidth: CGFloat = 110
     let textFieldBackgroundColor = Color(red: 0.9, green: 0.9, blue: 0.9)
-    let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.92)
+    let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
 
     var body: some View {
         VStack {

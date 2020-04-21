@@ -18,6 +18,8 @@ struct PrimeFinderView: View {
     let terminalPrimeWidth: CGFloat = 100.0
     let outsidePaddingValue: CGFloat = 16
     let verticalPaddingValue: CGFloat = 12
+    let textFieldBackgroundColor = Color(red: 0.9, green: 0.9, blue: 0.9)
+    let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
 
     var body: some View {
         
@@ -35,9 +37,11 @@ struct PrimeFinderView: View {
 
                     if pfViewModel.primesURL != nil {
                         Text(pfViewModel.primesURL!.path)
+                        .background(textFieldBackgroundColor)
 
                     } else {
                         Text("Primes file path not set")
+                        .background(textFieldBackgroundColor)
                     }
                 }
                             
@@ -53,8 +57,10 @@ struct PrimeFinderView: View {
 
                     if pfViewModel.nicePrimesURL != nil {
                         Text(pfViewModel.nicePrimesURL!.path)
+                        .background(textFieldBackgroundColor)
                     } else {
                         Text("Nice Primes file path not set")
+                        .background(textFieldBackgroundColor)
                     }
                 }
 
@@ -126,6 +132,7 @@ struct PrimeFinderView: View {
         }
     //    .frame(width: 500, height: 200, alignment: .center)
         .padding(outsidePaddingValue)
+        .background(windowBackgroundColor)
     }
 }
 
