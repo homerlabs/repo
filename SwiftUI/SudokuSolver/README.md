@@ -5,3 +5,4 @@ Sudoku Solver downloads Sudoku puzzles from www.websudoku.com.  It displays the 
 TODO:
     make collectionView look better
     get Help working
+    add unit tests

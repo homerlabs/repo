@@ -11,8 +11,8 @@ import XCTest
 
 class HLCryptoTests: XCTestCase {
 
-//    let characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
-    let characterSet = "0123456789"
+    let characterSet = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+//    let characterSet = "0123456789"
     let p1: HLPrimeType = 503
     let q1: HLPrimeType = 983
     let secretKey: HLPrimeType = 300023
@@ -28,7 +28,7 @@ class HLCryptoTests: XCTestCase {
     func testSingleChunk() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        let plaintextChunk = "90"
+        let plaintextChunk = "DEF"
         
         let cipherChunk = rsa.encodeString(input: plaintextChunk, encodeKey: secretKey, decodeKey: calculatedKey)
         let deCipherChunk = rsa.encodeString(input: cipherChunk, encodeKey: calculatedKey, decodeKey: secretKey)
@@ -38,7 +38,7 @@ class HLCryptoTests: XCTestCase {
 
     func testStringToInt() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let initialStrings = ["0", "9", "10", "11"]
+        let initialStrings = ["DEF"]
         
         for testString in initialStrings {
             let resultInt = rsa.stringToInt(text: testString)
@@ -54,7 +54,7 @@ class HLCryptoTests: XCTestCase {
 
     func testIntToString() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let initialInts: [HLPrimeType] = [1, 10]
+        let initialInts: [HLPrimeType] = [452523]
         
         for testInt in initialInts {
             let str = rsa.intToString(n: testInt)
@@ -68,10 +68,10 @@ class HLCryptoTests: XCTestCase {
         XCTAssert(true)
     }
 
-    func testEncodeDecodeSingleInt() {
+    func testEncodeSingleInt() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        let initialInts: [HLPrimeType] = [2305]
+        let initialInts: [HLPrimeType] = [56527]
         
         for testInt in initialInts {
             let encodedValue = rsa.encode(m: testInt, key: secretKey)

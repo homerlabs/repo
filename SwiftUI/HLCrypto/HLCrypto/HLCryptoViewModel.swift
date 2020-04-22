@@ -22,7 +22,7 @@ class HLCryptoViewModel: ObservableObject {
     @Published var primeQ: HLPrimeType  = 983
     @Published var chosenKey: HLPrimeType = 36083
     @Published var calculatedKey: HLPrimeType = 0
-    @Published var characterSet = "-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"
+    @Published var characterSet = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     @Published var characterSetCount = 0
 
     @Published var pq: HLPrimeType = 0

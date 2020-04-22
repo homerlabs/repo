@@ -14,37 +14,46 @@ struct HLPuzzleView: View {
     let hlCellSize: CGFloat = 40
     let hlToggleSize: CGFloat = 150
     let mainPadding: CGFloat = 40
-    let textColor = [Color.red, Color.blue, Color.green, Color.orange]
+    let textColor = [Color.orange, Color.blue, Color.red, Color.green]
     let numberOfColumns = 9
 
     var body: some View {
         VStack {
             Spacer()
-            VStack {
-                HStack {
-                   Toggle(isOn: $puzzleViewModel.testRows, label:  {
-                        Text("Rows")
-                    })
-                    .frame(width: hlToggleSize)
-                    Spacer()
-                }
-                HStack {
-                    Toggle(isOn: $puzzleViewModel.testColumns) {
-                        Text("Columns")
+            HStack {
+                VStack {
+                    HStack {
+                       Toggle(isOn: $puzzleViewModel.testRows, label:  {
+                            Text("Rows")
+                        })
+                        .frame(width: hlToggleSize)
+                        Spacer()
                     }
-                    .frame(width: hlToggleSize)
-                    Spacer()
-                }
-                    
-                HStack {
-                    Toggle(isOn: $puzzleViewModel.testBlocks) {
-                        Text("Blocks")
+                    HStack {
+                        Toggle(isOn: $puzzleViewModel.testColumns) {
+                            Text("Columns")
+                        }
+                        .frame(width: hlToggleSize)
+                        Spacer()
                     }
-                    .frame(width: hlToggleSize)
-                    Spacer()
+                        
+                    HStack {
+                        Toggle(isOn: $puzzleViewModel.testBlocks) {
+                            Text("Blocks")
+                        }
+                        .frame(width: hlToggleSize)
+                        Spacer()
+                    }
                 }
-                    
-                Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
+                
+                VStack {
+                    Image("ColorKey")
+                    HStack {
+                        Spacer()
+                        Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
+                    }
+                }
+       //     Spacer()
             }
             .padding(mainPadding)
             Spacer()
