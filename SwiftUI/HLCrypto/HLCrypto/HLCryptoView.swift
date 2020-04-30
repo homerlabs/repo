@@ -88,7 +88,7 @@ struct HLCryptoView: View {
             VStack {
                 //**********  Character Set, Chunk Size, and Character Set Size
                 HStack {
-                    Text("Character Set:")
+                    Text("Character Set:   ASCII range: ['!' - '~']")
                     Spacer()
                     Text("Chunk Size:  \(cryptoViewModel.chunkSize)")
                     Spacer()
@@ -144,6 +144,7 @@ struct HLCryptoView: View {
                             self.cryptoViewModel.setupKeys()
                         } else {
                              self.zeroChosenKeyMessage = true
+                             self.cryptoViewModel.chosenKey = 3
                         }
                   })
                     .frame(width: HLTextFieldWidth)
@@ -154,7 +155,7 @@ struct HLCryptoView: View {
                   Spacer()
               }
                 .alert(isPresented: $zeroChosenKeyMessage) {
-                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'Chosen Key' value must be a non-zero integer"))}
+                    Alert(title: Text(HLErrorInvalidDataTitle), message: Text("'Chosen Key' value must be prime > 2 and less than (p-1)*(q-1)"))}
                 .padding(.bottom)
         }
 

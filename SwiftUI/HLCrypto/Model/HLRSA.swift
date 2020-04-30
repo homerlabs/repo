@@ -40,7 +40,7 @@ public struct HLRSA {
         guard workingString.count > 0 else { return "" }
         
         var chunk = String(workingString.removeFirst())
-        var chunkInt = stringToInt(text: chunk)
+        var chunkInt = stringToInt(chunk)
        
 //        print( "chunker-  workingString: \(workingString)" )
         
@@ -53,7 +53,7 @@ public struct HLRSA {
                 break
             }
             tempChunk.append(workingString.first!)  //  take a peek but don't consume yet
-            chunkInt = stringToInt(text: tempChunk)
+            chunkInt = stringToInt(tempChunk)
             
             if chunkInt < N {
                 chunk.append(workingString.removeFirst())
@@ -178,7 +178,7 @@ public struct HLRSA {
     
     
     //  have to add one to the index to avoid zero
-    func stringToInt(text: String) -> HLPrimeType {
+    func stringToInt(_ text: String) -> HLPrimeType {
         var result: HLPrimeType = 0
         
         for char in text    {
@@ -194,7 +194,7 @@ public struct HLRSA {
     }
     
     //  have to subtract one to make up for the add one in stringToInt()
-    func intToString( n: HLPrimeType ) -> String {
+    func intToString(_ n: HLPrimeType ) -> String {
         var result = ""
         var workingN = n
         var power = characterSetSize
@@ -210,17 +210,12 @@ public struct HLRSA {
    //         print( "intToString-  result: \(result)" )
         }
         
-        //  add delimiter so chunker knows not to add next char for current chunk
-        if result.count < chuckSize {
-            result.append(paddingChar)
-        }
-        
         return result
     }
     
     
     //  check each character in the input string and replace any invalid character with a default character
-    //  use the first character in the characterSet as the default character
+    //  use the last character in the characterSet as the default character
     func validateCharactersInSet( data: String ) -> String   {
         var inputString = data
         var outputString = ""
@@ -228,8 +223,8 @@ public struct HLRSA {
         while inputString.count > 0    {
             var char = inputString.removeFirst()
             if !characterSet.contains(char) && char != paddingChar   {
-                print( "Warning:  Invalid character: '\(char)' in string!" )
-                char = characterSet[0]   //  use the first char as the default
+                print( "****************    Warning:  Invalid character: '\(char)' in string!" )
+                char = characterSet.last!   //  use the last char as the default
             }
 
             outputString.append(char)
@@ -238,12 +233,12 @@ public struct HLRSA {
         return outputString
     }
         
-    public func encodeFile(inputFilepath: String, outputFilepath: String, encodeKey: HLPrimeType, decodeKey: HLPrimeType)  {
+    public func encodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  encode: \(path)" )
         do {
             let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            let dataOut = encodeString(input: dataIn, encodeKey: encodeKey, decodeKey: decodeKey)
-            let dataVerify = encodeString(input: dataOut, encodeKey: decodeKey, decodeKey: encodeKey)
+            let dataOut = encodeString(dataIn)
+            let dataVerify = decodeString(dataOut)
             
             if dataIn != dataVerify {
                 print("encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
@@ -256,33 +251,98 @@ public struct HLRSA {
         }
     }
     
-    func encodeString(input: String, encodeKey: HLPrimeType, decodeKey: HLPrimeType) -> String  {
-        print( "HLRSA-  encodeString:   encodeKey: \(encodeKey)   decodeKey: \(decodeKey)\n\(input)" )
+    public func decodeFile(inputFilepath: String, outputFilepath: String)  {
+//        print( "HLRSA-  decodeFile: \(inputFilepath)" )
+        do {
+            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            let dataOut = decodeString(dataIn)
+            let dataVerify = encodeString(dataOut)
+            
+            if dataIn != dataVerify {
+                print("decodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
+            }
+       //     assert(dataIn == dataVerify, "encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
+
+            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func encodeString(_ input: String) -> String  {
+        print( "HLRSA-  encodeString:  \(input)" )
         var workingString = validateCharactersInSet( data: input )
         var dataOut = ""
         
-        var chunk = chunker(workingString: &workingString)
+        var plainChunk = chunker(workingString: &workingString)
 //           print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
 
-        while chunk.count > 0 {
-            let plaintextInt = stringToInt(text: chunk)
-            let cipherInt = encode(m: plaintextInt, key: encodeKey)
-            let cipherChunk = intToString(n: cipherInt)
-            dataOut.append(cipherChunk)
+        while plainChunk.count > 0 {
+            let plainInt = stringToInt(plainChunk)
+            let cipherInt = encode(m: plainInt, key: keyPublic)
+            var encodeChunk = intToString(cipherInt)
             
-            //  don't use cipherInt in case there is a stringToInt() or intToString() problem
-            let newCipherInt = stringToInt(text: cipherChunk)
-            let deCipherInt = encode(m: newCipherInt, key: decodeKey)
-            
-            var deCipherString = intToString(n: deCipherInt)
-            if deCipherString.last == paddingChar {
-                deCipherString.removeLast()
+            //  when encoding, must pad chunk for small ints otherwise chunker won't know when to end chunk
+            if encodeChunk.count < chuckSize {
+                encodeChunk.append(paddingChar)
             }
             
-            print( "plaintextChunk: \(chunk)    plaintextInt: \(plaintextInt)    cipherInt: \(cipherInt)    cipherChunk: \(cipherChunk)    deCipherChunk: \(deCipherString)" )
-            assert(chunk == deCipherString, "Error-  chunk: \(chunk) decoded back to \(deCipherString)")
+            dataOut.append(encodeChunk)
             
-            chunk = chunker(workingString: &workingString)
+            //  don't use cipherInt in case there is a stringToInt() or intToString() problem
+            let newCipherInt = stringToInt(encodeChunk)
+            let newPlainInt = encode(m: newCipherInt, key: keyPrivate)
+            
+            //  paddingChar needed in ciphertext by the chunker but should be stripped from deciphertext
+            let decodedString = intToString(newPlainInt)
+/*            if decodedString.last == paddingChar {
+                deCipherString.removeLast()
+            }   */
+            
+            print( "plainChunk: \(plainChunk)    plainInt: \(plainInt)    cipherInt: \(cipherInt)    cipherChunk: \(encodeChunk)    decodedString: \(decodedString)" )
+            if plainChunk != decodedString {
+                print("******************   Error-  chunk: \(plainChunk) decoded back to \(decodedString)")
+            }
+    //        assert(chunk == decodedString, "Error-  plainChunk: \(plainChunk) decoded back to \(decodedString)")
+            
+            plainChunk = chunker(workingString: &workingString)
+        }
+        
+        return dataOut
+    }
+    
+    func decodeString(_ input: String) -> String  {
+        print( "HLRSA-  decodeString:  \(input)" )
+        var workingString = validateCharactersInSet( data: input )
+        var dataOut = ""
+        
+        var cipherChunk = chunker(workingString: &workingString)
+//           print( "HLRSA1-  decodeString-  cipherChunk: \(cipherChunk)  workingString: \(workingString)" )
+
+        while cipherChunk.count > 0 {
+            let cipherInt = stringToInt(cipherChunk)
+            let decipherInt = encode(m: cipherInt, key: keyPrivate)
+            let decipherChunk = intToString(decipherInt)
+            
+            dataOut.append(decipherChunk)
+            
+            //  don't use decipherInt in case there is a stringToInt() or intToString() problem
+            let newDecipherInt = stringToInt(decipherChunk)
+            let newCipherInt = encode(m: newDecipherInt, key: keyPublic)
+            
+            //  paddingChar needed in ciphertext by the chunker but should be stripped from deciphertext
+            let decodedString = intToString(newCipherInt)
+/*            if decodedString.last == paddingChar {
+                deCipherString.removeLast()
+            }   */
+            
+            print( "cipherChunk: \(cipherChunk)    cipherInt: \(cipherInt)    decipherInt: \(decipherInt)    decipherChunk: \(decipherChunk)    decodedString: \(decodedString)" )
+            if cipherChunk != decodedString {
+                print("******************   Error-  chunk: \(cipherChunk) decoded back to \(decodedString)")
+            }
+    //        assert(chunk == decodedString, "Error-  chunk: \(chunk) decoded back to \(decodedString)")
+            
+            cipherChunk = chunker(workingString: &workingString)
         }
         
         return dataOut

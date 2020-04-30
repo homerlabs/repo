@@ -48,7 +48,7 @@ class HLCryptoViewModel: ObservableObject {
         if plaintextFileMissingMessage {
             plainTextURL = nil
         } else {
-            rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path, encodeKey: rsa.keyPublic, decodeKey: rsa.keyPrivate)
+            rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
         }
     }
     
@@ -57,7 +57,7 @@ class HLCryptoViewModel: ObservableObject {
         if ciphertextFileMissingMessage {
             cipherTextURL = nil
         } else {
-            rsa.encodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path, encodeKey: rsa.keyPrivate, decodeKey: rsa.keyPublic)
+            rsa.decodeFile(inputFilepath: cipherTextURL!.path, outputFilepath: decipherTextURL!.path)
         }
     }
     

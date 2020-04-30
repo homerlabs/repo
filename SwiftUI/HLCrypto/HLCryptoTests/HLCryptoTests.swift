@@ -28,7 +28,7 @@ class HLCryptoTests: XCTestCase {
     func testSingleChunk() {
         let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
         let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        let plaintextChunk = "DEF"
+        let plaintextChunk = "123"
         
         let cipherChunk = rsa.encodeString(input: plaintextChunk, encodeKey: secretKey, decodeKey: calculatedKey)
         let deCipherChunk = rsa.encodeString(input: cipherChunk, encodeKey: calculatedKey, decodeKey: secretKey)
@@ -41,8 +41,8 @@ class HLCryptoTests: XCTestCase {
         let initialStrings = ["DEF"]
         
         for testString in initialStrings {
-            let resultInt = rsa.stringToInt(text: testString)
-            let finalString = rsa.intToString(n: resultInt)
+            let resultInt = rsa.stringToInt(testString)
+            let finalString = rsa.intToString(resultInt)
             print("testString: \(testString)  resultInt: \(resultInt)  finalString: \(finalString)")
             if testString != finalString {
                 XCTAssert(false, "testString '\(testString)' converted back to '\(finalString)'")
@@ -57,8 +57,8 @@ class HLCryptoTests: XCTestCase {
         let initialInts: [HLPrimeType] = [452523]
         
         for testInt in initialInts {
-            let str = rsa.intToString(n: testInt)
-            let finalInt = rsa.stringToInt(text: str)
+            let str = rsa.intToString(testInt)
+            let finalInt = rsa.stringToInt(str)
             print("testInt: \(testInt)  str: \(str)  finalInt: \(finalInt)")
             if testInt != finalInt {
                 XCTAssert(false, "testInt '\(testInt)' converted back to '\(finalInt)'")
