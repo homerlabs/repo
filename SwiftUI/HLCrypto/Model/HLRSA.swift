@@ -23,14 +23,15 @@ public struct HLRSA {
 
     let N: HLPrimeType
     let phi: HLPrimeType
-    var keyPrivate: HLPrimeType = 0
-    var keyPublic: HLPrimeType = 0
+    var keyPrivate: HLPrimeType = 0 //  gets set in init()
+    var keyPublic: HLPrimeType
     let chuckSize: Int
     let chunkSizeDouble: Double
 
     let characterSetSize: HLPrimeType   //  used in calculations involving HLPrimetypes
     let characterSet: [Character]
     let paddingChar: Character = ":"
+    let paddingNeededThreshold: HLPrimeType
     
     
     //  chunker chops off a chuck of the workingString (mutating the workingString)
@@ -165,6 +166,7 @@ public struct HLRSA {
     
     
     //  for a give char, return it's index in the charSet
+    //  add 1 to index to avoid returning zero
     func indexForChar( c: Character) -> Int {
         for index in 0..<Int(characterSetSize) {
             if c == characterSet[index] {
@@ -177,7 +179,6 @@ public struct HLRSA {
     }
     
     
-    //  have to add one to the index to avoid zero
     func stringToInt(_ text: String) -> HLPrimeType {
         var result: HLPrimeType = 0
         
@@ -204,7 +205,7 @@ public struct HLRSA {
             power /= characterSetSize
             let index = Int(workingN / power)
                 
-    //        print( "intToString-  workingN: \(workingN)  power: \(power)" )
+//            print( "intToString-  workingN: \(workingN)  power: \(power)    index: \(index)" )
             result.append(characterSet[index])
             workingN %= power
    //         print( "intToString-  result: \(result)" )
@@ -216,7 +217,7 @@ public struct HLRSA {
     
     //  check each character in the input string and replace any invalid character with a default character
     //  use the last character in the characterSet as the default character
-    func validateCharactersInSet( data: String ) -> String   {
+    public func validateCharactersInSet( data: String ) -> String   {
         var inputString = data
         var outputString = ""
 
@@ -233,64 +234,30 @@ public struct HLRSA {
         return outputString
     }
         
-    public func encodeFile(inputFilepath: String, outputFilepath: String)  {
-//        print( "HLRSA-  encode: \(path)" )
-        do {
-            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            let dataOut = encodeString(dataIn)
-            let dataVerify = decodeString(dataOut)
-            
-            if dataIn != dataVerify {
-                print("encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
-            }
-       //     assert(dataIn == dataVerify, "encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
-
-            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    public func decodeFile(inputFilepath: String, outputFilepath: String)  {
-//        print( "HLRSA-  decodeFile: \(inputFilepath)" )
-        do {
-            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            let dataOut = decodeString(dataIn)
-            let dataVerify = encodeString(dataOut)
-            
-            if dataIn != dataVerify {
-                print("decodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
-            }
-       //     assert(dataIn == dataVerify, "encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
-
-            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func encodeString(_ input: String) -> String  {
+    public func encodeString(_ input: inout String) -> String  {
         print( "HLRSA-  encodeString:  \(input)" )
         var workingString = validateCharactersInSet( data: input )
+        var byteStuffedInput = ""
         var dataOut = ""
         
         var plainChunk = chunker(workingString: &workingString)
 //           print( "HLRSA1-  encodeFile-  chunk: \(chunk)  workingString: \(workingString)" )
-
+        
         while plainChunk.count > 0 {
+            byteStuffedInput.append(plainChunk)
             let plainInt = stringToInt(plainChunk)
             let cipherInt = encode(m: plainInt, key: keyPublic)
-            var encodeChunk = intToString(cipherInt)
+            var cipherChunk = intToString(cipherInt)
             
             //  when encoding, must pad chunk for small ints otherwise chunker won't know when to end chunk
-            if encodeChunk.count < chuckSize {
-                encodeChunk.append(paddingChar)
+            if cipherInt < paddingNeededThreshold {
+                cipherChunk.append(paddingChar)
             }
             
-            dataOut.append(encodeChunk)
+            dataOut.append(cipherChunk)
             
             //  don't use cipherInt in case there is a stringToInt() or intToString() problem
-            let newCipherInt = stringToInt(encodeChunk)
+            let newCipherInt = stringToInt(cipherChunk)
             let newPlainInt = encode(m: newCipherInt, key: keyPrivate)
             
             //  paddingChar needed in ciphertext by the chunker but should be stripped from deciphertext
@@ -299,7 +266,7 @@ public struct HLRSA {
                 deCipherString.removeLast()
             }   */
             
-            print( "plainChunk: \(plainChunk)    plainInt: \(plainInt)    cipherInt: \(cipherInt)    cipherChunk: \(encodeChunk)    decodedString: \(decodedString)" )
+            print( "plainChunk: \(plainChunk)    plainInt: \(plainInt)    cipherInt: \(cipherInt)    cipherChunk: \(cipherChunk)    decodedString: \(decodedString)" )
             if plainChunk != decodedString {
                 print("******************   Error-  chunk: \(plainChunk) decoded back to \(decodedString)")
             }
@@ -308,10 +275,11 @@ public struct HLRSA {
             plainChunk = chunker(workingString: &workingString)
         }
         
+        input = byteStuffedInput
         return dataOut
     }
     
-    func decodeString(_ input: String) -> String  {
+    public func decodeString(_ input: String) -> String  {
         print( "HLRSA-  decodeString:  \(input)" )
         var workingString = validateCharactersInSet( data: input )
         var dataOut = ""
@@ -347,6 +315,55 @@ public struct HLRSA {
         
         return dataOut
     }
+    
+    public func encodeFile(inputFilepath: String, outputFilepath: String)  {
+//        print( "HLRSA-  encode: \(path)" )
+        do {
+            var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            let dataOut = encodeString(&dataIn)
+            let dataVerify = decodeString(dataOut)
+            
+            if dataIn != dataVerify {
+                print("encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
+            }
+       //     assert(dataIn == dataVerify, "encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
+
+            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    public func decodeFile(inputFilepath: String, outputFilepath: String)  {
+//        print( "HLRSA-  decodeFile: \(inputFilepath)" )
+        do {
+            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            var dataOut = decodeString(dataIn)
+            let dataVerify = encodeString(&dataOut)
+            
+            if dataIn != dataVerify {
+                print("decodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
+            }
+       //     assert(dataIn == dataVerify, "encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
+
+            try dataOut.write(toFile: outputFilepath, atomically: false, encoding: .utf8)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    //  can not have first char be characterSet[0]
+    //  to avoid, byte stuff first char with any other char in the characterSet
+/*    func byteStuffChunk(_ chunk: String) -> String {
+        var newChunk = chunk
+        
+        if newChunk.first == characterSet.first {
+            newChunk.removeFirst()
+            newChunk = String(characterSet.last!) + newChunk
+        }
+        
+        return newChunk
+    }*/
     
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
@@ -421,7 +438,28 @@ public struct HLRSA {
         else                {   return -1            }
     }
     
-    init(p: HLPrimeType, q: HLPrimeType, characterSet: String) {
+    public func makeRandomPlaintextString(numberOfCharacters: Int) -> String {
+        var outputString = ""
+        for _ in 0..<numberOfCharacters {
+            //  never include characterSet[0]
+            let randomInt = Int.random(in: 0..<Int(characterSetSize-1)) + 1
+            outputString.append(characterSet[randomInt])
+        }
+        
+        return outputString
+    }
+    
+    public func makeRandomPlaintextFile(fileURL: URL, numberOfCharacters: Int)  {
+        let data = makeRandomPlaintextString(numberOfCharacters: numberOfCharacters)
+        do {
+            try data.write(to: fileURL, atomically: false, encoding: .utf8)
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    init(p: HLPrimeType, q: HLPrimeType, publicKey: HLPrimeType, characterSet: String) {
     
         self.characterSet = Array(characterSet)
         characterSetSize = Int64(characterSet.count)
@@ -432,7 +470,16 @@ public struct HLRSA {
         chunkSizeDouble = log(Double(N)) / log(Double(characterSetSize))
         chuckSize = Int(chunkSizeDouble)
         
-        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(phi)" )
+        var temp: HLPrimeType = 1
+        for _ in 0..<chuckSize {
+            temp *= characterSetSize
+        }
+        paddingNeededThreshold = temp
+        
+        keyPublic = publicKey
+        keyPrivate = calculateKey(publicKey: publicKey)
+        
+        print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(phi)   publicKey: \(publicKey)" )
         print( "HLRSA-  init-  characterSet: \(characterSet)   charSetSize: \(characterSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
     }
 }

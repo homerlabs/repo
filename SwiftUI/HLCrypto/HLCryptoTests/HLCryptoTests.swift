@@ -11,11 +11,11 @@ import XCTest
 
 class HLCryptoTests: XCTestCase {
 
-    let characterSet = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-//    let characterSet = "0123456789"
-    let p1: HLPrimeType = 503
-    let q1: HLPrimeType = 983
-    let secretKey: HLPrimeType = 300023
+//    let characterSet = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    let characterSet = "0123456789"
+    let p1: HLPrimeType = 599
+    let q1: HLPrimeType = 659
+    let publicKey: HLPrimeType = 100019
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -26,19 +26,18 @@ class HLCryptoTests: XCTestCase {
     }
     
     func testSingleChunk() {
-        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        let plaintextChunk = "123"
+        let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
+        var plaintextChunk = "1"
         
-        let cipherChunk = rsa.encodeString(input: plaintextChunk, encodeKey: secretKey, decodeKey: calculatedKey)
-        let deCipherChunk = rsa.encodeString(input: cipherChunk, encodeKey: calculatedKey, decodeKey: secretKey)
+        let cipherChunk = rsa.encodeString(&plaintextChunk)
+        let deCipherChunk = rsa.decodeString(cipherChunk)
         
         XCTAssert(plaintextChunk == deCipherChunk, "plaintextChunk '\(plaintextChunk)' converted back to '\(deCipherChunk)'")
     }
 
     func testStringToInt() {
-        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let initialStrings = ["DEF"]
+        let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
+        let initialStrings = ["1", "11"]
         
         for testString in initialStrings {
             let resultInt = rsa.stringToInt(testString)
@@ -53,7 +52,7 @@ class HLCryptoTests: XCTestCase {
     }
 
     func testIntToString() {
-        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
+        let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
         let initialInts: [HLPrimeType] = [452523]
         
         for testInt in initialInts {
@@ -69,13 +68,12 @@ class HLCryptoTests: XCTestCase {
     }
 
     func testEncodeSingleInt() {
-        let rsa = HLRSA(p: p1, q: q1, characterSet: characterSet)
-        let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        let initialInts: [HLPrimeType] = [56527]
+        let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
+        let initialInts: [HLPrimeType] = [11]
         
         for testInt in initialInts {
-            let encodedValue = rsa.encode(m: testInt, key: secretKey)
-            let decodedValue = rsa.encode(m: encodedValue, key: calculatedKey)
+            let encodedValue = rsa.encode(m: testInt, key: rsa.keyPublic)
+            let decodedValue = rsa.encode(m: encodedValue, key: rsa.keyPrivate)
             print("testInt: \(testInt)  encodedValue: \(encodedValue)  decodedValue: \(decodedValue)")
             if testInt != decodedValue {
                 XCTAssert(false, "testInt '\(testInt)' encodedValue '\(encodedValue)' converted back to '\(decodedValue)'")
@@ -88,10 +86,9 @@ class HLCryptoTests: XCTestCase {
     func testCalculateKey() {
         let p: HLPrimeType = 251
         let q: HLPrimeType = 257
-        let secretKey: HLPrimeType = 101
         let publicKey: HLPrimeType = 1901
-        let rsa = HLRSA(p: p, q: q, characterSet: characterSet)
-        let calculatedKey = rsa.calculateKey(publicKey: secretKey)
-        XCTAssert(calculatedKey == publicKey, "calculatedKey was '\(calculatedKey)', should have been '\(publicKey)'")
+        let rsa1 = HLRSA(p: p, q: q, publicKey: publicKey, characterSet: characterSet)
+        let rsa2 = HLRSA(p: p, q: q, publicKey: rsa1.keyPrivate, characterSet: characterSet)
+        XCTAssert(rsa2.keyPrivate == rsa1.keyPublic, "calculatedKey was '\(rsa2.keyPrivate)', should have been '\(rsa1.keyPublic)'")
     }
 }

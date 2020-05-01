@@ -33,7 +33,7 @@ class HLCryptoViewModel: ObservableObject {
     @Published var ciphertextFileMissingMessage = false
 
     //  these values are arbitrary as the true defaults are set above
-    private var rsa: HLRSA = HLRSA(p: 11, q: 23, characterSet: "1234567890")
+    private var rsa: HLRSA = HLRSA(p: 11, q: 23, publicKey: 13, characterSet: "1234567890")
 
     let HLPlainTextPathKey      = "PlainTextPathKey"
     let HLCipherTextPathKey     = "CipherTextPathKey"
@@ -48,6 +48,7 @@ class HLCryptoViewModel: ObservableObject {
         if plaintextFileMissingMessage {
             plainTextURL = nil
         } else {
+   //         rsa.makeRandomPlaintextFile(fileURL: plainTextURL!, numberOfCharacters: 5000)
             rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
         }
     }
@@ -74,7 +75,7 @@ class HLCryptoViewModel: ObservableObject {
         phi = (primeP - 1) * (primeQ - 1)
         characterSetCount = characterSet.count
         
-        rsa = HLRSA(p: primeP, q: primeQ, characterSet: characterSet)
+        rsa = HLRSA(p: primeP, q: primeQ, publicKey: chosenKey, characterSet: characterSet)
         chunkSize = String.init(format: "%0.1f", arguments: [rsa.chunkSizeDouble])
 
         setupKeys()
