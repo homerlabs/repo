@@ -88,7 +88,7 @@ struct HLCryptoView: View {
             VStack {
                 //**********  Character Set, Chunk Size, and Character Set Size
                 HStack {
-                    Text("Character Set:   ASCII range: ['!' - '~']")
+                    Text("Character Set:   ASCII range: ['#' - '~']")
                     Spacer()
                     Text("Chunk Size:  \(cryptoViewModel.chunkSize)")
                     Spacer()

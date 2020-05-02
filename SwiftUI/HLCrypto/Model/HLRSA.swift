@@ -217,7 +217,29 @@ public struct HLRSA {
     
     //  check each character in the input string and replace any invalid character with a default character
     //  use the last character in the characterSet as the default character
-    public func validateCharactersInSet( data: String ) -> String   {
+    //  all occurances of the characterSet.first will be replaced with characterSet.last
+    //  this is a special case where characterSet.first is part of the characterSet but not allowed in the plaintext
+    public func validateStringForEncode(_ data: String ) -> String   {
+        var inputString = data
+        var outputString = ""
+
+        while inputString.count > 0    {
+            var char = inputString.removeFirst()
+            if !characterSet.contains(char) || char == characterSet.first!   {
+                print( "****************    Warning:  Invalid character: '\(char)' in string!" )
+                char = characterSet.last!   //  use the last char as the default
+            }
+
+            outputString.append(char)
+        }
+        
+        return outputString
+    }
+        
+    //  check each character in the input string and replace any invalid character with a default character
+    //  use the last character in the characterSet as the default character
+    //  ignore (leave in place) any paddingChars
+    public func validateStringForDecode(_ data: String ) -> String   {
         var inputString = data
         var outputString = ""
 
@@ -235,8 +257,10 @@ public struct HLRSA {
     }
         
     public func encodeString(_ input: inout String) -> String  {
+        input = validateStringForEncode(input)
         print( "HLRSA-  encodeString:  \(input)" )
-        var workingString = validateCharactersInSet( data: input )
+
+        var workingString = input
         var byteStuffedInput = ""
         var dataOut = ""
         
@@ -279,9 +303,11 @@ public struct HLRSA {
         return dataOut
     }
     
-    public func decodeString(_ input: String) -> String  {
+    public func decodeString(_ input: inout String) -> String  {
+        input = validateStringForDecode(input)
         print( "HLRSA-  decodeString:  \(input)" )
-        var workingString = validateCharactersInSet( data: input )
+
+        var workingString = input
         var dataOut = ""
         
         var cipherChunk = chunker(workingString: &workingString)
@@ -320,8 +346,8 @@ public struct HLRSA {
 //        print( "HLRSA-  encode: \(path)" )
         do {
             var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            let dataOut = encodeString(&dataIn)
-            let dataVerify = decodeString(dataOut)
+            var dataOut = encodeString(&dataIn)
+            let dataVerify = decodeString(&dataOut)
             
             if dataIn != dataVerify {
                 print("encodeFile Error-  dataIn: \(dataIn) decoded back to \(dataVerify)")
@@ -337,8 +363,8 @@ public struct HLRSA {
     public func decodeFile(inputFilepath: String, outputFilepath: String)  {
 //        print( "HLRSA-  decodeFile: \(inputFilepath)" )
         do {
-            let dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
-            var dataOut = decodeString(dataIn)
+            var dataIn = try String(contentsOfFile: inputFilepath, encoding: .utf8)
+            var dataOut = decodeString(&dataIn)
             let dataVerify = encodeString(&dataOut)
             
             if dataIn != dataVerify {
@@ -351,19 +377,6 @@ public struct HLRSA {
             print(error.localizedDescription)
         }
     }
-    
-    //  can not have first char be characterSet[0]
-    //  to avoid, byte stuff first char with any other char in the characterSet
-/*    func byteStuffChunk(_ chunk: String) -> String {
-        var newChunk = chunk
-        
-        if newChunk.first == characterSet.first {
-            newChunk.removeFirst()
-            newChunk = String(characterSet.last!) + newChunk
-        }
-        
-        return newChunk
-    }*/
     
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50

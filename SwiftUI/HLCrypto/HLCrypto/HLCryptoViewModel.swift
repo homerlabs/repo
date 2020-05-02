@@ -76,7 +76,7 @@ class HLCryptoViewModel: ObservableObject {
         characterSetCount = characterSet.count
         
         rsa = HLRSA(p: primeP, q: primeQ, publicKey: chosenKey, characterSet: characterSet)
-        chunkSize = String.init(format: "%0.1f", arguments: [rsa.chunkSizeDouble])
+        chunkSize = String.init(format: "%0.2f", arguments: [rsa.chunkSizeDouble])
 
         setupKeys()
     }
