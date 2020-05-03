@@ -25,12 +25,12 @@ public struct HLRSA {
     let phi: HLPrimeType
     var keyPrivate: HLPrimeType = 0 //  gets set in init()
     var keyPublic: HLPrimeType
-    let chuckSize: Int
+    let chunkSizeInt: Int
     let chunkSizeDouble: Double
 
     let characterSetSize: HLPrimeType   //  used in calculations involving HLPrimetypes
     let characterSet: [Character]
-    let paddingChar: Character = ":"
+    let paddingChar: Character = "~"
     let paddingNeededThreshold: HLPrimeType
     
     
@@ -481,10 +481,10 @@ public struct HLRSA {
         phi = (p-1) * (q-1)
 
         chunkSizeDouble = log(Double(N)) / log(Double(characterSetSize))
-        chuckSize = Int(chunkSizeDouble)
+        chunkSizeInt = Int(chunkSizeDouble)
         
         var temp: HLPrimeType = 1
-        for _ in 0..<chuckSize {
+        for _ in 0..<chunkSizeInt {
             temp *= characterSetSize
         }
         paddingNeededThreshold = temp

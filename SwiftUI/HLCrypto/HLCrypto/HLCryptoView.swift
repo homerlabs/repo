@@ -88,7 +88,7 @@ struct HLCryptoView: View {
             VStack {
                 //**********  Character Set, Chunk Size, and Character Set Size
                 HStack {
-                    Text("Character Set:   ASCII range: ['#' - '~']")
+                    Text("Character Set:   ASCII range: ['!' - '}']")
                     Spacer()
                     Text("Chunk Size:  \(cryptoViewModel.chunkSize)")
                     Spacer()
@@ -164,7 +164,7 @@ struct HLCryptoView: View {
             Button(action: {
                 self.cryptoViewModel.encode()
             }) {
-                Text("Encode")
+                Text("Encrypt")
             }
             .alert(isPresented: $cryptoViewModel.plaintextFileMissingMessage) {
                 Alert(title: Text("Serious Error!"), message: Text("Plaintext file missing!"))}
@@ -178,7 +178,7 @@ struct HLCryptoView: View {
               Button(action: {
                   self.cryptoViewModel.decode()
               }) {
-                  Text("Decode")
+                  Text("Decrypt")
               }
               .alert(isPresented: $cryptoViewModel.ciphertextFileMissingMessage) {
                   Alert(title: Text("Serious Error!"), message: Text("Ciphertext file missing!"))}

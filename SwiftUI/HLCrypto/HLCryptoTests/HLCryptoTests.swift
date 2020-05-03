@@ -25,12 +25,22 @@ class HLCryptoTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
+    func testLargeRandomString() {
+        let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
+        var randomPlaintext = rsa.makeRandomPlaintextString(numberOfCharacters: 1000)
+        
+        var cipherString = rsa.encodeString(&randomPlaintext)
+        let deCipherString = rsa.decodeString(&cipherString)
+        
+        XCTAssert(randomPlaintext == deCipherString, "randomPlaintext '\(randomPlaintext)' converted back to '\(deCipherString)'")
+    }
+
     func testSingleChunk() {
         let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
         var plaintextChunk = "1"
         
-        let cipherChunk = rsa.encodeString(&plaintextChunk)
-        let deCipherChunk = rsa.decodeString(cipherChunk)
+        var cipherChunk = rsa.encodeString(&plaintextChunk)
+        let deCipherChunk = rsa.decodeString(&cipherChunk)
         
         XCTAssert(plaintextChunk == deCipherChunk, "plaintextChunk '\(plaintextChunk)' converted back to '\(deCipherChunk)'")
     }
