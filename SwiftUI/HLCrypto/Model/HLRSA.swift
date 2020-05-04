@@ -501,7 +501,7 @@ public struct HLRSA {
         var safeCharacterSet = characterSet
         let _ = HLRSA.validateCharacterSet(characterSet: &safeCharacterSet)
         self.characterSet = Array(safeCharacterSet)
-        characterSetSize = Int64(characterSet.count)
+        characterSetSize = HLPrimeType(safeCharacterSet.count)
 
         N = p * q
         phi = (p-1) * (q-1)
@@ -519,6 +519,6 @@ public struct HLRSA {
         keyPrivate = calculateKey(publicKey: publicKey)
         
         print( "HLRSA-  init-  p: \(p)    q: \(q)    N: \(N)    Phi: \(phi)   publicKey: \(publicKey)" )
-        print( "HLRSA-  init-  characterSet: \(characterSet)   charSetSize: \(characterSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
+        print( "HLRSA-  init-  characterSet: \(safeCharacterSet)   charSetSize: \(characterSetSize)    chuckSize: \(String.init(format:" %0.2f", arguments: [chunkSizeDouble]))" )
     }
 }
