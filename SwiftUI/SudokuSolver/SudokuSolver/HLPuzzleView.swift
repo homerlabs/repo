@@ -50,9 +50,10 @@ struct HLPuzzleView: View {
                 
                 VStack {
                     ColorChartView()
-                    HStack(alignment: .top, spacing: 100) {
-                 //       Spacer()
+                    HStack() {
+                        Spacer()
                         Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
+                        .padding()
                     }
                 }
        //     Spacer()

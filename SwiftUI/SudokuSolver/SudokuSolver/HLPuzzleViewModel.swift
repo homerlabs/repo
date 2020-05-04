@@ -45,7 +45,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             }
         }
             
-        saveSetting()
+        unsolvedNodeCount = solver.unsolvedCount()
     }
     
     func saveSetting() {
@@ -71,7 +71,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             
                 if let puzzleString = html as? String   {
                     self.solver = HLSolver(html: puzzleString)
-                    
+                    self.unsolvedNodeCount = self.solver.unsolvedCount()
            //         self.updateDisplay()
             //        self.undoButton.isEnabled = false
             //        self.solveButton.isEnabled = true
@@ -80,6 +80,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     }
 
     deinit {
+        saveSetting()
         print("HLPuzzleViewModel-  deinit")
     }
     

@@ -53,20 +53,20 @@ struct HLGridView<Content, T>: View where Content: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView {
-                VStack {
-                    ForEach(0...self.numberOfRows, id: \.self) { row in
-                        HStack {
-                            ForEach(0..<self.columns, id: \.self) { column in
-                                    Group {
-                                    if self.elementFor(row: row, column: column) != nil {
-                                        self.content(
-                                            self.items[self.elementFor(row: row, column: column)!])
-                                                .frame(width: self.scaleFactor * geometry.size.width / CGFloat(self.columns),
-                                                    height: self.scaleFactor * geometry.size.height / CGFloat(self.columns))
-                                    } else {
-                                        Spacer()
-                                    }
+            VStack {
+                ForEach(0...self.numberOfRows, id: \.self) { row in
+                    HStack {
+                        ForEach(0..<self.columns, id: \.self) { column in
+                                Group {
+                                if self.elementFor(row: row, column: column) != nil {
+                                    self.content(
+                                       self.items[self.elementFor(row: row, column: column)!])
+                                            .multilineTextAlignment(.center)
+                                            .frame(width: self.scaleFactor * geometry.size.width / CGFloat(self.columns),
+                                                height: self.scaleFactor * geometry.size.height / CGFloat(self.columns), alignment: .center)
+                                            .padding(2)
+                                } else {
+                                    Spacer()
                                 }
                             }
                         }
