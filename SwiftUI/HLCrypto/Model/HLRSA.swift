@@ -378,6 +378,7 @@ public struct HLRSA {
         }
     }
     
+    //  returns -1 if the calculation fails
     func calculateKey(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
         let bigGamma = Float80(exactly: phi)!
@@ -411,11 +412,12 @@ public struct HLRSA {
             let keyVerify = product.truncatingRemainder(dividingBy: bigGamma)
             assert( keyVerify.rounded() == 1 )
             return Int64(exactly: privateKey)!
+        } else {
+            return -1
         }
-        
-        else                {   return -1            }
     }
 
+    //  returns -1 if the calculation fails
     func calculateKey2(publicKey: HLPrimeType) -> HLPrimeType  {
         let arraySize = 50
         var s: [HLPrimeType] = Array(repeating: 0, count: arraySize)
@@ -446,16 +448,16 @@ public struct HLRSA {
             let keyVerify = product.truncatingRemainder(dividingBy: Float80(exactly: phi)!)
             assert( keyVerify == 1 )
             return privateKey
+        } else {
+            return -1
         }
-        
-        else                {   return -1            }
     }
     
     public func makeRandomPlaintextString(numberOfCharacters: Int) -> String {
         var outputString = ""
         for _ in 0..<numberOfCharacters {
             //  never include characterSet[0]
-            let randomInt = Int.random(in: 0..<Int(characterSetSize-1)) + 1
+            let randomInt = Int.random(in: 1..<Int(characterSetSize))
             outputString.append(characterSet[randomInt])
         }
         
