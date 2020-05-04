@@ -48,7 +48,7 @@ class HLCryptoViewModel: ObservableObject {
         if plaintextFileMissingMessage {
             plainTextURL = nil
         } else {
-   //         rsa.makeRandomPlaintextFile(fileURL: plainTextURL!, numberOfCharacters: 5000)
+   //         rsa.makeRandomPlaintextFile(fileURL: plainTextURL!, numberOfCharacters: 5000) //  for testing
             rsa.encodeFile(inputFilepath: plainTextURL!.path, outputFilepath: cipherTextURL!.path)
         }
     }

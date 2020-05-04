@@ -30,6 +30,8 @@ public struct HLRSA {
 
     let characterSetSize: HLPrimeType   //  used in calculations involving HLPrimetypes
     let characterSet: [Character]
+    static let validCharacterLowest: Character = "!"
+    static let validCharacterHighest: Character = "}"
     let paddingChar: Character = "~"
     let paddingNeededThreshold: HLPrimeType
     
@@ -474,9 +476,31 @@ public struct HLRSA {
         }
     }
     
+    //  returns true if characterSet valid
+    //  will mutate input string to be valid upon returning
+    public static func validateCharacterSet(characterSet: inout String) -> Bool {
+        var holdingSet: [Character] = []
+        for char in characterSet {
+            if char >= validCharacterLowest && char <= validCharacterHighest {
+                if !holdingSet.contains(char) {
+                    holdingSet.append(char)
+                }
+            }
+        }
+        
+        var newCharacterSet = String(holdingSet)
+        if newCharacterSet.count < 2 {
+            newCharacterSet = "BadSetTryAg_in!"
+        }
+        let isValid = newCharacterSet == characterSet
+        characterSet = newCharacterSet
+        return isValid
+    }
+
     init(p: HLPrimeType, q: HLPrimeType, publicKey: HLPrimeType, characterSet: String) {
-    
-        self.characterSet = Array(characterSet)
+        var safeCharacterSet = characterSet
+        let _ = HLRSA.validateCharacterSet(characterSet: &safeCharacterSet)
+        self.characterSet = Array(safeCharacterSet)
         characterSetSize = Int64(characterSet.count)
 
         N = p * q

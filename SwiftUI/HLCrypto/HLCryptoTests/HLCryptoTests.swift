@@ -11,11 +11,11 @@ import XCTest
 
 class HLCryptoTests: XCTestCase {
 
-//    let characterSet = "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-    let characterSet = "0123456789"
-    let p1: HLPrimeType = 599
-    let q1: HLPrimeType = 659
-    let publicKey: HLPrimeType = 100019
+    var characterSet = "!ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwyz-+=*/[]{}?"
+//    let characterSet = "0123456789"
+    let p1: HLPrimeType = 30011
+    let q1: HLPrimeType = 30707
+    let publicKey: HLPrimeType = 6520511
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -25,6 +25,15 @@ class HLCryptoTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
+    func testCharacterSetValid() {
+        let valid = HLRSA.validateCharacterSet(characterSet: &characterSet)
+        XCTAssert(valid, "testCharacterSetValid failed with valid characterSet")
+        
+        var characterSetWithDuplicate = "12345678900"
+        let notValid = !HLRSA.validateCharacterSet(characterSet: &characterSetWithDuplicate)
+        XCTAssert(notValid, "testCharacterSetValid failed with valid characterSet")
+    }
+
     func testLargeRandomString() {
         let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
         var randomPlaintext = rsa.makeRandomPlaintextString(numberOfCharacters: 1000)
@@ -37,7 +46,7 @@ class HLCryptoTests: XCTestCase {
 
     func testSingleChunk() {
         let rsa = HLRSA(p: p1, q: q1, publicKey: publicKey, characterSet: characterSet)
-        var plaintextChunk = "1"
+        var plaintextChunk = "!"
         
         var cipherChunk = rsa.encodeString(&plaintextChunk)
         let deCipherChunk = rsa.decodeString(&cipherChunk)

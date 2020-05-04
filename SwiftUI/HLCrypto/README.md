@@ -7,7 +7,5 @@ To Encode, select plaintext file and provide name/path for ciphertext file.  Onc
 To Decode, provide ciphertext path is not already present and provide deciphertext name/path.  Once the Decode is completed, a Encode is performed comparing the result with the original ciphertext.  This verifies the correctness of the Decode.
 
 TODO:
-    update Help files
-    add more/better unit tests
-    test everything and get ready to ship
     add Firebase?
+    Solve CharacterSet[0] problem
