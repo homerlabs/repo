@@ -15,6 +15,7 @@ struct HLPuzzleView: View {
     let hlToggleSize: CGFloat = 150
     let mainPadding: CGFloat = 40
     let textColor = [Color.orange, Color.blue, Color.red, Color.green]
+    let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
     let numberOfColumns = 9
 
     var body: some View {
@@ -45,11 +46,12 @@ struct HLPuzzleView: View {
                         Spacer()
                     }
                 }
+                        Spacer()
                 
                 VStack {
-                    Image("ColorKey")
-                    HStack {
-                        Spacer()
+                    ColorChartView()
+                    HStack(alignment: .top, spacing: 100) {
+                 //       Spacer()
                         Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
                     }
                 }
@@ -100,6 +102,7 @@ struct HLPuzzleView: View {
              .padding(mainPadding)
 //           Spacer()
        }
+       .background(windowBackgroundColor)
     }
     
     func setToString(_ aSet: Set<String>)->String     {
