@@ -17,9 +17,11 @@ struct HLCryptoView: View {
     let HLSavePanelTitle = "HLCrypto Save Panel"
     let HLOpenPanelTitle = "HLCrypto Open Panel"
     let HLErrorInvalidDataTitle = "Data in TextField is not valid"
-    let HLTextFieldWidth: CGFloat = 110
     let textFieldBackgroundColor = Color(red: 0.9, green: 0.9, blue: 0.9)
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
+    let HLTextFieldWidth: CGFloat = 100
+    let appWidth: CGFloat = 620
+    let appHeight: CGFloat = 346
 
     var body: some View {
         VStack {
@@ -105,7 +107,7 @@ struct HLCryptoView: View {
             Form {
               //**********  set P, Q
               HStack {
-                  Text("P: ")
+                  Text("P:")
                   TextField(String(cryptoViewModel.primeP), value: $cryptoViewModel.primeP, formatter: NumberFormatter(), onCommit: {
                         if self.cryptoViewModel.primeP != 0 {
                             self.cryptoViewModel.setupRSA()
@@ -118,7 +120,7 @@ struct HLCryptoView: View {
                     .frame(width: HLTextFieldWidth)
                   Spacer()
                   
-                  Text("Q: ")
+                  Text("Q:")
                   TextField(String(cryptoViewModel.primeQ), value: $cryptoViewModel.primeQ, formatter: NumberFormatter(), onCommit: {
                         if self.cryptoViewModel.primeQ != 0 {
                             self.cryptoViewModel.setupRSA()
@@ -138,7 +140,7 @@ struct HLCryptoView: View {
 
               //**********  set chosenKey
               HStack {
-                  Text("Chosen Key: ")
+                  Text("Chosen Key:")
                   TextField(String(cryptoViewModel.chosenKey), value: $cryptoViewModel.chosenKey, formatter: NumberFormatter(), onCommit: {
                         if self.cryptoViewModel.chosenKey > 0 && self.cryptoViewModel.chosenKey < self.cryptoViewModel.phi {
                             self.cryptoViewModel.setupKeys()
@@ -194,6 +196,7 @@ struct HLCryptoView: View {
         .onAppear() {
             self.cryptoViewModel.setupRSA()
         }
+        .frame(minWidth: appWidth, minHeight: appHeight)
     }
 }
 
