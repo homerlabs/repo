@@ -19,91 +19,116 @@ struct HLPuzzleView: View {
     let numberOfColumns = 9
 
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                VStack {
-                    HStack {
-                       Toggle(isOn: $puzzleViewModel.testRows, label:  {
-                            Text("Rows")
-                        })
-                        .frame(width: hlToggleSize)
-                        Spacer()
-                    }
-                    HStack {
-                        Toggle(isOn: $puzzleViewModel.testColumns) {
-                            Text("Columns")
+        ZStack {
+            VStack(alignment: .center) {
+                HStack() {
+                    //*****  Rows, Columns, and Blocks Switches
+                    VStack {
+                        HStack {
+                           Toggle(isOn: $puzzleViewModel.testRows, label:  {
+                                Text("Rows")
+                            })
+                            .frame(width: hlToggleSize)
+                            Spacer()
                         }
-                        .frame(width: hlToggleSize)
-                        Spacer()
-                    }
-                        
-                    HStack {
-                        Toggle(isOn: $puzzleViewModel.testBlocks) {
-                            Text("Blocks")
+                        HStack {
+                            Toggle(isOn: $puzzleViewModel.testColumns) {
+                                Text("Columns")
+                            }
+                            .frame(width: hlToggleSize)
+                            Spacer()
                         }
-                        .frame(width: hlToggleSize)
-                        Spacer()
+                            
+                       HStack {
+                            Toggle(isOn: $puzzleViewModel.testBlocks) {
+                                Text("Blocks")
+                            }
+                            .frame(width: hlToggleSize)
+                            Spacer()
+                        }
                     }
-                }
-                        Spacer()
-                
-                VStack {
-                    ColorChartView()
-                    HStack() {
-                        Spacer()
+                    Spacer()
+                    
+                    //*****  Color Chart and Node Count
+                    VStack(alignment: .trailing) {
+                        ColorChartView()
                         Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
-                        .padding()
+                            .padding(.vertical)
                     }
                 }
-       //     Spacer()
-            }
-            .padding(mainPadding)
-            Spacer()
-            
-            HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
-                VStack {
-                    Text(self.setToString(item.0))
-                        .font(.subheadline)
-                        .foregroundColor(self.textColor[item.1.rawValue])
+                .padding(mainPadding)
+                
+                //*****  9 x 9 grid
+                HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
+                    VStack {
+                        Text(self.setToString(item.0))
+                            .font(.subheadline)
+                            .foregroundColor(self.textColor[item.1.rawValue])
+                    }
+                        .background(Color.init(red: 0.9, green: 0.9, blue: 0.9))
                 }
-                    .background(Color.init(red: 0.9, green: 0.9, blue: 0.9))
-            }
-            
-            Spacer()
-            Picker(selection: $puzzleViewModel.algorithmSelected, label: Text("Not Used")) {
-                Text("Mono Cell").tag(HLAlgorithmMode.monoCell)
-                Text("Find Sets").tag(HLAlgorithmMode.findSets)
-                Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
-            }.pickerStyle(SegmentedPickerStyle())
-            .padding(mainPadding)
-            Spacer()
+                
+                //*****  Algorithm Picker
+                Picker(selection: $puzzleViewModel.algorithmSelected, label: Text("Not Used")) {
+                    Text("Mono Cell").tag(HLAlgorithmMode.monoCell)
+                    Text("Find Sets").tag(HLAlgorithmMode.findSets)
+                    Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
+                }.pickerStyle(SegmentedPickerStyle())
+                .padding(mainPadding)
 
-            HStack {
-                Button(action: {
-                    print("New Puzzle Button")
-                    self.puzzleViewModel.getNewPuzzle()
-                }) {
-                    Text("New Puzzle")
+                //*****  Undo and Solve/Prune buttons
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        print("Undo Button")
+                  //      self.puzzleViewModel.solveAction()
+                    }) {
+                        Text("Undo").padding()
+                    }
+                    
+                    Button(action: {
+                        print("Solve Button")
+                        self.puzzleViewModel.solveAction()
+                    }) {
+                        puzzleViewModel.puzzleState == HLPuzzleState.initial ? Text("Prune").padding(.trailing, 40) : Text("Solve").padding()
+                    }
+                    Spacer()
+               }
+
+                //*****  New Puzzle button, Puzzle Name Label, and About button
+                HStack {
+                    Button(action: {
+                        print("New Puzzle Button")
+                        self.puzzleViewModel.getNewPuzzle()
+                    }) {
+                        Text("New Puzzle")
+                            .padding()
+                    }
+                    
+                    Spacer()
+                    Text(puzzleViewModel.solver.puzzleName)
                         .padding()
+                    Spacer()
+                    
+                    Button(action: {
+                        print("About Button")
+                //        self.puzzleViewModel.solveAction()
+                    }) {
+                        Text("About").padding()
+                    }
                 }
-                
-                Spacer()
-                Text(puzzleViewModel.solver.puzzleName)
-                    .padding()
-                Spacer()
-                
-                Button(action: {
-                    print("Solve Button")
-                    self.puzzleViewModel.solveAction()
-                }) {
-                    puzzleViewModel.puzzleState == HLPuzzleState.initial ? Text("Prune").padding() : Text("Solve").padding()
-                }
+                 .padding(mainPadding)
+           }
+            .background(windowBackgroundColor)
+            
+            VStack {
+            Text("jjjj")
+                Rectangle()
+                .fill(Color.clear)
+                .border(Color.gray)
+                .frame(width: 330, height: 330, alignment: .center)
             }
-             .padding(mainPadding)
-//           Spacer()
-       }
-       .background(windowBackgroundColor)
+        }
     }
     
     func setToString(_ aSet: Set<String>)->String     {
