@@ -121,13 +121,7 @@ struct HLPuzzleView: View {
            }
             .background(windowBackgroundColor)
             
-            VStack {
-            Text("jjjj")
-                Rectangle()
-                .fill(Color.clear)
-                .border(Color.gray)
-                .frame(width: 330, height: 330, alignment: .center)
-            }
+            OverlayView().opacity(0.1)
         }
     }
     

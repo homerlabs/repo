@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B008185C2464A0B400C4A872 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008185B2464A0B400C4A872 /* OverlayView.swift */; };
 		B068516E2429425A006E532E /* HLMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068516C2429425A006E532E /* HLMatrix.swift */; };
 		B068516F2429425A006E532E /* HLSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068516D2429425A006E532E /* HLSolver.swift */; };
 		B0685171242944AD006E532E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0685170242944AD006E532E /* README.md */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B008185B2464A0B400C4A872 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		B068516C2429425A006E532E /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B068516D2429425A006E532E /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B0685170242944AD006E532E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				B06C830924293ECD007C169C /* Preview Content */,
 				B06C830324293ECC007C169C /* SceneDelegate.swift */,
 				B0F444092460B43500BF3314 /* ColorChartView.swift */,
+				B008185B2464A0B400C4A872 /* OverlayView.swift */,
 			);
 			path = SudokuSolver;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B008185C2464A0B400C4A872 /* OverlayView.swift in Sources */,
 				B0988DF7242A8D4F005BDCE4 /* HLPuzzleViewModel.swift in Sources */,
 				B068516F2429425A006E532E /* HLSolver.swift in Sources */,
 				B06C830224293ECC007C169C /* AppDelegate.swift in Sources */,
