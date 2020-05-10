@@ -43,8 +43,10 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 case HLAlgorithmMode.monoSector:
                     solver.findMonoSectors(rows: testRows, columns: testColumns)
             }
-        }
-            
+         
+            solver.updateChangedCells()
+       }
+        
         unsolvedNodeCount = solver.unsolvedCount()
     }
     
