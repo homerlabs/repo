@@ -32,8 +32,8 @@ public enum HLPuzzleState: Int
 }
 
 public class HLSolver {
-    let url = URL(string: "https://nine.websudoku.com/?level=4")!
-//    let url = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
+    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
+//    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
 
     //  used for encode/decode HLSolver object
     let kDataKey    = "Data"
@@ -333,6 +333,9 @@ public class HLSolver {
             assert( isValidPuzzle(), "Puzzle \(puzzleName) is not valid!" )
         }
         while previousNodeCount != currentNodeCount
+        
+        previousDataSet = dataSet
+
     }
     
     

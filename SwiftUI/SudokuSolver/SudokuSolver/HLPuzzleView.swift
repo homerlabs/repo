@@ -74,23 +74,23 @@ struct HLPuzzleView: View {
                     Spacer()
                     Button(action: {
                         print("Undo Button")
-                  //      self.puzzleViewModel.solveAction()
+                        self.puzzleViewModel.undoAction()
                     }) {
                         Text("Undo")
                             .padding(.horizontal, undoSolvePadding)
                     }
+                        .disabled(!self.puzzleViewModel.undoButtonEnabled)
                     
                     Button(action: {
                         print("Solve Button")
                         self.puzzleViewModel.solveAction()
                     }) {
-                        puzzleViewModel.puzzleState == HLPuzzleState.initial ?
+                        puzzleViewModel.solver.puzzleState == .initial ?
                             Text("Prune").padding(.horizontal, undoSolvePadding) :
                             Text("Solve").padding(.horizontal, undoSolvePadding)
                     }
                     Spacer()
                }
-             //    .padding(.horizontal, 300)
                  .padding(.vertical, 15)
 
                 //*****  New Puzzle button and About button
@@ -114,22 +114,21 @@ struct HLPuzzleView: View {
                  .padding(.vertical, 5)
                  .padding(.horizontal, mainPadding)
            }
-       //     .background(windowBackgroundColor)
-                //*****  9 x 9 grid
-                HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
-                    VStack {
-                        Text(self.setToString(item.0))
-                            .font(.subheadline)
-                            .foregroundColor(self.textColor[item.1.rawValue])
-                    }
-                        .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
+
+            //*****  9 x 9 grid
+            HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
+                VStack {
+                    Text(self.setToString(item.0))
+                        .font(.subheadline)
+                        .foregroundColor(self.textColor[item.1.rawValue])
                 }
-                    .frame(width: 800, height: 760, alignment: .center)
-               
+                    .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
+            }
+                .frame(width: 800, height: 760, alignment: .center)
+           
             OverlayView().opacity(0.1)
-            
         }
-             .background(windowBackgroundColor)
+            .background(windowBackgroundColor)
    }
     
     func setToString(_ aSet: Set<String>)->String     {

@@ -12,24 +12,23 @@ import WebKit
 class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
 
     @Published var solver = HLSolver()
-    @Published var puzzleState = HLPuzzleState.initial
     @Published var algorithmSelected: HLAlgorithmMode = .monoCell
     @Published var unsolvedNodeCount = 0
     @Published var testRows = true
     @Published var testColumns = true
     @Published var testBlocks = true
+    @Published var undoButtonEnabled = false
     
-    let hlKeySettingRow = "hlKeySettingRow"
-    let hlKeySettingColumn = "hlKeySettingColumn"
-    let hlKeySettingBlock = "hlKeySettingBlock"
-    let hlKeySettingAlgorithm = "hlKeySettingAlgorithm"
+    let hlKeySettingRow         = "hlKeySettingRow"
+    let hlKeySettingColumn      = "hlKeySettingColumn"
+    let hlKeySettingBlock       = "hlKeySettingBlock"
+    let hlKeySettingAlgorithm   = "hlKeySettingAlgorithm"
 
-    let url = URL(string: "https://nine.websudoku.com/?level=4")!
     var hlWebView = WKWebView()
     
     func solveAction() {
-        if puzzleState == .initial {
-            puzzleState = .solving
+        if solver.puzzleState == .initial {
+            solver.puzzleState = .solving
             solver.prunePuzzle(rows: true, columns: true, blocks: true)
         }
         else {
@@ -43,11 +42,20 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 case HLAlgorithmMode.monoSector:
                     solver.findMonoSectors(rows: testRows, columns: testColumns)
             }
-         
-            solver.updateChangedCells()
        }
         
+        solver.updateChangedCells()
         unsolvedNodeCount = solver.unsolvedCount()
+        undoButtonEnabled = true
+        saveSetting()   //  TODO:  find a cleaner solution
+    }
+    
+    func undoAction() {
+        print("Undo Button  unsolvedNodeCount: \(unsolvedNodeCount)")
+        undoButtonEnabled = false
+        solver.dataSet = solver.previousDataSet
+        unsolvedNodeCount = solver.unsolvedCount()
+        print("Undo Button  unsolvedNodeCount2: \(unsolvedNodeCount)")
     }
     
     func saveSetting() {
@@ -59,9 +67,10 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     }
     
     func getNewPuzzle() {
-        puzzleState = HLPuzzleState.initial
-    //    puzzleName = ""
-        let request = URLRequest(url: url)
+        solver.puzzleState = .initial
+        solver.puzzleName = " "
+        undoButtonEnabled = false
+        let request = URLRequest(url: HLSolver.websudokuURL)
         hlWebView.load(request)
     }
     
