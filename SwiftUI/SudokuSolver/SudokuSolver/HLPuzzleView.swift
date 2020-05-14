@@ -18,6 +18,7 @@ struct HLPuzzleView: View {
     let textColor = [Color.orange, Color.blue, Color.red, Color.green]
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
     let numberOfColumns = 9
+    @State private var aboutPanelPresented = false
 
     var body: some View {
         ZStack(alignment: .center) {
@@ -106,10 +107,14 @@ struct HLPuzzleView: View {
                     
                     Button(action: {
                         print("About Button")
-                //        self.puzzleViewModel.solveAction()
+                        self.aboutPanelPresented.toggle()
                     }) {
                         Text("About").padding()
                     }
+                }.sheet(isPresented: $aboutPanelPresented, onDismiss: {
+                    print("$aboutPanelPresented: \(self.aboutPanelPresented)")
+                }) {
+                    AboutView()
                 }
                  .padding(.vertical, 5)
                  .padding(.horizontal, mainPadding)
