@@ -15,7 +15,7 @@ struct HLPuzzleView: View {
     let hlToggleSize: CGFloat = 150
     let mainPadding: CGFloat = 35
     let undoSolvePadding: CGFloat = 25
-    let textColor = [Color.orange, Color.blue, Color.red, Color.green]
+    let cellTextColor = [Color.green, Color.purple, Color.pink, Color.blue]
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
     let numberOfColumns = 9
     @State private var aboutPanelPresented = false
@@ -53,7 +53,7 @@ struct HLPuzzleView: View {
 
                     //*****  Color Chart and Node Count
                     VStack(alignment: .trailing) {
-                        ColorChartView()
+                        ColorChartView(colorTable: cellTextColor)
                         Text(puzzleViewModel.solver.puzzleName).padding(.vertical, 10)
 
                         Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
@@ -125,7 +125,7 @@ struct HLPuzzleView: View {
                 VStack {
                     Text(self.setToString(item.0))
                         .font(.subheadline)
-                        .foregroundColor(self.textColor[item.1.rawValue])
+                        .foregroundColor(self.cellTextColor[item.1.rawValue])
                 }
                     .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
             }

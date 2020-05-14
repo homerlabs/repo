@@ -55,6 +55,7 @@
 		B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPuzzleViewModel.swift; sourceTree = "<group>"; };
 		B0E1161B243241CB00CE073C /* HLGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLGridView.swift; sourceTree = "<group>"; };
 		B0EA1331246DC6B2008BEB06 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Overview.pdf; path = SSHelp/Overview.pdf; sourceTree = "<group>"; };
+		B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
 		B0F444092460B43500BF3314 /* ColorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +110,7 @@
 		B06C830024293ECC007C169C /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
+				B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */,
 				B06C830124293ECC007C169C /* AppDelegate.swift */,
 				B06C830724293ECD007C169C /* Assets.xcassets */,
 				B0E1161B243241CB00CE073C /* HLGridView.swift */,
@@ -406,6 +408,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SudokuSolver/SudokuSolver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SudokuSolver/Preview Content\"";
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -415,8 +418,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.SudokuSolver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -426,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SudokuSolver/SudokuSolver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SudokuSolver/Preview Content\"";
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
@@ -435,8 +441,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.SudokuSolver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ColorChartView: View {
+    let colorTable: [Color]
     var body: some View {
         ZStack {
             Rectangle()
@@ -16,10 +17,10 @@ struct ColorChartView: View {
                 .border(Color.gray)
                 .frame(width: 330, height: 60, alignment: .center)
             HStack {
-                ColorBox(title: "Given", color: Color.yellow)
-                ColorBox(title: "Unsolved", color: Color.blue)
-                ColorBox(title: "Changed", color: Color.red)
-                ColorBox(title: "Solved", color: Color.green)
+                ColorBox(title: "Given", color: colorTable[0])
+                ColorBox(title: "Unsolved", color: colorTable[1])
+                ColorBox(title: "Changed", color: colorTable[2])
+                ColorBox(title: "Solved", color: colorTable[3])
             }
         }
             .background(Color(red: 0.9, green: 0.9, blue: 0.9))
@@ -43,6 +44,6 @@ struct ColorBox: View {
 
 struct ColorChartView_Previews: PreviewProvider {
     static var previews: some View {
-        ColorChartView()
+        ColorChartView(colorTable: [Color.green, Color.purple, Color.pink, Color.blue])
     }
 }
