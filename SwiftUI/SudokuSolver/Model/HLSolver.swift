@@ -333,9 +333,6 @@ public class HLSolver {
             assert( isValidPuzzle(), "Puzzle \(puzzleName) is not valid!" )
         }
         while previousNodeCount != currentNodeCount
-        
-        previousDataSet = dataSet
-
     }
     
     

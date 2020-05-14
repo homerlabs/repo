@@ -27,6 +27,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     var hlWebView = WKWebView()
     
     func solveAction() {
+        solver.previousDataSet = solver.dataSet
+        
         if solver.puzzleState == .initial {
             solver.puzzleState = .solving
             solver.prunePuzzle(rows: true, columns: true, blocks: true)
@@ -47,6 +49,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         solver.updateChangedCells()
         unsolvedNodeCount = solver.unsolvedCount()
         undoButtonEnabled = true
+
         saveSetting()   //  TODO:  find a cleaner solution
     }
     
@@ -83,9 +86,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 if let puzzleString = html as? String   {
                     self.solver = HLSolver(html: puzzleString)
                     self.unsolvedNodeCount = self.solver.unsolvedCount()
-           //         self.updateDisplay()
-            //        self.undoButton.isEnabled = false
-            //        self.solveButton.isEnabled = true
                 }
         })
     }
