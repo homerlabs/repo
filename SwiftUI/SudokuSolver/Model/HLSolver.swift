@@ -246,12 +246,6 @@ public class HLSolver {
             if startingSets.count>1 && startingSets[0].isEmpty  {   startingSets.remove(at: 0)   }
             if setsToSearch.count>1 && setsToSearch[0].isEmpty  {   setsToSearch.remove(at: 0)   }
             
-     //       print( "startingSets:")
-     //       printArrayOfSets(startingSets)
-            
-    //        print( "setsToSearch:")
-    //        printArrayOfSets(setsToSearch)
-            
             for superSet in setsToSearch                                {
                 
      //           print( "superSet: \(superSet):")

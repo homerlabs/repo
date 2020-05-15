@@ -54,11 +54,9 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     }
     
     func undoAction() {
-        print("Undo Button  unsolvedNodeCount: \(unsolvedNodeCount)")
         undoButtonEnabled = false
         solver.dataSet = solver.previousDataSet
         unsolvedNodeCount = solver.unsolvedCount()
-        print("Undo Button  unsolvedNodeCount2: \(unsolvedNodeCount)")
     }
     
     func saveSetting() {

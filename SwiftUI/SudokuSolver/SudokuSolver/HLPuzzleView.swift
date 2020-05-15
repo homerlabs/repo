@@ -45,6 +45,7 @@ struct HLPuzzleView: View {
                             Toggle(isOn: $puzzleViewModel.testBlocks) {
                                 Text("Blocks")
                             }
+                            .disabled(puzzleViewModel.algorithmSelected != .findSets)
                             .frame(width: hlToggleSize)
                             Spacer()
                         }
