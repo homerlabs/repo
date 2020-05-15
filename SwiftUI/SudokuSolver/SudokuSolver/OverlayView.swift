@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct OverlayView: View {
-    let width: CGFloat = 250
-    let height: CGFloat = 200
+    let width: CGFloat = 244
+    let height: CGFloat = 214
     
     var body: some View {
         VStack {

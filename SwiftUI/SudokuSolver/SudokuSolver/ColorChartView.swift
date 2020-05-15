@@ -22,6 +22,7 @@ struct ColorChartView: View {
                 ColorBox(title: "Changed", color: colorTable[2])
                 ColorBox(title: "Solved", color: colorTable[3])
             }
+                .padding(.top, 2)
         }
             .background(Color(red: 0.9, green: 0.9, blue: 0.9))
     }
@@ -44,6 +45,6 @@ struct ColorBox: View {
 
 struct ColorChartView_Previews: PreviewProvider {
     static var previews: some View {
-        ColorChartView(colorTable: [Color.green, Color.purple, Color.pink, Color.blue])
+        ColorChartView(colorTable: [Color.green, Color.purple, Color.orange, Color.blue])
     }
 }

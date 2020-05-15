@@ -15,7 +15,7 @@ struct HLPuzzleView: View {
     let hlToggleSize: CGFloat = 150
     let mainPadding: CGFloat = 35
     let undoSolvePadding: CGFloat = 25
-    let cellTextColor = [Color.green, Color.purple, Color.pink, Color.blue]
+    let cellTextColor = [Color.green, Color.purple, Color.orange, Color.blue]
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
     let numberOfColumns = 9
     @State private var aboutPanelPresented = false
@@ -129,7 +129,7 @@ struct HLPuzzleView: View {
                 }
                     .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
             }
-                .frame(width: 800, height: 760, alignment: .center)
+                .frame(width: 800, height: 800, alignment: .center)
            
             OverlayView().opacity(0.1)
         }
