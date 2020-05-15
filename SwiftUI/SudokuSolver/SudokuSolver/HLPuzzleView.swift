@@ -92,11 +92,11 @@ struct HLPuzzleView: View {
                     }
                     Spacer()
                }
-                 .padding(.vertical, 15)
+                .padding(.top, 30)
 
                 //*****  New Puzzle button and About button
                 HStack {
-                    Button(action: {
+                     Button(action: {
                         print("New Puzzle Button")
                         self.puzzleViewModel.getNewPuzzle()
                     }) {
@@ -111,14 +111,15 @@ struct HLPuzzleView: View {
                     }) {
                         Text("About").padding()
                     }
-                }.sheet(isPresented: $aboutPanelPresented, onDismiss: {
+                }
+                    .padding(.bottom, 15)
+                    .padding(.horizontal, mainPadding)
+           }
+            .sheet(isPresented: $aboutPanelPresented, onDismiss: {
                     print("$aboutPanelPresented: \(self.aboutPanelPresented)")
                 }) {
                     AboutView()
                 }
-                 .padding(.vertical, 5)
-                 .padding(.horizontal, mainPadding)
-           }
 
             //*****  9 x 9 grid
             HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
