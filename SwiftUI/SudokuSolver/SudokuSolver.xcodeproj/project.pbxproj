@@ -40,7 +40,7 @@
 		B068516C2429425A006E532E /* HLMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLMatrix.swift; sourceTree = "<group>"; };
 		B068516D2429425A006E532E /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B0685170242944AD006E532E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		B06C82FE24293ECC007C169C /* SudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06C82FE24293ECC007C169C /* HLSudokuSolver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLSudokuSolver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06C830124293ECC007C169C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B06C830324293ECC007C169C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B06C830524293ECC007C169C /* HLPuzzleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPuzzleView.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		B06C82FF24293ECC007C169C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B06C82FE24293ECC007C169C /* SudokuSolver.app */,
+				B06C82FE24293ECC007C169C /* HLSudokuSolver.app */,
 				B06C831424293ECD007C169C /* SudokuSolverTests.xctest */,
 			);
 			name = Products;
@@ -161,7 +161,7 @@
 			);
 			name = SudokuSolver;
 			productName = SudokuSolver;
-			productReference = B06C82FE24293ECC007C169C /* SudokuSolver.app */;
+			productReference = B06C82FE24293ECC007C169C /* HLSudokuSolver.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B06C831324293ECD007C169C /* SudokuSolverTests */ = {
@@ -410,6 +410,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SudokuSolver/SudokuSolver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"SudokuSolver/Preview Content\"";
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				ENABLE_PREVIEWS = YES;
@@ -420,7 +421,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.SudokuSolver;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HLSudokuSolver;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -433,6 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SudokuSolver/SudokuSolver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"SudokuSolver/Preview Content\"";
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				ENABLE_PREVIEWS = YES;
@@ -443,7 +445,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.SudokuSolver;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HLSudokuSolver;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;

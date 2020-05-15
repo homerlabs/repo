@@ -8,7 +8,7 @@
 
 import XCTest
 import WebKit
-@testable import SudokuSolver
+@testable import HLSudokuSolver
 
 class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
 
