@@ -18,10 +18,10 @@
 		B06C830B24293ECD007C169C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06C830A24293ECD007C169C /* Preview Assets.xcassets */; };
 		B06C830E24293ECD007C169C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B06C830C24293ECD007C169C /* LaunchScreen.storyboard */; };
 		B06C831924293ECD007C169C /* SudokuSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C831824293ECD007C169C /* SudokuSolverTests.swift */; };
+		B075F1722470348300135DA5 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B075F1712470348300135DA5 /* Help */; };
 		B07F731F246B20C10059D8DE /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F731E246B20C10059D8DE /* AboutView.swift */; };
 		B0988DF7242A8D4F005BDCE4 /* HLPuzzleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */; };
 		B0E1161C243241CB00CE073C /* HLGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1161B243241CB00CE073C /* HLGridView.swift */; };
-		B0EA1332246DC6B2008BEB06 /* Overview.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B0EA1331246DC6B2008BEB06 /* Overview.pdf */; };
 		B0F4440A2460B43500BF3314 /* ColorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F444092460B43500BF3314 /* ColorChartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,10 +51,10 @@
 		B06C831424293ECD007C169C /* SudokuSolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuSolverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06C831824293ECD007C169C /* SudokuSolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuSolverTests.swift; sourceTree = "<group>"; };
 		B06C831A24293ECD007C169C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B075F1712470348300135DA5 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
 		B07F731E246B20C10059D8DE /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPuzzleViewModel.swift; sourceTree = "<group>"; };
 		B0E1161B243241CB00CE073C /* HLGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLGridView.swift; sourceTree = "<group>"; };
-		B0EA1331246DC6B2008BEB06 /* Overview.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Overview.pdf; path = SSHelp/Overview.pdf; sourceTree = "<group>"; };
 		B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
 		B0F444092460B43500BF3314 /* ColorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				B0685170242944AD006E532E /* README.md */,
-				B0EA1331246DC6B2008BEB06 /* Overview.pdf */,
+				B075F1712470348300135DA5 /* Help */,
 				B068516B2429425A006E532E /* Model */,
 				B06C830024293ECC007C169C /* SudokuSolver */,
 				B06C831724293ECD007C169C /* SudokuSolverTests */,
@@ -226,8 +226,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06C830E24293ECD007C169C /* LaunchScreen.storyboard in Resources */,
+				B075F1722470348300135DA5 /* Help in Resources */,
 				B06C830B24293ECD007C169C /* Preview Assets.xcassets in Resources */,
-				B0EA1332246DC6B2008BEB06 /* Overview.pdf in Resources */,
 				B0685171242944AD006E532E /* README.md in Resources */,
 				B06C830824293ECD007C169C /* Assets.xcassets in Resources */,
 			);

@@ -13,7 +13,7 @@ struct AboutView : UIViewRepresentable {
 
     func makeUIView(context: Context) -> WKWebView  {
         let webView = WKWebView()
-        let path = Bundle.main.path(forResource: "Overview", ofType: "pdf")!
+        let path = Bundle.main.path(forResource: "Help/index", ofType: "htm")!
         let request = URLRequest(url: URL(fileURLWithPath: path))
         webView.load(request)
         return webView
