@@ -33,7 +33,7 @@ public enum HLPuzzleState: Int
 
 public class HLSolver {
     static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
-//    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=3351054143")!
+//    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=7234295909")!
 
     //  used for encode/decode HLSolver object
     let kDataKey    = "Data"
@@ -50,6 +50,8 @@ public class HLSolver {
     var puzzleState = HLPuzzleState.initial
     
     let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
+    
+    //  this is used to re-map the blocks to look like rows before a row operation and then re-map back
     let blockIndexSet = [
         [ 0,  1,  2,  9, 10, 11, 18, 19, 20],
         [ 3,  4,  5, 12, 13, 14, 21, 22, 23],
@@ -360,8 +362,19 @@ public class HLSolver {
             if data.count>1                            {
                 let prunedSet = data.subtracting(reduceSet)
                 if !prunedSet.isEmpty  {   dataSet[row, column] = (prunedSet, status)  }   }
-    }   }
+        }
+    }
     
+    //  check for cells that have only 1 value (ie .solved)
+    func markSolvedCells() {
+        for index in 0..<dataSet.kCellCount {
+            let (data, status) = dataSet[index]
+            
+            if data.count == 1 && status == .unsolvedStatus   {
+                dataSet[index] = (data, .solvedStatus)
+            }
+        }
+    }
     
     func updateChangedCells()   {
         for index in 0..<dataSet.kCellCount {
@@ -376,19 +389,12 @@ public class HLSolver {
             }
             
             //  then find the cells that changed
-            if data.count != data2.count        {
+            if puzzleState == .solving && data.count != data2.count        {
                 status = .changedStatus
                 dataSet[index] = (data, status) }
         }
         
-        //  check for cells only have 1 value after prunning and mark them solved
-        for index in 0..<dataSet.kCellCount {
-            let (data, status) = dataSet[index]
-            
-            if data.count == 1 && status == .unsolvedStatus   {
-                dataSet[index] = (data, .solvedStatus)
-            }
-        }
+        markSolvedCells()
     }
     
     
@@ -444,9 +450,15 @@ public class HLSolver {
         dataSet = newDataSet;
     }
     
-
-    func unsolvedCount() -> Int         {
-        return dataSet.nodeCount()  }
+    //  when count reaches zero set puzzleState to .final
+    func unsolvedCount() -> Int
+    {
+        let count = dataSet.nodeCount()
+        if count == 0 {
+            puzzleState = .final
+        }
+        return count
+    }
     
     
     func solvedSetForRow(_ row: Int) -> Set<String>       {

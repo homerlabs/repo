@@ -18,6 +18,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var testColumns = true
     @Published var testBlocks = true
     @Published var undoButtonEnabled = false
+    @Published var previousState = HLPuzzleState.initial
     
     let hlKeySettingRow         = "hlKeySettingRow"
     let hlKeySettingColumn      = "hlKeySettingColumn"
@@ -28,10 +29,11 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     
     func solveAction() {
         solver.previousDataSet = solver.dataSet
+        previousState = solver.puzzleState  //  needed for the Undo button after initial Prune operation
         
         if solver.puzzleState == .initial {
-            solver.puzzleState = .solving
             solver.prunePuzzle(rows: true, columns: true, blocks: true)
+            solver.markSolvedCells()
         }
         else {
             switch algorithmSelected {
@@ -44,18 +46,23 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 case HLAlgorithmMode.monoSector:
                     solver.findMonoSectors(rows: testRows, columns: testColumns)
             }
+            
+            solver.updateChangedCells()
        }
         
-        solver.updateChangedCells()
         unsolvedNodeCount = solver.unsolvedCount()
         undoButtonEnabled = true
-
         saveSetting()   //  TODO:  find a cleaner solution
+        
+        if solver.puzzleState == .initial {
+            solver.puzzleState = .solving
+        }
     }
     
     func undoAction() {
         undoButtonEnabled = false
         solver.dataSet = solver.previousDataSet
+        solver.puzzleState = previousState  //  will have effect if last operation was Prune
         unsolvedNodeCount = solver.unsolvedCount()
     }
     

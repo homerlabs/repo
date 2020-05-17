@@ -91,6 +91,7 @@ struct HLPuzzleView: View {
                             Text("Prune").padding(.horizontal, undoSolvePadding) :
                             Text("Solve").padding(.horizontal, undoSolvePadding)
                     }
+                        .disabled(self.puzzleViewModel.solver.puzzleState == .final)
                     Spacer()
                }
                 .padding(.top, 30)
