@@ -89,12 +89,12 @@
 		B06C82F524293ECC007C169C = {
 			isa = PBXGroup;
 			children = (
-				B0685170242944AD006E532E /* README.md */,
 				B075F1712470348300135DA5 /* Help */,
 				B068516B2429425A006E532E /* Model */,
+				B06C82FF24293ECC007C169C /* Products */,
+				B0685170242944AD006E532E /* README.md */,
 				B06C830024293ECC007C169C /* SudokuSolver */,
 				B06C831724293ECD007C169C /* SudokuSolverTests */,
-				B06C82FF24293ECC007C169C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
