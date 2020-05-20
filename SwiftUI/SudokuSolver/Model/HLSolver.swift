@@ -32,8 +32,8 @@ public enum HLPuzzleState: Int
 }
 
 public class HLSolver {
-    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
-//    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=7234295909")!
+//    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
+    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
 
     //  used for encode/decode HLSolver object
     let kDataKey    = "Data"
