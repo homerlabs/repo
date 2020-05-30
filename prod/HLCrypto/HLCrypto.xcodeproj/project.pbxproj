@@ -1,0 +1,531 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B06210E92405B7C9006D1906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210E82405B7C9006D1906 /* AppDelegate.swift */; };
+		B06210EB2405B7C9006D1906 /* HLCryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210EA2405B7C9006D1906 /* HLCryptoView.swift */; };
+		B06210ED2405B7CB006D1906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06210EC2405B7CB006D1906 /* Assets.xcassets */; };
+		B06210F02405B7CB006D1906 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06210EF2405B7CB006D1906 /* Preview Assets.xcassets */; };
+		B06210F32405B7CB006D1906 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B06210F12405B7CB006D1906 /* Main.storyboard */; };
+		B06210FF2405B7CB006D1906 /* HLCryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210FE2405B7CB006D1906 /* HLCryptoTests.swift */; };
+		B062110A2405BAF0006D1906 /* HLCryptoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */; };
+		B062110D2405BC98006D1906 /* HLRSA.swift in Sources */ = {isa = PBXBuildFile; fileRef = B062110C2405BC98006D1906 /* HLRSA.swift */; };
+		B06211122405C915006D1906 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B062110F2405C915006D1906 /* Int+Extension.swift */; };
+		B06211132405C915006D1906 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06211102405C915006D1906 /* URL+Extension.swift */; };
+		B06211142405C915006D1906 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06211112405C915006D1906 /* String+Extension.swift */; };
+		B0BA086E24293119001628BE /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0BA086D24293119001628BE /* Help */; };
+		B0D252C424291C01004EAB59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0D252C324291C01004EAB59 /* README.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B06210FB2405B7CB006D1906 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B06210DD2405B7C9006D1906 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B06210E42405B7C9006D1906;
+			remoteInfo = HLCrypto;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B06210E52405B7C9006D1906 /* HLCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06210E82405B7C9006D1906 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B06210EA2405B7C9006D1906 /* HLCryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCryptoView.swift; sourceTree = "<group>"; };
+		B06210EC2405B7CB006D1906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B06210EF2405B7CB006D1906 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B06210F22405B7CB006D1906 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B06210F42405B7CB006D1906 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B06210F52405B7CB006D1906 /* HLCrypto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HLCrypto.entitlements; sourceTree = "<group>"; };
+		B06210FA2405B7CB006D1906 /* HLCryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLCryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06210FE2405B7CB006D1906 /* HLCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCryptoTests.swift; sourceTree = "<group>"; };
+		B06211002405B7CB006D1906 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCryptoViewModel.swift; sourceTree = "<group>"; };
+		B062110C2405BC98006D1906 /* HLRSA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRSA.swift; sourceTree = "<group>"; };
+		B062110F2405C915006D1906 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		B06211102405C915006D1906 /* URL+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		B06211112405C915006D1906 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B0BA086D24293119001628BE /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
+		B0D252C324291C01004EAB59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B06210E22405B7C9006D1906 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06210F72405B7CB006D1906 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B06210DC2405B7C9006D1906 = {
+			isa = PBXGroup;
+			children = (
+				B0D252C324291C01004EAB59 /* README.md */,
+				B06210E72405B7C9006D1906 /* HLCrypto */,
+				B0BA086D24293119001628BE /* Help */,
+				B06210FD2405B7CB006D1906 /* HLCryptoTests */,
+				B06210E62405B7C9006D1906 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B06210E62405B7C9006D1906 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B06210E52405B7C9006D1906 /* HLCrypto.app */,
+				B06210FA2405B7CB006D1906 /* HLCryptoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B06210E72405B7C9006D1906 /* HLCrypto */ = {
+			isa = PBXGroup;
+			children = (
+				B06210E82405B7C9006D1906 /* AppDelegate.swift */,
+				B06210EC2405B7CB006D1906 /* Assets.xcassets */,
+				B062110E2405C915006D1906 /* Extensions */,
+				B06210F52405B7CB006D1906 /* HLCrypto.entitlements */,
+				B06210EA2405B7C9006D1906 /* HLCryptoView.swift */,
+				B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */,
+				B06210F42405B7CB006D1906 /* Info.plist */,
+				B06210F12405B7CB006D1906 /* Main.storyboard */,
+				B062110B2405BC98006D1906 /* Model */,
+				B06210EE2405B7CB006D1906 /* Preview Content */,
+			);
+			path = HLCrypto;
+			sourceTree = "<group>";
+		};
+		B06210EE2405B7CB006D1906 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B06210EF2405B7CB006D1906 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B06210FD2405B7CB006D1906 /* HLCryptoTests */ = {
+			isa = PBXGroup;
+			children = (
+				B06210FE2405B7CB006D1906 /* HLCryptoTests.swift */,
+				B06211002405B7CB006D1906 /* Info.plist */,
+			);
+			path = HLCryptoTests;
+			sourceTree = "<group>";
+		};
+		B062110B2405BC98006D1906 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B062110C2405BC98006D1906 /* HLRSA.swift */,
+			);
+			path = Model;
+			sourceTree = SOURCE_ROOT;
+		};
+		B062110E2405C915006D1906 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B062110F2405C915006D1906 /* Int+Extension.swift */,
+				B06211102405C915006D1906 /* URL+Extension.swift */,
+				B06211112405C915006D1906 /* String+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B06210E42405B7C9006D1906 /* HLCrypto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B06211032405B7CB006D1906 /* Build configuration list for PBXNativeTarget "HLCrypto" */;
+			buildPhases = (
+				B06210E12405B7C9006D1906 /* Sources */,
+				B06210E22405B7C9006D1906 /* Frameworks */,
+				B06210E32405B7C9006D1906 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HLCrypto;
+			productName = HLCrypto;
+			productReference = B06210E52405B7C9006D1906 /* HLCrypto.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B06210F92405B7CB006D1906 /* HLCryptoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B06211062405B7CB006D1906 /* Build configuration list for PBXNativeTarget "HLCryptoTests" */;
+			buildPhases = (
+				B06210F62405B7CB006D1906 /* Sources */,
+				B06210F72405B7CB006D1906 /* Frameworks */,
+				B06210F82405B7CB006D1906 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B06210FC2405B7CB006D1906 /* PBXTargetDependency */,
+			);
+			name = HLCryptoTests;
+			productName = HLCryptoTests;
+			productReference = B06210FA2405B7CB006D1906 /* HLCryptoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B06210DD2405B7C9006D1906 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Matthew Homer";
+				TargetAttributes = {
+					B06210E42405B7C9006D1906 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					B06210F92405B7CB006D1906 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = B06210E42405B7C9006D1906;
+					};
+				};
+			};
+			buildConfigurationList = B06210E02405B7C9006D1906 /* Build configuration list for PBXProject "HLCrypto" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B06210DC2405B7C9006D1906;
+			productRefGroup = B06210E62405B7C9006D1906 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B06210E42405B7C9006D1906 /* HLCrypto */,
+				B06210F92405B7CB006D1906 /* HLCryptoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B06210E32405B7C9006D1906 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06210F32405B7CB006D1906 /* Main.storyboard in Resources */,
+				B0BA086E24293119001628BE /* Help in Resources */,
+				B06210F02405B7CB006D1906 /* Preview Assets.xcassets in Resources */,
+				B0D252C424291C01004EAB59 /* README.md in Resources */,
+				B06210ED2405B7CB006D1906 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06210F82405B7CB006D1906 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B06210E12405B7C9006D1906 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06211122405C915006D1906 /* Int+Extension.swift in Sources */,
+				B06211142405C915006D1906 /* String+Extension.swift in Sources */,
+				B062110D2405BC98006D1906 /* HLRSA.swift in Sources */,
+				B062110A2405BAF0006D1906 /* HLCryptoViewModel.swift in Sources */,
+				B06210EB2405B7C9006D1906 /* HLCryptoView.swift in Sources */,
+				B06210E92405B7C9006D1906 /* AppDelegate.swift in Sources */,
+				B06211132405C915006D1906 /* URL+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B06210F62405B7CB006D1906 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06210FF2405B7CB006D1906 /* HLCryptoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B06210FC2405B7CB006D1906 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B06210E42405B7C9006D1906 /* HLCrypto */;
+			targetProxy = B06210FB2405B7CB006D1906 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B06210F12405B7CB006D1906 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B06210F22405B7CB006D1906 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B06211012405B7CB006D1906 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B06211022405B7CB006D1906 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B06211042405B7CB006D1906 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HLCrypto/HLCrypto.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_ASSET_PATHS = "\"HLCrypto/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = HLCrypto/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.RSATool;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B06211052405B7CB006D1906 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HLCrypto/HLCrypto.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_ASSET_PATHS = "\"HLCrypto/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = HLCrypto/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.RSATool;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B06211072405B7CB006D1906 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = HLCryptoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.HLCryptoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLCrypto.app/Contents/MacOS/HLCrypto";
+			};
+			name = Debug;
+		};
+		B06211082405B7CB006D1906 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = HLCryptoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.HLCryptoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLCrypto.app/Contents/MacOS/HLCrypto";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B06210E02405B7C9006D1906 /* Build configuration list for PBXProject "HLCrypto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B06211012405B7CB006D1906 /* Debug */,
+				B06211022405B7CB006D1906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B06211032405B7CB006D1906 /* Build configuration list for PBXNativeTarget "HLCrypto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B06211042405B7CB006D1906 /* Debug */,
+				B06211052405B7CB006D1906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B06211062405B7CB006D1906 /* Build configuration list for PBXNativeTarget "HLCryptoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B06211072405B7CB006D1906 /* Debug */,
+				B06211082405B7CB006D1906 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B06210DD2405B7C9006D1906 /* Project object */;
+}

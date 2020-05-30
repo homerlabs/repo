@@ -1,0 +1,553 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B04A497123FF4731007D0D81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04A497023FF4731007D0D81 /* AppDelegate.swift */; };
+		B04A497323FF4731007D0D81 /* PrimeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04A497223FF4731007D0D81 /* PrimeFinderView.swift */; };
+		B04A497523FF4732007D0D81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04A497423FF4732007D0D81 /* Assets.xcassets */; };
+		B04A497823FF4732007D0D81 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04A497723FF4732007D0D81 /* Preview Assets.xcassets */; };
+		B04A497B23FF4732007D0D81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04A497923FF4732007D0D81 /* Main.storyboard */; };
+		B04A498723FF4732007D0D81 /* Prime_FinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04A498623FF4732007D0D81 /* Prime_FinderTests.swift */; };
+		B0B89CBB240487A0004E7BC7 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B89CB8240487A0004E7BC7 /* HLFileManager.m */; };
+		B0B89CBD24048962004E7BC7 /* PrimeFinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */; };
+		B0B8B671240485D4003D6FC4 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */; };
+		B0B8B672240485D4003D6FC4 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B66F240485D4003D6FC4 /* URL+Extension.swift */; };
+		B0B8B673240485D4003D6FC4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B670240485D4003D6FC4 /* String+Extension.swift */; };
+		B0B8B6772404870E003D6FC4 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6752404870E003D6FC4 /* HLPrime.swift */; };
+		B0B8B6782404870E003D6FC4 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */; };
+		B0BA087024293380001628BE /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0BA086F24293380001628BE /* Help */; };
+		B0D252C224291A62004EAB59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0D252C124291A62004EAB59 /* README.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B04A498323FF4732007D0D81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B04A496523FF4731007D0D81 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B04A496C23FF4731007D0D81;
+			remoteInfo = "Prime Finder";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B04A496D23FF4731007D0D81 /* Prime Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Prime Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B04A497023FF4731007D0D81 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B04A497223FF4731007D0D81 /* PrimeFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderView.swift; sourceTree = "<group>"; };
+		B04A497423FF4732007D0D81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B04A497723FF4732007D0D81 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B04A497A23FF4732007D0D81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B04A497C23FF4732007D0D81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B04A497D23FF4732007D0D81 /* Prime_Finder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prime_Finder.entitlements; sourceTree = "<group>"; };
+		B04A498223FF4732007D0D81 /* Prime FinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prime FinderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B04A498623FF4732007D0D81 /* Prime_FinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prime_FinderTests.swift; sourceTree = "<group>"; };
+		B04A498823FF4732007D0D81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0B89CB8240487A0004E7BC7 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
+		B0B89CB9240487A0004E7BC7 /* Prime Finder-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Prime Finder-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0B89CBA240487A0004E7BC7 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
+		B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderViewModel.swift; sourceTree = "<group>"; };
+		B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		B0B8B66F240485D4003D6FC4 /* URL+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		B0B8B670240485D4003D6FC4 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B0B8B6752404870E003D6FC4 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
+		B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HLPrime+Extension.swift"; sourceTree = "<group>"; };
+		B0BA086F24293380001628BE /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
+		B0D252C124291A62004EAB59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B04A496A23FF4731007D0D81 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B04A497F23FF4732007D0D81 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B04A496423FF4731007D0D81 = {
+			isa = PBXGroup;
+			children = (
+				B0D252C124291A62004EAB59 /* README.md */,
+				B0BA086F24293380001628BE /* Help */,
+				B04A496F23FF4731007D0D81 /* Prime Finder */,
+				B04A498523FF4732007D0D81 /* Prime FinderTests */,
+				B04A496E23FF4731007D0D81 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B04A496E23FF4731007D0D81 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B04A496D23FF4731007D0D81 /* Prime Finder.app */,
+				B04A498223FF4732007D0D81 /* Prime FinderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B04A496F23FF4731007D0D81 /* Prime Finder */ = {
+			isa = PBXGroup;
+			children = (
+				B04A497023FF4731007D0D81 /* AppDelegate.swift */,
+				B04A497423FF4732007D0D81 /* Assets.xcassets */,
+				B0B8B66D240485D4003D6FC4 /* Extensions */,
+				B04A497C23FF4732007D0D81 /* Info.plist */,
+				B04A497923FF4732007D0D81 /* Main.storyboard */,
+				B0B8B6742404870E003D6FC4 /* Model */,
+				B0B89CB7240487A0004E7BC7 /* ObjectiveC */,
+				B04A497623FF4732007D0D81 /* Preview Content */,
+				B04A497D23FF4732007D0D81 /* Prime_Finder.entitlements */,
+				B04A497223FF4731007D0D81 /* PrimeFinderView.swift */,
+				B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */,
+			);
+			path = "Prime Finder";
+			sourceTree = "<group>";
+		};
+		B04A497623FF4732007D0D81 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B04A497723FF4732007D0D81 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B04A498523FF4732007D0D81 /* Prime FinderTests */ = {
+			isa = PBXGroup;
+			children = (
+				B04A498623FF4732007D0D81 /* Prime_FinderTests.swift */,
+				B04A498823FF4732007D0D81 /* Info.plist */,
+			);
+			path = "Prime FinderTests";
+			sourceTree = "<group>";
+		};
+		B0B89CB7240487A0004E7BC7 /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				B0B89CB8240487A0004E7BC7 /* HLFileManager.m */,
+				B0B89CB9240487A0004E7BC7 /* Prime Finder-Bridging-Header.h */,
+				B0B89CBA240487A0004E7BC7 /* HLFileManager.h */,
+			);
+			path = ObjectiveC;
+			sourceTree = SOURCE_ROOT;
+		};
+		B0B8B66D240485D4003D6FC4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */,
+				B0B8B66F240485D4003D6FC4 /* URL+Extension.swift */,
+				B0B8B670240485D4003D6FC4 /* String+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = SOURCE_ROOT;
+		};
+		B0B8B6742404870E003D6FC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B0B8B6752404870E003D6FC4 /* HLPrime.swift */,
+				B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */,
+			);
+			path = Model;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B04A496C23FF4731007D0D81 /* Prime Finder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B04A498B23FF4732007D0D81 /* Build configuration list for PBXNativeTarget "Prime Finder" */;
+			buildPhases = (
+				B04A496923FF4731007D0D81 /* Sources */,
+				B04A496A23FF4731007D0D81 /* Frameworks */,
+				B04A496B23FF4731007D0D81 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Prime Finder";
+			productName = "Prime Finder";
+			productReference = B04A496D23FF4731007D0D81 /* Prime Finder.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B04A498123FF4732007D0D81 /* Prime FinderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B04A498E23FF4732007D0D81 /* Build configuration list for PBXNativeTarget "Prime FinderTests" */;
+			buildPhases = (
+				B04A497E23FF4732007D0D81 /* Sources */,
+				B04A497F23FF4732007D0D81 /* Frameworks */,
+				B04A498023FF4732007D0D81 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B04A498423FF4732007D0D81 /* PBXTargetDependency */,
+			);
+			name = "Prime FinderTests";
+			productName = "Prime FinderTests";
+			productReference = B04A498223FF4732007D0D81 /* Prime FinderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B04A496523FF4731007D0D81 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Matthew Homer";
+				TargetAttributes = {
+					B04A496C23FF4731007D0D81 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					B04A498123FF4732007D0D81 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = B04A496C23FF4731007D0D81;
+					};
+				};
+			};
+			buildConfigurationList = B04A496823FF4731007D0D81 /* Build configuration list for PBXProject "Prime Finder" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B04A496423FF4731007D0D81;
+			productRefGroup = B04A496E23FF4731007D0D81 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B04A496C23FF4731007D0D81 /* Prime Finder */,
+				B04A498123FF4732007D0D81 /* Prime FinderTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B04A496B23FF4731007D0D81 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B04A497B23FF4732007D0D81 /* Main.storyboard in Resources */,
+				B0BA087024293380001628BE /* Help in Resources */,
+				B04A497823FF4732007D0D81 /* Preview Assets.xcassets in Resources */,
+				B0D252C224291A62004EAB59 /* README.md in Resources */,
+				B04A497523FF4732007D0D81 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B04A498023FF4732007D0D81 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B04A496923FF4731007D0D81 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0B8B671240485D4003D6FC4 /* Int+Extension.swift in Sources */,
+				B0B89CBB240487A0004E7BC7 /* HLFileManager.m in Sources */,
+				B0B8B672240485D4003D6FC4 /* URL+Extension.swift in Sources */,
+				B04A497323FF4731007D0D81 /* PrimeFinderView.swift in Sources */,
+				B0B8B673240485D4003D6FC4 /* String+Extension.swift in Sources */,
+				B04A497123FF4731007D0D81 /* AppDelegate.swift in Sources */,
+				B0B8B6782404870E003D6FC4 /* HLPrime+Extension.swift in Sources */,
+				B0B8B6772404870E003D6FC4 /* HLPrime.swift in Sources */,
+				B0B89CBD24048962004E7BC7 /* PrimeFinderViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B04A497E23FF4732007D0D81 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B04A498723FF4732007D0D81 /* Prime_FinderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B04A498423FF4732007D0D81 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B04A496C23FF4731007D0D81 /* Prime Finder */;
+			targetProxy = B04A498323FF4732007D0D81 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B04A497923FF4732007D0D81 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B04A497A23FF4732007D0D81 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B04A498923FF4732007D0D81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B04A498A23FF4732007D0D81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B04A498C23FF4732007D0D81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Prime Finder/Prime_Finder.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_ASSET_PATHS = "\"Prime Finder/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Prime Finder/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "./ObjectiveC/Prime Finder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B04A498D23FF4732007D0D81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Prime Finder/Prime_Finder.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_ASSET_PATHS = "\"Prime Finder/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Prime Finder/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "./ObjectiveC/Prime Finder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B04A498F23FF4732007D0D81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = "Prime FinderTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.homerlabs.Prime-FinderTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prime Finder.app/Contents/MacOS/Prime Finder";
+			};
+			name = Debug;
+		};
+		B04A499023FF4732007D0D81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = "Prime FinderTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "us.homerlabs.Prime-FinderTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Prime Finder.app/Contents/MacOS/Prime Finder";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B04A496823FF4731007D0D81 /* Build configuration list for PBXProject "Prime Finder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B04A498923FF4732007D0D81 /* Debug */,
+				B04A498A23FF4732007D0D81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B04A498B23FF4732007D0D81 /* Build configuration list for PBXNativeTarget "Prime Finder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B04A498C23FF4732007D0D81 /* Debug */,
+				B04A498D23FF4732007D0D81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B04A498E23FF4732007D0D81 /* Build configuration list for PBXNativeTarget "Prime FinderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B04A498F23FF4732007D0D81 /* Debug */,
+				B04A499023FF4732007D0D81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B04A496523FF4731007D0D81 /* Project object */;
+}
