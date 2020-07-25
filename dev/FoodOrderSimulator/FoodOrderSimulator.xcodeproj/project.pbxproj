@@ -20,6 +20,7 @@
 		B0DF320124CC92FE00B1F723 /* OrderSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31FC24CC92FE00B1F723 /* OrderSimulator.swift */; };
 		B0DF320224CC92FE00B1F723 /* ShelfManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31FD24CC92FE00B1F723 /* ShelfManager.swift */; };
 		B0DF320424CC930700B1F723 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0DF320324CC930700B1F723 /* README.md */; };
+		B0E5CD9A24CCC26100AC7E67 /* OverflowShelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E5CD9924CCC26100AC7E67 /* OverflowShelf.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		B0DF31FC24CC92FE00B1F723 /* OrderSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderSimulator.swift; sourceTree = "<group>"; };
 		B0DF31FD24CC92FE00B1F723 /* ShelfManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelfManager.swift; sourceTree = "<group>"; };
 		B0DF320324CC930700B1F723 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B0E5CD9924CCC26100AC7E67 /* OverflowShelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowShelf.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				B0DF31FB24CC92FE00B1F723 /* Shelf.swift */,
 				B0DF31FC24CC92FE00B1F723 /* OrderSimulator.swift */,
 				B0DF31FD24CC92FE00B1F723 /* ShelfManager.swift */,
+				B0E5CD9924CCC26100AC7E67 /* OverflowShelf.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				B0DF320124CC92FE00B1F723 /* OrderSimulator.swift in Sources */,
 				B0DF320024CC92FE00B1F723 /* Shelf.swift in Sources */,
 				B0DF320224CC92FE00B1F723 /* ShelfManager.swift in Sources */,
+				B0E5CD9A24CCC26100AC7E67 /* OverflowShelf.swift in Sources */,
 				B0DF31D824CC925600B1F723 /* ViewController.swift in Sources */,
 				B0DF31FE24CC92FE00B1F723 /* Courier.swift in Sources */,
 				B0DF31FF24CC92FE00B1F723 /* Order.swift in Sources */,

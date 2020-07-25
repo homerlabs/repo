@@ -25,7 +25,7 @@ public class ShelfManager {
     internal var shelfHot: Shelf
     internal var shelfCold: Shelf
     internal var shelfFrozen: Shelf
-    internal var shelfOverflow: Shelf
+    internal var shelfOverflow: OverflowShelf
     
     public var totalOrdersPlaced = 0
     public var totalOrdersDelivered = 0
@@ -128,7 +128,7 @@ public class ShelfManager {
         shelfHot = Shelf(type: .hot, capacity: shelfHotCapacity, decayModifier: 1)
         shelfCold = Shelf(type: .cold, capacity: shelfColdCapacity, decayModifier: 1)
         shelfFrozen = Shelf(type: .frozen, capacity: shelfFrozenCapacity, decayModifier: 1)
-        shelfOverflow = Shelf(type: .any, capacity: shelfOverflowCapacity, decayModifier: 2)
+        shelfOverflow = OverflowShelf(type: .any, capacity: shelfOverflowCapacity, decayModifier: 2)
     }
 }
 
@@ -177,7 +177,7 @@ extension ShelfManager: OrderCompletation {
             }
             let removedOrder = order.shelf.removeOrder(order)
             if removedOrder != nil {
-                print("discarded:\(totalOrdersDiscarded) \(order) from: \(order.shelf)")
+                print("discarded:\(totalOrdersDiscarded)\t\(order)")
             }
             else {
                 print("****  discarded order:\(totalOrdersDiscarded) \(order) from: \(order.shelf) NOT FOUND!!")

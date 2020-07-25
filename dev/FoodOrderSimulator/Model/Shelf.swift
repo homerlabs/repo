@@ -28,23 +28,6 @@ public class Shelf {
         return nil
     }
     
-    //  return true if successful
-    //  does not disable the deliveryTimer
-    public func moveOrder(_ order: Order, to shelf: Shelf) -> Bool {
-        var success = false
-        if let movedOrder = ordersDict[order.id] {
-            movedOrder.courier?.cancel()
-            ordersDict[movedOrder.id] = nil
-            let spaceAvailable = shelf.spaceAvailabe()
-            assert(spaceAvailable, ">>>>>>> moveOrder attempted but no space available \(movedOrder)")
-            order.shelf = shelf
-            shelf.ordersDict[order.id] = order
-            success = true
-        }
-        
-        return success
-     }
-
     //  returns removed order if successful
     //  disables the deliveryTimer
     public func removeOrder(_ order: Order) -> Order? {
