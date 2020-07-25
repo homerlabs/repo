@@ -63,7 +63,7 @@ public class ShelfManager {
         
         order.shelf = shelf!
         totalOrdersPlaced += 1
-        print("place order:\(totalOrdersPlaced) \t\(order) onto \(order.shelf)")
+        print("place  :\(totalOrdersPlaced)\t\(order)")
     }
     
     //  search for a 'movable' order and if found, move it to it's preferred shelf
@@ -79,15 +79,21 @@ public class ShelfManager {
             let preferredShelf: Shelf = returnShelf(type: order.temp)
             
             if preferredShelf.spaceAvailabe() {
-                print(">>>>>  moving order: \(order) from overflowShelf")
                 let moveSucceeded = shelfOverflow.moveOrder(order, to: returnShelf(type: order.temp))
               
                 if moveSucceeded {
                     totalOrdersMoved += 1
+                    print("move   :\(totalOrdersMoved)\t\(order)")
+                    
+                    //  adjust shelfLife for time spent of overflow shelf
+                    order.shelfLife *= order.calculateValue()
+                    
+                    //  reset start time
+                    order.time = Date()
+                    
+                    //  reset deliveryTime with adjusted time
                     let time = order.courier!.deliveryTime
                     let newTime = time + order.time.timeIntervalSinceNow
-                    order.time = Date()
-                    order.shelfLife = order.calculateValue()
                     order.courier = Courier(order: order, deliveryTime: newTime, delegate: self)
                 }
                 
@@ -114,7 +120,7 @@ public class ShelfManager {
     
     public func printStateVerbose() {
         print("\(self)")
-        print("shelfHot: \(shelfHot.ordersDict)  \nshelfCold: \(shelfCold.ordersDict)  \nshelfFrozen: \(shelfFrozen.ordersDict)  \nshelfOverflow: \(shelfOverflow.ordersDict)")
+ //       print("shelfHot: \(shelfHot.ordersDict)  \nshelfCold: \(shelfCold.ordersDict)  \nshelfFrozen: \(shelfFrozen.ordersDict)  \nshelfOverflow: \(shelfOverflow.ordersDict)")
     }
    
     public init() {
@@ -128,8 +134,8 @@ public class ShelfManager {
 
 extension ShelfManager: CustomStringConvertible {
     public var description: String {
-    "\tHot: \(shelfHot.ordersDict.count)  \tCold: \(shelfCold.ordersDict.count)  \tFrozen: \(shelfFrozen.ordersDict.count)\tOverflow: \(shelfOverflow.ordersDict.count)" +
-    "\nTotal Placed: \(totalOrdersPlaced) \tTotal Delivered: \(totalOrdersDelivered) \tTotal Discarded: \(totalOrdersDiscarded) \tTotal Moved: \(totalOrdersMoved)"
+    "\tHot:\(shelfHot.ordersDict.count)  Cold:\(shelfCold.ordersDict.count)  Frozen:\(shelfFrozen.ordersDict.count)  Overflow:\(shelfOverflow.ordersDict.count)" +
+    " \tPlaced:\(totalOrdersPlaced) \tDelivered:\(totalOrdersDelivered) \tDiscarded:\(totalOrdersDiscarded) \tMoved:\(totalOrdersMoved)"
     }
 }
 
@@ -147,7 +153,7 @@ extension ShelfManager: OrderCompletation {
                 printStateVerbose()
             }
             if let removedOrder = order.shelf.removeOrder(order) {
-                print("deliver order:\(totalOrdersDelivered) \(removedOrder) from shelf: \(removedOrder.shelf)")
+                print("deliver:\(totalOrdersDelivered)\t\(removedOrder)")
             }
             else {
                 print("deliver order:\(totalOrdersDelivered) \(order) from shelf: \(order.shelf) NOT FOUND!!")
@@ -171,7 +177,7 @@ extension ShelfManager: OrderCompletation {
             }
             let removedOrder = order.shelf.removeOrder(order)
             if removedOrder != nil {
-                print("****  discarded order:\(totalOrdersDiscarded) \(order) from: \(order.shelf)")
+                print("discarded:\(totalOrdersDiscarded) \(order) from: \(order.shelf)")
             }
             else {
                 print("****  discarded order:\(totalOrdersDiscarded) \(order) from: \(order.shelf) NOT FOUND!!")

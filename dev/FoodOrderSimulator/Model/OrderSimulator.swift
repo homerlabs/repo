@@ -9,7 +9,7 @@
 import Foundation
 
 public class OrderSimulator {
-    let orderCreationRate = 0.5 //  2 per second
+    let orderCreationRate = 0.2 //  2 per second
     
     public var orders: [Order] = []
     public var shelfManager = ShelfManager()

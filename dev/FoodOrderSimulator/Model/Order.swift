@@ -70,6 +70,6 @@ public class Order: Decodable {
 
 extension Order: CustomStringConvertible {
     public var description: String {
-    "\(id)  \(name)  \(temp)  value: \(calculateValue().formatString(digits: 3))"
+    "\(id)  \(name)  \(temp)  \(calculateValue().formatString(digits: 3))  \(shelf)"
     }
 }
