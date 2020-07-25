@@ -1,0 +1,519 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B0BC394D24CC937700B93501 /* orders.json in Resources */ = {isa = PBXBuildFile; fileRef = B0BC394C24CC937700B93501 /* orders.json */; };
+		B0DF31D624CC925500B1F723 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31D524CC925500B1F723 /* AppDelegate.swift */; };
+		B0DF31D824CC925600B1F723 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31D724CC925600B1F723 /* ViewController.swift */; };
+		B0DF31DA24CC925600B1F723 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0DF31D924CC925600B1F723 /* Assets.xcassets */; };
+		B0DF31DD24CC925600B1F723 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0DF31DB24CC925600B1F723 /* Main.storyboard */; };
+		B0DF31E924CC925700B1F723 /* FoodOrderSimulatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31E824CC925700B1F723 /* FoodOrderSimulatorTests.swift */; };
+		B0DF31F724CC92F500B1F723 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31F624CC92F500B1F723 /* Double+Extension.swift */; };
+		B0DF31FE24CC92FE00B1F723 /* Courier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31F924CC92FE00B1F723 /* Courier.swift */; };
+		B0DF31FF24CC92FE00B1F723 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31FA24CC92FE00B1F723 /* Order.swift */; };
+		B0DF320024CC92FE00B1F723 /* Shelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31FB24CC92FE00B1F723 /* Shelf.swift */; };
+		B0DF320124CC92FE00B1F723 /* OrderSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31FC24CC92FE00B1F723 /* OrderSimulator.swift */; };
+		B0DF320224CC92FE00B1F723 /* ShelfManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DF31FD24CC92FE00B1F723 /* ShelfManager.swift */; };
+		B0DF320424CC930700B1F723 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0DF320324CC930700B1F723 /* README.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0DF31E524CC925700B1F723 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0DF31CA24CC925500B1F723 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0DF31D124CC925500B1F723;
+			remoteInfo = FoodOrderSimulator;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B0BC394C24CC937700B93501 /* orders.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orders.json; sourceTree = "<group>"; };
+		B0DF31D224CC925500B1F723 /* FoodOrderSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodOrderSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0DF31D524CC925500B1F723 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B0DF31D724CC925600B1F723 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0DF31D924CC925600B1F723 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B0DF31DC24CC925600B1F723 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B0DF31DE24CC925600B1F723 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0DF31DF24CC925700B1F723 /* FoodOrderSimulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodOrderSimulator.entitlements; sourceTree = "<group>"; };
+		B0DF31E424CC925700B1F723 /* FoodOrderSimulatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodOrderSimulatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0DF31E824CC925700B1F723 /* FoodOrderSimulatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodOrderSimulatorTests.swift; sourceTree = "<group>"; };
+		B0DF31EA24CC925700B1F723 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0DF31F624CC92F500B1F723 /* Double+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		B0DF31F924CC92FE00B1F723 /* Courier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Courier.swift; sourceTree = "<group>"; };
+		B0DF31FA24CC92FE00B1F723 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		B0DF31FB24CC92FE00B1F723 /* Shelf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shelf.swift; sourceTree = "<group>"; };
+		B0DF31FC24CC92FE00B1F723 /* OrderSimulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderSimulator.swift; sourceTree = "<group>"; };
+		B0DF31FD24CC92FE00B1F723 /* ShelfManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelfManager.swift; sourceTree = "<group>"; };
+		B0DF320324CC930700B1F723 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B0DF31CF24CC925500B1F723 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0DF31E124CC925700B1F723 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B0BC394B24CC937700B93501 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B0BC394C24CC937700B93501 /* orders.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B0DF31C924CC925500B1F723 = {
+			isa = PBXGroup;
+			children = (
+				B0DF31F524CC92F500B1F723 /* Extensions */,
+				B0DF31D424CC925500B1F723 /* FoodOrderSimulator */,
+				B0DF31E724CC925700B1F723 /* FoodOrderSimulatorTests */,
+				B0DF31F824CC92FE00B1F723 /* Model */,
+				B0DF31D324CC925500B1F723 /* Products */,
+				B0DF320324CC930700B1F723 /* README.md */,
+				B0BC394B24CC937700B93501 /* Resources */,
+			);
+			sourceTree = "<group>";
+		};
+		B0DF31D324CC925500B1F723 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0DF31D224CC925500B1F723 /* FoodOrderSimulator.app */,
+				B0DF31E424CC925700B1F723 /* FoodOrderSimulatorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B0DF31D424CC925500B1F723 /* FoodOrderSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				B0DF31D524CC925500B1F723 /* AppDelegate.swift */,
+				B0DF31D724CC925600B1F723 /* ViewController.swift */,
+				B0DF31D924CC925600B1F723 /* Assets.xcassets */,
+				B0DF31DB24CC925600B1F723 /* Main.storyboard */,
+				B0DF31DE24CC925600B1F723 /* Info.plist */,
+				B0DF31DF24CC925700B1F723 /* FoodOrderSimulator.entitlements */,
+			);
+			path = FoodOrderSimulator;
+			sourceTree = "<group>";
+		};
+		B0DF31E724CC925700B1F723 /* FoodOrderSimulatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0DF31E824CC925700B1F723 /* FoodOrderSimulatorTests.swift */,
+				B0DF31EA24CC925700B1F723 /* Info.plist */,
+			);
+			path = FoodOrderSimulatorTests;
+			sourceTree = "<group>";
+		};
+		B0DF31F524CC92F500B1F723 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B0DF31F624CC92F500B1F723 /* Double+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B0DF31F824CC92FE00B1F723 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B0DF31F924CC92FE00B1F723 /* Courier.swift */,
+				B0DF31FA24CC92FE00B1F723 /* Order.swift */,
+				B0DF31FB24CC92FE00B1F723 /* Shelf.swift */,
+				B0DF31FC24CC92FE00B1F723 /* OrderSimulator.swift */,
+				B0DF31FD24CC92FE00B1F723 /* ShelfManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0DF31D124CC925500B1F723 /* FoodOrderSimulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0DF31ED24CC925700B1F723 /* Build configuration list for PBXNativeTarget "FoodOrderSimulator" */;
+			buildPhases = (
+				B0DF31CE24CC925500B1F723 /* Sources */,
+				B0DF31CF24CC925500B1F723 /* Frameworks */,
+				B0DF31D024CC925500B1F723 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FoodOrderSimulator;
+			productName = FoodOrderSimulator;
+			productReference = B0DF31D224CC925500B1F723 /* FoodOrderSimulator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B0DF31E324CC925700B1F723 /* FoodOrderSimulatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0DF31F024CC925700B1F723 /* Build configuration list for PBXNativeTarget "FoodOrderSimulatorTests" */;
+			buildPhases = (
+				B0DF31E024CC925700B1F723 /* Sources */,
+				B0DF31E124CC925700B1F723 /* Frameworks */,
+				B0DF31E224CC925700B1F723 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0DF31E624CC925700B1F723 /* PBXTargetDependency */,
+			);
+			name = FoodOrderSimulatorTests;
+			productName = FoodOrderSimulatorTests;
+			productReference = B0DF31E424CC925700B1F723 /* FoodOrderSimulatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0DF31CA24CC925500B1F723 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1160;
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = "Matthew Homer";
+				TargetAttributes = {
+					B0DF31D124CC925500B1F723 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					B0DF31E324CC925700B1F723 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = B0DF31D124CC925500B1F723;
+					};
+				};
+			};
+			buildConfigurationList = B0DF31CD24CC925500B1F723 /* Build configuration list for PBXProject "FoodOrderSimulator" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B0DF31C924CC925500B1F723;
+			productRefGroup = B0DF31D324CC925500B1F723 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B0DF31D124CC925500B1F723 /* FoodOrderSimulator */,
+				B0DF31E324CC925700B1F723 /* FoodOrderSimulatorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B0DF31D024CC925500B1F723 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0DF320424CC930700B1F723 /* README.md in Resources */,
+				B0DF31DA24CC925600B1F723 /* Assets.xcassets in Resources */,
+				B0BC394D24CC937700B93501 /* orders.json in Resources */,
+				B0DF31DD24CC925600B1F723 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0DF31E224CC925700B1F723 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0DF31CE24CC925500B1F723 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0DF320124CC92FE00B1F723 /* OrderSimulator.swift in Sources */,
+				B0DF320024CC92FE00B1F723 /* Shelf.swift in Sources */,
+				B0DF320224CC92FE00B1F723 /* ShelfManager.swift in Sources */,
+				B0DF31D824CC925600B1F723 /* ViewController.swift in Sources */,
+				B0DF31FE24CC92FE00B1F723 /* Courier.swift in Sources */,
+				B0DF31FF24CC92FE00B1F723 /* Order.swift in Sources */,
+				B0DF31D624CC925500B1F723 /* AppDelegate.swift in Sources */,
+				B0DF31F724CC92F500B1F723 /* Double+Extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0DF31E024CC925700B1F723 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0DF31E924CC925700B1F723 /* FoodOrderSimulatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0DF31E624CC925700B1F723 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0DF31D124CC925500B1F723 /* FoodOrderSimulator */;
+			targetProxy = B0DF31E524CC925700B1F723 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B0DF31DB24CC925600B1F723 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0DF31DC24CC925600B1F723 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B0DF31EB24CC925700B1F723 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B0DF31EC24CC925700B1F723 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B0DF31EE24CC925700B1F723 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoodOrderSimulator/FoodOrderSimulator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = FoodOrderSimulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.FoodOrderSimulator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B0DF31EF24CC925700B1F723 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoodOrderSimulator/FoodOrderSimulator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = FoodOrderSimulator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.FoodOrderSimulator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B0DF31F124CC925700B1F723 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = FoodOrderSimulatorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.FoodOrderSimulatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodOrderSimulator.app/Contents/MacOS/FoodOrderSimulator";
+			};
+			name = Debug;
+		};
+		B0DF31F224CC925700B1F723 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9YP4SSJBR5;
+				INFOPLIST_FILE = FoodOrderSimulatorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.FoodOrderSimulatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodOrderSimulator.app/Contents/MacOS/FoodOrderSimulator";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0DF31CD24CC925500B1F723 /* Build configuration list for PBXProject "FoodOrderSimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0DF31EB24CC925700B1F723 /* Debug */,
+				B0DF31EC24CC925700B1F723 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0DF31ED24CC925700B1F723 /* Build configuration list for PBXNativeTarget "FoodOrderSimulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0DF31EE24CC925700B1F723 /* Debug */,
+				B0DF31EF24CC925700B1F723 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0DF31F024CC925700B1F723 /* Build configuration list for PBXNativeTarget "FoodOrderSimulatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0DF31F124CC925700B1F723 /* Debug */,
+				B0DF31F224CC925700B1F723 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B0DF31CA24CC925500B1F723 /* Project object */;
+}

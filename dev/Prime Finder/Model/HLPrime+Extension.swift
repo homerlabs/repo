@@ -39,6 +39,8 @@ extension HLPrime {
         completion(lastLine)
     }
     
+    //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
+    //  uses holdingDict to sync operation outputs
     func findPrimes3(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimes3-  maxPrime: \(maxPrime)" )
         let dispatchQueue = DispatchQueue.init(label: "FindPrimes0Queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
@@ -72,6 +74,8 @@ extension HLPrime {
     }
     
     //  findPrimes2 stuff
+    //  uses batchCount to make DispacthWorkItems then added to a DispatchGroup
+    //  uses holdingDict to sync operation outputs
     //***************************************************************************************************
     func findPrimes2(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
