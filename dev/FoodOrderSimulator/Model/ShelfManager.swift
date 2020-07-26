@@ -32,7 +32,7 @@ public class ShelfManager {
     public var totalOrdersDiscarded = 0
     public var totalOrdersMoved = 0
         
-    private let orderOperationQueue: DispatchQueue
+    private let semaphore = DispatchSemaphore(value: 1)
     public var verboseDebug = false
 
     public func addOrder(_ order: Order) {
@@ -41,9 +41,9 @@ public class ShelfManager {
         let deliveryTime = Double.random(in: deliveryTimeRange)
         order.courier = Courier(order: order, deliveryTime: deliveryTime, delegate: self)
         
-        orderOperationQueue.sync {
+        semaphore.wait()
             shelf = shelf!.addOrder(order)
-        }
+        semaphore.signal()
         
        //  check if we are done
         if  shelf == nil {
@@ -55,17 +55,16 @@ public class ShelfManager {
                 assert(false)
             }
             
-            orderOperationQueue.sync {
+            semaphore.wait()
                 //  this will always succeed
                 shelf = shelfOverflow.addOrder(order)
-            }
+            semaphore.signal()
         }
         
         order.shelf = shelf!
         totalOrdersPlaced += 1
         print("place  :\(totalOrdersPlaced)\t\(order)")
     }
-    
     //  search for a 'movable' order and if found, move it to it's preferred shelf
     //  if none are found, discard random order on overflow shelf
     //  one way or the other, will always succeed in making room for the new order
@@ -107,7 +106,7 @@ public class ShelfManager {
             discardOrder(order)    //  OrderCompletation protocol
         }
     }
-    
+        
     //  for a given temperature, return the appropriate shelf
     internal func returnShelf(type: TemperatureEnum) -> Shelf {
         switch type {
@@ -124,7 +123,6 @@ public class ShelfManager {
     }
    
     public init() {
-        orderOperationQueue = DispatchQueue(label: "ShelfManagerOrderQueue")
         shelfHot = Shelf(type: .hot, capacity: shelfHotCapacity, decayModifier: 1)
         shelfCold = Shelf(type: .cold, capacity: shelfColdCapacity, decayModifier: 1)
         shelfFrozen = Shelf(type: .frozen, capacity: shelfFrozenCapacity, decayModifier: 1)
@@ -147,7 +145,7 @@ extension ShelfManager: OrderCompletation {
     //  gets called by courier when courier deliveryTimer fires
     //  checks if simulation is done and if so, terminates simulation
     public func deliverOrder(_ order: Order) {
-        orderOperationQueue.sync {
+        semaphore.wait()
             totalOrdersDelivered += 1
             if verboseDebug {
                 printStateVerbose()
@@ -160,7 +158,7 @@ extension ShelfManager: OrderCompletation {
                 printStateVerbose()
                 assert(false, "\(order.shelf).removeOrder: \(order) failed!")
             }
-        }
+        semaphore.signal()
 
         if activeOrders() == 0 {
             simulationCompleted()
@@ -170,7 +168,7 @@ extension ShelfManager: OrderCompletation {
     //  using orderOperationQueue, remove order from shelf and update totalOrdersDiscarded
     //  checks if simulation is done and if so, terminates simulation
     public func discardOrder(_ order: Order) {
-        orderOperationQueue.sync {
+        semaphore.wait()
             totalOrdersDiscarded += 1
             if verboseDebug {
                 printStateVerbose()
@@ -184,7 +182,7 @@ extension ShelfManager: OrderCompletation {
                 printStateVerbose()
                 assert(false, "\(order.shelf).removeOrder: \(order) failed!")
             }
-        }
+        semaphore.signal()
         
         if activeOrders() == 0 {
             simulationCompleted()

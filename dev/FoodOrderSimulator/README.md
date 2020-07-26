@@ -32,3 +32,4 @@ Changes from version 1
     changed overflow shelf discard algorithm from find and discard order with min food value to random as per spec
     replaced call to exit() with call to NSApp.terminate()
     add ivar totalOrdersMoved
+    switched from using orderOperationQueue to using semaphore to protect ordersDict data
