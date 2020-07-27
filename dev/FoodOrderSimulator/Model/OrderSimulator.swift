@@ -9,7 +9,7 @@
 import Foundation
 
 public class OrderSimulator {
-    let orderCreationRate = 0.1 //  2 per second
+    let orderCreationRate = 0.5 //  2 per second
     
     public var orders: [Order] = []
     public var shelfManager = ShelfManager()
@@ -48,16 +48,17 @@ public class OrderSimulator {
         print("shelfManager: \(shelfManager)\n")
     }
     
-    public func placeOrder() {
+    @discardableResult public func placeOrder() -> Order? {
         //  if out of data, invalidate placeOrderTimer
         guard !orders.isEmpty else {
             placeOrderTimer?.invalidate()
             print("\nFood Order Simulation has consumed all input data.")
             printSimulatorState()
-            return
+            return nil
         }
         
         let order = orders.removeFirst()
         shelfManager.addOrder(order)
+        return order
     }
 }

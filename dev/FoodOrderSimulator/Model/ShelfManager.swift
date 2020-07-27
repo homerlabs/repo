@@ -119,7 +119,7 @@ public class ShelfManager {
     
     public func printStateVerbose() {
         print("\(self)")
- //       print("shelfHot: \(shelfHot.ordersDict)  \nshelfCold: \(shelfCold.ordersDict)  \nshelfFrozen: \(shelfFrozen.ordersDict)  \nshelfOverflow: \(shelfOverflow.ordersDict)")
+        print("shelfHot: \(shelfHot.ordersDict)  \nshelfCold: \(shelfCold.ordersDict)  \nshelfFrozen: \(shelfFrozen.ordersDict)  \nshelfOverflow: \(shelfOverflow.ordersDict)")
     }
    
     public init() {

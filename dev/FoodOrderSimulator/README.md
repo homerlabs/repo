@@ -1,7 +1,7 @@
 #  Order Delivery Simulator
 
 This program simulates a food order delivery system with a non-trival shelf storage algorithm.
-Solved the Reader/Writer problem with regards to the ordersDict held by each Shelf through the use of a sequential queue.
+Solved the Reader/Writer problem with regards to the ordersDict held by each Shelf through the use of a semaphore.
 
 Just run from Xcode and make adjustments to the simulator constants (orderCreationRate, deliveryTimeRange, and ShelfCapacities).
 Can control verbose debugging from the application window.  This was useful when app wouldn't finish because moved orders never fired their deliveryTimer.  
@@ -24,12 +24,14 @@ Best regards,
 
 Matthew Homer
 
-
-Changes from version 1
+Upon close examination, I was able to make several corrections and/or improvements
+Changes from version 1:
+    switched from using orderOperationQueue to using semaphore to protect ordersDict data
+    changed overflow shelf discard algorithm from find and discard order with min food value to random as per spec
     changed Order.temperature to .temp to conform to the JSON data (when I see 'temp' I think 'temporary')
     removed Courier.shelf as ivar shelf is already in Order
-    removed purgeShelf() and purgeAllOldOrders()
-    changed overflow shelf discard algorithm from find and discard order with min food value to random as per spec
+    removed purgeShelf() and purgeAllOldOrders()  as not needed
     replaced call to exit() with call to NSApp.terminate()
     add ivar totalOrdersMoved
-    switched from using orderOperationQueue to using semaphore to protect ordersDict data
+    made OverflowShelf a subclass of Shelf as it is the only one that can do a move operation  (moved the moveOrder() code out of Shelf)
+    cleaned up the unit tests

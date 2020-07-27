@@ -20,7 +20,7 @@ public class Courier {
     }
     
     public init(order: Order, deliveryTime: Double, delegate: OrderCompletation) {
-   //     print("init: \(orderId) \(deliveryTime.formatString(digits: 1))  delegate: \(delegate)")
+  //      print("init: \(order) \(deliveryTime.formatString(digits: 1))  delegate: \(delegate)")
         self.order = order
         self.deliveryTime = deliveryTime
         self.delegate = delegate
