@@ -86,7 +86,7 @@ extension HLPrime {
         var blocks: [DispatchWorkItem] = []
         
         for batchNumber in 0..<batchCount {
-            print( "findPrimes2-  starting batchNumber: \(batchNumber)" )
+     //       print( "findPrimes2-  starting batchNumber: \(batchNumber)" )
             
             dispatchGroup.enter()
      //       let block = DispatchWorkItem(qos: .userInteractive, flags: .barrier) {    //  need the .barrier flag to protect var waitingForBatchId

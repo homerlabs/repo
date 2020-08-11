@@ -15,7 +15,8 @@ class PrimeFinderPlusTests: XCTestCase {
     var primesURL: URL?
     public static let HLPrimesBookmarkKey  = "HLPrimesBookmarkKey"
     let HLSavePanelTitle = "Prime Finder Tests Save Panel"
-    let maxPrime: HLPrimeType = 10000000
+    let maxPrime: HLPrimeType = 100000000
+    let waitTime: TimeInterval = 1000
 
     override func setUp() {
         primesURL = HLPrime.HLPrimesBookmarkKey.getBookmark()
@@ -50,7 +51,7 @@ class PrimeFinderPlusTests: XCTestCase {
             
         }
         
-        wait(for: [expectationFindPrimes], timeout: 100)
+        wait(for: [expectationFindPrimes], timeout: waitTime)
     }
 
     func testPrimeFinder2() {
@@ -68,7 +69,7 @@ class PrimeFinderPlusTests: XCTestCase {
             
         }
         
-        wait(for: [expectationFindPrimes], timeout: 100)
+        wait(for: [expectationFindPrimes], timeout: waitTime)
     }
 
     func testPrimeFinder3() {
