@@ -103,7 +103,7 @@ class PrimeFinderViewModel: ObservableObject {
     }
 
     init() {
-        print("PrimeFinderViewModel-  init")
+   //     print("PrimeFinderViewModel-  init")
         primeFinder = HLPrime()
         primesURL = HLPrime.HLPrimesBookmarkKey.getBookmark()
         nicePrimesURL = HLPrime.HLNicePrimesBookmarkKey.getBookmark()
@@ -114,7 +114,7 @@ class PrimeFinderViewModel: ObservableObject {
     }
     
     deinit {
-        print("PrimeFinderViewModel-  deinit")
+  //      print("PrimeFinderViewModel-  deinit")
         if let url = primesURL {
             url.setBookmarkFor(key: HLPrime.HLPrimesBookmarkKey)
         }

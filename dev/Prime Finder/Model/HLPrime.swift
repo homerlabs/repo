@@ -36,10 +36,9 @@ public class HLPrime {
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
 
-    let queue0 = DispatchQueue.init(label: "PrimeFinderQueue0", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
-//    let queue0 = DispatchQueue(label: "PrimeFinderQueue0")
     var writeFileHandle: FileHandle?
     var operationsQueue = OperationQueue()
+    internal let semaphore = DispatchSemaphore(value: 1)
         
     public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )

@@ -134,28 +134,28 @@ extension HLPrime {
     }
 
     func drainHoldingDict(batchId: Int, data: [HLPrimeType]) {
-        queue0.sync {
-            holdingDict[batchId] = data
-            
-            while let batchResult = holdingDict[waitingForBatchId] {
-                var compoundLine = ""
-                var lastLine = ""
+        semaphore.wait()
+        holdingDict[batchId] = data
+        
+        while let batchResult = holdingDict[waitingForBatchId] {
+            var compoundLine = ""
+            var lastLine = ""
 
-                for item in batchResult {
-                    lastN += 1
-                    lastP = item
-                    lastLine = String(format: "%d\t%ld\n", lastN, lastP)
-                    compoundLine.append(lastLine)
-                }
-
-                //  compoundLine might be "" on the last batch
-                if let data = compoundLine.data(using: .utf8) {
-                    writeFileHandle?.write(data)
-                }
-                
-                holdingDict.removeValue(forKey: waitingForBatchId)
-                waitingForBatchId += 1
+            for item in batchResult {
+                lastN += 1
+                lastP = item
+                lastLine = String(format: "%d\t%ld\n", lastN, lastP)
+                compoundLine.append(lastLine)
             }
+
+            //  compoundLine might be "" on the last batch
+            if let data = compoundLine.data(using: .utf8) {
+                writeFileHandle?.write(data)
+            }
+            
+            holdingDict.removeValue(forKey: waitingForBatchId)
+            waitingForBatchId += 1
         }
+        semaphore.signal()
     }
 }
