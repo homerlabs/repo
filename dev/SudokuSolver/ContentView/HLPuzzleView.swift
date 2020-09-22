@@ -132,7 +132,7 @@ struct HLPuzzleView: View {
                 }
                     .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
             }
-                .frame(width: 800, height: 800, alignment: .center)
+                .frame(width: 780, height: 780, alignment: .center)
            
             OverlayView().opacity(0.1)
         }

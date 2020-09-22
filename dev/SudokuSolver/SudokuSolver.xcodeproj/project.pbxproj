@@ -77,6 +77,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B045D1E2251A8FCA00C916E5 /* ModelView */ = {
+			isa = PBXGroup;
+			children = (
+				B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */,
+			);
+			path = ModelView;
+			sourceTree = "<group>";
+		};
+		B045D1E3251A8FE400C916E5 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				B07F731E246B20C10059D8DE /* AboutView.swift */,
+				B0F444092460B43500BF3314 /* ColorChartView.swift */,
+				B0E1161B243241CB00CE073C /* HLGridView.swift */,
+				B06C830524293ECC007C169C /* HLPuzzleView.swift */,
+				B008185B2464A0B400C4A872 /* OverlayView.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
 		B068516B2429425A006E532E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,10 +109,12 @@
 		B06C82F524293ECC007C169C = {
 			isa = PBXGroup;
 			children = (
-				B0685170242944AD006E532E /* README.md */,
+				B045D1E3251A8FE400C916E5 /* ContentView */,
 				B075F1712470348300135DA5 /* Help */,
 				B068516B2429425A006E532E /* Model */,
+				B045D1E2251A8FCA00C916E5 /* ModelView */,
 				B06C82FF24293ECC007C169C /* Products */,
+				B0685170242944AD006E532E /* README.md */,
 				B06C830024293ECC007C169C /* SudokuSolver */,
 				B06C831724293ECD007C169C /* SudokuSolverTests */,
 			);
@@ -113,16 +135,10 @@
 				B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */,
 				B06C830124293ECC007C169C /* AppDelegate.swift */,
 				B06C830724293ECD007C169C /* Assets.xcassets */,
-				B0E1161B243241CB00CE073C /* HLGridView.swift */,
-				B06C830524293ECC007C169C /* HLPuzzleView.swift */,
-				B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */,
 				B06C830F24293ECD007C169C /* Info.plist */,
 				B06C830C24293ECD007C169C /* LaunchScreen.storyboard */,
 				B06C830924293ECD007C169C /* Preview Content */,
 				B06C830324293ECC007C169C /* SceneDelegate.swift */,
-				B0F444092460B43500BF3314 /* ColorChartView.swift */,
-				B008185B2464A0B400C4A872 /* OverlayView.swift */,
-				B07F731E246B20C10059D8DE /* AboutView.swift */,
 			);
 			path = SudokuSolver;
 			sourceTree = "<group>";
@@ -189,7 +205,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Matthew Homer";
 				TargetAttributes = {
 					B06C82FD24293ECC007C169C = {
@@ -316,6 +332,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -376,6 +393,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

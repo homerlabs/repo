@@ -53,33 +53,47 @@ struct HLGridView<Content, T>: View where Content: View {
     
     var body: some View {
         GeometryReader { geometry in
+            //  VStact ->  Spacer | 9x9 | Spacer
+            //  vertical certering
             VStack {
-                ForEach(0...self.numberOfRows, id: \.self) { row in
-                    HStack {
-                        ForEach(0..<self.columns, id: \.self) { column in
-                                Group {
-                                if self.elementFor(row: row, column: column) != nil {
-                                    self.content(
-                                       self.items[self.elementFor(row: row, column: column)!])
-                                            .multilineTextAlignment(.center)
-                                            .frame(width: self.scaleFactor * geometry.size.width / CGFloat(self.columns),
-                                                height: self.scaleFactor * geometry.size.height / CGFloat(self.columns), alignment: .center)
-                                            .padding(2)
-                                } else {
-                                    Spacer()
+                Spacer()
+
+                //  HStact ->  Spacer | 9x9 | Spacer
+                //  horzontal certering
+                HStack {
+                    Spacer()
+                    VStack {
+                        ForEach(0...self.numberOfRows, id: \.self) { row in
+                            HStack {
+                                ForEach(0..<self.columns, id: \.self) { column in
+                                        Group {
+                                        if self.elementFor(row: row, column: column) != nil {
+                                            self.content(
+                                               self.items[self.elementFor(row: row, column: column)!])
+                                                    .multilineTextAlignment(.center)
+                                                    .frame(width: self.scaleFactor * geometry.size.width / CGFloat(self.columns),
+                                                        height: self.scaleFactor * geometry.size.height / CGFloat(self.columns), alignment: .center)
+                                                    .padding(2)
+                                        } else {
+                                            Spacer()
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
+                    Spacer()
                 }
-            }
+                Spacer()
+           }
         }
     }
 }
 
 struct GridView_Previews: PreviewProvider {
     static var previews: some View {
-        HLGridView(columns: 3, items: [11, 3, 7, 17, 5, 2, 1]) { item in
+        let data = Array(Range(10001...10081))
+        HLGridView(columns: 9, items: data) { item in
             Text("\(item)")
         }
     }
