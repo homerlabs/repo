@@ -13,6 +13,7 @@ struct HLPuzzleView: View {
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
     let hlCellSize: CGFloat = 40
     let hlToggleSize: CGFloat = 150
+    let switchPadding: CGFloat = 8
     let mainPadding: CGFloat = 35
     let undoSolvePadding: CGFloat = 25
     let cellTextColor = [Color.green, Color.purple, Color.orange, Color.blue]
@@ -33,6 +34,8 @@ struct HLPuzzleView: View {
                             .frame(width: hlToggleSize)
                             Spacer()
                         }
+                        .padding(.bottom, switchPadding)
+                        
                         HStack {
                             Toggle(isOn: $puzzleViewModel.testColumns) {
                                 Text("Columns")
@@ -40,8 +43,9 @@ struct HLPuzzleView: View {
                             .frame(width: hlToggleSize)
                             Spacer()
                         }
-                            
-                       HStack {
+                        .padding(.bottom, switchPadding)
+                        
+                      HStack {
                             Toggle(isOn: $puzzleViewModel.testBlocks) {
                                 Text("Blocks")
                             }
@@ -52,12 +56,12 @@ struct HLPuzzleView: View {
                     }
                     Spacer()
 
-                    //*****  Color Chart and Node Count
+                    //*****  Color Chart, puzzle name, and Node Count
                     VStack(alignment: .trailing) {
                         ColorChartView(colorTable: cellTextColor)
-                        Text(puzzleViewModel.solver.puzzleName).padding(.vertical, 10)
+                        Text(puzzleViewModel.solver.puzzleName).padding(.top, 8)
 
-                        Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)")
+                        Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)").padding(.top, 3)
                     }
                 }
                 .padding(mainPadding)
