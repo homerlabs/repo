@@ -93,7 +93,7 @@ struct HLGridView<Content, T>: View where Content: View {
 struct GridView_Previews: PreviewProvider {
     static var previews: some View {
         let data = Array(Range(10001...10081))
-        HLGridView(columns: 9, items: data) { item in
+        return HLGridView(columns: 9, items: data) { item in
             Text("\(item)")
         }
     }

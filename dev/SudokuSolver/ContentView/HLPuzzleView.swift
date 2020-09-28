@@ -141,7 +141,7 @@ struct HLPuzzleView: View {
             OverlayView().opacity(0.1)
         }
             .background(windowBackgroundColor)
-   }
+    }
     
     func setToString(_ aSet: Set<String>)->String     {
         let list = Array(aSet.sorted(by: <))
@@ -160,5 +160,6 @@ struct HLPuzzleView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HLPuzzleView()
+           .previewLayout(.fixed(width: 800, height: 1100))
     }
 }
