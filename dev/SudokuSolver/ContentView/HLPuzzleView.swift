@@ -12,9 +12,8 @@ struct HLPuzzleView: View {
 
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
     let hlCellSize: CGFloat = 40
-    let hlToggleSize: CGFloat = 150
-    let switchPadding: CGFloat = 8
-    let mainPadding: CGFloat = 35
+    let mainPaddingX: CGFloat = 45
+    let mainPaddingY: CGFloat = 20
     let undoSolvePadding: CGFloat = 25
     let cellTextColor = [Color.green, Color.purple, Color.orange, Color.blue]
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
@@ -26,46 +25,20 @@ struct HLPuzzleView: View {
             VStack {
                 HStack(alignment: .top) {
                     //*****  Rows, Columns, and Blocks Switches
-                    VStack {
-                        HStack {
-                           Toggle(isOn: $puzzleViewModel.testRows, label:  {
-                                Text("Rows")
-                            })
-                            .frame(width: hlToggleSize)
-                            Spacer()
-                        }
-                        .padding(.bottom, switchPadding)
-                        
-                        HStack {
-                            Toggle(isOn: $puzzleViewModel.testColumns) {
-                                Text("Columns")
-                            }
-                            .frame(width: hlToggleSize)
-                            Spacer()
-                        }
-                        .padding(.bottom, switchPadding)
-                        
-                      HStack {
-                            Toggle(isOn: $puzzleViewModel.testBlocks) {
-                                Text("Blocks")
-                            }
-                            .disabled(puzzleViewModel.algorithmSelected != .findSets)
-                            .frame(width: hlToggleSize)
-                            Spacer()
-                        }
-                    }
+                    ButtonsView(testRows: puzzleViewModel.testRows, testColumns: puzzleViewModel.testColumns, testBlocks: puzzleViewModel.testBlocks, algorithmSelected: puzzleViewModel.algorithmSelected)
                     Spacer()
 
                     //*****  Color Chart, puzzle name, and Node Count
                     VStack(alignment: .trailing) {
                         ColorChartView(colorTable: cellTextColor)
-                        Text(puzzleViewModel.solver.puzzleName).padding(.top, 8)
+                        Text(puzzleViewModel.solver.puzzleName).padding(.top, 5)
 
                         Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)").padding(.top, 3)
                     }
                 }
-                .padding(mainPadding)
-                
+                .padding(.horizontal, mainPaddingX)
+                .padding(.top, mainPaddingY)
+
                 Spacer()
                //*****  Algorithm Picker
                 Picker(selection: $puzzleViewModel.algorithmSelected, label: Text("Not Used")) {
@@ -73,7 +46,8 @@ struct HLPuzzleView: View {
                     Text("Find Sets").tag(HLAlgorithmMode.findSets)
                     Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
                 }.pickerStyle(SegmentedPickerStyle())
-                 .padding(.horizontal, mainPadding)
+                 .padding(.horizontal, mainPaddingX)
+                 .padding(.bottom, 15)
 
                 //*****  Undo and Solve/Prune buttons
                 HStack {
@@ -98,7 +72,6 @@ struct HLPuzzleView: View {
                         .disabled(self.puzzleViewModel.solver.puzzleState == .final)
                     Spacer()
                }
-                .padding(.top, 30)
 
                 //*****  New Puzzle button and About button
                 HStack {
@@ -118,8 +91,8 @@ struct HLPuzzleView: View {
                         Text("About").padding()
                     }
                 }
-                    .padding(.bottom, 15)
-                    .padding(.horizontal, mainPadding)
+                    .padding(.bottom, mainPaddingY)
+                    .padding(.horizontal, mainPaddingX)
            }
             .sheet(isPresented: $aboutPanelPresented, onDismiss: {
                     print("$aboutPanelPresented: \(self.aboutPanelPresented)")
@@ -136,7 +109,7 @@ struct HLPuzzleView: View {
                 }
                     .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
             }
-                .frame(width: 780, height: 780, alignment: .center)
+            .frame(width: 780, height: 780, alignment: .center)
            
             OverlayView().opacity(0.1)
         }

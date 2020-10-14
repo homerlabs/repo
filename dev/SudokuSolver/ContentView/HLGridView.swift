@@ -37,7 +37,7 @@ struct HLGridView<Content, T>: View where Content: View {
     var items: [T]
     let content: (T) -> Content
     
-    let scaleFactor: CGFloat = 0.85
+    let scaleFactor: CGFloat = 0.75
     
     init(columns: Int, items: [T],
             @ViewBuilder content: @escaping (T) -> Content) {
