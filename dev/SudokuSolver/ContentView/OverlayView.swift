@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct OverlayView: View {
-    let width: CGFloat = 225
-    let height: CGFloat = 215
+    let width: CGFloat
+    let height: CGFloat
     
     var body: some View {
         VStack {
@@ -46,6 +46,6 @@ struct SimpleThreeBoxes: View {
 
 struct OverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        OverlayView()
+        OverlayView(width: 50, height: 50)
     }
 }

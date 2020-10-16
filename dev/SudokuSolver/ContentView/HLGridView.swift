@@ -38,7 +38,8 @@ struct HLGridView<Content, T>: View where Content: View {
     let content: (T) -> Content
     
     let scaleFactor: CGFloat = 0.75
-    
+    let overlayScaleFactor: CGFloat = 0.82
+
     init(columns: Int, items: [T],
             @ViewBuilder content: @escaping (T) -> Content) {
         self.columns = columns
@@ -55,37 +56,41 @@ struct HLGridView<Content, T>: View where Content: View {
         GeometryReader { geometry in
             //  VStact ->  Spacer | 9x9 | Spacer
             //  vertical certering
-            VStack {
-                Spacer()
+            ZStack {
+                VStack {
+                    //       Spacer()
 
-                //  HStact ->  Spacer | 9x9 | Spacer
-                //  horzontal certering
-                HStack {
-                    Spacer()
-                    VStack {
-                        ForEach(0...self.numberOfRows, id: \.self) { row in
-                            HStack {
-                                ForEach(0..<self.columns, id: \.self) { column in
-                                        Group {
-                                        if self.elementFor(row: row, column: column) != nil {
-                                            self.content(
-                                               self.items[self.elementFor(row: row, column: column)!])
-                                                    .multilineTextAlignment(.center)
-                                                    .frame(width: self.scaleFactor * geometry.size.width / CGFloat(self.columns),
-                                                        height: self.scaleFactor * geometry.size.height / CGFloat(self.columns), alignment: .center)
-                                                    .padding(2)
-                                        } else {
-                                            Spacer()
+                    //  HStact ->  Spacer | 9x9 | Spacer
+                    //  horzontal certering
+                    HStack {
+                        Spacer()
+                        VStack {
+                            ForEach(0...self.numberOfRows, id: \.self) { row in
+                                HStack {
+                                    ForEach(0..<self.columns, id: \.self) { column in
+                                            Group {
+                                            if self.elementFor(row: row, column: column) != nil {
+                                                self.content(
+                                                   self.items[self.elementFor(row: row, column: column)!])
+                                                        .multilineTextAlignment(.center)
+                                                        .frame(width: self.scaleFactor * geometry.size.width / CGFloat(self.columns),
+                                                            height: self.scaleFactor * geometry.size.height / CGFloat(self.columns), alignment: .center)
+                                                        .padding(2)
+                                            } else {
+                                                Spacer()
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        Spacer()
                     }
-                    Spacer()
+               //     Spacer()
                 }
-                Spacer()
-           }
+                
+                OverlayView(width: overlayScaleFactor*geometry.size.width/3.0, height: overlayScaleFactor*geometry.size.height/3.0).opacity(0.1)
+            }
         }
     }
 }
