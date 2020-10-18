@@ -11,7 +11,7 @@ import SwiftUI
 struct HLPuzzleView: View {
 
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
-    let mainPaddingX: CGFloat = 45
+    let mainPaddingX: CGFloat = 30
     let mainPaddingY: CGFloat = 20
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
 

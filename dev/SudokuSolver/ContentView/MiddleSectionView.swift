@@ -14,17 +14,12 @@ struct MiddleSectionView: View {
     let cellTextColor = [Color.green, Color.purple, Color.orange, Color.blue]
 
     var body: some View {
-        ZStack(alignment: .center) {
-            //*****  9 x 9 grid
-            HLGridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
-                VStack {
-                    Text(self.setToString(item.0))
-                        .font(.subheadline)
-                        .foregroundColor(self.cellTextColor[item.1.rawValue])
-                }
+        //*****  9 x 9 grid
+        GridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
+            Text(self.setToString(item.0))
+                .font(.subheadline)
+                .foregroundColor(self.cellTextColor[item.1.rawValue])
                 .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
-                .padding(.top, 15)
-           }
         }
     }
     
