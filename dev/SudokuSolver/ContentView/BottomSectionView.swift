@@ -21,7 +21,7 @@ struct BottomSectionView: View {
                  Text("Find Sets").tag(HLAlgorithmMode.findSets)
                  Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
              }.pickerStyle(SegmentedPickerStyle())
-              .padding(.bottom, 15)
+              .padding(.vertical, 15)
 
             HStack {
                 Spacer()

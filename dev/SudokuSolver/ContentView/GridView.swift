@@ -29,19 +29,57 @@
 import SwiftUI
 
 struct GridView<Content, T>: View where Content: View {
-  var columns: Int
-  var items: [T]
-  let content: (T) -> Content
-  let scaleFactor: CGFloat = 0.8
-    let overlayScaleFactorX: CGFloat = 0.85
-    let overlayScaleFactorY: CGFloat = 0.85
+    var columns: Int
+    var items: [T]
+    let content: (T) -> Content
+    let scaleFactor: CGFloat
+    let overlayScaleFactorX: CGFloat
+    let overlayScaleFactorY: CGFloat
 
-  init(columns: Int, items: [T],
-       @ViewBuilder content: @escaping (T) -> Content) {
-    self.columns = columns
-    self.items = items
-    self.content = content
-  }
+    init(columns: Int, items: [T], @ViewBuilder content: @escaping (T) -> Content) {
+        self.columns = columns
+        self.items = items
+        self.content = content
+        let screenSize: CGRect = UIScreen.main.bounds
+        print("screenSize: \(screenSize.width) \(screenSize.height)")
+        
+        //  need to fine tune scales for different screen sizes
+        switch screenSize.height {
+        case 1024:  //  iPad Pro (9.7-inch)
+            scaleFactor = 0.88
+            overlayScaleFactorX = 0.93
+            overlayScaleFactorY = 0.94
+            
+        case 1080:   //  iPad 8th gen
+            scaleFactor = 0.88
+            overlayScaleFactorX = 0.93
+            overlayScaleFactorY = 0.92
+
+        case 1112:   //  iPad Pro (10.5-inch)
+            scaleFactor = 0.895
+            overlayScaleFactorX = 0.93
+            overlayScaleFactorY = 0.94
+
+        case 1180:   //  iPad Air
+            scaleFactor = 0.86
+            overlayScaleFactorX = 0.91
+            overlayScaleFactorY = 0.83
+
+        case 1194:  //  iPad Pro (11-inch)
+            scaleFactor = 0.86
+            overlayScaleFactorX = 0.91
+            overlayScaleFactorY = 0.82
+
+        case 1366:  //  iPad Pro (12.9-inch)
+            scaleFactor = 0.9
+            overlayScaleFactorX = 0.95
+            overlayScaleFactorY = 0.85
+        default:
+            scaleFactor = 0.8
+            overlayScaleFactorX = 0.85
+            overlayScaleFactorY = 0.85
+        }
+    }
   
   var numberRows: Int {
     guard  items.count > 0 else {
@@ -59,33 +97,34 @@ struct GridView<Content, T>: View where Content: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-            VStack {
-                Spacer()
-                ForEach(0..<self.numberRows) { row in
-                    HStack {
-                        Spacer()
-                        ForEach(0..<self.columns) { column in
-                            self.content(self.items[self.elementFor(row: row, column: column)!])
-                                .multilineTextAlignment(.center)
-                                .padding(5)
-                                .frame(width: scaleFactor*geometry.size.width / CGFloat(self.columns),
-                                       height: scaleFactor*geometry.size.width / CGFloat(self.columns))
+                VStack {
+                    Spacer()
+                    ForEach(0..<self.numberRows) { row in
+                        HStack {
+                            Spacer()
+                            ForEach(0..<self.columns) { column in
+                                self.content(self.items[self.elementFor(row: row, column: column)!])
+                                    .multilineTextAlignment(.center)
+                                    .padding(5)
+                                    .frame(width: scaleFactor*geometry.size.width / CGFloat(self.columns),
+                                           height: scaleFactor*geometry.size.width / CGFloat(self.columns))
+                            }
+                            Spacer()
                         }
-                        Spacer()
                     }
+                    Spacer()
                 }
-                Spacer()
-                }
+                
                 OverlayView(width: overlayScaleFactorX*geometry.size.width/3.0, height: overlayScaleFactorY*geometry.size.height/3.0).opacity(0.1)
-            }
             }
         }
     }
+}
 
 struct GridView_Previews: PreviewProvider {
   static var previews: some View {
     let data = Array(Range(10001...10081))
-    GridView(columns: 9, items: data) { item in
+    return GridView(columns: 9, items: data) { item in
       Text("\(item)")
     }
   }
