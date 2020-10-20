@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B03F5747253E28E900BF1C5E /* TopSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F5746253E28E900BF1C5E /* TopSectionView.swift */; };
+		B03F574D253E2B1B00BF1C5E /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F574C253E2B1B00BF1C5E /* BottomSectionView.swift */; };
+		B03F574E253E2B1B00BF1C5E /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F574C253E2B1B00BF1C5E /* BottomSectionView.swift */; };
+		B03F5752253E2D5000BF1C5E /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F5751253E2D5000BF1C5E /* MiddleSectionView.swift */; };
+		B03F5753253E2D5000BF1C5E /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03F5751253E2D5000BF1C5E /* MiddleSectionView.swift */; };
 		B06210E92405B7C9006D1906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210E82405B7C9006D1906 /* AppDelegate.swift */; };
 		B06210EB2405B7C9006D1906 /* HLCryptoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06210EA2405B7C9006D1906 /* HLCryptoView.swift */; };
 		B06210ED2405B7CB006D1906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B06210EC2405B7CB006D1906 /* Assets.xcassets */; };
@@ -33,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B03F5746253E28E900BF1C5E /* TopSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSectionView.swift; sourceTree = "<group>"; };
+		B03F574C253E2B1B00BF1C5E /* BottomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSectionView.swift; sourceTree = "<group>"; };
+		B03F5751253E2D5000BF1C5E /* MiddleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleSectionView.swift; sourceTree = "<group>"; };
 		B06210E52405B7C9006D1906 /* HLCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B06210E82405B7C9006D1906 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B06210EA2405B7C9006D1906 /* HLCryptoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLCryptoView.swift; sourceTree = "<group>"; };
@@ -71,9 +79,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B03F5745253E28BA00BF1C5E /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				B06210EA2405B7C9006D1906 /* HLCryptoView.swift */,
+				B03F5746253E28E900BF1C5E /* TopSectionView.swift */,
+				B03F5751253E2D5000BF1C5E /* MiddleSectionView.swift */,
+				B03F574C253E2B1B00BF1C5E /* BottomSectionView.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
 		B06210DC2405B7C9006D1906 = {
 			isa = PBXGroup;
 			children = (
+				B03F5745253E28BA00BF1C5E /* ContentView */,
 				B0D252C324291C01004EAB59 /* README.md */,
 				B06210E72405B7C9006D1906 /* HLCrypto */,
 				B0BA086D24293119001628BE /* Help */,
@@ -98,7 +118,6 @@
 				B06210EC2405B7CB006D1906 /* Assets.xcassets */,
 				B062110E2405C915006D1906 /* Extensions */,
 				B06210F52405B7CB006D1906 /* HLCrypto.entitlements */,
-				B06210EA2405B7C9006D1906 /* HLCryptoView.swift */,
 				B06211092405BAF0006D1906 /* HLCryptoViewModel.swift */,
 				B06210F42405B7CB006D1906 /* Info.plist */,
 				B06210F12405B7CB006D1906 /* Main.storyboard */,
@@ -248,9 +267,12 @@
 			files = (
 				B06211122405C915006D1906 /* Int+Extension.swift in Sources */,
 				B06211142405C915006D1906 /* String+Extension.swift in Sources */,
+				B03F574D253E2B1B00BF1C5E /* BottomSectionView.swift in Sources */,
+				B03F5747253E28E900BF1C5E /* TopSectionView.swift in Sources */,
 				B062110D2405BC98006D1906 /* HLRSA.swift in Sources */,
 				B062110A2405BAF0006D1906 /* HLCryptoViewModel.swift in Sources */,
 				B06210EB2405B7C9006D1906 /* HLCryptoView.swift in Sources */,
+				B03F5752253E2D5000BF1C5E /* MiddleSectionView.swift in Sources */,
 				B06210E92405B7C9006D1906 /* AppDelegate.swift in Sources */,
 				B06211132405C915006D1906 /* URL+Extension.swift in Sources */,
 			);
@@ -260,7 +282,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B03F5753253E2D5000BF1C5E /* MiddleSectionView.swift in Sources */,
 				B06210FF2405B7CB006D1906 /* HLCryptoTests.swift in Sources */,
+				B03F574E253E2B1B00BF1C5E /* BottomSectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
