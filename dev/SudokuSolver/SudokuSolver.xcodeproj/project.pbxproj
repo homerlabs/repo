@@ -30,6 +30,7 @@
 		B075F1722470348300135DA5 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B075F1712470348300135DA5 /* Help */; };
 		B07F731F246B20C10059D8DE /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F731E246B20C10059D8DE /* AboutView.swift */; };
 		B0988DF7242A8D4F005BDCE4 /* HLPuzzleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */; };
+		B0B26CFA253F638300140FBC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F731E246B20C10059D8DE /* AboutView.swift */; };
 		B0D90F4B2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F4C2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */; };
@@ -304,6 +305,7 @@
 				B054BEF72538A86E00239BB4 /* TopSectionView.swift in Sources */,
 				B0D90F512538C0A8005956B1 /* MiddleSectionView.swift in Sources */,
 				B04CE347253CD52D0052CA2E /* OverlayView.swift in Sources */,
+				B0B26CFA253F638300140FBC /* AboutView.swift in Sources */,
 				B06C831924293ECD007C169C /* SudokuSolverTests.swift in Sources */,
 				B04CE34D253CD53F0052CA2E /* HLMatrix.swift in Sources */,
 				B04CE344253CD5290052CA2E /* ColorChartView.swift in Sources */,
@@ -504,7 +506,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = SudokuSolverTests/Info.plist;
@@ -518,7 +519,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudokuSolver.app/SudokuSolver";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLSudokuSolver.app/HLSudokuSolver";
 			};
 			name = Debug;
 		};
@@ -526,7 +527,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = SudokuSolverTests/Info.plist;
@@ -540,7 +540,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudokuSolver.app/SudokuSolver";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLSudokuSolver.app/HLSudokuSolver";
 			};
 			name = Release;
 		};
