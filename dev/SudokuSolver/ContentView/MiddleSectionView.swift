@@ -15,10 +15,10 @@ struct MiddleSectionView: View {
 
     var body: some View {
         //*****  9 x 9 grid
-        GridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.grid) { item in
-            Text(self.setToString(item.0))
+        GridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.data) { item in
+            Text(self.setToString(item.data))
                 .font(.subheadline)
-                .foregroundColor(self.cellTextColor[item.1.rawValue])
+                .foregroundColor(self.cellTextColor[item.status.rawValue])
                 .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
         }
     }

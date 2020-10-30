@@ -33,17 +33,23 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     //  8, 9, 1, 2, 3, 4, 5, 0, 7,
     //  9, 1, 2, 3, 4, 5, 6, 7, 0
     func testPrunePuzzle() {
-        var data = createValidSolvedPuzzle()
-        for index in 0..<81 {
-            if (index % 10) == 0    { data[index] = "0" }
+        var data = HLDataSet.createValidSolvedPuzzle()
+        for index in 0..<HLSolver.kCellCount {
+            if (index % 10) == 0    {
+                let cellData = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
+                data[index] = cellData
+            }
         }
         
         let solver = HLSolver()
-        solver.load(data)
+        solver.dataSet.data = data
+
+        //  test row prune
         solver.prunePuzzle(rows: true, columns: false, blocks: false)
         XCTAssert(solver.unsolvedCount() == 0, "Pass")
         
-        solver.load(data)
+        //  test column prune
+        solver.dataSet.data = data
         solver.prunePuzzle(rows: false, columns: true, blocks: false)
         XCTAssert(solver.unsolvedCount() == 0, "Pass")
     }
@@ -55,34 +61,13 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     
     func testIsPuzzleValid() {
         let solver = HLSolver()
-        var data = createValidSolvedPuzzle()
-        solver.load(data)
+        var data = HLDataSet.createValidSolvedPuzzle()
+        solver.dataSet.data = data
         XCTAssert(solver.isValidPuzzle(), "Pass")
         
-        data[0] = "6"   //  should be 1
-        solver.load(data)
+        data[0] = HLSudokuCell(data: Set(["6"]), status: .givenStatus)   //  should be 1
+        solver.dataSet.data = data
         XCTAssert(!solver.isValidPuzzle(), "Pass")
-    }
-
-    //  dataset created by createValidSolvedPuzzle()
-    //  1, 2, 3, 4, 5, 6, 7, 8, 9,
-    //  2, 3, 4, 5, 6, 7, 8, 9, 1,
-    //  3, 4, 5, 6, 7, 8, 9, 1, 2,
-    //  4, 5, 6, 7, 8, 9, 1, 2, 3,
-    //  5, 6, 7, 8, 9, 1, 2, 3, 4,
-    //  6, 7, 8, 9, 1, 2, 3, 4, 5,
-    //  7, 8, 9, 1, 2, 3, 4, 5, 6,
-    //  8, 9, 1, 2, 3, 4, 5, 6, 7,
-    //  9, 1, 2, 3, 4, 5, 6, 7, 8
-    func createValidSolvedPuzzle() -> [String] {
-        var data = Array(repeating: "0", count: 81)
-        
-        for row in 0..<9 {
-            for column in 0..<9 {
-                data[row*9+column] = String((column+row) % 9 + 1)
-            }
-        }
-        return data
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -93,7 +78,7 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
             
                 if let puzzleString = html as? String   {
                     let solver = HLSolver(html: puzzleString)
-             //       self.unsolvedNodeCount = self.solver.unsolvedCount()
+           //         self.unsolvedNodeCount = solver.unsolvedCount()
                 }
         })
     }

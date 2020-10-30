@@ -24,7 +24,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     let hlKeySettingColumn      = "hlKeySettingColumn"
     let hlKeySettingBlock       = "hlKeySettingBlock"
     let hlKeySettingAlgorithm   = "hlKeySettingAlgorithm"
-
+    let hlKeyPuzzleData         = "hlKeyPuzzleData"
+        
     var hlWebView = WKWebView()
     
     func solveAction() {

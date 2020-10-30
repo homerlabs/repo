@@ -9,7 +9,7 @@
 import Foundation
 
 
-public enum HLCellStatus: Int
+public enum HLCellStatus: Int, Codable
 {
     case givenStatus
     case unsolvedStatus
@@ -36,21 +36,20 @@ public class HLSolver {
 //    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
 
     //  used for encode/decode HLSolver object
-    let kDataKey    = "Data"
-    let kStatusKey  = "Status"
-    let kNameKey    = "Name"
+    let kDataKey   = "DataKey"
+    let kStateKey  = "StateKey"
+    let kNameKey   = "NameKey"
     
-    let kRows = 9
-    let kColumns = 9
-    let kCellCount = 81
-    
-    var dataSet = Matrix(rows:9, columns:9)
-    var previousDataSet = Matrix(rows:9, columns:9)
+    static let kRows = 9
+    static let kColumns = 9
+    static let kCellCount = 81
+    static let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
+
+    var dataSet = HLDataSet()
+    var previousDataSet = HLDataSet()
     var puzzleName = "No Puzzle Found"
     var puzzleState = HLPuzzleState.initial
-    
-    let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
-    
+        
     //  this is used to re-map the blocks to look like rows before a row operation and then re-map back
     let blockIndexSet = [
         [ 0,  1,  2,  9, 10, 11, 18, 19, 20],
@@ -67,21 +66,9 @@ public class HLSolver {
     ]
     
     
-/*    func fillRow()  {
-        dataSet[0] = (Set(arrayLiteral: "1", "2", "3"), .unsolvedStatus)
-        dataSet[1] = (Set(arrayLiteral: "1", "2", "3", "9"), .unsolvedStatus)
-        dataSet[2] = (Set(arrayLiteral: "1", "2", "3"), .unsolvedStatus)
-        dataSet[3] = (Set(arrayLiteral: "1", "2", "4", "3"), .unsolvedStatus)
-        dataSet[4] = (Set(arrayLiteral: "1", "2"), .unsolvedStatus)
-        dataSet[5] = (Set(arrayLiteral: "1", "2", "6", "5"), .unsolvedStatus)
-        dataSet[6] = (Set(arrayLiteral: "1", "2", "7", "6"), .unsolvedStatus)
-        dataSet[7] = (Set(arrayLiteral: "1", "2", "8", "7"), .unsolvedStatus)
-        dataSet[8] = (Set(arrayLiteral: "1", "2", "9", "8"), .unsolvedStatus)
-        
-        for index in 0..<kColumns   {
-            previousDataSet[index] = dataSet[index]
-        }
-    }   */
+    func indexFor(row: Int, column: Int) -> Int {
+        row * HLSolver.kColumns + column
+    }
     
     
     func findMonoCells(rows: Bool, columns: Bool)   {
@@ -90,21 +77,22 @@ public class HLSolver {
         
             func monoCell(_ row: Int)         {
                 var numArray = Array(repeating: 0, count: 10)
-                for column in 0..<kColumns     {
-                    let (data, _) = dataSet[row, column]
-                    if data.count > 1                                              {
-                        for item: String in data {  numArray[Int(item)!] += 1   }   }
+                for column in 0..<HLSolver.kColumns     {
+                    let cellData = dataSet.data[indexFor(row: row, column: column)]
+                    if cellData.data.count > 1                                              {
+                        for item: String in cellData.data {  numArray[Int(item)!] += 1   }   }
                 }
                 
                 for index in 1...9 {
                     if numArray[index] == 1 {
-                        for column in 0..<kColumns     {
-                            let (data, _) = dataSet[row, column]
+                        for column in 0..<HLSolver.kColumns     {
+                            let index = indexFor(row: row, column: column)
+                            let cellData = dataSet.data[index]
                             let solutionSet: Set<String> = Set(arrayLiteral: String(index))
-                            let newSet = data.intersection(solutionSet)
+                            let newSet = cellData.data.intersection(solutionSet)
                             if !newSet.isEmpty {
-      //          print("row: \(row)   column: \(column)   newSet: \(newSet)")
-                                dataSet[row, column] = (newSet, .solvedStatus)
+                print("monoCellRows-  row: \(row)   column: \(column)   newSet: \(newSet)")
+                                dataSet.data[index] = HLSudokuCell(data: newSet, status: .solvedStatus)
                             }
                         }
                     }
@@ -115,7 +103,7 @@ public class HLSolver {
             
             //  start of monoCellRows
        //     print("monoCellRows")
-            for row in 0..<kRows    {
+            for row in 0..<HLSolver.kRows    {
                 monoCell(row)
             }
         }
@@ -146,12 +134,12 @@ public class HLSolver {
                 for num in 1...9    {
                     
                     var sector = sectorNotFound
-                    for column in 0..<kColumns
+                    for column in 0..<HLSolver.kColumns
                     {
-                        let (data, _) = dataSet[row, column]
-                        if data.count>1
+                        let cellData = dataSet.data[indexFor(row: row, column: column)]
+                        if cellData.data.count>1
                         {
-                            if data.contains(String(num))   {
+                            if cellData.data.contains(String(num))   {
                             
                                 if sector == sectorNotFound {
                                     sector = sectorForIndex(column)
@@ -177,44 +165,46 @@ public class HLSolver {
                 
                 func reduceRowForRow(_ row: Int, sector: Int, reduceNumber: Int)    {
                     var column = sector * 3
-                    var (data, status) = dataSet[row, column]
-                    data.remove(String(reduceNumber))
-                    dataSet[row, column] = (data, status)
+                    var cellData = dataSet.data[indexFor(row: row, column: column)]
+                    cellData.data.remove(String(reduceNumber))
+                    dataSet.data[indexFor(row: row, column: column)] = cellData
 
                     column += 1
-                    (data, status) = dataSet[row, column]
-                    data.remove(String(reduceNumber))
-                    dataSet[row, column] = (data, status)
+                    cellData = dataSet.data[indexFor(row: row, column: column)]
+                    cellData.data.remove(String(reduceNumber))
+                    dataSet.data[indexFor(row: row, column: column)] = cellData
 
                     column += 1
-                    (data, status) = dataSet[row, column]
-                    data.remove(String(reduceNumber))
-                    dataSet[row, column] = (data, status)
+                    cellData = dataSet.data[indexFor(row: row, column: column)]
+                    cellData.data.remove(String(reduceNumber))
+                    dataSet.data[indexFor(row: row, column: column)] = cellData
                 }
                 
                 //  start of func reduceBlockForRow()
                 var reduceRow = sectorForIndex(row) * 3
-                if row != reduceRow                                                         {
+                if row != reduceRow  {
                     reduceRowForRow(reduceRow, sector: sector, reduceNumber: reduceNumber)  }
                 
                 reduceRow += 1
-                if row != reduceRow                                                         {
+                if row != reduceRow  {
                     reduceRowForRow(reduceRow, sector: sector, reduceNumber: reduceNumber)  }
                 
                 reduceRow += 1
-                if row != reduceRow                                                       {
+                if row != reduceRow  {
                     reduceRowForRow(reduceRow, sector: sector, reduceNumber: reduceNumber)  }
             }
 
-            for row in 0..<kRows    {
+            for row in 0..<HLSolver.kRows    {
                 
                 let foundSet = findMonoSectorForRow(row)
              //   print("foundSet: \(foundSet)")
                 
-                for item in foundSet                                                {
+                for item in foundSet {
                //     print("foundMonoSectors: \(row)   item: \(item)")
-                    reduceBlockForRow(row, sector: item.1, reduceNumber: item.0)    }
-                    prunePuzzle(rows: true, columns: true, blocks: true)
+                    reduceBlockForRow(row, sector: item.1, reduceNumber: item.0)
+                }
+                
+                prunePuzzle(rows: true, columns: true, blocks: true)
             }
         }
 
@@ -239,10 +229,10 @@ public class HLSolver {
             var startingSets:   [Set<String>] = [Set<String>()]
             var setsToSearch:   [Set<String>] = [Set<String>()]
             
-            for column in 0..<kColumns  {
-                let (data, _) = dataSet[row, column]
-                if data.count == sizeOfSet  {   setsToSearch.append(data)   }
-                if data.count>1             {   startingSets.append(data)   }
+            for column in 0..<HLSolver.kColumns  {
+                let cellData = dataSet.data[indexFor(row: row, column: column)]
+                if cellData.data.count == sizeOfSet  {   setsToSearch.append(cellData.data)   }
+                if cellData.data.count>1             {   startingSets.append(cellData.data)   }
             }
             
             if startingSets.count>1 && startingSets[0].isEmpty  {   startingSets.remove(at: 0)   }
@@ -258,20 +248,20 @@ public class HLSolver {
         func findSetsForBlocks()    {
             convertBlocksToRows()
             for setSize in 2..<4                                                        {
-                for row in 0..<kRows    {   findSetsForRow(row, sizeOfSet:setSize)  }   }
+                for row in 0..<HLSolver.kRows    {   findSetsForRow(row, sizeOfSet:setSize)  }   }
             convertBlocksToRows()   }
         
         
         func findSetsForColumns()   {
             convertColumnsToRows()
             for setSize in 2..<4                                                        {
-                for row in 0..<kRows    {   findSetsForRow(row, sizeOfSet:setSize)  }   }
+                for row in 0..<HLSolver.kRows    {   findSetsForRow(row, sizeOfSet:setSize)  }   }
             convertColumnsToRows()  }
         
         
         func findSetsForRows()    {
             for setSize in 2..<4                                                        {
-                for row in 0..<kRows    {   findSetsForRow(row, sizeOfSet:setSize)  }   }
+                for row in 0..<HLSolver.kRows    {   findSetsForRow(row, sizeOfSet:setSize)  }   }
         }
         
         //  start of func findPuzzleSets()
@@ -288,19 +278,21 @@ public class HLSolver {
     func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool)  {
 
         func prunePuzzleRows()                          {
-
-            func pruneRow(_ row: Int)         {
+            for row in 0..<HLSolver.kRows {
                 let solvedSet = solvedSetForRow(row)
-        //        println(solvedSet)
+        //        print("row: \(row)   solvedSet: \(solvedSet)")
 
-                for column in 0..<kColumns  {
-                    let (data, status) = dataSet[row, column]
-                    if data.count > 1   {   dataSet[row, column] = (data.subtracting(solvedSet), status) }
+                for column in 0..<HLSolver.kColumns  {
+                    let index = indexFor(row: row, column: column)
+                    var cellData = dataSet.data[index]
+                    
+                    //  don't modify if cell already solved
+                    if cellData.data.count > 1 {
+                        cellData.data = cellData.data.subtracting(solvedSet)
+                        dataSet.data[index] = cellData
+                    }
                 }
             }
-            
-            //  start of func prunePuzzleRows()
-            for row in 0..<kRows {  pruneRow(row)   }
         }
     
         func prunePuzzleColumns()   {
@@ -319,6 +311,11 @@ public class HLSolver {
         var previousNodeCount = 0
 
         repeat  {
+            let isValid = isValidPuzzle()
+            if !isValid {
+                printDataSet(dataSet)
+                assert( isValidPuzzle(), "Puzzle \(puzzleName) is not valid!" )
+            }
             previousNodeCount = currentNodeCount
 
             if rows     {   prunePuzzleRows()    }
@@ -326,16 +323,19 @@ public class HLSolver {
             if blocks   {   prunePuzzleBlocks()  }
 
             currentNodeCount = unsolvedCount()
-            assert( isValidPuzzle(), "Puzzle \(puzzleName) is not valid!" )
+            let isValid2 = isValidPuzzle()
+            if !isValid2 {
+                printDataSet(dataSet)
+                assert( isValidPuzzle(), "Puzzle \(puzzleName) is not valid!" )
+            }
         }
         while previousNodeCount != currentNodeCount
     }
     
     
     func searchForSets(_ setsToSearch: [Set<String>], superSet: Set<String>, count: Int) -> Bool {
-        
  //       print( "searchForSets: \(setsToSearch)   count: \(count)")
-
+        
         var remainingSets = setsToSearch
         var item = remainingSets.removeLast()
         
@@ -357,103 +357,85 @@ public class HLSolver {
     func reduceRow(_ row: Int, forSet reduceSet: Set<String>)    {
  //       print( "reduceRow: \(row)   reduceSet: \(reduceSet)")
 
-        for column in 0..<kColumns  {
-            let (data, status) = dataSet[row, column]
-            if data.count>1                            {
-                let prunedSet = data.subtracting(reduceSet)
-                if !prunedSet.isEmpty  {   dataSet[row, column] = (prunedSet, status)  }   }
+        for column in 0..<HLSolver.kColumns  {
+            var cellData = dataSet.data[indexFor(row: row, column: column)]
+            if cellData.data.count>1                            {
+                cellData.data = cellData.data.subtracting(reduceSet)
+                
+                if !cellData.data.isEmpty  {
+                    dataSet.data[indexFor(row: row, column: column)] = cellData
+                }
+            }
         }
     }
     
     //  check for cells that have only 1 value (ie .solved)
     func markSolvedCells() {
-        for index in 0..<dataSet.kCellCount {
-            let (data, status) = dataSet[index]
+        for index in 0..<HLSolver.kCellCount {
+            var cellData = dataSet.data[index]
             
-            if data.count == 1 && status == .unsolvedStatus   {
-                dataSet[index] = (data, .solvedStatus)
+            if cellData.data.count == 1 && cellData.status == .unsolvedStatus   {
+                cellData.status = .solvedStatus
+                dataSet.data[index] = cellData
             }
         }
     }
     
     func updateChangedCells()   {
-        for index in 0..<dataSet.kCellCount {
-            var (data, status) = dataSet[index]
-            let (data2, _) = previousDataSet[index]
+        for index in 0..<HLSolver.kCellCount {
+            var cellData = dataSet.data[index]
+            let previousCellData = previousDataSet.data[index]
             
             //  first lets convert Changed to Solved or Unsollved
-            if status == .changedStatus {
-                if data.count == 1  {   status = .solvedStatus   }
-                else                {   status = .unsolvedStatus }
-                dataSet[index] = (data, status)
+            if cellData.status == .changedStatus {
+                if cellData.data.count == 1  {  cellData.status = .solvedStatus }
+                else                         {   cellData.status = .unsolvedStatus }
+                dataSet.data[index] = cellData
             }
             
             //  then find the cells that changed
-            if puzzleState == .solving && data.count != data2.count        {
-                status = .changedStatus
-                dataSet[index] = (data, status) }
+            if puzzleState == .solving && cellData.data.count != previousCellData.data.count     {
+                cellData.status = .changedStatus
+                dataSet.data[index] = cellData
+            }
         }
         
         markSolvedCells()
     }
     
     
-    func arrayToSet(_ array: [String]) -> Set<String> {
-        
-        var aSet: Set<String> = Set()
-  //      print( "array: \(array)" )
-        
-        for index in 0..<array.count {
-        
-            let s: String = array[index]
-            aSet.insert(s)
-        }
-        
-  //      print( "aSet: \(aSet)" )
-        return aSet
-    }
-    
-    
     func encodeWithCoder(_ aCoder: NSCoder)
     {
-        var dataArray: [Set<String>] = Array(repeating: Set<String>(arrayLiteral: "0"), count: kCellCount)
-        var statusArray: [Int] = Array(repeating: 0, count: kCellCount)
-        for index in 0..<kCellCount
-        {
-            let (data, status) = dataSet[index]
-            dataArray[index] = data
-            statusArray[index] = status.rawValue
-        }
-    
         aCoder.encode(puzzleName,  forKey:kNameKey)
-        aCoder.encode(dataArray,   forKey:kDataKey)
-        aCoder.encode(statusArray, forKey:kStatusKey)
+        aCoder.encode(puzzleState,  forKey:kStateKey)
+        aCoder.encode(dataSet,      forKey:kDataKey)
     }
     
     
     required init(coder aDecoder: NSCoder)
     {
-//        var newDataSet = Matrix(rows:9, columns:9)
-        let puzzleName  = aDecoder.decodeObject(forKey: kNameKey)
-        let data        = aDecoder.decodeObject(forKey: kDataKey) as! Set<String>
-        let status      = aDecoder.decodeInteger(forKey: kStatusKey)
+        let puzzleName  = aDecoder.decodeObject(forKey: kNameKey) as! String
+        let dataSet   = aDecoder.decodeObject(forKey: kDataKey) as! HLDataSet
+        self.dataSet = dataSet
+        previousDataSet = dataSet
 
-        print("data: \(data)   status: \(status)   puzzleName: \(String(describing: puzzleName))")
+        self.puzzleName = puzzleName
+        print("puzzleName: \(String(describing: puzzleName))")
     }
     
-    func testData81() {
-    
-        var newDataSet = Matrix(rows:9, columns:9)
-        for index in 0..<81                                         {
-            newDataSet[index] = (Set(arrayLiteral: String(index)), .unsolvedStatus)  }
+    func nodeCount() -> Int {
+        var count = 0
+        for index in 0..<HLSolver.kCellCount {
+            let cellData = dataSet.data[index]
+            count += cellData.data.count     }
         
-        dataSet = newDataSet;
+        return count - HLSolver.kCellCount
     }
-    
+
     //  when count reaches zero set puzzleState to .final
     func unsolvedCount() -> Int
     {
-        let count = dataSet.nodeCount()
+        let count = nodeCount()
         if count == 0 {
             puzzleState = .final
         }
@@ -463,26 +445,36 @@ public class HLSolver {
     
     func solvedSetForRow(_ row: Int) -> Set<String>       {
         var solvedSet = Set<String>()
-        for column in 0..<kColumns                      {
-            let (data, _) = dataSet[row, column]
-            if data.count == 1  {    solvedSet = solvedSet.union(data)      }
+        for column in 0..<HLSolver.kColumns                      {
+            let cellData = dataSet.data[indexFor(row: row, column: column)]
+            if cellData.data.count == 1  {
+                solvedSet = solvedSet.union(cellData.data)
+            }
         }
-        return solvedSet                                }
+        
+        return solvedSet
+    }
 
 
     func convertColumnsToRows() {
-        let dataSetCopy = dataSet.copy()
-        
-        for row in 0..<kRows                                                                {
-            for column in 0..<kColumns {  dataSet[row, column] = dataSetCopy[column, row] } }
+        let dataSetCopy = dataSet
+        for row in 0..<HLSolver.kRows   {
+            for column in 0..<HLSolver.kColumns {
+                //  notice the row - column switch for dataSetCopy
+                dataSet.data[indexFor(row: row, column: column)] = dataSetCopy.data[indexFor(row: column, column: row)]
+            }
+        }
     }
     
     
     func convertBlocksToRows() {
-        let dataSetCopy = dataSet.copy()
-        for row in 0..<kRows                                                                    {
+        let dataSetCopy = dataSet
+        for row in 0..<HLSolver.kRows {
             let blockSet = blockIndexSet[row]
-            for index2 in 0..<kRows {  dataSet[row, index2] = dataSetCopy[blockSet[index2]]   } }
+            for column2 in 0..<HLSolver.kRows {
+                dataSet.data[indexFor(row: row, column: column2)] = dataSetCopy.data[blockSet[column2]]
+            }
+        }
     }
 
 
@@ -492,10 +484,10 @@ public class HLSolver {
             var returnValue = true
             var numArray = Array(repeating: 0, count: 10)
                 
-            for column in 0..<kColumns {
+            for column in 0..<HLSolver.kColumns {
             
-                let (data, _) = dataSet[row, column]
-                let cell = Array(data)
+                let cellData = dataSet.data[indexFor(row: row, column: column)]
+                let cell = Array(cellData.data)
                 if cell.count == 1 {
                     let value = cell[0]
                     numArray[Int(value)!] += 1
@@ -513,7 +505,7 @@ public class HLSolver {
         }
 
         var returnValue = true
-        for row in 0..<kRows {
+        for row in 0..<HLSolver.kRows {
             if !isValidPuzzleRow(row) {
                 returnValue = false
                 break
@@ -529,71 +521,52 @@ public class HLSolver {
     
     func load(_ data: [String])
     {
-        if data.count == kCellCount     {
-            for i in 0 ..< kCellCount 
+        if data.count == HLSolver.kCellCount     {
+            for i in 0..<HLSolver.kCellCount
             {
                 let cellValue = data[i]
-                var newCell: (Set<String>, HLCellStatus)
+                var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
                 
-                if ( cellValue == "0" )     { newCell = (fullSet, .unsolvedStatus)       }
-                else    {  newCell = (Set<String>(arrayLiteral: data[i]), .givenStatus)  }
+                if ( cellValue != "0" )     {
+                    newCell = HLSudokuCell(data: Set([data[i]]), status: .givenStatus)
+                }
                 
-                dataSet[i] = newCell
+                dataSet.data[i] = newCell
             }
             
             previousDataSet = dataSet
-            
-      //      printDataSet(dataSet)
-     //       printDataSet2()
         }
-    }
+    }   
     
     
     func read() {
         print( "HLSolver-  read" )
         
-        if let statusArray: [Int] = UserDefaults.standard.object(forKey: kStatusKey) as? [Int]    {
-
+        if let dataSet = UserDefaults.standard.object(forKey: kDataKey) as? HLDataSet    {
+            self.dataSet = dataSet
+            previousDataSet = dataSet
             puzzleName = (UserDefaults.standard.object(forKey: kNameKey) as! String)
-
-            if let dataArray: [[String]] = UserDefaults.standard.object(forKey: kDataKey) as? [[String]]    {
-                
-                for index in 0..<kCellCount {
-                    let x: [String] = dataArray[index]
-                    dataSet[index] = (arrayToSet(x), HLCellStatus(rawValue: statusArray[index])!)
-                }
-                
-                previousDataSet = dataSet
-        printDataSet(dataSet)
-            }
+  //      printDataSet(dataSet)
         }
     }
     
     
     func save() {
         print( "HLSolver-  save" )
-        var dataArray: [[String]] = Array(repeating: [""], count: kCellCount)
-        var statusArray: [Int] = Array(repeating: 0, count: kCellCount)
-        
-        for index in 0..<kCellCount                             {
-            let (data, status) = dataSet[index]
-                dataArray[index] = Array(data)
-                statusArray[index] = status.rawValue    }
-        
-            UserDefaults.standard.set(puzzleName, forKey: kNameKey)
-            UserDefaults.standard.set(dataArray, forKey: kDataKey)
-            UserDefaults.standard.set(statusArray, forKey: kStatusKey)
+        UserDefaults.standard.set(puzzleName, forKey: kNameKey)
+        UserDefaults.standard.set(dataSet, forKey: kDataKey)
     }
     
     
     func loadPuzzleWith(data: String)   {
         var array: [Substring] = data.split(separator: "\n")
-        var tempData = Matrix(rows:9, columns:9)
-        var tempStatus = Array(repeating: 0, count: kCellCount)
+        var tempData: [HLSudokuCell] = []
+    //    var tempStatus = Array(repeating: 0, count: kCellCount)
         var tempName = ""
         tempName = String(array[0])
         array.remove(at: 0) //  get rid of the puzzlename line and leave cell data
-        for index in 0..<kCellCount {
+        
+        for index in 0..<HLSolver.kCellCount {
             let line = String(array[index])
             let valueArray = line.split(separator: "\t")
             let (valueInt, statusInt) = (Int(valueArray[0]), Int(valueArray[1]))
@@ -611,17 +584,16 @@ public class HLSolver {
                 return
             }
             
-            tempStatus[index] = status
             if valueInt == 0   {
-                tempData[index] = (fullSet, HLCellStatus.init(rawValue: status)!)
+                tempData[index] = HLSudokuCell(data: HLSolver.fullSet, status: HLCellStatus.init(rawValue: status)!)
             }
             else    {
                 let str = String(value)
                 let data = Set<String>([str])
-                 tempData[index] = (data, .solvedStatus)
+                tempData[index] = HLSudokuCell(data: data, status: .solvedStatus)
             }
         }
-        dataSet = tempData
+        dataSet.data = tempData
         prunePuzzle(rows:true, columns:true, blocks:true)
         
         guard isValidPuzzle() else  {
@@ -629,81 +601,42 @@ public class HLSolver {
             return
         }
         
-        //  restore status values
-        previousDataSet = dataSet
-        for index in 0..<kCellCount {
-            var (value, status) = dataSet[index]
-            status = HLCellStatus.init(rawValue: tempStatus[index])!
-            dataSet[index] = (value, status)
-        }
-        
         previousDataSet = dataSet
         puzzleName = tempName
     }
     
     
-    func dataToString() -> String {
-        print( "HLSolver-  dataToText" )
-        var outString = ""
-        outString.append("\(puzzleName)\n")
-        for index in 0..<kCellCount {
-            let (data, status) = dataSet[index]
-            if data.count == 1  {   outString.append("\(data.first!)\t\(status.rawValue)\n")    }
-            else                {   outString.append("0\t\(status.rawValue)\n")                 }
-        }
-
-        return outString
-    }
     
-    
-    func printIndexDataSet(_ index:Int) {
-        print("\(dataSet.description(index)) \t", terminator: "")
-    }
-    
-    
-    func printDataSet2()         {
-        print("PrintDataSet2")
-        for index in 0..<kCellCount    {  printIndexDataSet(index)    }
-        print("")
-    }
-    
-    
-    func printArrayOfSets(_ data:[Set<String>])   {
-        for index in 0..<data.count                                         {
-            print("\(setToString(data[index])) \t", terminator: "")
+/*    func printArrayOfSets(_ data:[Set<String>])   {
+        for index in 0..<data.count    {
+            let data = data[index].data
+            print("\(setToString()) \t", terminator: "")
         }
         print("")
-    }
+    }*/
 
 
-    func setToString(_ aSet: Set<String>)->String     {
-        let list = Array(aSet.sorted(by: <))
-        var returnString = ""
-        if list.count < 9   {
-            for index in 0..<list.count     {   returnString += list[index]     }
-        }
-        return returnString
-    }
     
-    
-    func printDataSet(_ dataSet: Matrix) {
+    func printDataSet(_ dataSet: HLDataSet) {
         
-        func printRowDataSet(_ dataSet: Matrix, row:Int)   {
-            for column in 0..<kColumns                                                          {
-                print("\(dataSet.description(row: row, column: column)) \t", terminator: "")    }
+        func printRowDataSet(_ dataSet: HLDataSet, row: Int)   {
+            print("row: \(row) \t", terminator: "")
+            for column in 0..<HLSolver.kColumns {
+                let cellData = dataSet.data[(indexFor(row: row, column: column))]
+                print("\(cellData.setToString()) \t", terminator: "")
+
+            }
             print("")                   }
     
         //  start of func printDataSet()
         print("PrintDataSet")
-        for row in 0..<kRows    {  printRowDataSet(dataSet, row: row)    }
+        for row in 0..<HLSolver.kRows    {  printRowDataSet(dataSet, row: row)    }
         print("\n")
     }
 
     init() {
         print("HLSolver-  init")
-        for index in 0..<kCellCount    {
-            dataSet[index] = (fullSet, .unsolvedStatus)
-        }
+        dataSet = HLDataSet()
         previousDataSet = dataSet
     }
     
@@ -712,9 +645,8 @@ public class HLSolver {
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
         
-        for index in 0..<kCellCount    {
-            dataSet[index] = (fullSet, .unsolvedStatus)
-        }
+        dataSet = HLDataSet()
+        previousDataSet = dataSet
         
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
             puzzleString = String(puzzleString[range.lowerBound...])

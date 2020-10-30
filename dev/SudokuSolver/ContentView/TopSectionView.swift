@@ -42,6 +42,8 @@ struct TopSectionView: View {
                     Spacer()
                 }
             }
+            
+            LoadSaveView(puzzleViewModel: puzzleViewModel)
 
             //*****  Color Chart, puzzle name, and Node Count
             VStack(alignment: .trailing) {
