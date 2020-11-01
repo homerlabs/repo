@@ -33,7 +33,7 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     //  8, 9, 1, 2, 3, 4, 5, 0, 7,
     //  9, 1, 2, 3, 4, 5, 6, 7, 0
     func testPrunePuzzle() {
-        var data = HLDataSet.createValidSolvedPuzzle()
+        var data = HLSudokuCell.createValidSolvedPuzzle()
         for index in 0..<HLSolver.kCellCount {
             if (index % 10) == 0    {
                 let cellData = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
@@ -42,14 +42,14 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
         }
         
         let solver = HLSolver()
-        solver.dataSet.data = data
+        solver.dataSet = data
 
         //  test row prune
         solver.prunePuzzle(rows: true, columns: false, blocks: false)
         XCTAssert(solver.unsolvedCount() == 0, "Pass")
         
         //  test column prune
-        solver.dataSet.data = data
+        solver.dataSet = data
         solver.prunePuzzle(rows: false, columns: true, blocks: false)
         XCTAssert(solver.unsolvedCount() == 0, "Pass")
     }
@@ -61,12 +61,12 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     
     func testIsPuzzleValid() {
         let solver = HLSolver()
-        var data = HLDataSet.createValidSolvedPuzzle()
-        solver.dataSet.data = data
+        var data = HLSudokuCell.createValidSolvedPuzzle()
+        solver.dataSet = data
         XCTAssert(solver.isValidPuzzle(), "Pass")
         
         data[0] = HLSudokuCell(data: Set(["6"]), status: .givenStatus)   //  should be 1
-        solver.dataSet.data = data
+        solver.dataSet = data
         XCTAssert(!solver.isValidPuzzle(), "Pass")
     }
 

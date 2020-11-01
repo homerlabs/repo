@@ -52,8 +52,8 @@ public class HLSolver: Codable {
     static let kCellCount = 81
     static let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
 
-    var dataSet = HLDataSet()
-    var previousDataSet = HLDataSet()
+    var dataSet: [HLSudokuCell] = HLSudokuCell.createUnsolvedPuzzle()
+    var previousDataSet: [HLSudokuCell] = HLSudokuCell.createUnsolvedPuzzle()
     var puzzleName = "No Puzzle Found"
     var puzzleState = HLPuzzleState.initial
         
@@ -71,13 +71,11 @@ public class HLSolver: Codable {
         [57, 58, 59, 66, 67, 68, 75, 76, 77],
         [60, 61, 62, 69, 70, 71, 78, 79, 80]
     ]
-    
-    
+        
     func indexFor(row: Int, column: Int) -> Int {
         row * HLSolver.kColumns + column
     }
-    
-    
+        
     func findMonoCells(rows: Bool, columns: Bool)   {
     
         func monoCellRows()                 {
@@ -85,7 +83,7 @@ public class HLSolver: Codable {
             func monoCell(_ row: Int)         {
                 var numArray = Array(repeating: 0, count: 10)
                 for column in 0..<HLSolver.kColumns     {
-                    let cellData = dataSet.data[indexFor(row: row, column: column)]
+                    let cellData = dataSet[indexFor(row: row, column: column)]
                     if cellData.data.count > 1                                              {
                         for item: String in cellData.data {  numArray[Int(item)!] += 1   }   }
                 }
@@ -94,12 +92,12 @@ public class HLSolver: Codable {
                     if numArray[index] == 1 {
                         for column in 0..<HLSolver.kColumns     {
                             let index = indexFor(row: row, column: column)
-                            let cellData = dataSet.data[index]
+                            let cellData = dataSet[index]
                             let solutionSet: Set<String> = Set(arrayLiteral: String(index))
                             let newSet = cellData.data.intersection(solutionSet)
                             if !newSet.isEmpty {
                 print("monoCellRows-  row: \(row)   column: \(column)   newSet: \(newSet)")
-                                dataSet.data[index] = HLSudokuCell(data: newSet, status: .solvedStatus)
+                                dataSet[index] = HLSudokuCell(data: newSet, status: .solvedStatus)
                             }
                         }
                     }
@@ -143,7 +141,7 @@ public class HLSolver: Codable {
                     var sector = sectorNotFound
                     for column in 0..<HLSolver.kColumns
                     {
-                        let cellData = dataSet.data[indexFor(row: row, column: column)]
+                        let cellData = dataSet[indexFor(row: row, column: column)]
                         if cellData.data.count>1
                         {
                             if cellData.data.contains(String(num))   {
@@ -172,19 +170,19 @@ public class HLSolver: Codable {
                 
                 func reduceRowForRow(_ row: Int, sector: Int, reduceNumber: Int)    {
                     var column = sector * 3
-                    var cellData = dataSet.data[indexFor(row: row, column: column)]
+                    var cellData = dataSet[indexFor(row: row, column: column)]
                     cellData.data.remove(String(reduceNumber))
-                    dataSet.data[indexFor(row: row, column: column)] = cellData
+                    dataSet[indexFor(row: row, column: column)] = cellData
 
                     column += 1
-                    cellData = dataSet.data[indexFor(row: row, column: column)]
+                    cellData = dataSet[indexFor(row: row, column: column)]
                     cellData.data.remove(String(reduceNumber))
-                    dataSet.data[indexFor(row: row, column: column)] = cellData
+                    dataSet[indexFor(row: row, column: column)] = cellData
 
                     column += 1
-                    cellData = dataSet.data[indexFor(row: row, column: column)]
+                    cellData = dataSet[indexFor(row: row, column: column)]
                     cellData.data.remove(String(reduceNumber))
-                    dataSet.data[indexFor(row: row, column: column)] = cellData
+                    dataSet[indexFor(row: row, column: column)] = cellData
                 }
                 
                 //  start of func reduceBlockForRow()
@@ -237,13 +235,13 @@ public class HLSolver: Codable {
             var setsToSearch:   [Set<String>] = [Set<String>()]
             
             for column in 0..<HLSolver.kColumns  {
-                let cellData = dataSet.data[indexFor(row: row, column: column)]
+                let cellData = dataSet[indexFor(row: row, column: column)]
                 if cellData.data.count == sizeOfSet  {   setsToSearch.append(cellData.data)   }
-                if cellData.data.count>1             {   startingSets.append(cellData.data)   }
+                if cellData.data.count > 1           {   startingSets.append(cellData.data)   }
             }
             
-            if startingSets.count>1 && startingSets[0].isEmpty  {   startingSets.remove(at: 0)   }
-            if setsToSearch.count>1 && setsToSearch[0].isEmpty  {   setsToSearch.remove(at: 0)   }
+            if startingSets.count > 1 && startingSets[0].isEmpty  {   startingSets.remove(at: 0)   }
+            if setsToSearch.count > 1 && setsToSearch[0].isEmpty  {   setsToSearch.remove(at: 0)   }
             
             for superSet in setsToSearch                                {
                 
@@ -291,12 +289,12 @@ public class HLSolver: Codable {
 
                 for column in 0..<HLSolver.kColumns  {
                     let index = indexFor(row: row, column: column)
-                    var cellData = dataSet.data[index]
+                    var cellData = dataSet[index]
                     
                     //  don't modify if cell already solved
                     if cellData.data.count > 1 {
                         cellData.data = cellData.data.subtracting(solvedSet)
-                        dataSet.data[index] = cellData
+                        dataSet[index] = cellData
                     }
                 }
             }
@@ -365,12 +363,12 @@ public class HLSolver: Codable {
  //       print( "reduceRow: \(row)   reduceSet: \(reduceSet)")
 
         for column in 0..<HLSolver.kColumns  {
-            var cellData = dataSet.data[indexFor(row: row, column: column)]
+            var cellData = dataSet[indexFor(row: row, column: column)]
             if cellData.data.count>1                            {
                 cellData.data = cellData.data.subtracting(reduceSet)
                 
                 if !cellData.data.isEmpty  {
-                    dataSet.data[indexFor(row: row, column: column)] = cellData
+                    dataSet[indexFor(row: row, column: column)] = cellData
                 }
             }
         }
@@ -379,31 +377,31 @@ public class HLSolver: Codable {
     //  check for cells that have only 1 value (ie .solved)
     func markSolvedCells() {
         for index in 0..<HLSolver.kCellCount {
-            var cellData = dataSet.data[index]
+            var cellData = dataSet[index]
             
             if cellData.data.count == 1 && cellData.status == .unsolvedStatus   {
                 cellData.status = .solvedStatus
-                dataSet.data[index] = cellData
+                dataSet[index] = cellData
             }
         }
     }
     
     func updateChangedCells()   {
         for index in 0..<HLSolver.kCellCount {
-            var cellData = dataSet.data[index]
-            let previousCellData = previousDataSet.data[index]
+            var cellData = dataSet[index]
+            let previousCellData = previousDataSet[index]
             
             //  first lets convert Changed to Solved or Unsollved
             if cellData.status == .changedStatus {
                 if cellData.data.count == 1  {  cellData.status = .solvedStatus }
                 else                         {   cellData.status = .unsolvedStatus }
-                dataSet.data[index] = cellData
+                dataSet[index] = cellData
             }
             
             //  then find the cells that changed
             if puzzleState == .solving && cellData.data.count != previousCellData.data.count     {
                 cellData.status = .changedStatus
-                dataSet.data[index] = cellData
+                dataSet[index] = cellData
             }
         }
         
@@ -414,7 +412,7 @@ public class HLSolver: Codable {
     func nodeCount() -> Int {
         var count = 0
         for index in 0..<HLSolver.kCellCount {
-            let cellData = dataSet.data[index]
+            let cellData = dataSet[index]
             count += cellData.data.count     }
         
         return count - HLSolver.kCellCount
@@ -434,7 +432,7 @@ public class HLSolver: Codable {
     func solvedSetForRow(_ row: Int) -> Set<String>       {
         var solvedSet = Set<String>()
         for column in 0..<HLSolver.kColumns                      {
-            let cellData = dataSet.data[indexFor(row: row, column: column)]
+            let cellData = dataSet[indexFor(row: row, column: column)]
             if cellData.data.count == 1  {
                 solvedSet = solvedSet.union(cellData.data)
             }
@@ -449,7 +447,7 @@ public class HLSolver: Codable {
         for row in 0..<HLSolver.kRows   {
             for column in 0..<HLSolver.kColumns {
                 //  notice the row - column switch for dataSetCopy
-                dataSet.data[indexFor(row: row, column: column)] = dataSetCopy.data[indexFor(row: column, column: row)]
+                dataSet[indexFor(row: row, column: column)] = dataSetCopy[indexFor(row: column, column: row)]
             }
         }
     }
@@ -460,7 +458,7 @@ public class HLSolver: Codable {
         for row in 0..<HLSolver.kRows {
             let blockSet = blockIndexSet[row]
             for column2 in 0..<HLSolver.kRows {
-                dataSet.data[indexFor(row: row, column: column2)] = dataSetCopy.data[blockSet[column2]]
+                dataSet[indexFor(row: row, column: column2)] = dataSetCopy[blockSet[column2]]
             }
         }
     }
@@ -474,7 +472,7 @@ public class HLSolver: Codable {
                 
             for column in 0..<HLSolver.kColumns {
             
-                let cellData = dataSet.data[indexFor(row: row, column: column)]
+                let cellData = dataSet[indexFor(row: row, column: column)]
                 let cell = Array(cellData.data)
                 if cell.count == 1 {
                     let value = cell[0]
@@ -510,16 +508,16 @@ public class HLSolver: Codable {
     func load(_ data: [String])
     {
         if data.count == HLSolver.kCellCount     {
-            for i in 0..<HLSolver.kCellCount
+            for index in 0..<HLSolver.kCellCount
             {
-                let cellValue = data[i]
+                let cellValue = data[index]
                 var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
                 
                 if ( cellValue != "0" )     {
-                    newCell = HLSudokuCell(data: Set([data[i]]), status: .givenStatus)
+                    newCell = HLSudokuCell(data: Set([data[index]]), status: .givenStatus)
                 }
                 
-                dataSet.data[i] = newCell
+                dataSet[index] = newCell
             }
             
             previousDataSet = dataSet
@@ -561,7 +559,7 @@ public class HLSolver: Codable {
                 tempData[index] = HLSudokuCell(data: data, status: .solvedStatus)
             }
         }
-        dataSet.data = tempData
+        dataSet = tempData
         prunePuzzle(rows:true, columns:true, blocks:true)
         
         guard isValidPuzzle() else  {
@@ -573,12 +571,12 @@ public class HLSolver: Codable {
         puzzleName = tempName
     }
     
-    func printDataSet(_ dataSet: HLDataSet) {
+    func printDataSet(_ dataSet: [HLSudokuCell]) {
         
-        func printRowDataSet(_ dataSet: HLDataSet, row: Int)   {
+        func printRowDataSet(_ dataSet: [HLSudokuCell], row: Int)   {
             print("row: \(row) \t", terminator: "")
             for column in 0..<HLSolver.kColumns {
-                let cellData = dataSet.data[(indexFor(row: row, column: column))]
+                let cellData = dataSet[(indexFor(row: row, column: column))]
                 print("\(cellData.setToString()) \t", terminator: "")
 
             }
@@ -590,40 +588,39 @@ public class HLSolver: Codable {
         print("\n")
     }
 
-    required init(coder aDecoder: NSCoder)
+/*    required init(coder aDecoder: NSCoder)
     {
         let puzzleName  = aDecoder.decodeObject(forKey: kNameKey) as! String
-        let dataSet   = aDecoder.decodeObject(forKey: kDataKey) as! HLDataSet
+        let dataSet   = aDecoder.decodeObject(forKey: kDataKey) as! [HLSudokuCell]
         
         self.dataSet = dataSet
         previousDataSet = dataSet
         self.puzzleName = puzzleName
         print("puzzleName: \(String(describing: puzzleName))")
-    }
-    
+    }*/    
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.puzzleName, forKey: .puzzleName)
         try container.encode(self.puzzleState, forKey: .puzzleState)
-        try container.encode(self.dataSet.data, forKey: .puzzleDataSet)
+        try container.encode(self.dataSet, forKey: .puzzleDataSet)
     }
 
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         puzzleName = try values.decode(String.self, forKey: .puzzleName)
         puzzleState = try values.decode(HLPuzzleState.self, forKey: .puzzleState)
-        dataSet.data = try values.decode([HLSudokuCell].self, forKey: .puzzleDataSet)
+        dataSet = try values.decode([HLSudokuCell].self, forKey: .puzzleDataSet)
     }
 
 
     init() {
         print("HLSolver-  init")
-        dataSet = HLDataSet()
+        dataSet = HLSudokuCell.createUnsolvedPuzzle()
         previousDataSet = dataSet
     }
 
-    init(_ dataSet: HLDataSet) {
+    init(_ dataSet: [HLSudokuCell]) {
         print("HLSolver-  initWithDataSet")
         self.dataSet = dataSet
         previousDataSet = dataSet
@@ -634,7 +631,7 @@ public class HLSolver: Codable {
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
         
-        dataSet = HLDataSet()
+        dataSet = HLSudokuCell.createUnsolvedPuzzle()
         previousDataSet = dataSet
         
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {

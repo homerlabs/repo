@@ -15,7 +15,7 @@ struct MiddleSectionView: View {
 
     var body: some View {
         //*****  9 x 9 grid
-        GridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet.data) { item in
+        GridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet) { item in
             Text(self.setToString(item.data))
                 .font(.subheadline)
                 .foregroundColor(self.cellTextColor[item.status.rawValue])
