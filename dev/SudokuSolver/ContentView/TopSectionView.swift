@@ -43,7 +43,10 @@ struct TopSectionView: View {
                 }
             }
             
+            //  allows for saving and loading dataSets
+            #if DEBUG
             LoadSaveView(puzzleViewModel: puzzleViewModel)
+            #endif
 
             //*****  Color Chart, puzzle name, and Node Count
             VStack(alignment: .trailing) {

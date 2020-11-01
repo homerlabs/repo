@@ -17,21 +17,28 @@ public enum HLCellStatus: Int, Codable
     case solvedStatus   //  keep this one last as its used as enum count
 }
 
-public enum HLAlgorithmMode: Int
+public enum HLAlgorithmMode: Int, Codable
 {
     case monoCell
     case findSets
     case monoSector
 }
 
-public enum HLPuzzleState: Int
+public enum HLPuzzleState: Int, Codable
 {
     case initial
     case solving
     case final
 }
 
-public class HLSolver {
+enum CodingKeys: String, CodingKey {
+    case puzzleName
+    case puzzleState
+    case puzzleDataSet
+}
+
+
+public class HLSolver: Codable {
     static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
 //    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
 
@@ -404,25 +411,6 @@ public class HLSolver {
     }
     
     
-    func encodeWithCoder(_ aCoder: NSCoder)
-    {
-        aCoder.encode(puzzleName,  forKey:kNameKey)
-        aCoder.encode(puzzleState,  forKey:kStateKey)
-        aCoder.encode(dataSet,      forKey:kDataKey)
-    }
-    
-    
-    required init(coder aDecoder: NSCoder)
-    {
-        let puzzleName  = aDecoder.decodeObject(forKey: kNameKey) as! String
-        let dataSet   = aDecoder.decodeObject(forKey: kDataKey) as! HLDataSet
-        self.dataSet = dataSet
-        previousDataSet = dataSet
-
-        self.puzzleName = puzzleName
-        print("puzzleName: \(String(describing: puzzleName))")
-    }
-    
     func nodeCount() -> Int {
         var count = 0
         for index in 0..<HLSolver.kCellCount {
@@ -538,26 +526,6 @@ public class HLSolver {
         }
     }   
     
-    
-    func read() {
-        print( "HLSolver-  read" )
-        
-        if let dataSet = UserDefaults.standard.object(forKey: kDataKey) as? HLDataSet    {
-            self.dataSet = dataSet
-            previousDataSet = dataSet
-            puzzleName = (UserDefaults.standard.object(forKey: kNameKey) as! String)
-  //      printDataSet(dataSet)
-        }
-    }
-    
-    
-    func save() {
-        print( "HLSolver-  save" )
-        UserDefaults.standard.set(puzzleName, forKey: kNameKey)
-        UserDefaults.standard.set(dataSet, forKey: kDataKey)
-    }
-    
-    
     func loadPuzzleWith(data: String)   {
         var array: [Substring] = data.split(separator: "\n")
         var tempData: [HLSudokuCell] = []
@@ -605,18 +573,6 @@ public class HLSolver {
         puzzleName = tempName
     }
     
-    
-    
-/*    func printArrayOfSets(_ data:[Set<String>])   {
-        for index in 0..<data.count    {
-            let data = data[index].data
-            print("\(setToString()) \t", terminator: "")
-        }
-        print("")
-    }*/
-
-
-    
     func printDataSet(_ dataSet: HLDataSet) {
         
         func printRowDataSet(_ dataSet: HLDataSet, row: Int)   {
@@ -634,12 +590,45 @@ public class HLSolver {
         print("\n")
     }
 
+    required init(coder aDecoder: NSCoder)
+    {
+        let puzzleName  = aDecoder.decodeObject(forKey: kNameKey) as! String
+        let dataSet   = aDecoder.decodeObject(forKey: kDataKey) as! HLDataSet
+        
+        self.dataSet = dataSet
+        previousDataSet = dataSet
+        self.puzzleName = puzzleName
+        print("puzzleName: \(String(describing: puzzleName))")
+    }
+    
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.puzzleName, forKey: .puzzleName)
+        try container.encode(self.puzzleState, forKey: .puzzleState)
+        try container.encode(self.dataSet.data, forKey: .puzzleDataSet)
+    }
+
+    required public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        puzzleName = try values.decode(String.self, forKey: .puzzleName)
+        puzzleState = try values.decode(HLPuzzleState.self, forKey: .puzzleState)
+        dataSet.data = try values.decode([HLSudokuCell].self, forKey: .puzzleDataSet)
+    }
+
+
     init() {
         print("HLSolver-  init")
         dataSet = HLDataSet()
         previousDataSet = dataSet
     }
-    
+
+    init(_ dataSet: HLDataSet) {
+        print("HLSolver-  initWithDataSet")
+        self.dataSet = dataSet
+        previousDataSet = dataSet
+    }
+
     init(html: String) {
         print("HLSolver-  init(html: String)")
         var puzzleString = html

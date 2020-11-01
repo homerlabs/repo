@@ -31,12 +31,12 @@
 		B0AB9FD22549EA860073E6BA /* LoadSaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */; };
 		B0AB9FD32549EA860073E6BA /* LoadSaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */; };
 		B0B26CFA253F638300140FBC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F731E246B20C10059D8DE /* AboutView.swift */; };
-		B0D21E16254C87F800A59FA0 /* HLDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D21E15254C87F800A59FA0 /* HLDataSet.swift */; };
-		B0D21E17254C87F800A59FA0 /* HLDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D21E15254C87F800A59FA0 /* HLDataSet.swift */; };
 		B0D90F4B2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F4C2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */; };
 		B0D90F512538C0A8005956B1 /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */; };
+		B0EC0504254F30A4006EC94D /* HLDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EC0503254F30A4006EC94D /* HLDataSet.swift */; };
+		B0EC0505254F30A4006EC94D /* HLDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EC0503254F30A4006EC94D /* HLDataSet.swift */; };
 		B0F4440A2460B43500BF3314 /* ColorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F444092460B43500BF3314 /* ColorChartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,10 +71,10 @@
 		B07F731E246B20C10059D8DE /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPuzzleViewModel.swift; sourceTree = "<group>"; };
 		B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSaveView.swift; sourceTree = "<group>"; };
-		B0D21E15254C87F800A59FA0 /* HLDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLDataSet.swift; sourceTree = "<group>"; };
 		B0D90F4A2538B249005956B1 /* BottomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSectionView.swift; sourceTree = "<group>"; };
 		B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleSectionView.swift; sourceTree = "<group>"; };
 		B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
+		B0EC0503254F30A4006EC94D /* HLDataSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLDataSet.swift; sourceTree = "<group>"; };
 		B0F444092460B43500BF3314 /* ColorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,7 +123,7 @@
 		B068516B2429425A006E532E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B0D21E15254C87F800A59FA0 /* HLDataSet.swift */,
+				B0EC0503254F30A4006EC94D /* HLDataSet.swift */,
 				B068516D2429425A006E532E /* HLSolver.swift */,
 			);
 			path = Model;
@@ -295,7 +295,7 @@
 				B0AB9FD22549EA860073E6BA /* LoadSaveView.swift in Sources */,
 				B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */,
 				B06C830424293ECC007C169C /* SceneDelegate.swift in Sources */,
-				B0D21E16254C87F800A59FA0 /* HLDataSet.swift in Sources */,
+				B0EC0504254F30A4006EC94D /* HLDataSet.swift in Sources */,
 				B002E130253B4C1900B1CC36 /* GridView.swift in Sources */,
 				B06C830624293ECC007C169C /* HLPuzzleView.swift in Sources */,
 				B0D90F4B2538B249005956B1 /* BottomSectionView.swift in Sources */,
@@ -316,7 +316,7 @@
 				B002E131253B4C1900B1CC36 /* GridView.swift in Sources */,
 				B04CE353253CD5460052CA2E /* HLPuzzleViewModel.swift in Sources */,
 				B04CE34A253CD5340052CA2E /* HLPuzzleView.swift in Sources */,
-				B0D21E17254C87F800A59FA0 /* HLDataSet.swift in Sources */,
+				B0EC0505254F30A4006EC94D /* HLDataSet.swift in Sources */,
 				B0D90F4C2538B249005956B1 /* BottomSectionView.swift in Sources */,
 				B0AB9FD32549EA860073E6BA /* LoadSaveView.swift in Sources */,
 			);

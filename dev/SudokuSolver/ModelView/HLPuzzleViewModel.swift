@@ -96,6 +96,26 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         })
     }
 
+/*    func loadData()  {
+        print( "HLSolver-  loadData" )
+        
+        if let data = UserDefaults.standard.data(forKey: solver.kDataKey)    {
+            let plistDecoder = PropertyListDecoder()
+            if let solver  = try? plistDecoder.decode(HLSolver.self, from:data) {
+                self.solver = solver
+            }
+        }
+    }
+    
+    
+    func saveData() {
+        print( "HLSolver-  saveData" )
+        let plistEncoder = PropertyListEncoder()
+        if let data = try? plistEncoder.encode(solver) {
+            UserDefaults.standard.set(data, forKey: solver.kDataKey)
+        }
+    }*/
+    
     deinit {
         saveSetting()
         print("HLPuzzleViewModel-  deinit")

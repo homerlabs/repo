@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct LoadSaveView: View {
+    let kDataKey = "DataKey"
     @ObservedObject var puzzleViewModel: HLPuzzleViewModel
 
     var body: some View {
@@ -16,14 +17,14 @@ struct LoadSaveView: View {
             Spacer()
             VStack {
                 Button(action: {
-                    puzzleViewModel.solver.save()
+                    saveData()
                 }) {
                     Text("Save")
                 }
                 .padding(.bottom)
                 
                 Button(action: {
-                    puzzleViewModel.solver.read()
+                    loadData()
                 }) {
                     Text("Load")
                 }
@@ -31,6 +32,24 @@ struct LoadSaveView: View {
             Spacer()
         }
     }
+    
+    func saveData() {
+        print( "LoadSaveView-  saveData" )
+        let plistEncoder = PropertyListEncoder()
+        if let data = try? plistEncoder.encode(puzzleViewModel.solver) {
+            UserDefaults.standard.set(data, forKey: kDataKey)
+        }
+    }
+    func loadData()  {
+            print( "LoadSaveView-  loadData" )
+            
+        if let data = UserDefaults.standard.data(forKey: kDataKey)    {
+                let plistDecoder = PropertyListDecoder()
+                if let solver  = try? plistDecoder.decode(HLSolver.self, from:data) {
+                    puzzleViewModel.solver = solver
+                }
+            }
+        }
 }
 
 struct LoadSaveView_Previews: PreviewProvider {
