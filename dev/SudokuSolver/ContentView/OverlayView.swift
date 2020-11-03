@@ -27,8 +27,8 @@ struct OverlayView: View {
 }
 
 struct SimpleBox: View {
-    @State var width: CGFloat
-    @State var height: CGFloat
+    let width: CGFloat
+    let height: CGFloat
     var body: some View {
         Rectangle()
         .fill(Color.gray)
@@ -38,8 +38,8 @@ struct SimpleBox: View {
 }
 
 struct SimpleThreeBoxes: View {
-    @State var width: CGFloat
-    @State var height: CGFloat
+    let width: CGFloat
+    let height: CGFloat
     var body: some View {
         HStack {
             Spacer()

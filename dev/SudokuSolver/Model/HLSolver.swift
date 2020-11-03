@@ -588,17 +588,6 @@ public class HLSolver: Codable {
         print("\n")
     }
 
-/*    required init(coder aDecoder: NSCoder)
-    {
-        let puzzleName  = aDecoder.decodeObject(forKey: kNameKey) as! String
-        let dataSet   = aDecoder.decodeObject(forKey: kDataKey) as! [HLSudokuCell]
-        
-        self.dataSet = dataSet
-        previousDataSet = dataSet
-        self.puzzleName = puzzleName
-        print("puzzleName: \(String(describing: puzzleName))")
-    }*/    
-    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.puzzleName, forKey: .puzzleName)
@@ -612,7 +601,6 @@ public class HLSolver: Codable {
         puzzleState = try values.decode(HLPuzzleState.self, forKey: .puzzleState)
         dataSet = try values.decode([HLSudokuCell].self, forKey: .puzzleDataSet)
     }
-
 
     init() {
         print("HLSolver-  init")
