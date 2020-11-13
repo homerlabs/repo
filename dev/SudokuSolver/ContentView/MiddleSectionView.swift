@@ -16,23 +16,10 @@ struct MiddleSectionView: View {
     var body: some View {
         //*****  9 x 9 grid
         GridView(columns: numberOfColumns, items: puzzleViewModel.solver.dataSet) { item in
-            Text(self.setToString(item.data))
+            Text(item.setToString())
                 .font(.subheadline)
                 .foregroundColor(self.cellTextColor[item.status.rawValue])
                 .background(Color.init(red: 0.95, green: 0.85, blue: 0.85))
-        }
-    }
-    
-    func setToString(_ aSet: Set<String>)->String     {
-        let list = Array(aSet.sorted(by: <))
-        
-        if list.count == 0 {
-            return "123456789"
-        }
-        else   {
-            var returnString = ""
-            for index in 0..<list.count     {   returnString += list[index]     }
-            return returnString
         }
     }
 }
