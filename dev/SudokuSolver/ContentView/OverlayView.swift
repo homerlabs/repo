@@ -54,6 +54,6 @@ struct SimpleThreeBoxes: View {
 
 struct OverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        OverlayView(width: 250, height: 250)
+        OverlayView(width: 100, height: 100)
     }
 }

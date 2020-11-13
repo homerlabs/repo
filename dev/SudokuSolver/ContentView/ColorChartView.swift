@@ -11,26 +11,22 @@ import SwiftUI
 struct ColorChartView: View {
     let colorTable: [Color]
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color.clear)
-                .border(Color.gray)
-                .frame(width: 330, height: 60, alignment: .center)
-            HStack {
-                ColorBox(title: "Given", color: colorTable[0])
-                ColorBox(title: "Unsolved", color: colorTable[1])
-                ColorBox(title: "Changed", color: colorTable[2])
-                ColorBox(title: "Solved", color: colorTable[3])
-            }
-                .padding(.top, 2)
+        HStack {
+            ColorBox(title: "Given", color: colorTable[0])
+            ColorBox(title: "Unsolved", color: colorTable[1])
+            ColorBox(title: "Changed", color: colorTable[2])
+            ColorBox(title: "Solved", color: colorTable[3])
         }
+            .frame(width: 330, height: 60, alignment: .center)
+            .padding(.top, 2)
+            .border(Color.gray)
             .background(Color(red: 0.9, green: 0.9, blue: 0.9))
     }
 }
 
 struct ColorBox: View {
-    @State var title: String
-    @State var color: Color
+    let title: String
+    let color: Color
     var body: some View {
          VStack {
             Rectangle()

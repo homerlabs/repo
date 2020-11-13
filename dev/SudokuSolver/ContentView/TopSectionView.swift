@@ -12,10 +12,10 @@ struct TopSectionView: View {
     @ObservedObject var puzzleViewModel: HLPuzzleViewModel
     let switchPadding: CGFloat = 5
     let hlToggleSize: CGFloat = 150
-    let cellTextColor = [Color.green, Color.purple, Color.orange, Color.blue]
+    let cellTextColorTable = [Color.green, Color.purple, Color.orange, Color.blue]
 
     var body: some View {
-        HStack() {
+        HStack(alignment: .center) {
             //*****  Rows, Columns, and Blocks Switches
             VStack {
                 HStack {
@@ -50,12 +50,10 @@ struct TopSectionView: View {
 
             //*****  Color Chart, puzzle name, and Node Count
             VStack(alignment: .trailing) {
-                ColorChartView(colorTable: cellTextColor)
+                ColorChartView(colorTable: cellTextColorTable)
                 Text(puzzleViewModel.solver.puzzleName).padding(.top, 5)
-
                 Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)").padding(.top, 3)
             }
-            Spacer()
         }
     }
 }
