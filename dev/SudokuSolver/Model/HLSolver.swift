@@ -31,34 +31,22 @@ public enum HLPuzzleState: Int, Codable
     case final
 }
 
-enum CodingKeys: String, CodingKey {
-    case puzzleName
-    case puzzleState
-    case puzzleDataSet
-}
-
-
 public class HLSolver: Codable {
+    var dataSet: [HLSudokuCell]
+    var previousDataSet: [HLSudokuCell]
+    var puzzleName: String
+    var puzzleState: HLPuzzleState
+
     static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
 //    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
 
-    //  used for encode/decode HLSolver object
-    let kDataKey   = "DataKey"
-    let kStateKey  = "StateKey"
-    let kNameKey   = "NameKey"
-    
     static let kRows = 9
     static let kColumns = 9
     static let kCellCount = 81
     static let fullSet = Set<String>(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
-
-    var dataSet: [HLSudokuCell] = HLSudokuCell.createUnsolvedPuzzle()
-    var previousDataSet: [HLSudokuCell] = HLSudokuCell.createUnsolvedPuzzle()
-    var puzzleName = "No Puzzle Found"
-    var puzzleState = HLPuzzleState.initial
         
     //  this is used to re-map the blocks to look like rows before a row operation and then re-map back
-    let blockIndexSet = [
+    static let blockIndexSet = [
         [ 0,  1,  2,  9, 10, 11, 18, 19, 20],
         [ 3,  4,  5, 12, 13, 14, 21, 22, 23],
         [ 6,  7,  8, 15, 16, 17, 24, 25, 26],
@@ -71,7 +59,7 @@ public class HLSolver: Codable {
         [57, 58, 59, 66, 67, 68, 75, 76, 77],
         [60, 61, 62, 69, 70, 71, 78, 79, 80]
     ]
-        
+
     func indexFor(row: Int, column: Int) -> Int {
         row * HLSolver.kColumns + column
     }
@@ -123,8 +111,7 @@ public class HLSolver: Codable {
         if rows     {   monoCellRows()    }
         if columns  {   monoCellColumns() }
     }
-    
-    
+        
     func findMonoSectors(rows: Bool, columns: Bool)  {
 
         func reduceMonoSectorsForRows()     {
@@ -224,8 +211,7 @@ public class HLSolver: Codable {
         if rows     {   reduceMonoSectorsForRows()    }
         if columns  {   reduceMonoSectorsForColumns() }
     }
-    
-    
+        
     func findPuzzleSets(rows: Bool, columns: Bool, blocks: Bool)  {
 
         func findSetsForRow(_ row: Int, sizeOfSet: Int)  {
@@ -277,7 +263,6 @@ public class HLSolver: Codable {
 
         prunePuzzle(rows:true, columns:true, blocks:true)
     }
-    
     
     //  prunePuzzle() calls itself until node count remains unchanged
     func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool)  {
@@ -337,7 +322,6 @@ public class HLSolver: Codable {
         while previousNodeCount != currentNodeCount
     }
     
-    
     func searchForSets(_ setsToSearch: [Set<String>], superSet: Set<String>, count: Int) -> Bool {
  //       print( "searchForSets: \(setsToSearch)   count: \(count)")
         
@@ -357,7 +341,6 @@ public class HLSolver: Codable {
         else if count == 1      {   return true     }
         else                    {   return false    }
     }
-    
     
     func reduceRow(_ row: Int, forSet reduceSet: Set<String>)    {
  //       print( "reduceRow: \(row)   reduceSet: \(reduceSet)")
@@ -408,7 +391,6 @@ public class HLSolver: Codable {
         markSolvedCells()
     }
     
-    
     func nodeCount() -> Int {
         var count = 0
         for index in 0..<HLSolver.kCellCount {
@@ -427,8 +409,7 @@ public class HLSolver: Codable {
         }
         return count
     }
-    
-    
+        
     func solvedSetForRow(_ row: Int) -> Set<String>       {
         var solvedSet = Set<String>()
         for column in 0..<HLSolver.kColumns                      {
@@ -441,7 +422,6 @@ public class HLSolver: Codable {
         return solvedSet
     }
 
-
     func convertColumnsToRows() {
         let dataSetCopy = dataSet
         for row in 0..<HLSolver.kRows   {
@@ -451,18 +431,16 @@ public class HLSolver: Codable {
             }
         }
     }
-    
-    
+        
     func convertBlocksToRows() {
         let dataSetCopy = dataSet
         for row in 0..<HLSolver.kRows {
-            let blockSet = blockIndexSet[row]
+            let blockSet = HLSolver.blockIndexSet[row]
             for column2 in 0..<HLSolver.kRows {
                 dataSet[indexFor(row: row, column: column2)] = dataSetCopy[blockSet[column2]]
             }
         }
     }
-
 
     func isValidPuzzle() -> Bool {
     
@@ -501,76 +479,10 @@ public class HLSolver: Codable {
         return returnValue
     }
 
-
-    func sectorForIndex(_ index: Int)->Int    {   return index/3  }
-    
-    
-    func load(_ data: [String])
-    {
-        if data.count == HLSolver.kCellCount     {
-            for index in 0..<HLSolver.kCellCount
-            {
-                let cellValue = data[index]
-                var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
-                
-                if ( cellValue != "0" )     {
-                    newCell = HLSudokuCell(data: Set([data[index]]), status: .givenStatus)
-                }
-                
-                dataSet[index] = newCell
-            }
-            
-            previousDataSet = dataSet
-        }
-    }   
-    
-    func loadPuzzleWith(data: String)   {
-        var array: [Substring] = data.split(separator: "\n")
-        var tempData: [HLSudokuCell] = []
-    //    var tempStatus = Array(repeating: 0, count: kCellCount)
-        var tempName = ""
-        tempName = String(array[0])
-        array.remove(at: 0) //  get rid of the puzzlename line and leave cell data
-        
-        for index in 0..<HLSolver.kCellCount {
-            let line = String(array[index])
-            let valueArray = line.split(separator: "\t")
-            let (valueInt, statusInt) = (Int(valueArray[0]), Int(valueArray[1]))
-
-            //  make sure we get 2 Ints (value, status)
-            guard let value = valueInt, let status = statusInt else {
-                print("Bad data on line: \(index+1)   data: \(line)")
-                return
-            }
-            
-            //  make sure that status value is in range
-            guard status >= 0,  status <= HLCellStatus.solvedStatus.rawValue else
-            {
-                print("Bad status data on line: \(index+1)   data: \(line)")
-                return
-            }
-            
-            if valueInt == 0   {
-                tempData[index] = HLSudokuCell(data: HLSolver.fullSet, status: HLCellStatus.init(rawValue: status)!)
-            }
-            else    {
-                let str = String(value)
-                let data = Set<String>([str])
-                tempData[index] = HLSudokuCell(data: data, status: .solvedStatus)
-            }
-        }
-        dataSet = tempData
-        prunePuzzle(rows:true, columns:true, blocks:true)
-        
-        guard isValidPuzzle() else  {
-            print("Error:  Data was parsed but produced invalid puzzle.")
-            return
-        }
-        
-        previousDataSet = dataSet
-        puzzleName = tempName
+    func sectorForIndex(_ index: Int) -> Int    {
+        return index/3
     }
-    
+
     func printDataSet(_ dataSet: [HLSudokuCell]) {
         
         func printRowDataSet(_ dataSet: [HLSudokuCell], row: Int)   {
@@ -588,67 +500,22 @@ public class HLSolver: Codable {
         print("\n")
     }
 
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.puzzleName, forKey: .puzzleName)
-        try container.encode(self.puzzleState, forKey: .puzzleState)
-        try container.encode(self.dataSet, forKey: .puzzleDataSet)
-    }
-
-    required public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        puzzleName = try values.decode(String.self, forKey: .puzzleName)
-        puzzleState = try values.decode(HLPuzzleState.self, forKey: .puzzleState)
-        dataSet = try values.decode([HLSudokuCell].self, forKey: .puzzleDataSet)
-    }
-
-    init() {
+    convenience init() {
         print("HLSolver-  init")
-        dataSet = HLSudokuCell.createUnsolvedPuzzle()
-        previousDataSet = dataSet
+        self.init(HLSudokuCell.createUnsolvedPuzzle(), puzzleName: "")
     }
 
-    init(_ dataSet: [HLSudokuCell]) {
+    convenience init(_ dataSet: [HLSudokuCell]) {
         print("HLSolver-  initWithDataSet")
-        self.dataSet = dataSet
-        previousDataSet = dataSet
+        self.init(dataSet, puzzleName: "No Puzzle Found")
     }
 
-    init(html: String) {
-        print("HLSolver-  init(html: String)")
-        var puzzleString = html
-        var puzzleArray = Array(repeating: "0", count: 81)
-        
-        dataSet = HLSudokuCell.createUnsolvedPuzzle()
+    init(_ dataSet: [HLSudokuCell], puzzleName: String) {
+        print("HLSolver-  initWithDataSet: puzzleName:")
+        self.dataSet = dataSet
+        self.puzzleName = puzzleName
         previousDataSet = dataSet
-        
-        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
-            puzzleString = String(puzzleString[range.lowerBound...])
-  //          print( "*******************puzzleString: \(puzzleString)" )
-            
-            for index in 0..<81 {
-                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
-                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
-       //             print( "*******************preString: \(preString)" )
-                    puzzleString.removeFirst(preString.count)
-                    
-                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
-                        puzzleArray[index] = String(preString[range.upperBound])
-                    }
-                }
-            }
-            
-    //        print( "puzzleString: \(puzzleString)" )
-            if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
-                puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
-                if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
-                    puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
-                    load(puzzleArray)
-        
-                    previousDataSet = dataSet
-                }
-           }
-        }
+        puzzleState = HLPuzzleState.initial
     }
     
     deinit {

@@ -83,17 +83,97 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         hlWebView.load(request)
     }
     
+    func saveData(_ dataSet: [HLSudokuCell]) {
+        print( "HLPuzzleViewModel-  saveData" )
+        let solver = HLSolver(dataSet, puzzleName: self.solver.puzzleName)
+        let plistEncoder = PropertyListEncoder()
+        if let data = try? plistEncoder.encode(solver) {
+            UserDefaults.standard.set(data, forKey: hlKeyPuzzleData)
+        }
+    }
+
+    func loadData()  {
+            print( "HLPuzzleViewModel-  loadData" )
+            
+        if let data = UserDefaults.standard.data(forKey: hlKeyPuzzleData)    {
+            let plistDecoder = PropertyListDecoder()
+            if let solver  = try? plistDecoder.decode(HLSolver.self, from:data) {
+                self.solver = solver
+            }
+        }
+    }
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        print("HLSolverViewController-  webView-  didFinish")
+        print("HLPuzzleViewModel-  webView-  didFinish")
         webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    self.solver = HLSolver(html: puzzleString)
+                    self.solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString)
                     self.unsolvedNodeCount = self.solver.unsolvedCount()
                 }
         })
+    }
+
+    class func parseHTMLString(html: String) -> HLSolver {
+
+        func load(_ data: [String]) -> [HLSudokuCell]
+        {
+            var dataSet: [HLSudokuCell] = []
+
+            if data.count == HLSolver.kCellCount     {
+                for item in data
+                {
+                    let cellValue = item
+                    var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
+                    
+                    if ( cellValue != "0" )     {
+                        newCell = HLSudokuCell(data: Set([cellValue]), status: .givenStatus)
+                    }
+                    
+                    dataSet.append(newCell)
+                }
+            }
+            
+            return dataSet
+        }
+
+        //  start of: parseHTMLString()
+        print("HLPuzzleViewModel-  parseHTMLString(html: String)")
+        var puzzleString = html
+        var puzzleArray = Array(repeating: "0", count: 81)
+        
+        var solver = HLSolver()
+        
+        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
+            puzzleString = String(puzzleString[range.lowerBound...])
+  //          print( "*******************puzzleString: \(puzzleString)" )
+            
+            for index in 0..<81 {
+                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
+                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
+       //             print( "*******************preString: \(preString)" )
+                    puzzleString.removeFirst(preString.count)
+                    
+                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
+                        puzzleArray[index] = String(preString[range.upperBound])
+                    }
+                }
+            }
+            
+    //        print( "puzzleString: \(puzzleString)" )
+            if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
+                puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
+                if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
+                    let puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
+                    let dataSet = load(puzzleArray)
+                    solver = HLSolver(dataSet, puzzleName: puzzleName)
+                }
+           }
+        }
+        
+        return solver
     }
 
     deinit {

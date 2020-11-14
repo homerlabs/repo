@@ -13,6 +13,7 @@ import WebKit
 class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
 
     var hlWebView = WKWebView()
+    var solver = HLSolver()
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -72,13 +73,12 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        print("HLSolverViewController-  webView-  didFinish")
+        print("SudokuSolverTests-  webView-  didFinish")
         webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    let solver = HLSolver(html: puzzleString)
-           //         self.unsolvedNodeCount = solver.unsolvedCount()
+                    self.solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString)
                 }
         })
     }
