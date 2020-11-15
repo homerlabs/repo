@@ -24,7 +24,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     let hlKeySettingColumn      = "hlKeySettingColumn"
     let hlKeySettingBlock       = "hlKeySettingBlock"
     let hlKeySettingAlgorithm   = "hlKeySettingAlgorithm"
-    let hlKeyPuzzleData         = "hlKeyPuzzleData"
         
     var hlWebView = WKWebView()
     
@@ -83,26 +82,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         hlWebView.load(request)
     }
     
-    func saveData(_ dataSet: [HLSudokuCell]) {
-        print( "HLPuzzleViewModel-  saveData" )
-        let solver = HLSolver(dataSet, puzzleName: self.solver.puzzleName)
-        let plistEncoder = PropertyListEncoder()
-        if let data = try? plistEncoder.encode(solver) {
-            UserDefaults.standard.set(data, forKey: hlKeyPuzzleData)
-        }
-    }
-
-    func loadData()  {
-            print( "HLPuzzleViewModel-  loadData" )
-            
-        if let data = UserDefaults.standard.data(forKey: hlKeyPuzzleData)    {
-            let plistDecoder = PropertyListDecoder()
-            if let solver  = try? plistDecoder.decode(HLSolver.self, from:data) {
-                self.solver = solver
-            }
-        }
-    }
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
         print("HLPuzzleViewModel-  webView-  didFinish")
@@ -110,19 +89,21 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    self.solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString)
-                    self.unsolvedNodeCount = self.solver.unsolvedCount()
+                    if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
+                        self.solver = solver
+                        self.unsolvedNodeCount = self.solver.unsolvedCount()
+                   }
                 }
         })
     }
 
-    class func parseHTMLString(html: String) -> HLSolver {
+    class func parseHTMLString(html: String) -> HLSolver? {
 
         func load(_ data: [String]) -> [HLSudokuCell]
         {
             var dataSet: [HLSudokuCell] = []
 
-            if data.count == HLSolver.kCellCount     {
+            if data.count == HLSolver.numberOfCells     {
                 for item in data
                 {
                     let cellValue = item
@@ -144,7 +125,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
         
-        var solver = HLSolver()
+        var solver: HLSolver?
         
         if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
             puzzleString = String(puzzleString[range.lowerBound...])

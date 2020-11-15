@@ -36,8 +36,8 @@ public struct HLSudokuCell: Codable {
     static public func createValidSolvedPuzzle() -> [HLSudokuCell] {
         var data: [HLSudokuCell] = []
 
-        for row in 0..<HLSolver.kRows {
-            for column in 0..<HLSolver.kColumns {
+        for row in 0..<HLSolver.numberOfRows {
+            for column in 0..<HLSolver.numberOfColumns {
                 let stringArray = [String((column+row) % 9 + 1)]
                 let cellData = HLSudokuCell(data: Set(stringArray), status: HLCellStatus.givenStatus)
                 data.append(cellData)
@@ -49,7 +49,7 @@ public struct HLSudokuCell: Codable {
     
     static public func createUnsolvedPuzzle() -> [HLSudokuCell] {
         let cellData = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
-        return Array(repeating: cellData, count: HLSolver.kCellCount)
+        return Array(repeating: cellData, count: HLSolver.numberOfCells)
     }
 }
 

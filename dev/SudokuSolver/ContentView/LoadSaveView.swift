@@ -16,14 +16,16 @@ struct LoadSaveView: View {
             Spacer()
             VStack {
                 Button(action: {
-                    puzzleViewModel.saveData(puzzleViewModel.solver.dataSet)
+                    puzzleViewModel.solver.saveData(puzzleViewModel.solver.dataSet)
                 }) {
                     Text("Save")
                 }
                 .padding(.bottom)
                 
                 Button(action: {
-                    puzzleViewModel.loadData()
+                    if let solver = puzzleViewModel.solver.loadData() {
+                        puzzleViewModel.solver = solver
+                    }
                 }) {
                     Text("Load")
                 }

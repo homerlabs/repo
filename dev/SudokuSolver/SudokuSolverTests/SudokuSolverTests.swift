@@ -35,7 +35,7 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     //  9, 1, 2, 3, 4, 5, 6, 7, 0
     func testPrunePuzzle() {
         var data = HLSudokuCell.createValidSolvedPuzzle()
-        for index in 0..<HLSolver.kCellCount {
+        for index in 0..<HLSolver.numberOfCells {
             if (index % 10) == 0    {
                 let cellData = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
                 data[index] = cellData
@@ -78,7 +78,9 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
         //        print( "innerHTML: \(String(describing: html))" )
             
                 if let puzzleString = html as? String   {
-                    self.solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString)
+                    if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
+                        self.solver = solver
+                    }
                 }
         })
     }
