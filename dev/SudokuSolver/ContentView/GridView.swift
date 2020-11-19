@@ -41,7 +41,7 @@ struct GridView<Content, T>: View where Content: View {
         self.items = items
         self.content = content
         let screenSize: CGRect = UIScreen.main.bounds
-        print("screenSize: \(screenSize.width) \(screenSize.height)")
+ //       print("screenSize: \(screenSize.width) \(screenSize.height)")
         
         //  need to fine tune scales for different screen sizes
         switch screenSize.height {
@@ -82,11 +82,7 @@ struct GridView<Content, T>: View where Content: View {
     }
   
   var numberRows: Int {
-    guard  items.count > 0 else {
-      return 0
-    }
-    
-    return items.count / columns
+    items.count / columns
   }
   
   func elementFor(row: Int, column: Int) -> Int? {
@@ -124,7 +120,7 @@ struct GridView<Content, T>: View where Content: View {
 struct GridView_Previews: PreviewProvider {
   static var previews: some View {
     let data = Array(Range(10001...10081))
-    return GridView(columns: 9, items: data) { item in
+    return GridView(columns: HLSolver.numberOfColumns, items: data) { item in
       Text("\(item)")
     }
   }

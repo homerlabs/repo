@@ -52,7 +52,7 @@ struct TopSectionView: View {
             VStack(alignment: .trailing) {
                 ColorChartView(colorTable: cellTextColorTable)
                 Text(puzzleViewModel.solver.puzzleName).padding(.top, 5)
-                Text("Unsolved Nodes: \(puzzleViewModel.unsolvedNodeCount)").padding(.top, 3)
+                Text("Unsolved Nodes: \(puzzleViewModel.solver.unsolvedNodeCount)").padding(.top, 3)
             }
         }
     }

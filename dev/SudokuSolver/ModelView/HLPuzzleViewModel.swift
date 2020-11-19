@@ -13,13 +13,12 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
 
     @Published var solver = HLSolver()
     @Published var algorithmSelected: HLAlgorithmMode = .monoCell
-    @Published var unsolvedNodeCount = 0
     @Published var testRows = true
     @Published var testColumns = true
     @Published var testBlocks = true
     @Published var undoButtonEnabled = false
     @Published var previousState = HLPuzzleState.initial
-    
+
     let hlKeySettingRow         = "hlKeySettingRow"
     let hlKeySettingColumn      = "hlKeySettingColumn"
     let hlKeySettingBlock       = "hlKeySettingBlock"
@@ -32,7 +31,9 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         previousState = solver.puzzleState  //  needed for the Undo button after initial Prune operation
         
         if solver.puzzleState == .initial {
-            solver.prunePuzzle(rows: true, columns: true, blocks: true)
+            if !solver.prunePuzzle(rows: true, columns: true, blocks: true) {
+                print("Serious ERROR:  Puzzle data not valid!")
+            }
             solver.markSolvedCells()
         }
         else {
@@ -50,7 +51,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             solver.updateChangedCells()
        }
         
-        unsolvedNodeCount = solver.unsolvedCount()
+        solver.updateUnsolvedCount()
         undoButtonEnabled = true
         saveSetting()   //  TODO:  find a cleaner solution
         
@@ -63,7 +64,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         undoButtonEnabled = false
         solver.dataSet = solver.previousDataSet
         solver.puzzleState = previousState  //  will have effect if last operation was Prune
-        unsolvedNodeCount = solver.unsolvedCount()
+        solver.updateUnsolvedCount()
     }
     
     func saveSetting() {
@@ -91,7 +92,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 if let puzzleString = html as? String   {
                     if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
                         self.solver = solver
-                        self.unsolvedNodeCount = self.solver.unsolvedCount()
+                   //     self.unsolvedNodeCount = self.solver.unsolvedCount()
                    }
                 }
         })
@@ -99,29 +100,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
 
     class func parseHTMLString(html: String) -> HLSolver? {
 
-        func load(_ data: [String]) -> [HLSudokuCell]
-        {
-            var dataSet: [HLSudokuCell] = []
-
-            if data.count == HLSolver.numberOfCells     {
-                for item in data
-                {
-                    let cellValue = item
-                    var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
-                    
-                    if ( cellValue != "0" )     {
-                        newCell = HLSudokuCell(data: Set([cellValue]), status: .givenStatus)
-                    }
-                    
-                    dataSet.append(newCell)
-                }
-            }
-            
-            return dataSet
-        }
-
         //  start of: parseHTMLString()
-        print("HLPuzzleViewModel-  parseHTMLString(html: String)")
+ //       print("HLPuzzleViewModel-  parseHTMLString(html: String)")
         var puzzleString = html
         var puzzleArray = Array(repeating: "0", count: 81)
         
@@ -149,12 +129,34 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
                     let puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
                     let dataSet = load(puzzleArray)
-                    solver = HLSolver(dataSet, puzzleName: puzzleName)
+                    solver = HLSolver(dataSet, puzzleName: puzzleName, puzzleState: .initial)
                 }
            }
         }
         
         return solver
+    }
+
+
+    class func load(_ data: [String]) -> [HLSudokuCell]
+    {
+        var dataSet: [HLSudokuCell] = []
+
+        if data.count == HLSolver.numberOfCells     {
+            for item in data
+            {
+                let cellValue = item
+                var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
+                
+                if ( cellValue != "0" )     {
+                    newCell = HLSudokuCell(data: Set([cellValue]), status: .givenStatus)
+                }
+                
+                dataSet.append(newCell)
+            }
+        }
+        
+        return dataSet
     }
 
     deinit {
