@@ -89,13 +89,20 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
         //        print( "innerHTML: \(String(describing: html))" )
             
-                if let puzzleString = html as? String   {
-                    if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
-                        self.solver = solver
-                   //     self.unsolvedNodeCount = self.solver.unsolvedCount()
-                   }
-                }
+            if let puzzleString = html as? String   {
+                if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
+                    self.solver = solver
+               //     self.solver = self.replacePuzzleWithTestData()
+               }
+            }
         })
+    }
+    
+    func replacePuzzleWithTestData() -> HLSolver {
+        let dataSet = HLSolver.loadWithIntegerArray(HLSolver.testData)
+        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .solving)
+        solver.prunePuzzle(rows: true, columns: true, blocks: true)
+        return solver
     }
 
     class func parseHTMLString(html: String) -> HLSolver? {
@@ -103,7 +110,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         //  start of: parseHTMLString()
  //       print("HLPuzzleViewModel-  parseHTMLString(html: String)")
         var puzzleString = html
-        var puzzleArray = Array(repeating: "0", count: 81)
+        var puzzleArray = Array(repeating: 0, count: 81)
         
         var solver: HLSolver?
         
@@ -118,7 +125,9 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                     puzzleString.removeFirst(preString.count)
                     
                     if let range: Range<String.Index> = preString.range(of:"value=\"")  {
-                        puzzleArray[index] = String(preString[range.upperBound])
+                        if let num = Int(String(preString[range.upperBound])) {
+                            puzzleArray[index] = num
+                        }
                     }
                 }
             }
@@ -128,7 +137,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
                 puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
                     let puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
-                    let dataSet = load(puzzleArray)
+                    let dataSet = HLSolver.loadWithIntegerArray(puzzleArray)
                     solver = HLSolver(dataSet, puzzleName: puzzleName, puzzleState: .initial)
                 }
            }
@@ -137,27 +146,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         return solver
     }
 
-
-    class func load(_ data: [String]) -> [HLSudokuCell]
-    {
-        var dataSet: [HLSudokuCell] = []
-
-        if data.count == HLSolver.numberOfCells     {
-            for item in data
-            {
-                let cellValue = item
-                var newCell = HLSudokuCell(data: HLSolver.fullSet, status: .unsolvedStatus)
-                
-                if ( cellValue != "0" )     {
-                    newCell = HLSudokuCell(data: Set([cellValue]), status: .givenStatus)
-                }
-                
-                dataSet.append(newCell)
-            }
-        }
-        
-        return dataSet
-    }
 
     deinit {
         saveSetting()

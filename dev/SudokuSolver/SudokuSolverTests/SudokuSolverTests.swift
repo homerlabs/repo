@@ -15,18 +15,6 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     var hlWebView = WKWebView()
     var solver = HLSolver()
     
-    let testData: [Int] = [
-        0, 0, 0, 1, 2, 8, 0, 4, 0,
-        0, 8, 0, 0, 3, 0, 0, 5, 6,
-        3, 0, 0, 0, 7, 0, 8, 0, 0,
-        0, 0, 8, 0, 0, 3, 5, 0, 1,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        2, 0, 1, 6, 0, 0, 4, 0, 0,
-        0, 0, 6, 0, 5, 0, 0, 0, 4,
-        8, 9, 0, 0, 0, 0, 0, 0, 0,
-        0, 4, 0, 3, 6, 7, 0, 0, 0
-    ]
-
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -70,16 +58,8 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     }
     
     func testUsingTestData() {
-        let stringArray = testData.map {
-            String($0)
-        }
-        
-        let dataSet = HLPuzzleViewModel.load(stringArray)
+        let dataSet = HLSolver.loadWithIntegerArray(HLSolver.testData)
         let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
- //       let valid1 = solver.isValidPuzzle()
- //       solver.updateUnsolvedCount()
- //       print("SudokuSolverTests-  valid1: \(valid1) unsolvedNodeCount: \(solver.unsolvedNodeCount)")
- //       solver.printDataSet(solver.dataSet)
 
         solver.prunePuzzle(rows: true, columns: true, blocks: true)
         
