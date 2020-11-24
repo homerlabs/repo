@@ -53,3 +53,8 @@ public struct HLSudokuCell: Codable {
     }
 }
 
+extension HLSudokuCell: CustomStringConvertible {
+    public var description: String {
+        return "\(setToString())"
+    }
+}

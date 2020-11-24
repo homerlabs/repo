@@ -17,7 +17,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var testColumns = true
     @Published var testBlocks = true
     @Published var undoButtonEnabled = false
-    @Published var previousState = HLPuzzleState.initial
+    
+    var previousState = HLPuzzleState.initial
 
     let hlKeySettingRow         = "hlKeySettingRow"
     let hlKeySettingColumn      = "hlKeySettingColumn"
@@ -51,12 +52,25 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
             solver.updateChangedCells()
        }
         
-        solver.updateUnsolvedCount()
         undoButtonEnabled = true
         saveSetting()   //  TODO:  find a cleaner solution
         
         if solver.puzzleState == .initial {
             solver.puzzleState = .solving
+        }
+    }
+    
+    func fastSolve() {
+        while solver.unsolvedNodeCount > 0 {
+            print("solver: \(solver)")
+            
+            solver.findMonoCells(rows: testRows, columns: testBlocks)
+            guard solver.unsolvedNodeCount > 0 else { return }
+            
+            solver.findPuzzleSets(rows: testRows, columns: testColumns, blocks: testBlocks)
+            guard solver.unsolvedNodeCount > 0 else { return }
+            
+            solver.findMonoSectors(rows: testRows, columns: testColumns)
         }
     }
     

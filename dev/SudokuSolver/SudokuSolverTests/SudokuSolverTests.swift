@@ -47,13 +47,11 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
 
         //  test row prune
         solver.prunePuzzle(rows: true, columns: false, blocks: false)
-        solver.updateUnsolvedCount()
         XCTAssert(solver.unsolvedNodeCount == 0, "Pass")
         
         //  test column prune
         solver.dataSet = data
         solver.prunePuzzle(rows: false, columns: true, blocks: false)
-        solver.updateUnsolvedCount()
         XCTAssert(solver.unsolvedNodeCount == 0, "Pass")
     }
     
@@ -64,7 +62,6 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
         solver.prunePuzzle(rows: true, columns: true, blocks: true)
         
         let valid2 = solver.isValidPuzzle()
-        solver.updateUnsolvedCount()
         print("SudokuSolverTests-  valid2: \(valid2) unsolvedNodeCount: \(solver.unsolvedNodeCount)")
         solver.printDataSet(solver.dataSet)
         

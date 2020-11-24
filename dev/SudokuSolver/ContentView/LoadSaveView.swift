@@ -19,8 +19,15 @@ struct LoadSaveView: View {
                     puzzleViewModel.solver.saveData(puzzleViewModel.solver.dataSet)
                 }) {
                     Text("Save")
+                        .foregroundColor(.red)
                 }
-                .padding(.bottom)
+                
+                Button(action: {
+                    puzzleViewModel.fastSolve()
+                }) {
+                    Text("FSolve")
+                }
+                .padding(.vertical, 10)
                 
                 Button(action: {
                     if let solver = puzzleViewModel.solver.loadData() {
