@@ -55,6 +55,49 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
         XCTAssert(solver.unsolvedNodeCount == 0, "Pass")
     }
     
+    func test_convertColumnsToRows() {
+        let data = Array(Range(1...81))
+        let dataSet = HLSolver.loadWithIntegerArray(data)
+        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
+   //     solver.printDataSet(solver.dataSet, desc: "pre convertColumnsToRows")
+        solver.convertColumnsToRows()    //  convert columns to rows
+   //     solver.printDataSet(solver.dataSet, desc: "post convertColumnsToRows1")
+        XCTAssert(solver.dataSet != dataSet, "Fail")
+        solver.convertColumnsToRows()    //  convert back rows to columns
+   //     solver.printDataSet(solver.dataSet, desc: "post convertColumnsToRows2")
+        XCTAssert(solver.dataSet == dataSet, "Pass")
+    }
+    
+    func test_convertBlocksToRows() {
+        let data = Array(Range(1...81))
+        let dataSet = HLSolver.loadWithIntegerArray(data)
+        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
+        solver.convertBlocksToRows()    //  convert blocks to rows
+        XCTAssert(solver.dataSet != dataSet, "Fail")
+        solver.convertBlocksToRows()    //  convert back rows to blocks
+        XCTAssert(solver.dataSet == dataSet, "Pass")
+    }
+    
+    func test_findSetsForRow() {
+        var rowData: [HLSudokuCell] = []
+        rowData.append(HLSudokuCell(intData: [1, 2, 4, 8], cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [2, 6, 8],     cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [1, 4, 6],     cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [3],           cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [9],           cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [2, 4, 5, 6, 8], cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [7],            cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [1, 2, 4, 5],  cellStatus: .unsolvedStatus))
+        rowData.append(HLSudokuCell(intData: [1, 2, 4],     cellStatus: .unsolvedStatus))
+
+        
+        let data = Array(Range(1...81))
+        let dataSet = HLSolver.loadWithIntegerArray(data)
+        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
+  //      solver.findSetsForRow(<#T##row: Int##Int#>, sizeOfSet: <#T##Int#>)()    //  convert back rows to blocks
+        XCTAssert(solver.dataSet == dataSet, "Pass")
+    }
+    
     func testUsingTestData() {
         let dataSet = HLSolver.loadWithIntegerArray(HLSolver.testData)
         let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)

@@ -60,18 +60,12 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         }
     }
     
-    func fastSolve() {
-        while solver.unsolvedNodeCount > 0 {
-            print("solver: \(solver)")
-            
-            solver.findMonoCells(rows: testRows, columns: testBlocks)
-            guard solver.unsolvedNodeCount > 0 else { return }
-            
-            solver.findPuzzleSets(rows: testRows, columns: testColumns, blocks: testBlocks)
-            guard solver.unsolvedNodeCount > 0 else { return }
-            
-            solver.findMonoSectors(rows: testRows, columns: testColumns)
-        }
+    func fSolveAction() {
+  //      solver.fastSolve()
+        solver.prunePuzzle(rows: true, columns: true, blocks: true)
+        solver.markSolvedCells()
+        solver.puzzleState = .final
+        print("solver: \(solver)")
     }
     
     func undoAction() {

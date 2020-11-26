@@ -23,7 +23,7 @@ struct LoadSaveView: View {
                 }
                 
                 Button(action: {
-                    puzzleViewModel.fastSolve()
+                    puzzleViewModel.fSolveAction()
                 }) {
                     Text("FSolve")
                 }

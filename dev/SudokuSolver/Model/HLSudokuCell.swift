@@ -53,6 +53,21 @@ public struct HLSudokuCell: Codable {
     }
 }
 
+extension HLSudokuCell {
+    //  useful for creating test data
+    init(intData: [Int], cellStatus: HLCellStatus) {
+        let stringData = intData.map { String($0) }
+        data = Set(stringData)
+        status = cellStatus
+    }
+}
+
+extension HLSudokuCell: Equatable {
+    public static func ==(lhs: Self, rhs: Self) -> Bool {
+        lhs.data == rhs.data && lhs.status == rhs.status
+    }
+}
+
 extension HLSudokuCell: CustomStringConvertible {
     public var description: String {
         return "\(setToString())"

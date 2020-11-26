@@ -40,7 +40,6 @@ public class HLSolver: Codable {
 
     static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
 //    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
-    //  5433300902  can't solve
 
     static let numberOfRows = 9
     static let numberOfColumns = 9
@@ -240,35 +239,45 @@ public class HLSolver: Codable {
         
     func findPuzzleSets(rows: Bool, columns: Bool, blocks: Bool)  {
 
-        func findSetsForRow(_ row: Int, sizeOfSet: Int)  {
-            
-      //      fillRow()
-            var startingSets:   [Set<String>] = []
-            var setsToSearch:   [Set<String>] = []
-            
-            for column in 0..<HLSolver.numberOfColumns  {
-                let cellData = dataSet[indexFor(row: row, column: column)]
-                if cellData.data.count == sizeOfSet  {   setsToSearch.append(cellData.data)   }
-                if cellData.data.count > 1           {   startingSets.append(cellData.data)   }
-            }
-            
-            if startingSets.count > 1 && startingSets[0].isEmpty  {   startingSets.remove(at: 0)   }
-            if setsToSearch.count > 1 && setsToSearch[0].isEmpty  {   setsToSearch.remove(at: 0)   }
-            
-            printDataSet(dataSet, desc: "pre findSets")
-            for superSet in setsToSearch                                {
-                
-     //           print( "superSet: \(superSet):")
-                let didFindSet = searchForSets(startingSets, superSet: superSet, count: sizeOfSet)
-                if didFindSet { reduceRow(row, forSet: superSet)    }
-            }
-            printDataSet(dataSet, desc: "post findSets")
-            prunePuzzle(rows:true, columns:true, blocks:true)
-        }
-        
         func findSetsForRows()    {
+            
+            func findSetsForRow(_ row: Int, sizeOfSet: Int)  {
+                
+          //      fillRow()
+                var startingSets:   [Set<String>] = []
+                var setsToSearch:   [Set<String>] = []
+                
+                for column in 0..<HLSolver.numberOfColumns  {
+                    let cellData = dataSet[indexFor(row: row, column: column)]
+                    
+                    if cellData.data.count == sizeOfSet  {
+                        setsToSearch.append(cellData.data)
+                    }
+                    
+                    if cellData.data.count > 1  {
+                        startingSets.append(cellData.data)
+                    }
+                }
+                
+                if startingSets.count > 1 && startingSets[0].isEmpty  {
+                    startingSets.remove(at: 0)
+                }
+                if setsToSearch.count > 1 && setsToSearch[0].isEmpty  {
+                    setsToSearch.remove(at: 0)
+                }
+                
+                for superSet in setsToSearch    {
+         //           print( "superSet: \(superSet):")
+                    let didFindSet = searchForSets(startingSets, superSet: superSet, count: sizeOfSet)
+                    if didFindSet {
+                        reduceRow(row, forSet: superSet)
+                    }
+                }
+            }
+            
             for setSize in 2..<4    {
-                for row in 0..<HLSolver.numberOfRows    {   findSetsForRow(row, sizeOfSet:setSize)
+                for row in 0..<HLSolver.numberOfRows    {
+                    findSetsForRow(row, sizeOfSet:setSize)
                 }
             }
         }
@@ -277,29 +286,37 @@ public class HLSolver: Codable {
         print("findPuzzleSets")
         if rows     {
             findSetsForRows()
+            
+            prunePuzzle(rows:true, columns:true, blocks:true)
         }
         
         if columns  {
             convertColumnsToRows()
             findSetsForRows()
             convertColumnsToRows()
+            
+            
+            prunePuzzle(rows:true, columns:true, blocks:true)
         }
         
         if blocks   {
             convertBlocksToRows()
             findSetsForRows()
             convertBlocksToRows()
+            
+            //  don't prune before converting back
+            prunePuzzle(rows:true, columns:true, blocks:true)
         }
     }
     
-    //  prunePuzzle() calls itself until node count remains unchanged
+    //  prunePuzzle() loops until node count remains unchanged
     //  returns true if puzzle still valid
     @discardableResult func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool) -> Bool  {
 
         func prunePuzzleRows()   {
             if
                 !isValidPuzzle() {
-                print("pre-prunePuzzleRows-  prunePuzzleRows made puzzle data invalid")
+                print("pre-prunePuzzleRows-  puzzle data invalid")
             }
 
             for row in 0..<HLSolver.numberOfRows {
@@ -327,7 +344,8 @@ public class HLSolver: Codable {
         func prunePuzzleColumns()   {
             convertColumnsToRows()
             prunePuzzleRows()
-            convertColumnsToRows()  }
+            convertColumnsToRows()
+        }
         
         func prunePuzzleBlocks()    {
             convertBlocksToRows()
@@ -336,8 +354,6 @@ public class HLSolver: Codable {
         }
 
         //  start of func prunePuzzle(
-        guard isValidPuzzle() else  {  return false    }
-        
         var currentNodeCount = updateUnsolvedCount()
         var previousNodeCount = currentNodeCount
 
@@ -411,10 +427,14 @@ public class HLSolver: Codable {
             var cellData = dataSet[index]
             let previousCellData = previousDataSet[index]
             
-            //  first lets convert Changed to Solved or Unsollved
+            //  first lets convert Changed to Solved or Unsolved
             if cellData.status == .changedStatus {
-                if cellData.data.count == 1  {  cellData.status = .solvedStatus }
-                else                         {   cellData.status = .unsolvedStatus }
+                if cellData.data.count == 1  {
+                    cellData.status = .solvedStatus
+                } else {
+                    cellData.status = .unsolvedStatus
+                }
+                
                 dataSet[index] = cellData
             }
             
@@ -472,8 +492,8 @@ public class HLSolver: Codable {
         let dataSetCopy = dataSet
         for row in 0..<HLSolver.numberOfRows {
             let blockSet = HLSolver.blockIndexSet[row]
-            for column2 in 0..<HLSolver.numberOfRows {
-                dataSet[indexFor(row: row, column: column2)] = dataSetCopy[blockSet[column2]]
+            for column in 0..<HLSolver.numberOfRows {
+                dataSet[indexFor(row: row, column: column)] = dataSetCopy[blockSet[column]]
             }
         }
     }
@@ -498,8 +518,8 @@ public class HLSolver: Codable {
                 if numArray[i] > 1 {
                     returnValue = false
                     print("Puzzle \(puzzleName) not valid!  row: \(row)   i: \(i)   numArray[i]: \(numArray[i])")
-                    printDataSet(previousDataSet)
-                    printDataSet(dataSet)
+                    printDataSet(previousDataSet, desc: "previousDataSet")
+                    printDataSet(dataSet, desc: "dataSet")
                     break
                 }
             }
@@ -562,6 +582,22 @@ public class HLSolver: Codable {
         }
     }
 
+    func fastSolve() {
+   //     while unsolvedNodeCount > 0 {
+            print("fastSolve: \(self)")
+            
+            findMonoCells(rows: true, columns: true)
+            guard unsolvedNodeCount > 0 else { return }
+            
+            findPuzzleSets(rows: true, columns: true, blocks: true)
+            guard unsolvedNodeCount > 0 else { return }
+            
+            findMonoSectors(rows: true, columns: true)
+  //      }
+        
+        print("fastSolve: \(self)")
+    }
+    
     class func loadWithIntegerArray(_ data: [Int]) -> [HLSudokuCell]
     {
         var dataSet: [HLSudokuCell] = []
