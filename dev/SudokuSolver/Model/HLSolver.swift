@@ -31,7 +31,7 @@ public enum HLPuzzleState: Int, Codable
     case final
 }
 
-public class HLSolver: Codable {
+public struct HLSolver: Codable {
     var dataSet: [HLSudokuCell]
     var previousDataSet: [HLSudokuCell]
     var puzzleName: String
@@ -80,7 +80,7 @@ public class HLSolver: Codable {
         row * HLSolver.numberOfColumns + column
     }
         
-    func findMonoCells(rows: Bool, columns: Bool)   {
+    mutating func findMonoCells(rows: Bool, columns: Bool)   {
     
         func monoCellRows()                 {
         
@@ -137,7 +137,7 @@ public class HLSolver: Codable {
         if columns  {   monoCellColumns() }
     }
         
-    func findMonoSectors(rows: Bool, columns: Bool)  {
+    mutating func findMonoSectors(rows: Bool, columns: Bool)  {
 
         func reduceMonoSectorsForRows()     {
             
@@ -237,7 +237,7 @@ public class HLSolver: Codable {
         if columns  {   reduceMonoSectorsForColumns() }
     }
         
-    func findPuzzleSets(rows: Bool, columns: Bool, blocks: Bool)  {
+    mutating func findPuzzleSets(rows: Bool, columns: Bool, blocks: Bool)  {
 
         func findSetsForRows()    {
             
@@ -311,7 +311,7 @@ public class HLSolver: Codable {
     
     //  prunePuzzle() loops until node count remains unchanged
     //  returns true if puzzle still valid
-    @discardableResult func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool) -> Bool  {
+    @discardableResult mutating func prunePuzzle(rows: Bool, columns: Bool, blocks: Bool) -> Bool  {
 
         func prunePuzzleRows()   {
             if
@@ -395,7 +395,7 @@ public class HLSolver: Codable {
         else                    {   return false    }
     }
     
-    func reduceRow(_ row: Int, forSet reduceSet: Set<String>)    {
+    mutating func reduceRow(_ row: Int, forSet reduceSet: Set<String>)    {
  //       print( "reduceRow: \(row)   reduceSet: \(reduceSet)")
 
         for column in 0..<HLSolver.numberOfColumns  {
@@ -411,7 +411,7 @@ public class HLSolver: Codable {
     }
     
     //  check for cells that have only 1 value (ie .solved)
-    func markSolvedCells() {
+    mutating func markSolvedCells() {
         for index in 0..<HLSolver.numberOfCells {
             var cellData = dataSet[index]
             
@@ -422,7 +422,7 @@ public class HLSolver: Codable {
         }
     }
     
-    func updateChangedCells()   {
+    mutating func updateChangedCells()   {
         for index in 0..<HLSolver.numberOfCells {
             var cellData = dataSet[index]
             let previousCellData = previousDataSet[index]
@@ -450,7 +450,7 @@ public class HLSolver: Codable {
 
     //  when count reaches zero set puzzleState to .final
     //  returns nodeCount
-    @discardableResult func updateUnsolvedCount() -> Int
+    @discardableResult mutating func updateUnsolvedCount() -> Int
     {
         var count = 0
         for index in 0..<HLSolver.numberOfCells {
@@ -478,7 +478,7 @@ public class HLSolver: Codable {
         return solvedSet
     }
 
-    func convertColumnsToRows() {
+    mutating func convertColumnsToRows() {
         let dataSetCopy = dataSet
         for row in 0..<HLSolver.numberOfRows   {
             for column in 0..<HLSolver.numberOfColumns {
@@ -488,7 +488,7 @@ public class HLSolver: Codable {
         }
     }
         
-    func convertBlocksToRows() {
+    mutating func convertBlocksToRows() {
         let dataSetCopy = dataSet
         for row in 0..<HLSolver.numberOfRows {
             let blockSet = HLSolver.blockIndexSet[row]
@@ -582,8 +582,8 @@ public class HLSolver: Codable {
         }
     }
 
-    func fastSolve() {
-   //     while unsolvedNodeCount > 0 {
+    mutating func fastSolve() {
+        while unsolvedNodeCount > 0 {
             print("fastSolve: \(self)")
             
             findMonoCells(rows: true, columns: true)
@@ -593,12 +593,12 @@ public class HLSolver: Codable {
             guard unsolvedNodeCount > 0 else { return }
             
             findMonoSectors(rows: true, columns: true)
-  //      }
+        }
         
         print("fastSolve: \(self)")
     }
     
-    class func loadWithIntegerArray(_ data: [Int]) -> [HLSudokuCell]
+    static func loadWithIntegerArray(_ data: [Int]) -> [HLSudokuCell]
     {
         var dataSet: [HLSudokuCell] = []
 
@@ -632,7 +632,7 @@ public class HLSolver: Codable {
         return solver
     }
 
-    convenience init() {
+    init() {
      //   print("HLSolver-  init")
         self.init(HLSudokuCell.createUnsolvedPuzzle(), puzzleName: "No Puzzle Found", puzzleState: .initial)
     }
@@ -644,10 +644,6 @@ public class HLSolver: Codable {
         self.puzzleState = puzzleState
         previousDataSet = dataSet
         updateUnsolvedCount()
-    }
-    
-    deinit {
-        print("HLSolver-  deinit")
     }
 }
 

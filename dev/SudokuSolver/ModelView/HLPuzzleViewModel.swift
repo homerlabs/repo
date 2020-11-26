@@ -60,14 +60,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         }
     }
     
-    func fSolveAction() {
-  //      solver.fastSolve()
-        solver.prunePuzzle(rows: true, columns: true, blocks: true)
-        solver.markSolvedCells()
-        solver.puzzleState = .final
-        print("solver: \(solver)")
-    }
-    
     func undoAction() {
         undoButtonEnabled = false
         solver.dataSet = solver.previousDataSet
@@ -108,7 +100,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     
     func replacePuzzleWithTestData() -> HLSolver {
         let dataSet = HLSolver.loadWithIntegerArray(HLSolver.testData)
-        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .solving)
+        var solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .solving)
         solver.prunePuzzle(rows: true, columns: true, blocks: true)
         return solver
     }
