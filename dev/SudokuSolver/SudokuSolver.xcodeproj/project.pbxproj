@@ -38,6 +38,8 @@
 		B0EC050B254F3136006EC94D /* HLSudokuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EC050A254F3136006EC94D /* HLSudokuCell.swift */; };
 		B0EC050C254F3136006EC94D /* HLSudokuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EC050A254F3136006EC94D /* HLSudokuCell.swift */; };
 		B0F4440A2460B43500BF3314 /* ColorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F444092460B43500BF3314 /* ColorChartView.swift */; };
+		B0F5F88D25701AD900989A14 /* PuzzleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5F88C25701AD900989A14 /* PuzzleFactory.swift */; };
+		B0F5F88E25701AD900989A14 /* PuzzleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F5F88C25701AD900989A14 /* PuzzleFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,7 @@
 		B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
 		B0EC050A254F3136006EC94D /* HLSudokuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSudokuCell.swift; sourceTree = "<group>"; };
 		B0F444092460B43500BF3314 /* ColorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChartView.swift; sourceTree = "<group>"; };
+		B0F5F88C25701AD900989A14 /* PuzzleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +165,7 @@
 				B06C830C24293ECD007C169C /* LaunchScreen.storyboard */,
 				B06C830924293ECD007C169C /* Preview Content */,
 				B06C830324293ECC007C169C /* SceneDelegate.swift */,
+				B0F5F88C25701AD900989A14 /* PuzzleFactory.swift */,
 			);
 			path = SudokuSolver;
 			sourceTree = "<group>";
@@ -292,6 +296,7 @@
 				B06C830224293ECC007C169C /* AppDelegate.swift in Sources */,
 				B07F731F246B20C10059D8DE /* AboutView.swift in Sources */,
 				B0F4440A2460B43500BF3314 /* ColorChartView.swift in Sources */,
+				B0F5F88D25701AD900989A14 /* PuzzleFactory.swift in Sources */,
 				B0AB9FD22549EA860073E6BA /* LoadSaveView.swift in Sources */,
 				B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */,
 				B06C830424293ECC007C169C /* SceneDelegate.swift in Sources */,
@@ -308,6 +313,7 @@
 			files = (
 				B04CE350253CD5430052CA2E /* HLSolver.swift in Sources */,
 				B054BEF72538A86E00239BB4 /* TopSectionView.swift in Sources */,
+				B0F5F88E25701AD900989A14 /* PuzzleFactory.swift in Sources */,
 				B0D90F512538C0A8005956B1 /* MiddleSectionView.swift in Sources */,
 				B04CE347253CD52D0052CA2E /* OverlayView.swift in Sources */,
 				B0EC050C254F3136006EC94D /* HLSudokuCell.swift in Sources */,

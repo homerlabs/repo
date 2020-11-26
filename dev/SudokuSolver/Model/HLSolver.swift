@@ -38,9 +38,6 @@ public struct HLSolver: Codable {
     var puzzleState: HLPuzzleState
     var unsolvedNodeCount = 0
 
-    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
-//    static let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
-
     static let numberOfRows = 9
     static let numberOfColumns = 9
     static let numberOfCells = 81
@@ -583,8 +580,9 @@ public struct HLSolver: Codable {
     }
 
     mutating func fastSolve() {
+        print("fastSolve: \(self)")
+        
         while unsolvedNodeCount > 0 {
-            print("fastSolve: \(self)")
             
             findMonoCells(rows: true, columns: true)
             guard unsolvedNodeCount > 0 else { return }

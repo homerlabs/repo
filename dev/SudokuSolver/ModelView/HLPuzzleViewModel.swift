@@ -9,7 +9,7 @@
 import Foundation
 import WebKit
 
-class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
+class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
 
     @Published var solver = HLSolver()
     @Published var algorithmSelected: HLAlgorithmMode = .monoCell
@@ -18,6 +18,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     @Published var testBlocks = true
     @Published var undoButtonEnabled = false
     
+    var puzzleFactory = PuzzleFactory()
     var previousState = HLPuzzleState.initial
 
     let hlKeySettingRow         = "hlKeySettingRow"
@@ -25,8 +26,13 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     let hlKeySettingBlock       = "hlKeySettingBlock"
     let hlKeySettingAlgorithm   = "hlKeySettingAlgorithm"
         
-    var hlWebView = WKWebView()
-    
+    func puzzleReady(puzzle: HLSolver?) {
+        if let puzzle = puzzle {
+            print("puzzleReady: \(puzzle)")
+            self.solver = puzzle
+        }
+    }
+
     func solveAction() {
         solver.previousDataSet = solver.dataSet
         previousState = solver.puzzleState  //  needed for the Undo button after initial Prune operation
@@ -79,23 +85,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         solver.puzzleState = .initial
         solver.puzzleName = " "
         undoButtonEnabled = false
-        let request = URLRequest(url: HLSolver.websudokuURL)
-        hlWebView.load(request)
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
-        print("HLPuzzleViewModel-  webView-  didFinish")
-        webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
-        //        print( "innerHTML: \(String(describing: html))" )
-            
-            if let puzzleString = html as? String   {
-                if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
-                    self.solver = solver
-               //     self.solver = self.replacePuzzleWithTestData()
-               }
-            }
-        })
+        puzzleFactory.getNewPuzzle()
     }
     
     func replacePuzzleWithTestData() -> HLSolver {
@@ -105,48 +95,6 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
         return solver
     }
 
-    class func parseHTMLString(html: String) -> HLSolver? {
-
-        //  start of: parseHTMLString()
- //       print("HLPuzzleViewModel-  parseHTMLString(html: String)")
-        var puzzleString = html
-        var puzzleArray = Array(repeating: 0, count: 81)
-        
-        var solver: HLSolver?
-        
-        if let range: Range<String.Index> = puzzleString.range(of:"<form")  {
-            puzzleString = String(puzzleString[range.lowerBound...])
-  //          print( "*******************puzzleString: \(puzzleString)" )
-            
-            for index in 0..<81 {
-                if let range: Range<String.Index> = puzzleString.range(of:"</td>")  {
-                    let preString = puzzleString[puzzleString.startIndex...range.upperBound]
-       //             print( "*******************preString: \(preString)" )
-                    puzzleString.removeFirst(preString.count)
-                    
-                    if let range: Range<String.Index> = preString.range(of:"value=\"")  {
-                        if let num = Int(String(preString[range.upperBound])) {
-                            puzzleArray[index] = num
-                        }
-                    }
-                }
-            }
-            
-    //        print( "puzzleString: \(puzzleString)" )
-            if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
-                puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
-                if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
-                    let puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
-                    let dataSet = HLSolver.loadWithIntegerArray(puzzleArray)
-                    solver = HLSolver(dataSet, puzzleName: puzzleName, puzzleState: .initial)
-                }
-           }
-        }
-        
-        return solver
-    }
-
-
     deinit {
         saveSetting()
         print("HLPuzzleViewModel-  deinit")
@@ -155,10 +103,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, WKNavigationDelegate {
     override init() {
         print("HLPuzzleViewModel-  init")
         super.init()
-        
-        hlWebView = WKWebView(frame:CGRect(x: 0, y: 0, width: 1000, height: 1000))
-        hlWebView.navigationDelegate = self
-        
+        puzzleFactory.delegate = self
         getNewPuzzle()
         
         //  by negating the returned value we change the default to true

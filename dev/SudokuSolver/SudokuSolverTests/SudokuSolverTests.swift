@@ -7,16 +7,39 @@
 //
 
 import XCTest
-import WebKit
 @testable import HLSudokuSolver
 
-class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
+class SudokuSolverTests: XCTestCase, PuzzleFactoryProtocol {
 
-    var hlWebView = WKWebView()
     var solver = HLSolver()
+    var puzzleFactory = PuzzleFactory()
+    let expectationLoadPuzzle = XCTestExpectation(description: "Wait for puzzle to load")
     
+    func testNewPuzzle() {
+        puzzleFactory.getNewPuzzle()
+        wait(for: [expectationLoadPuzzle], timeout: 3.0)
+    }
+    
+    func puzzleReady(puzzle: HLSolver?) {
+        if var puzzle = puzzle {
+            print("puzzle: \(puzzle)")
+            puzzle.fastSolve()
+            print("puzzle: \(puzzle)")
+            if puzzle.puzzleState == .final {
+                expectationLoadPuzzle.fulfill()
+            } else {
+                XCTFail("Puzzle could not be solved.")
+            }
+        }
+        else {
+            XCTFail("Puzzle html could not be parsed.")
+        }
+
+  //      testNewPuzzle()
+    }
+
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        puzzleFactory.delegate = self
     }
 
     override func tearDown() {
@@ -42,7 +65,7 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
             }
         }
         
-        let solver = HLSolver()
+        var solver = HLSolver()
         solver.dataSet = data
 
         //  test row prune
@@ -58,7 +81,7 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     func test_convertColumnsToRows() {
         let data = Array(Range(1...81))
         let dataSet = HLSolver.loadWithIntegerArray(data)
-        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
+        var solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
    //     solver.printDataSet(solver.dataSet, desc: "pre convertColumnsToRows")
         solver.convertColumnsToRows()    //  convert columns to rows
    //     solver.printDataSet(solver.dataSet, desc: "post convertColumnsToRows1")
@@ -71,36 +94,16 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
     func test_convertBlocksToRows() {
         let data = Array(Range(1...81))
         let dataSet = HLSolver.loadWithIntegerArray(data)
-        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
+        var solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
         solver.convertBlocksToRows()    //  convert blocks to rows
         XCTAssert(solver.dataSet != dataSet, "Fail")
         solver.convertBlocksToRows()    //  convert back rows to blocks
         XCTAssert(solver.dataSet == dataSet, "Pass")
     }
     
-    func test_findSetsForRow() {
-        var rowData: [HLSudokuCell] = []
-        rowData.append(HLSudokuCell(intData: [1, 2, 4, 8], cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [2, 6, 8],     cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [1, 4, 6],     cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [3],           cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [9],           cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [2, 4, 5, 6, 8], cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [7],            cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [1, 2, 4, 5],  cellStatus: .unsolvedStatus))
-        rowData.append(HLSudokuCell(intData: [1, 2, 4],     cellStatus: .unsolvedStatus))
-
-        
-        let data = Array(Range(1...81))
-        let dataSet = HLSolver.loadWithIntegerArray(data)
-        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
-  //      solver.findSetsForRow(<#T##row: Int##Int#>, sizeOfSet: <#T##Int#>)()    //  convert back rows to blocks
-        XCTAssert(solver.dataSet == dataSet, "Pass")
-    }
-    
     func testUsingTestData() {
         let dataSet = HLSolver.loadWithIntegerArray(HLSolver.testData)
-        let solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
+        var solver = HLSolver(dataSet, puzzleName: "TestData", puzzleState: .initial)
 
         solver.prunePuzzle(rows: true, columns: true, blocks: true)
         
@@ -114,13 +117,8 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
         solver.printDataSet(solver.dataSet)
     }
     
-    func testNewPuzzle() {
-        let request = URLRequest(url: HLSolver.websudokuURL)
-        hlWebView.load(request)
-    }
-    
     func testIsPuzzleValid() {
-        let solver = HLSolver()
+        var solver = HLSolver()
         var data = HLSudokuCell.createValidSolvedPuzzle()
         solver.dataSet = data
         XCTAssert(solver.isValidPuzzle(), "Pass")
@@ -128,19 +126,5 @@ class SudokuSolverTests: XCTestCase, WKNavigationDelegate {
         data[0] = HLSudokuCell(data: Set(["6"]), status: .givenStatus)   //  should be 1
         solver.dataSet = data
         XCTAssert(!solver.isValidPuzzle(), "Pass")
-    }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
-        print("SudokuSolverTests-  webView-  didFinish")
-        webView.evaluateJavaScript("document.documentElement.innerHTML.toString()", completionHandler: { (html: Any?, error: Error?) in
-        //        print( "innerHTML: \(String(describing: html))" )
-            
-                if let puzzleString = html as? String   {
-                    if let solver = HLPuzzleViewModel.parseHTMLString(html: puzzleString) {
-                        self.solver = solver
-                    }
-                }
-        })
     }
 }
