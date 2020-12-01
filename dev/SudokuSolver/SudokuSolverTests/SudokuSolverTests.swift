@@ -17,6 +17,8 @@ class SudokuSolverTests: XCTestCase, PuzzleFactoryProtocol {
     
     func testNewPuzzle() {
         puzzleFactory.getNewPuzzle()
+//     puzzleFactory.getNewPuzzle("8543506682")
+        
         wait(for: [expectationLoadPuzzle], timeout: 3.0)
     }
     
@@ -25,7 +27,7 @@ class SudokuSolverTests: XCTestCase, PuzzleFactoryProtocol {
             print("puzzle: \(puzzle)")
             puzzle.fastSolve()
             print("puzzle: \(puzzle)")
-            if puzzle.puzzleState == .final {
+            if puzzle.unsolvedNodeCount == 0 {
                 expectationLoadPuzzle.fulfill()
             } else {
                 XCTFail("Puzzle could not be solved.")
@@ -34,7 +36,7 @@ class SudokuSolverTests: XCTestCase, PuzzleFactoryProtocol {
         else {
             XCTFail("Puzzle html could not be parsed.")
         }
-
+        //  if I loop then www.sudoku.com will blacklist my IP address
   //      testNewPuzzle()
     }
 

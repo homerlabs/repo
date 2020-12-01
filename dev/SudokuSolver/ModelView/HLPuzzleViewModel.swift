@@ -86,6 +86,9 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
         solver.puzzleName = " "
         undoButtonEnabled = false
         puzzleFactory.getNewPuzzle()
+        
+        //  use to fetch specific puzzle
+   //     puzzleFactory.getNewPuzzle("8543506682")
     }
     
     func replacePuzzleWithTestData() -> HLSolver {

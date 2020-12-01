@@ -21,9 +21,17 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
     var hlWebView = WKWebView()
     var delegate: PuzzleFactoryProtocol?
 
-    func getNewPuzzle() {
+    //  optional puzzle id string
+    func getNewPuzzle(_ puzzleId: String = "") {
+        var url = websudokuURL
+        if puzzleId.count > 0 {
+            let urlWithIdString = String(format: "https://nine.websudoku.com/?level=4&set_id=\(puzzleId)", puzzleId)
+            if let urlWithId = URL(string: urlWithIdString) {
+                url = urlWithId
+            }
+        }
         print("PuzzleFactory-  getNewPuzzle")
-        let request = URLRequest(url: websudokuURL)
+        let request = URLRequest(url: url)
         hlWebView.load(request)
     }
     
