@@ -29,7 +29,15 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
     func puzzleReady(puzzle: HLSolver?) {
         if let puzzle = puzzle {
             print("puzzleReady: \(puzzle)")
-            self.solver = puzzle
+            
+            //*******************************************************
+            //  replacing solver object will break the SwiftUI!!
+            //  self.solver = puzzle
+            //*******************************************************
+
+            self.solver.dataSet = puzzle.dataSet
+            self.solver.puzzleName = puzzle.puzzleName
+            self.solver.puzzleState = puzzle.puzzleState
         }
     }
 

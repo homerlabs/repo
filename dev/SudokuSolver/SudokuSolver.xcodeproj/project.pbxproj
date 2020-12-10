@@ -31,6 +31,7 @@
 		B0AB9FD22549EA860073E6BA /* LoadSaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */; };
 		B0AB9FD32549EA860073E6BA /* LoadSaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */; };
 		B0B26CFA253F638300140FBC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07F731E246B20C10059D8DE /* AboutView.swift */; };
+		B0B7B6DF25828D430075B17C /* PuzzleTable.plist in Resources */ = {isa = PBXBuildFile; fileRef = B04C8144257AE19A001EA426 /* PuzzleTable.plist */; };
 		B0D90F4B2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F4C2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		B002E12F253B4C1900B1CC36 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		B008185B2464A0B400C4A872 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		B04C8144257AE19A001EA426 /* PuzzleTable.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PuzzleTable.plist; sourceTree = "<group>"; };
 		B054BEF52538A86E00239BB4 /* TopSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSectionView.swift; sourceTree = "<group>"; };
 		B068516D2429425A006E532E /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
 		B0685170242944AD006E532E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		B06C830024293ECC007C169C /* SudokuSolver */ = {
 			isa = PBXGroup;
 			children = (
+				B04C8144257AE19A001EA426 /* PuzzleTable.plist */,
 				B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */,
 				B06C830124293ECC007C169C /* AppDelegate.swift */,
 				B06C830724293ECD007C169C /* Assets.xcassets */,
@@ -279,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B7B6DF25828D430075B17C /* PuzzleTable.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
