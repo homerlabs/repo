@@ -36,7 +36,7 @@ class PrimeFinderViewModel: ObservableObject {
         findPrimesInProgress = true
         let maxPrime = HLPrimeType(terminalPrime)
         
-        primeFinder.findPrimes2(maxPrime: maxPrime) { [weak self] result in
+        primeFinder.findPrimes3(maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
             
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
