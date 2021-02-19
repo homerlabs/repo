@@ -10,16 +10,57 @@ import Foundation
 
 extension HLPrime {
 
+    //  return not valid if next count is not one more than last count and
+    //  return not valid if next prime is <= last prime
+    func primeFileIsValid() -> Bool {
+        var returnValue = true
+        if let url = primesFileURL {
+            let success = self.fileManager.openFileForRead(url: url)
+            guard success else { return false }
+
+            var line = self.fileManager.getNextLine()
+            var currentCount = 0
+            var currentPrime: HLPrimeType = 0
+            
+            var previousCount = 1
+            var previousPrime: HLPrimeType = 2
+
+            if !line.isEmpty  {
+                (currentCount, currentPrime) = line.parseLine()
+            }
+            
+            while !line.isEmpty    {
+                line = self.fileManager.getNextLine()
+                if !line.isEmpty {
+                    (currentCount, currentPrime) = line.parseLine()
+                    
+                    if currentCount != previousCount+1 {
+                        returnValue = false
+                        print("FAILED:  currentCount != previousCount+1: \(currentCount) != \( previousCount+1)")
+                        break
+                    }
+                    if previousPrime >= currentPrime {
+                        returnValue = false
+                        print("FAILED:  previousPrime >= currentPrime: \(previousPrime) >= \( currentPrime)")
+                        break
+                    }
+                    previousPrime = currentPrime
+                    previousCount = currentCount
+                }
+            }
+        }
+        
+        return returnValue
+    }
+
     func findPrimesSetup(maxPrime: HLPrimeType) {
         pTable = createPTable(maxPrime: maxPrime)
-        (self.lastN, self.lastP) = (2, 3)   //  this is our starting point
+        (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
         
         if let primeURL = primesFileURL {
-            fileManager.createPrimesFileForAppend(with: primeURL.path)
-            fileManager.closePrimesFileForAppend()
-
-            writeFileHandle = FileHandle(forWritingAtPath: primeURL.path)
-            writeFileHandle?.seekToEndOfFile()
+            let _ = fileManager.createTextFile(url: primeURL)
+            let initialList: String = "1\t2\n2\t3\n3\t5\n"
+            let _ = fileManager.appendStringToFile(initialList)
         }
 
         self.startDate = Date()  //  don't count the time to create pTable
@@ -28,7 +69,7 @@ extension HLPrime {
     func findPrimesCompletion(completion: @escaping (String) -> Void) {
         timeInSeconds = -Int(startDate.timeIntervalSinceNow)
         pTable.removeAll()
-        writeFileHandle?.closeFile()
+        fileManager.closeFileForWritting()
         print( "findPrimes-  final lastN: \(lastN)    lastP: \(lastP)" )
         lastLine = String(format: "%d\t%ld", self.lastN, lastP)
         
@@ -149,8 +190,8 @@ extension HLPrime {
             }
 
             //  compoundLine might be "" on the last batch
-            if let data = compoundLine.data(using: .utf8) {
-                writeFileHandle?.write(data)
+            if !compoundLine.isEmpty {
+                self.fileManager.appendStringToFile(compoundLine)
             }
             
             holdingDict.removeValue(forKey: waitingForBatchId)

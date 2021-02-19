@@ -20,6 +20,7 @@ struct PrimeFinderView: View {
     let verticalPaddingValue: CGFloat = 12
     let textFieldBackgroundColor = Color(red: 0.9, green: 0.9, blue: 0.9)
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
+    let fileManager = HLFileManager.shared
 
     var body: some View {
         
@@ -29,8 +30,11 @@ struct PrimeFinderView: View {
                 HStack {
                     Button(action: {
                         print("Primes Button clicked")
-                        let path = "Primes"
-                        self.pfViewModel.primesURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set Primes file path")
+                        var filename = "Primes"
+                        if let name = self.pfViewModel.primesURL?.lastPathComponent {
+                            filename = name
+                        }
+                        self.pfViewModel.primesURL = self.fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Set Primes file path", filename: filename)
                     }) {
                         Text(" Set Primes ")
                     }
@@ -49,8 +53,11 @@ struct PrimeFinderView: View {
                 HStack {
                     Button(action: {
                         print("Nice primes Button clicked")
-                        let path = "NicePrimes"
-                        self.pfViewModel.nicePrimesURL = path.getSaveFilePath(title: self.HLSavePanelTitle, message: "Set NicePrimes file path")
+                        var filename = "NicePrimes"
+                        if let name = self.pfViewModel.nicePrimesURL?.lastPathComponent {
+                            filename = name
+                        }
+                        self.pfViewModel.nicePrimesURL = self.fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Set NicePrimes file path", filename: filename)
                     }) {
                         Text("Set NPrimes")
                     }
@@ -70,6 +77,9 @@ struct PrimeFinderView: View {
                     TextField(String(pfViewModel.terminalPrime), value: $pfViewModel.terminalPrime, formatter: NumberFormatter(), onCommit: {
                         if self.pfViewModel.terminalPrime == 0 {
                             self.showErrorInvalidData = true
+                        }
+                        else {
+                            UserDefaults.standard.set(pfViewModel.terminalPrime, forKey: HLPrime.HLTerminalPrimeKey)
                         }
                   })
                         .frame(width: terminalPrimeWidth)
@@ -119,7 +129,7 @@ struct PrimeFinderView: View {
                     if self.pfViewModel.findNPrimesInProgress {
                         self.pfViewModel.stopProcess()
                     } else {
-                        if self.pfViewModel.findNPrimes() != .noError {
+                        if self.pfViewModel.findNicePrimes() != .noError {
                             self.pfViewModel.primesURL = nil
                             self.showErrorFindNicePrimes = true
                         }

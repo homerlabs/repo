@@ -12,12 +12,12 @@
 		B04A497523FF4732007D0D81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04A497423FF4732007D0D81 /* Assets.xcassets */; };
 		B04A497823FF4732007D0D81 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04A497723FF4732007D0D81 /* Preview Assets.xcassets */; };
 		B04A497B23FF4732007D0D81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04A497923FF4732007D0D81 /* Main.storyboard */; };
+		B050554A25DF128500A5553A /* HLFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050554925DF128500A5553A /* HLFileManager.swift */; };
+		B050554B25DF128500A5553A /* HLFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050554925DF128500A5553A /* HLFileManager.swift */; };
 		B058D1E724DC6E7600762954 /* PrimeFinderPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058D1E524DC6E7500762954 /* PrimeFinderPlusTests.swift */; };
 		B058D1E824DC6E7600762954 /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058D1E624DC6E7500762954 /* PrimeFinderTests.swift */; };
-		B0B89CBB240487A0004E7BC7 /* HLFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B89CB8240487A0004E7BC7 /* HLFileManager.m */; };
 		B0B89CBD24048962004E7BC7 /* PrimeFinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */; };
 		B0B8B671240485D4003D6FC4 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */; };
-		B0B8B672240485D4003D6FC4 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B66F240485D4003D6FC4 /* URL+Extension.swift */; };
 		B0B8B673240485D4003D6FC4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B670240485D4003D6FC4 /* String+Extension.swift */; };
 		B0B8B6772404870E003D6FC4 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6752404870E003D6FC4 /* HLPrime.swift */; };
 		B0B8B6782404870E003D6FC4 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */; };
@@ -48,14 +48,11 @@
 		B04A497D23FF4732007D0D81 /* Prime_Finder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prime_Finder.entitlements; sourceTree = "<group>"; };
 		B04A498223FF4732007D0D81 /* Prime FinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prime FinderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04A498823FF4732007D0D81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B050554925DF128500A5553A /* HLFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLFileManager.swift; sourceTree = "<group>"; };
 		B058D1E524DC6E7500762954 /* PrimeFinderPlusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFinderPlusTests.swift; sourceTree = "<group>"; };
 		B058D1E624DC6E7500762954 /* PrimeFinderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFinderTests.swift; sourceTree = "<group>"; };
-		B0B89CB8240487A0004E7BC7 /* HLFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HLFileManager.m; sourceTree = "<group>"; };
-		B0B89CB9240487A0004E7BC7 /* Prime Finder-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Prime Finder-Bridging-Header.h"; sourceTree = "<group>"; };
-		B0B89CBA240487A0004E7BC7 /* HLFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HLFileManager.h; sourceTree = "<group>"; };
 		B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimeFinderViewModel.swift; sourceTree = "<group>"; };
 		B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
-		B0B8B66F240485D4003D6FC4 /* URL+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		B0B8B670240485D4003D6FC4 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B0B8B6752404870E003D6FC4 /* HLPrime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLPrime.swift; sourceTree = "<group>"; };
 		B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HLPrime+Extension.swift"; sourceTree = "<group>"; };
@@ -86,8 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				B0D252C124291A62004EAB59 /* README.md */,
-				B0BA086F24293380001628BE /* Help */,
+				B0B8B6742404870E003D6FC4 /* Model */,
 				B04A496F23FF4731007D0D81 /* Prime Finder */,
+				B0BA086F24293380001628BE /* Help */,
 				B04A498523FF4732007D0D81 /* Prime FinderTests */,
 				B04A496E23FF4731007D0D81 /* Products */,
 			);
@@ -105,13 +103,12 @@
 		B04A496F23FF4731007D0D81 /* Prime Finder */ = {
 			isa = PBXGroup;
 			children = (
+				B050554925DF128500A5553A /* HLFileManager.swift */,
 				B04A497023FF4731007D0D81 /* AppDelegate.swift */,
 				B04A497423FF4732007D0D81 /* Assets.xcassets */,
 				B0B8B66D240485D4003D6FC4 /* Extensions */,
 				B04A497C23FF4732007D0D81 /* Info.plist */,
 				B04A497923FF4732007D0D81 /* Main.storyboard */,
-				B0B8B6742404870E003D6FC4 /* Model */,
-				B0B89CB7240487A0004E7BC7 /* ObjectiveC */,
 				B04A497623FF4732007D0D81 /* Preview Content */,
 				B04A497D23FF4732007D0D81 /* Prime_Finder.entitlements */,
 				B04A497223FF4731007D0D81 /* PrimeFinderView.swift */,
@@ -138,22 +135,11 @@
 			path = "Prime FinderTests";
 			sourceTree = "<group>";
 		};
-		B0B89CB7240487A0004E7BC7 /* ObjectiveC */ = {
-			isa = PBXGroup;
-			children = (
-				B0B89CB8240487A0004E7BC7 /* HLFileManager.m */,
-				B0B89CB9240487A0004E7BC7 /* Prime Finder-Bridging-Header.h */,
-				B0B89CBA240487A0004E7BC7 /* HLFileManager.h */,
-			);
-			path = ObjectiveC;
-			sourceTree = SOURCE_ROOT;
-		};
 		B0B8B66D240485D4003D6FC4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */,
 				B0EB267524DC6C2B0048664A /* Double+Extension.swift */,
-				B0B8B66F240485D4003D6FC4 /* URL+Extension.swift */,
 				B0B8B670240485D4003D6FC4 /* String+Extension.swift */,
 			);
 			path = Extensions;
@@ -271,9 +257,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B050554A25DF128500A5553A /* HLFileManager.swift in Sources */,
 				B0B8B671240485D4003D6FC4 /* Int+Extension.swift in Sources */,
-				B0B89CBB240487A0004E7BC7 /* HLFileManager.m in Sources */,
-				B0B8B672240485D4003D6FC4 /* URL+Extension.swift in Sources */,
 				B04A497323FF4731007D0D81 /* PrimeFinderView.swift in Sources */,
 				B0B8B673240485D4003D6FC4 /* String+Extension.swift in Sources */,
 				B04A497123FF4731007D0D81 /* AppDelegate.swift in Sources */,
@@ -289,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0EB267724DC6C2B0048664A /* Double+Extension.swift in Sources */,
+				B050554B25DF128500A5553A /* HLFileManager.swift in Sources */,
 				B058D1E724DC6E7600762954 /* PrimeFinderPlusTests.swift in Sources */,
 				B058D1E824DC6E7600762954 /* PrimeFinderTests.swift in Sources */,
 			);
@@ -453,7 +439,7 @@
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "./ObjectiveC/Prime Finder-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -480,7 +466,7 @@
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.homerlabs.PrimeFinder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "./ObjectiveC/Prime Finder-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

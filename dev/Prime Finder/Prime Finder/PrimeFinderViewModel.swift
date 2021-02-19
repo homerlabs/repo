@@ -24,6 +24,8 @@ class PrimeFinderViewModel: ObservableObject {
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
     
+    private let fileManager = HLFileManager.shared
+
     private var primeFinder: HLPrime
     private var timer = Timer()
     private var updateTimeInSeconds = 4.0
@@ -58,14 +60,14 @@ class PrimeFinderViewModel: ObservableObject {
     }
     
     //  returns HLErrorEnum
-    func findNPrimes() -> HLErrorEnum {
+    func findNicePrimes() -> HLErrorEnum {
         primeFinder.primesFileURL = primesURL
-        guard primeFinder.isPrimeURLValid() else { return .badFilePathError }
+        guard primeFinder.isFileFound(url: primesURL) else { return .badFilePathError }
 
         setup()
         findNPrimesInProgress = true
 
-        primeFinder.makeNicePrimesFile(nicePrimeURL: nicePrimesURL!) { [weak self] result in
+        primeFinder.makeNicePrimesFile(primeURL: primesURL, nicePrimeURL: nicePrimesURL) { [weak self] result in
             guard let self = self else { return }
 
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -103,10 +105,11 @@ class PrimeFinderViewModel: ObservableObject {
     }
 
     init() {
-   //     print("PrimeFinderViewModel-  init")
         primeFinder = HLPrime()
-        primesURL = HLPrime.HLPrimesBookmarkKey.getBookmark()
-        nicePrimesURL = HLPrime.HLNicePrimesBookmarkKey.getBookmark()
+        
+        primesURL = fileManager.getBookmark(HLPrime.HLPrimesURLKey)
+        nicePrimesURL = fileManager.getBookmark(HLPrime.HLNicePrimesKey)
+ //       print("PrimeFinderViewModel-  init-  primesURL: \(String(describing: primesURL))")
 
         if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLTerminalPrimeKey) as? NSNumber {
             terminalPrime = valueP.int64Value
@@ -115,19 +118,16 @@ class PrimeFinderViewModel: ObservableObject {
     
     deinit {
   //      print("PrimeFinderViewModel-  deinit")
-        if let url = primesURL {
-            url.setBookmarkFor(key: HLPrime.HLPrimesBookmarkKey)
-        }
-        
-        if let url = nicePrimesURL {
-            url.setBookmarkFor(key: HLPrime.HLNicePrimesBookmarkKey)
-        }
-        
-        UserDefaults.standard.set(terminalPrime, forKey: HLPrime.HLTerminalPrimeKey)
-        
+        fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
+        fileManager.setBookmarkForURL(nicePrimesURL, key: HLPrime.HLNicePrimesKey)
+                
         primeFinder.okToRun = false
         primesURL?.stopAccessingSecurityScopedResource()
         nicePrimesURL?.stopAccessingSecurityScopedResource()
         NSApplication.shared.terminate(self)    //  quit app if dealloc
     }
+}
+
+extension PrimeFinderViewModel {
+
 }
