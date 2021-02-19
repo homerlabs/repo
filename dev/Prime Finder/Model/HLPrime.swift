@@ -105,7 +105,7 @@ public class HLPrime {
 
             var nextLine = self.fileManager.getLastLine(primeURL)
 
-            (_, self.lastP) = nextLine.parseLine()
+            (self.lastN, self.lastP) = nextLine.parseLine()
             let lastPrimeInPrimeFile = self.lastP
             
             //  now we can create pTable and begin testing for 'nice' primes
@@ -133,7 +133,7 @@ public class HLPrime {
                 
                 nextLine = self.fileManager.getNextLine()
                 if !nextLine.isEmpty {
-                    (_, self.lastP) = nextLine.parseLine()
+                    (self.lastN, self.lastP) = nextLine.parseLine()
                 }
             }
             

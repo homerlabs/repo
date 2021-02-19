@@ -38,7 +38,7 @@ class PrimeFinderViewModel: ObservableObject {
         findPrimesInProgress = true
         let maxPrime = HLPrimeType(terminalPrime)
         
-        primeFinder.findPrimes3(maxPrime: maxPrime) { [weak self] result in
+        primeFinder.findPrimes(maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
             
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -126,8 +126,4 @@ class PrimeFinderViewModel: ObservableObject {
         nicePrimesURL?.stopAccessingSecurityScopedResource()
         NSApplication.shared.terminate(self)    //  quit app if dealloc
     }
-}
-
-extension PrimeFinderViewModel {
-
 }

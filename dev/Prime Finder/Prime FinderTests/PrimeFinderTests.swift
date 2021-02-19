@@ -13,15 +13,15 @@ class Prime_FinderTests: XCTestCase {
 
     var primeFinder = HLPrime()
     var primesURL: URL?
-    public static let HLPrimesBookmarkKey  = "HLPrimesBookmarkKey"
+    let fileManager = HLFileManager.shared
     let HLSavePanelTitle = "Prime Finder Tests Save Panel"
     let maxPrime: HLPrimeType = 10000000
 
     override func setUp() {
-        primesURL = HLPrime.HLPrimesBookmarkKey.getBookmark()
+        primesURL = fileManager.getBookmark(HLPrime.HLPrimesURLKey)
         if primesURL == nil {
             let path = "TestPrimes"
-            primesURL = path.getSaveFilePath(title: HLSavePanelTitle, message: "Set Primes file path")
+            primesURL = fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Set Primes file path", filename: path)
             print("primesURL: \(String(describing: primesURL))")
         }
         
@@ -30,7 +30,7 @@ class Prime_FinderTests: XCTestCase {
 
     override func tearDown() {
         if let url = primesURL {
-            url.setBookmarkFor(key: HLPrime.HLPrimesBookmarkKey)
+            fileManager.setBookmarkForURL(url, key: HLPrime.HLPrimesURLKey)
         }
         primesURL?.stopAccessingSecurityScopedResource()
     }

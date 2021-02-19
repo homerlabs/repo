@@ -15,8 +15,8 @@ class HLFileManager {
     var urlWritting: URL?
     var urlReading: URL?
     private var readBuffer: String = ""
-    var buffer: UnsafeMutablePointer<UInt8>
-    let bufferSize = 20
+    var buffer: UnsafeMutablePointer<UInt8>!    //  gets allocated on file open
+    let bufferSize = 4096
 
     var inStream: InputStream?
     var outStream: OutputStream?
@@ -38,15 +38,6 @@ class HLFileManager {
         closeFileForReading()
         return lastLine
     }
-    
-    func closeFileForReading() {
-        inStream?.close()
-    }
-    
-    func closeFileForWritting() {
-        outStream?.close()
-    }
-    
     //  scans readBuffer for '\n' delimited line and if found
     //  removes it from the head of readBuffer
     //  returns line if found or ""
@@ -108,6 +99,7 @@ class HLFileManager {
             setBookmarkForURL(urlReading, key: HLPrime.HLPrimesURLKey)
             inStream = InputStream(url: urlReading!)
             inStream?.open()
+            buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
             return inStream != nil
         }
         else {
@@ -140,13 +132,17 @@ class HLFileManager {
         }
     }
     
-    private init() {
-        buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
-    }
-    
-    deinit {
+    func closeFileForReading() {
+        inStream?.close()
         buffer.deallocate()
     }
+    
+    func closeFileForWritting() {
+        outStream?.close()
+    }
+    
+    //  keep private as this is a singleton class
+    private init() {}
 }
 
 extension HLFileManager {

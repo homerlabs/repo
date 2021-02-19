@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00E928425E02C85009AE36D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */; };
+		B00E928725E02C8C009AE36D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B670240485D4003D6FC4 /* String+Extension.swift */; };
 		B04A497123FF4731007D0D81 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04A497023FF4731007D0D81 /* AppDelegate.swift */; };
 		B04A497323FF4731007D0D81 /* PrimeFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04A497223FF4731007D0D81 /* PrimeFinderView.swift */; };
 		B04A497523FF4732007D0D81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04A497423FF4732007D0D81 /* Assets.xcassets */; };
@@ -16,13 +18,14 @@
 		B050554B25DF128500A5553A /* HLFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B050554925DF128500A5553A /* HLFileManager.swift */; };
 		B058D1E724DC6E7600762954 /* PrimeFinderPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058D1E524DC6E7500762954 /* PrimeFinderPlusTests.swift */; };
 		B058D1E824DC6E7600762954 /* PrimeFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B058D1E624DC6E7500762954 /* PrimeFinderTests.swift */; };
+		B08E12AD25E0274B00E15005 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6752404870E003D6FC4 /* HLPrime.swift */; };
+		B08E12B025E0275200E15005 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */; };
 		B0B89CBD24048962004E7BC7 /* PrimeFinderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */; };
 		B0B8B671240485D4003D6FC4 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B66E240485D4003D6FC4 /* Int+Extension.swift */; };
 		B0B8B673240485D4003D6FC4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B670240485D4003D6FC4 /* String+Extension.swift */; };
 		B0B8B6772404870E003D6FC4 /* HLPrime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6752404870E003D6FC4 /* HLPrime.swift */; };
 		B0B8B6782404870E003D6FC4 /* HLPrime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B8B6762404870E003D6FC4 /* HLPrime+Extension.swift */; };
 		B0BA087024293380001628BE /* Help in Resources */ = {isa = PBXBuildFile; fileRef = B0BA086F24293380001628BE /* Help */; };
-		B0D252C224291A62004EAB59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B0D252C124291A62004EAB59 /* README.md */; };
 		B0EB267624DC6C2B0048664A /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB267524DC6C2B0048664A /* Double+Extension.swift */; };
 		B0EB267724DC6C2B0048664A /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB267524DC6C2B0048664A /* Double+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -238,7 +241,6 @@
 				B04A497B23FF4732007D0D81 /* Main.storyboard in Resources */,
 				B0BA087024293380001628BE /* Help in Resources */,
 				B04A497823FF4732007D0D81 /* Preview Assets.xcassets in Resources */,
-				B0D252C224291A62004EAB59 /* README.md in Resources */,
 				B04A497523FF4732007D0D81 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,10 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00E928725E02C8C009AE36D /* String+Extension.swift in Sources */,
 				B0EB267724DC6C2B0048664A /* Double+Extension.swift in Sources */,
 				B050554B25DF128500A5553A /* HLFileManager.swift in Sources */,
+				B08E12AD25E0274B00E15005 /* HLPrime.swift in Sources */,
+				B00E928425E02C85009AE36D /* Int+Extension.swift in Sources */,
 				B058D1E724DC6E7600762954 /* PrimeFinderPlusTests.swift in Sources */,
 				B058D1E824DC6E7600762954 /* PrimeFinderTests.swift in Sources */,
+				B08E12B025E0275200E15005 /* HLPrime+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
