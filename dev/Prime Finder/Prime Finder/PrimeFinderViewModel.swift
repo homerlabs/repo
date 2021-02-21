@@ -42,9 +42,8 @@ class PrimeFinderViewModel: ObservableObject {
         setupTimer()
         let maxPrime = HLPrimeType(terminalPrime)
         findPrimesInProgress = true
-        fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
 
-        primeFinder.findPrimes3(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
+        primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
             
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -53,7 +52,8 @@ class PrimeFinderViewModel: ObservableObject {
             self.findPrimesInProgress = false
             let (lastN, lastP) = result.parseLine()
             self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            
+            self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
+
             if self.primeFinder.okToRun {
                 self.progress = "100"
             } else {
@@ -83,7 +83,6 @@ class PrimeFinderViewModel: ObservableObject {
         setupTimer()
         findNPrimesInProgress = true
         fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
-        fileManager.setBookmarkForURL(nicePrimesURL, key: HLPrime.HLNicePrimesKey)
 
         primeFinder.makeNicePrimesFile(primeURL: primesURL!, nicePrimeURL: nicePrimesURL!) { [weak self] result in
             guard let self = self else { return }
@@ -94,7 +93,8 @@ class PrimeFinderViewModel: ObservableObject {
             self.findNPrimesInProgress = false
             let (lastN, lastP) = result.parseLine()
             self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            
+            self.fileManager.setBookmarkForURL(self.nicePrimesURL, key: HLPrime.HLNicePrimesKey)
+
             if self.primeFinder.okToRun {
                 self.progress = "100"
             } else {
@@ -124,7 +124,6 @@ class PrimeFinderViewModel: ObservableObject {
 
     init() {
         primeFinder = HLPrime()
-        
         primesURL = fileManager.getBookmark(HLPrime.HLPrimesURLKey)
         nicePrimesURL = fileManager.getBookmark(HLPrime.HLNicePrimesKey)
  //       print("PrimeFinderViewModel-  init-  primesURL: \(String(describing: primesURL))")
