@@ -24,8 +24,6 @@ class Prime_FinderTests: XCTestCase {
             primesURL = fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Set Primes file path", filename: path)
             print("primesURL: \(String(describing: primesURL))")
         }
-        
-        primeFinder.primesFileURL = primesURL
     }
 
     override func tearDown() {
@@ -56,7 +54,7 @@ class Prime_FinderTests: XCTestCase {
         let startTime = Date()
         let expectationFindPrimes = XCTestExpectation(description: "FindPrimes Expectation")
         
-        primeFinder.findPrimes(maxPrime: maxPrime) { [weak self] result in
+        primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
             
             print("self: \(self)")

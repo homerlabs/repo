@@ -44,7 +44,7 @@ class PrimeFinderViewModel: ObservableObject {
         findPrimesInProgress = true
         fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
 
-        primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
+        primeFinder.findPrimes3(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
             
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
