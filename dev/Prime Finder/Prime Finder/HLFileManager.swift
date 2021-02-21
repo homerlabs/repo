@@ -38,6 +38,7 @@ class HLFileManager {
         closeFileForReading()
         return lastLine
     }
+    
     //  scans readBuffer for '\n' delimited line and if found
     //  removes it from the head of readBuffer
     //  returns line if found or ""
@@ -141,6 +142,12 @@ class HLFileManager {
         outStream?.close()
     }
     
+    //  returns true if url found on the file system
+    func isFileFound(url: URL?) -> Bool {
+        guard url != nil else { return false }
+        return defaultFileManager.fileExists(atPath: url!.path)
+    }
+
     //  keep private as this is a singleton class
     private init() {}
 }
@@ -178,20 +185,17 @@ extension HLFileManager {
     
     func getURLForReading(url: URL?) -> URL? {
         var url: URL?
-        DispatchQueue.main.sync {
-            let openPanel = NSOpenPanel();
-            openPanel.canCreateDirectories = true;
-            openPanel.allowedFileTypes = ["txt"];
-            openPanel.showsTagField = false;
-            openPanel.prompt = "Open";
-            openPanel.message = "Set Prime file path";
-            
-            let i = openPanel.runModal();
-            if(i == NSApplication.ModalResponse.OK) {
-                url = openPanel.url
-            }
-        }
+        let openPanel = NSOpenPanel();
+        openPanel.canCreateDirectories = true;
+        openPanel.allowedFileTypes = ["txt"];
+        openPanel.showsTagField = false;
+        openPanel.message = "Set Primes file path";
         
+        let i = openPanel.runModal();
+        if(i == NSApplication.ModalResponse.OK) {
+            url = openPanel.url
+        }
+    
         return url
     }
 

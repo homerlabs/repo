@@ -18,7 +18,6 @@ public class HLPrime {
     public static let HLNicePrimesKey    = "HLNicePrimesKey"
     public static let HLTerminalPrimeKey = "HLTerminalPrimeKey"
 
-    var primesFileURL: URL?
     let fileManager = HLFileManager.shared
 
     var pTable: [HLPrimeType] = []
@@ -39,11 +38,10 @@ public class HLPrime {
     var operationsQueue = OperationQueue()
     internal let semaphore = DispatchSemaphore(value: 1)
         
-    public func findPrimes(maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
+    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
-        guard primesFileURL != nil else { return }
         
-        let _ = fileManager.createTextFile(url: primesFileURL!)
+        let _ = fileManager.createTextFile(url: primeURL)
         let initialList: String = "1\t2\n2\t3\n"
         let _ = fileManager.appendStringToFile(initialList)
    //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
@@ -85,20 +83,8 @@ public class HLPrime {
     }
     
     //  a prime (p) is 'nice' if (p-1) / 2 is also prime
-    func makeNicePrimesFile(primeURL: URL?, nicePrimeURL: URL?, completion: @escaping HLCompletionClosure)    {
+    func makeNicePrimesFile(primeURL: URL, nicePrimeURL: URL, completion: @escaping HLCompletionClosure)    {
         print( "HLPrime-  makeNicePrimesFile" )
-        
-        //  fire off completion routine if either url is nil
-        if primeURL == nil || nicePrimeURL == nil {
-            DispatchQueue.main.async {
-                completion("0\t1\n")
-            }
-            
-            print( "HLPrime-  ERROR:  makeNicePrimesFile() was unable to run." )
-            return
-        }
-
-        primesFileURL = primeURL
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
@@ -116,7 +102,7 @@ public class HLPrime {
             let success = self.fileManager.openFileForRead(url: primeURL)
             guard success else { return }
             
-            let _ = self.fileManager.createTextFile(url: nicePrimeURL!)
+            let _ = self.fileManager.createTextFile(url: nicePrimeURL)
 
             nextLine = self.fileManager.getNextLine()  //  don't check prime '2' for niceness
             nextLine = self.fileManager.getNextLine()  //  don't check prime '3' for niceness
@@ -138,10 +124,7 @@ public class HLPrime {
             }
             
             self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
-        //    }
-
             self.pTable.removeAll()
-        //    self.fileManager.closeNicePrimesFileForAppend()
             self.fileManager.closeFileForReading()
             self.fileManager.closeFileForWritting()
 
@@ -180,10 +163,10 @@ public class HLPrime {
     }
     
     //  returns true if url found on the file system
-    func isFileFound(url: URL?) -> Bool {
+/*    func isFileFound(url: URL?) -> Bool {
         guard url != nil else { return false }
         return fileManager.defaultFileManager.fileExists(atPath: url!.path)
-    }
+    }*/
     
     public func createPTable(maxPrime: HLPrimeType) -> [HLPrimeType] {
         let maxPTablePrimeRequired = Int64(sqrt(Double(maxPrime)))
@@ -209,10 +192,5 @@ public class HLPrime {
         operationsQueue.name = "HLPrimeFinderQueue"
         operationsQueue.maxConcurrentOperationCount = numberOfCores
         print("HLPrime-  init: numberOfCores: \(numberOfCores)")
-    }
-
-    public convenience init(primesFileURL: URL?) {
-        self.init()
-        self.primesFileURL = primesFileURL
     }
 }

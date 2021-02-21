@@ -11,7 +11,8 @@ import Cocoa
 
 enum HLErrorEnum {
     case noError
-    case badFilePathError
+    case badPrimesFilePathError
+    case badNicePrimesFilePathError
     case invalidDataError
 }
 
@@ -33,12 +34,17 @@ class PrimeFinderViewModel: ObservableObject {
     
     //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
-        primeFinder.primesFileURL = primesURL
-        setup()
-        findPrimesInProgress = true
-        let maxPrime = HLPrimeType(terminalPrime)
+        if primesURL == nil {
+            primesURL = fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Create Primes file", filename: "Primes")
+        }
+        guard primesURL != nil else { return .badPrimesFilePathError }
         
-        primeFinder.findPrimes(maxPrime: maxPrime) { [weak self] result in
+        setupTimer()
+        let maxPrime = HLPrimeType(terminalPrime)
+        findPrimesInProgress = true
+        fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
+
+        primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
             guard let self = self else { return }
             
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -61,13 +67,25 @@ class PrimeFinderViewModel: ObservableObject {
     
     //  returns HLErrorEnum
     func findNicePrimes() -> HLErrorEnum {
-        primeFinder.primesFileURL = primesURL
-        guard primeFinder.isFileFound(url: primesURL) else { return .badFilePathError }
+        if !fileManager.isFileFound(url: primesURL) {
+            primesURL = fileManager.getURLForReading(url: nil)
+        }
+        
+        //  if we don't have a good url to the primes file we can't continue
+        //  this will happen if there is no primes file or the user can't find it
+        guard primesURL != nil else { return .badPrimesFilePathError }
 
-        setup()
+        if nicePrimesURL == nil {
+            nicePrimesURL = fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Create NicePrimes file", filename: "NPrimes")
+        }
+        guard nicePrimesURL != nil else { return .badNicePrimesFilePathError }
+
+        setupTimer()
         findNPrimesInProgress = true
+        fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
+        fileManager.setBookmarkForURL(nicePrimesURL, key: HLPrime.HLNicePrimesKey)
 
-        primeFinder.makeNicePrimesFile(primeURL: primesURL, nicePrimeURL: nicePrimesURL) { [weak self] result in
+        primeFinder.makeNicePrimesFile(primeURL: primesURL!, nicePrimeURL: nicePrimesURL!) { [weak self] result in
             guard let self = self else { return }
 
             let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -89,7 +107,7 @@ class PrimeFinderViewModel: ObservableObject {
     }
     
     //  sets up timer for status and progress updates
-    func setup()  {
+    func setupTimer()  {
         status = startingMessage
         progress = "0"
         timer.invalidate()
@@ -118,9 +136,6 @@ class PrimeFinderViewModel: ObservableObject {
     
     deinit {
   //      print("PrimeFinderViewModel-  deinit")
-        fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
-        fileManager.setBookmarkForURL(nicePrimesURL, key: HLPrime.HLNicePrimesKey)
-                
         primeFinder.okToRun = false
         primesURL?.stopAccessingSecurityScopedResource()
         nicePrimesURL?.stopAccessingSecurityScopedResource()

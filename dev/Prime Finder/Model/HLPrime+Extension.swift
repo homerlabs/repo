@@ -12,9 +12,9 @@ extension HLPrime {
 
     //  return not valid if next count is not one more than last count and
     //  return not valid if next prime is <= last prime
-    func primeFileIsValid() -> Bool {
+    func primeFileIsValid(primeFileURL: URL?) -> Bool {
         var returnValue = true
-        if let url = primesFileURL {
+        if let url = primeFileURL {
             let success = self.fileManager.openFileForRead(url: url)
             guard success else { return false }
 
@@ -57,11 +57,11 @@ extension HLPrime {
         pTable = createPTable(maxPrime: maxPrime)
         (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
         
-        if let primeURL = primesFileURL {
+ /*       if let primeURL = primeFileURL {
             let _ = fileManager.createTextFile(url: primeURL)
             let initialList: String = "1\t2\n2\t3\n3\t5\n"
             let _ = fileManager.appendStringToFile(initialList)
-        }
+        }*/
 
         self.startDate = Date()  //  don't count the time to create pTable
     }
@@ -73,9 +73,9 @@ extension HLPrime {
         print( "findPrimes-  final lastN: \(lastN)    lastP: \(lastP)" )
         lastLine = String(format: "%d\t%ld", self.lastN, lastP)
         
-        if !primeFileIsValid() {
+ /*       if !primeFileIsValid(primeFileURL) {
             print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
-        }
+        }*/
 
         completion(lastLine)
     }

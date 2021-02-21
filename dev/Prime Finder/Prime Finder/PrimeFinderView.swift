@@ -14,7 +14,6 @@ struct PrimeFinderView: View {
     @State private var showErrorFindPrimes: Bool = false
     @State private var showErrorFindNicePrimes: Bool = false
     @State private var showErrorInvalidData: Bool = false
-    let HLSavePanelTitle = "Prime Finder Save Panel"
     let terminalPrimeWidth: CGFloat = 100.0
     let outsidePaddingValue: CGFloat = 16
     let verticalPaddingValue: CGFloat = 12
@@ -82,7 +81,7 @@ struct PrimeFinderView: View {
                             UserDefaults.standard.set(pfViewModel.terminalPrime, forKey: HLPrime.HLTerminalPrimeKey)
                         }
                   })
-                        .frame(width: terminalPrimeWidth)
+                    .frame(width: terminalPrimeWidth)
                     Spacer()
                  
                     Text("Percent completed: \(pfViewModel.progress)")
@@ -111,33 +110,46 @@ struct PrimeFinderView: View {
                             case .invalidDataError:
                                 self.showErrorInvalidData = true
                             
-                            case .badFilePathError:
+                            case .badPrimesFilePathError:
                                 self.pfViewModel.primesURL = nil
                                 self.showErrorFindPrimes = true
                             
-                            case .noError:
+                            case .badNicePrimesFilePathError, .noError:
                                 break
                         }
                     }
                 })
                 .alert(isPresented: $showErrorFindPrimes) {
-                    Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Primes file not found."))}
-                .disabled(pfViewModel.primesURL == nil || pfViewModel.findNPrimesInProgress)
+                    Alert(title: Text("Prime Finder encountered a serious problem!"), message: Text("No valid file path for Primes file."))}
+                .disabled(pfViewModel.findNPrimesInProgress)
 
                 //**********  FindNPrimes Button
                 Button(pfViewModel.findNPrimesInProgress ? "   Running   " : "Find NPrimes", action: {
                     if self.pfViewModel.findNPrimesInProgress {
                         self.pfViewModel.stopProcess()
                     } else {
-                        if self.pfViewModel.findNicePrimes() != .noError {
-                            self.pfViewModel.primesURL = nil
-                            self.showErrorFindNicePrimes = true
+                        switch self.pfViewModel.findNicePrimes() {
+                            
+                            case .invalidDataError:
+                                self.showErrorInvalidData = true
+                            
+                            case .badPrimesFilePathError:
+                                self.pfViewModel.primesURL = nil
+                                self.showErrorFindPrimes = true
+
+                            case .badNicePrimesFilePathError:
+                                self.pfViewModel.nicePrimesURL = nil
+                                self.showErrorFindNicePrimes = true
+                                break
+
+                            case .noError:
+                                break
                         }
                     }
                 })
                 .alert(isPresented: $showErrorFindNicePrimes) {
-                    Alert(title: Text("Prime Finder Encountered a Serious Error!"), message: Text("Primes file not found."))}
-                .disabled(pfViewModel.primesURL == nil || pfViewModel.nicePrimesURL == nil || pfViewModel.findPrimesInProgress)
+                    Alert(title: Text("Prime Finder encountered a serious problem!"), message: Text("No valid file path for NicePrimes file."))}
+                .disabled(pfViewModel.findPrimesInProgress)
             }
         }
     //    .frame(width: 500, height: 200, alignment: .center)
