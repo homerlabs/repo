@@ -15,7 +15,7 @@ class Prime_FinderTests: XCTestCase {
     var primesURL: URL?
     let fileManager = HLFileManager.shared
     let HLSavePanelTitle = "Prime Finder Tests Save Panel"
-    let maxPrime: HLPrimeType = 10000000
+//    let maxPrime: HLPrimeType = 10000000
 
     override func setUp() {
         primesURL = fileManager.getBookmark(HLPrime.HLPrimesURLKey)
@@ -51,6 +51,7 @@ class Prime_FinderTests: XCTestCase {
 
 
     func testPrimeFinder() {
+        let maxPrime: HLPrimeType = 1000000
         let startTime = Date()
         let expectationFindPrimes = XCTestExpectation(description: "FindPrimes Expectation")
         
