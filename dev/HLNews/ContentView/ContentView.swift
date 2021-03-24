@@ -7,26 +7,27 @@
 
 import SwiftUI
 //  https://newsapi.org/docs
+//  http://www.mypet.com/img/basic-pet-care/how-long-leave-cat-alone-lead.jpg
 
 struct ContentView: View {
     
     @ObservedObject var newsViewModel = HLNewsViewModel()
     var body: some View {
-        VStack {
+    //    VStack {
             TextField(newsViewModel.searchString, text: $newsViewModel.searchString, onCommit: {
                 newsViewModel.fetchTopHeadlines()
                 print("newsViewModel.fetch")
             })
-            Text(newsViewModel.resultString)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        //    Text(newsViewModel.resultString)
+        //        .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-  /*          ScrollView {
-                VStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 1) {
                     ForEach(self.newsViewModel.articles, id:\.title) { article in
                         ArticleRowView(article: article)
                     }
                 }
-            }*/
+         //   }
             
         }.onAppear {
             print("onAppear")

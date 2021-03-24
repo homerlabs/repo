@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0049B27260BC12B0039C86D /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0049B26260BC12B0039C86D /* AsyncImage.swift */; };
 		B062DA342608F8E100BB644C /* HLNewsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B062DA332608F8E100BB644C /* HLNewsApp.swift */; };
 		B062DA382608F8E200BB644C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B062DA372608F8E200BB644C /* Assets.xcassets */; };
 		B062DA3B2608F8E200BB644C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B062DA3A2608F8E200BB644C /* Preview Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B0049B26260BC12B0039C86D /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		B062DA302608F8E100BB644C /* HLNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B062DA332608F8E100BB644C /* HLNewsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLNewsApp.swift; sourceTree = "<group>"; };
 		B062DA372608F8E200BB644C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		B062DA322608F8E100BB644C /* HLNews */ = {
 			isa = PBXGroup;
 			children = (
+				B0049B26260BC12B0039C86D /* AsyncImage.swift */,
 				B062DA492608F9BB00BB644C /* HLNewsViewModel.swift */,
 				B062DA332608F8E100BB644C /* HLNewsApp.swift */,
 				B062DA372608F8E200BB644C /* Assets.xcassets */,
@@ -166,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0049B27260BC12B0039C86D /* AsyncImage.swift in Sources */,
 				B062DA472608F9AB00BB644C /* TopHeadlinesRequest.swift in Sources */,
 				B062DA4A2608F9BB00BB644C /* HLNewsViewModel.swift in Sources */,
 				B0CA3730260A524A00CD5DEB /* ContentView.swift in Sources */,
