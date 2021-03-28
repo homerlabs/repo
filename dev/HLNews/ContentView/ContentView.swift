@@ -13,22 +13,26 @@ struct ContentView: View {
     
     @ObservedObject var newsViewModel = HLNewsViewModel()
     var body: some View {
-    //    VStack {
+        VStack {
             TextField(newsViewModel.searchString, text: $newsViewModel.searchString, onCommit: {
                 newsViewModel.fetchTopHeadlines()
                 print("newsViewModel.fetch")
             })
-        //    Text(newsViewModel.resultString)
-        //        .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            ScrollView {
-                VStack(alignment: .leading, spacing: 1) {
-                    ForEach(self.newsViewModel.articles, id:\.title) { article in
+
+         //   NavigationView {
+                
+                ScrollView {
+              /*      List(newsViewModel.articles, id: \.url) { article in
+                    ArticleRowView(article: article)
+                    }*/
+                    
+                    ForEach(newsViewModel.articles, id: \.url) { article in
                         ArticleRowView(article: article)
                     }
-                }
-         //   }
-            
+         //       }
+       //     .scaledToFill()
+       //    .navigationBarTitle("HLNews")
+            }
         }.onAppear {
             print("onAppear")
             newsViewModel.fetchTopHeadlines()
