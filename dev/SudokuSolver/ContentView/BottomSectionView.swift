@@ -21,7 +21,6 @@ struct BottomSectionView: View {
                  Text("Find Sets").tag(HLAlgorithmMode.findSets)
                  Text("Mono Sector").tag(HLAlgorithmMode.monoSector)
              }.pickerStyle(SegmentedPickerStyle())
-              .padding(.vertical, 15)
 
             HStack {
                 Spacer()
@@ -45,7 +44,8 @@ struct BottomSectionView: View {
                     .disabled(self.puzzleViewModel.solver.puzzleState == .final)
                 Spacer()
             }
- 
+               .padding(.top, 15)
+
             HStack {
                  Button(action: {
                     print("New Puzzle Button")
@@ -60,7 +60,7 @@ struct BottomSectionView: View {
                     print("About Button")
                     self.aboutPanelPresented.toggle()
                 }) {
-                    Text("About").padding()
+                    Text("About")
                 }
             }
             .sheet(isPresented: $aboutPanelPresented, onDismiss: {

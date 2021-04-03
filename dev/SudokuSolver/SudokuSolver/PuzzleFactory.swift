@@ -15,17 +15,39 @@ public protocol PuzzleFactoryProtocol {
 
 
 public class PuzzleFactory: NSObject, WKNavigationDelegate {
+    static let test_data = "test_data"
     let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
 
     var hlWebView = WKWebView()
     var delegate: PuzzleFactoryProtocol?
+    
+    //  get random puzzle
+    public func getNewPuzzle() {
+        getNewPuzzle(puzzleId: "")
+    }
 
-    //  optional puzzle id string
-    func getNewPuzzle(_ puzzleId: String = "") {
+    //  get specific puzzle 
+    public func getNewPuzzle(puzzleId: String) {
         var url = websudokuURL
+        
+        //  special case where loadRequest is not needed, so we can call puzzleReady() right away
+        if puzzleId == PuzzleFactory.test_data {
+            var testPuzzle = HLSolver()
+            testPuzzle.puzzleName = "TestData--1->81"
+            for index in 0..<81 {
+                var cell = testPuzzle.dataSet[index]
+                cell = HLSudokuCell(data: Set(arrayLiteral: String(index+1+100000000)), status: .givenStatus)
+                testPuzzle.dataSet[index] = cell
+            }
+            self.delegate?.puzzleReady(puzzle: testPuzzle)
+            
+            //  remember-  no loadRequest
+            return
+        }
+        
         if puzzleId.count > 0 {
-            let urlWithIdString = String(format: "https://nine.websudoku.com/?level=4&set_id=\(puzzleId)", puzzleId)
+            let urlWithIdString = String(format: "https://nine.websudoku.com/?level=4&set_id=\(puzzleId)")
             if let urlWithId = URL(string: urlWithIdString) {
                 url = urlWithId
             }
@@ -35,6 +57,7 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
         hlWebView.load(request)
     }
     
+    //  must be declared public because of WKNavigation
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
         print("PuzzleFactory-  webView-  didFinish")

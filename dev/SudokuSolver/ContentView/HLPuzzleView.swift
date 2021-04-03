@@ -11,14 +11,16 @@ import SwiftUI
 struct HLPuzzleView: View {
 
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
-    let mainPaddingX: CGFloat = 25
+    let mainPaddingX: CGFloat = 30
     let mainPaddingY: CGFloat = 15
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
 
     var body: some View {
         VStack() {
             TopSectionView(puzzleViewModel: puzzleViewModel)
-            MiddleSectionView(puzzleViewModel: puzzleViewModel)
+            Spacer()
+            HLGridView(puzzleViewModel: puzzleViewModel)
+            Spacer()
             BottomSectionView(puzzleViewModel: puzzleViewModel)
         }
         .padding(.vertical, mainPaddingY)

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B002E130253B4C1900B1CC36 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002E12F253B4C1900B1CC36 /* GridView.swift */; };
-		B002E131253B4C1900B1CC36 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B002E12F253B4C1900B1CC36 /* GridView.swift */; };
 		B008185C2464A0B400C4A872 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008185B2464A0B400C4A872 /* OverlayView.swift */; };
+		B011F6192610FEDA0037B8B7 /* HLGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B011F6182610FEDA0037B8B7 /* HLGridView.swift */; };
+		B011F61A2610FEDA0037B8B7 /* HLGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B011F6182610FEDA0037B8B7 /* HLGridView.swift */; };
 		B04CE344253CD5290052CA2E /* ColorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F444092460B43500BF3314 /* ColorChartView.swift */; };
 		B04CE347253CD52D0052CA2E /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B008185B2464A0B400C4A872 /* OverlayView.swift */; };
 		B04CE34A253CD5340052CA2E /* HLPuzzleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06C830524293ECC007C169C /* HLPuzzleView.swift */; };
@@ -34,8 +34,6 @@
 		B0B7B6DF25828D430075B17C /* PuzzleTable.plist in Resources */ = {isa = PBXBuildFile; fileRef = B04C8144257AE19A001EA426 /* PuzzleTable.plist */; };
 		B0D90F4B2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
 		B0D90F4C2538B249005956B1 /* BottomSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4A2538B249005956B1 /* BottomSectionView.swift */; };
-		B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */; };
-		B0D90F512538C0A8005956B1 /* MiddleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */; };
 		B0EC050B254F3136006EC94D /* HLSudokuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EC050A254F3136006EC94D /* HLSudokuCell.swift */; };
 		B0EC050C254F3136006EC94D /* HLSudokuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EC050A254F3136006EC94D /* HLSudokuCell.swift */; };
 		B0F4440A2460B43500BF3314 /* ColorChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F444092460B43500BF3314 /* ColorChartView.swift */; };
@@ -54,8 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B002E12F253B4C1900B1CC36 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		B008185B2464A0B400C4A872 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		B011F6182610FEDA0037B8B7 /* HLGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLGridView.swift; sourceTree = "<group>"; };
 		B04C8144257AE19A001EA426 /* PuzzleTable.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PuzzleTable.plist; sourceTree = "<group>"; };
 		B054BEF52538A86E00239BB4 /* TopSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSectionView.swift; sourceTree = "<group>"; };
 		B068516D2429425A006E532E /* HLSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLSolver.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 		B0988DF6242A8D4F005BDCE4 /* HLPuzzleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLPuzzleViewModel.swift; sourceTree = "<group>"; };
 		B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadSaveView.swift; sourceTree = "<group>"; };
 		B0D90F4A2538B249005956B1 /* BottomSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSectionView.swift; sourceTree = "<group>"; };
-		B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleSectionView.swift; sourceTree = "<group>"; };
 		B0EA1333246DD15C008BEB06 /* SudokuSolver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SudokuSolver.entitlements; sourceTree = "<group>"; };
 		B0EC050A254F3136006EC94D /* HLSudokuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSudokuCell.swift; sourceTree = "<group>"; };
 		B0F444092460B43500BF3314 /* ColorChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChartView.swift; sourceTree = "<group>"; };
@@ -112,13 +109,12 @@
 		B045D1E3251A8FE400C916E5 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
+				B06C830524293ECC007C169C /* HLPuzzleView.swift */,
 				B07F731E246B20C10059D8DE /* AboutView.swift */,
 				B0F444092460B43500BF3314 /* ColorChartView.swift */,
 				B008185B2464A0B400C4A872 /* OverlayView.swift */,
-				B002E12F253B4C1900B1CC36 /* GridView.swift */,
-				B06C830524293ECC007C169C /* HLPuzzleView.swift */,
 				B054BEF52538A86E00239BB4 /* TopSectionView.swift */,
-				B0D90F4F2538C0A8005956B1 /* MiddleSectionView.swift */,
+				B011F6182610FEDA0037B8B7 /* HLGridView.swift */,
 				B0D90F4A2538B249005956B1 /* BottomSectionView.swift */,
 				B0AB9FD12549EA860073E6BA /* LoadSaveView.swift */,
 			);
@@ -293,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B011F6192610FEDA0037B8B7 /* HLGridView.swift in Sources */,
 				B008185C2464A0B400C4A872 /* OverlayView.swift in Sources */,
 				B0988DF7242A8D4F005BDCE4 /* HLPuzzleViewModel.swift in Sources */,
 				B054BEF62538A86E00239BB4 /* TopSectionView.swift in Sources */,
@@ -302,9 +299,7 @@
 				B0F4440A2460B43500BF3314 /* ColorChartView.swift in Sources */,
 				B0F5F88D25701AD900989A14 /* PuzzleFactory.swift in Sources */,
 				B0AB9FD22549EA860073E6BA /* LoadSaveView.swift in Sources */,
-				B0D90F502538C0A8005956B1 /* MiddleSectionView.swift in Sources */,
 				B06C830424293ECC007C169C /* SceneDelegate.swift in Sources */,
-				B002E130253B4C1900B1CC36 /* GridView.swift in Sources */,
 				B06C830624293ECC007C169C /* HLPuzzleView.swift in Sources */,
 				B0D90F4B2538B249005956B1 /* BottomSectionView.swift in Sources */,
 				B0EC050B254F3136006EC94D /* HLSudokuCell.swift in Sources */,
@@ -318,13 +313,12 @@
 				B04CE350253CD5430052CA2E /* HLSolver.swift in Sources */,
 				B054BEF72538A86E00239BB4 /* TopSectionView.swift in Sources */,
 				B0F5F88E25701AD900989A14 /* PuzzleFactory.swift in Sources */,
-				B0D90F512538C0A8005956B1 /* MiddleSectionView.swift in Sources */,
 				B04CE347253CD52D0052CA2E /* OverlayView.swift in Sources */,
+				B011F61A2610FEDA0037B8B7 /* HLGridView.swift in Sources */,
 				B0EC050C254F3136006EC94D /* HLSudokuCell.swift in Sources */,
 				B0B26CFA253F638300140FBC /* AboutView.swift in Sources */,
 				B06C831924293ECD007C169C /* SudokuSolverTests.swift in Sources */,
 				B04CE344253CD5290052CA2E /* ColorChartView.swift in Sources */,
-				B002E131253B4C1900B1CC36 /* GridView.swift in Sources */,
 				B04CE353253CD5460052CA2E /* HLPuzzleViewModel.swift in Sources */,
 				B04CE34A253CD5340052CA2E /* HLPuzzleView.swift in Sources */,
 				B0D90F4C2538B249005956B1 /* BottomSectionView.swift in Sources */,
@@ -405,7 +399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -460,7 +454,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -527,7 +521,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = SudokuSolverTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -548,7 +542,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				INFOPLIST_FILE = SudokuSolverTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

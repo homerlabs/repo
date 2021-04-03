@@ -96,7 +96,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
         puzzleFactory.getNewPuzzle()
         
         //  use to fetch specific puzzle
-   //     puzzleFactory.getNewPuzzle("8543506682")
+        //     puzzleFactory.getNewPuzzle(puzzleId: "8543506682")
+        //     puzzleFactory.getNewPuzzle(puzzleId: PuzzleFactory.test_data)
     }
     
     func replacePuzzleWithTestData() -> HLSolver {
