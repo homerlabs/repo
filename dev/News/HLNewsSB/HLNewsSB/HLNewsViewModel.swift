@@ -29,8 +29,8 @@ class HLNewsViewModel {
                         //      let response = response as URLResponse?
                         //      print("response: \(String(describing: response))")
                         
-                        let jsonDict = try? JSONSerialization.jsonObject(with: dt, options: [])
-                        print("jsonDict: \(String(describing: jsonDict))")
+                   //     let jsonDict = try? JSONSerialization.jsonObject(with: dt, options: [])
+                   //     print("jsonDict: \(String(describing: jsonDict))")
 
                         let decoder = JSONDecoder()
                         do {
