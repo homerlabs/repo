@@ -46,7 +46,7 @@ extension ViewController: UITableViewDataSource {
         let article = articles[indexPath.row]
         cell.title.text = article.title
         cell.author.text = article.author
-    //    cell.urlString = article.urlToImage
+        cell.urlString = article.urlToImage
         return cell;
     }
     

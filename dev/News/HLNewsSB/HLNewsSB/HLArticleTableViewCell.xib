@@ -9,49 +9,62 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="141" id="KGk-i7-Jjw" customClass="HLArticleTableViewCell" customModule="HLNewsSB" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="479" height="141"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="108" id="KGk-i7-Jjw" customClass="HLArticleTableViewCell" customModule="HLNewsSB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="479" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="479" height="141"/>
+                <rect key="frame" x="0.0" y="0.0" width="479" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="69" translatesAutoresizingMaskIntoConstraints="NO" id="Xw5-jp-drs">
-                        <rect key="frame" x="20" y="11" width="439" height="119"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="69" translatesAutoresizingMaskIntoConstraints="NO" id="Xw5-jp-drs" userLabel="VStack View">
+                        <rect key="frame" x="0.0" y="0.0" width="369" height="108"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zs-Ek-JLb">
-                                <rect key="frame" x="0.0" y="0.0" width="439" height="29.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="369" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sw-zR-4WS">
-                                <rect key="frame" x="0.0" y="98.5" width="51.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sw-zR-4WS">
+                                <rect key="frame" x="0.0" y="89.5" width="369" height="18.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="9Sw-zR-4WS" firstAttribute="leading" secondItem="Xw5-jp-drs" secondAttribute="leading" id="5BQ-u4-6sg"/>
                             <constraint firstItem="5zs-Ek-JLb" firstAttribute="top" secondItem="Xw5-jp-drs" secondAttribute="top" id="Dvp-WA-CJ7"/>
                             <constraint firstAttribute="trailing" secondItem="5zs-Ek-JLb" secondAttribute="trailing" id="LXU-yN-pMj"/>
+                            <constraint firstAttribute="trailing" secondItem="9Sw-zR-4WS" secondAttribute="trailing" id="RL0-hJ-qev"/>
                             <constraint firstItem="5zs-Ek-JLb" firstAttribute="leading" secondItem="Xw5-jp-drs" secondAttribute="leading" id="Zkl-a2-duj"/>
+                            <constraint firstAttribute="bottom" secondItem="9Sw-zR-4WS" secondAttribute="bottom" id="fAW-QR-P4z"/>
                         </constraints>
                     </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HBH-z6-3Rl" customClass="AsyncImageView" customModule="HLNewsSB" customModuleProvider="target">
+                        <rect key="frame" x="379" y="4" width="100" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="luM-Jr-tdc"/>
+                            <constraint firstAttribute="width" secondItem="HBH-z6-3Rl" secondAttribute="height" multiplier="1:1" id="wnY-Hj-NPC"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="Xw5-jp-drs" secondAttribute="bottom" id="2ae-ux-2Sj"/>
-                    <constraint firstItem="Xw5-jp-drs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="CIz-SE-xP2"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Xw5-jp-drs" secondAttribute="trailing" id="F2l-zG-rxx"/>
-                    <constraint firstItem="Xw5-jp-drs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="x3h-Ek-fRp"/>
+                    <constraint firstAttribute="trailing" secondItem="HBH-z6-3Rl" secondAttribute="trailing" id="18x-3f-F7t"/>
+                    <constraint firstItem="HBH-z6-3Rl" firstAttribute="leading" secondItem="Xw5-jp-drs" secondAttribute="trailing" constant="10" id="ER3-gg-8iV"/>
+                    <constraint firstItem="HBH-z6-3Rl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="GX6-dp-qNd"/>
+                    <constraint firstItem="Xw5-jp-drs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VU3-J9-zdX"/>
+                    <constraint firstAttribute="bottom" secondItem="Xw5-jp-drs" secondAttribute="bottom" id="n6v-4i-a7d"/>
+                    <constraint firstItem="Xw5-jp-drs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vSc-K9-mAx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="author" destination="9Sw-zR-4WS" id="a7m-Xo-5QW"/>
                 <outlet property="title" destination="5zs-Ek-JLb" id="PpJ-En-Cd4"/>
+                <outlet property="urlToImageView" destination="HBH-z6-3Rl" id="hPg-98-Uwk"/>
             </connections>
-            <point key="canvasLocation" x="-455.79710144927537" y="96.763392857142847"/>
+            <point key="canvasLocation" x="-455.79710144927537" y="85.714285714285708"/>
         </tableViewCell>
     </objects>
 </document>
