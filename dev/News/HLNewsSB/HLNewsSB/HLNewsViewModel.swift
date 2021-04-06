@@ -11,6 +11,8 @@ protocol LoadRequestComplete: class {
     func dataReady(data: [Article])
 }
 
+//  this class has been repurposed and no longer is a viewModel
+//  it should be rewritten or at the least renamed
 class HLNewsViewModel {
     let API_KEY = "0e1e28addfd5486ca24055fdd8d2048b"
     let httpString = "https://newsapi.org/v2/top-headlines?country=us&apiKey=0e1e28addfd5486ca24055fdd8d2048b"
@@ -39,9 +41,9 @@ class HLNewsViewModel {
                             DispatchQueue.main.async {
                                 self.delegate?.dataReady(data: topHeadlinesRequest.articles)
                                 
-                        /*        for item in self.articles {
+                                for item in topHeadlinesRequest.articles {
                                     item.output()
-                                }*/
+                                }
                             }
                         }
                         catch {

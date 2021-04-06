@@ -15,9 +15,15 @@ class ViewController: UIViewController, LoadRequestComplete {
     @IBOutlet weak var tableView: UITableView!
     var newsViewModel = HLNewsViewModel()
     let cellReuseIdentifier = "ArticleCellId"
-    let placeholderImage = UIImage(named: "Background100x100.png")
     
     var articles: [Article] = []
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,17 +32,15 @@ class ViewController: UIViewController, LoadRequestComplete {
         newsViewModel.fetchTopHeadlines()
     }
     
+    //  this is being called on the main thread
     func dataReady(data: [Article]) {
         print("dataReady")
         articles = data
         tableView.reloadData()
     }
-
-
 }
 
-extension ViewController: UITableViewDataSource {
-    // number of rows in table view
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
     }
@@ -49,11 +53,14 @@ extension ViewController: UITableViewDataSource {
         cell.urlString = article.urlToImage
         return cell;
     }
-    
-    // method to run when table view cell is tapped
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You tapped cell number \(indexPath.row).")
-    }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           print("You tapped cell number \(indexPath.row).")
+           
+           if let viewController = storyboard?.instantiateViewController(identifier: "HLArticleDetailViewController") as? HLArticleDetailViewController {
+               viewController.article = articles[indexPath.row]
+               navigationController?.pushViewController(viewController, animated: true)
+           }
+       }
 }
 

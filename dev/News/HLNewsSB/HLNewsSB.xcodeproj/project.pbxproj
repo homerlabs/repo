@@ -12,6 +12,7 @@
 		B00EC28626190A4A007C6E9D /* HLArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00EC28426190A4A007C6E9D /* HLArticleTableViewCell.swift */; };
 		B00EC28726190A4A007C6E9D /* HLArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B00EC28526190A4A007C6E9D /* HLArticleTableViewCell.xib */; };
 		B05B0DB026194C58009CDB5B /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05B0DAF26194C58009CDB5B /* AsyncImageView.swift */; };
+		B06EF2C7261BB1560053970C /* HLArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06EF2C6261BB1560053970C /* HLArticleDetailViewController.swift */; };
 		B099EB882618BC0100E97A8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099EB872618BC0100E97A8D /* AppDelegate.swift */; };
 		B099EB8A2618BC0100E97A8D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099EB892618BC0100E97A8D /* SceneDelegate.swift */; };
 		B099EB8C2618BC0100E97A8D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B099EB8B2618BC0100E97A8D /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		B00EC28426190A4A007C6E9D /* HLArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLArticleTableViewCell.swift; sourceTree = "<group>"; };
 		B00EC28526190A4A007C6E9D /* HLArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HLArticleTableViewCell.xib; sourceTree = "<group>"; };
 		B05B0DAF26194C58009CDB5B /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
+		B06EF2C6261BB1560053970C /* HLArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLArticleDetailViewController.swift; sourceTree = "<group>"; };
 		B099EB842618BC0100E97A8D /* HLNewsSB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLNewsSB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B099EB872618BC0100E97A8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B099EB892618BC0100E97A8D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				B099EB8B2618BC0100E97A8D /* ViewController.swift */,
+				B06EF2C6261BB1560053970C /* HLArticleDetailViewController.swift */,
 				B00EC2732618D2D8007C6E9D /* HLNewsViewModel.swift */,
 				B00EC2702618D2CD007C6E9D /* AsyncImage.swift */,
 				B099EB872618BC0100E97A8D /* AppDelegate.swift */,
@@ -171,6 +174,7 @@
 				B00EC2742618D2D8007C6E9D /* HLNewsViewModel.swift in Sources */,
 				B00EC28626190A4A007C6E9D /* HLArticleTableViewCell.swift in Sources */,
 				B099EB9F2618C24D00E97A8D /* Article.swift in Sources */,
+				B06EF2C7261BB1560053970C /* HLArticleDetailViewController.swift in Sources */,
 				B099EB8C2618BC0100E97A8D /* ViewController.swift in Sources */,
 				B05B0DB026194C58009CDB5B /* AsyncImageView.swift in Sources */,
 				B099EB882618BC0100E97A8D /* AppDelegate.swift in Sources */,
