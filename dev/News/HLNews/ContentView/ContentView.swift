@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 TextField(newsViewModel.searchString, text: $newsViewModel.searchString, onCommit: {
-                    newsViewModel.fetchTopHeadlines()
+                    newsViewModel.fetchSearch(newsViewModel.searchString)
                     print("newsViewModel.fetch")
                 })
 
