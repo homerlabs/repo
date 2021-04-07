@@ -19,10 +19,25 @@ class HLArticleDetailViewController: UIViewController, WKNavigationDelegate {
         print("HLArticleDetailViewController-  webView-  didFinish")
     }
     
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let type = navigationAction.navigationType
+        let host =  navigationAction.request.url?.host
+        print("HLArticleDetailViewController-  webView-  decidePolicyFor-  navigationAction: \(type.rawValue)  host: \(host)")
+        if let host = navigationAction.request.url?.host {
+            if host == "www.apple.com" {
+                decisionHandler(.allow)
+                return
+            }
+        }
+
+  //      decisionHandler(.cancel)
+        decisionHandler(.allow)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-   //     hlWebView.j
+        hlWebView.navigationDelegate = self
 
         print("HLArticleDetailViewController-  viewDidLoad")
         if let urlString = article?.url {

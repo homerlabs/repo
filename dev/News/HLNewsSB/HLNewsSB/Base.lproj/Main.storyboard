@@ -24,6 +24,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="1zV-Mi-7gF"/>
+                                        </connections>
                                     </textField>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sgq-Go-MfR">
                                         <rect key="frame" x="0.0" y="34" width="374" height="710"/>
@@ -52,11 +55,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="41a-et-wZb" secondAttribute="bottom" constant="30" id="v4U-AH-HOC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Titlee" id="OTb-Tf-cQ8">
+                    <navigationItem key="navigationItem" title="Top Stories" id="OTb-Tf-cQ8">
                         <barButtonItem key="backBarButtonItem" title="Top Stories" id="Lp4-Pt-7jG"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="sgq-Go-MfR" id="iXe-CH-dQe"/>
+                        <outlet property="textField" destination="hdJ-HE-4MR" id="xVb-lT-TKB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -76,7 +80,7 @@
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration" allowsPictureInPictureMediaPlayback="NO">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
+                                    <wkPreferences key="preferences" javaScriptEnabled="NO"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>

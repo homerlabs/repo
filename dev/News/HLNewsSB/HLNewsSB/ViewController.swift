@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import Combine
-//  https://newsapi.org/docs
 //  http://www.mypet.com/img/basic-pet-care/how-long-leave-cat-alone-lead.jpg
 
 class ViewController: UIViewController, LoadRequestComplete {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textField: UITextField!
     var newsViewModel = HLNewsViewModel()
     let cellReuseIdentifier = "ArticleCellId"
     
@@ -37,6 +36,22 @@ class ViewController: UIViewController, LoadRequestComplete {
         print("dataReady")
         articles = data
         tableView.reloadData()
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("textFieldDidEndEditing")
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+   //     print("textFieldShouldReturn")
+        self.view.endEditing(true)
+        
+        if let search = textField.text {
+            newsViewModel.fetchSearch(search)
+        }
+        return false
     }
 }
 
