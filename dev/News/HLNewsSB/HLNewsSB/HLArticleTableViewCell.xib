@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,42 +10,45 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HLArticleTableViewCell" customModule="HLNewsSB" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="479" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="475" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="479" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="475" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Multiline Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zs-Ek-JLb">
-                        <rect key="frame" x="20" y="0.0" width="351" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBH-z6-3Rl" customClass="AsyncImageView" customModule="HLNewsSB" customModuleProvider="target">
-                        <rect key="frame" x="379" y="0.0" width="100" height="100"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ogs-Z9-IFo">
+                        <rect key="frame" x="20" y="0.0" width="305" height="150"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Multiline Title" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zs-Ek-JLb">
+                                <rect key="frame" x="0.0" y="0.0" width="101" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sw-zR-4WS">
+                                <rect key="frame" x="0.0" y="129.5" width="51.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Background100x100" translatesAutoresizingMaskIntoConstraints="NO" id="HBH-z6-3Rl" customClass="AsyncImageView" customModule="HLNewsSB" customModuleProvider="target">
+                        <rect key="frame" x="325" y="0.0" width="150" height="150"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="BcF-wa-UQ9"/>
-                            <constraint firstAttribute="height" constant="100" id="qbJ-5A-1re"/>
+                            <constraint firstAttribute="width" constant="150" id="Gqg-Qp-aFv"/>
+                            <constraint firstAttribute="height" constant="150" id="qbJ-5A-1re"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sw-zR-4WS">
-                        <rect key="frame" x="20" y="70.5" width="351" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5zs-Ek-JLb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1PF-jb-8nT"/>
-                    <constraint firstItem="5zs-Ek-JLb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="1Tx-dc-rYQ"/>
-                    <constraint firstAttribute="bottom" secondItem="9Sw-zR-4WS" secondAttribute="bottom" constant="8.5" id="3cQ-O8-TA0"/>
+                    <constraint firstItem="ogs-Z9-IFo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1dv-Xo-6Fs"/>
                     <constraint firstItem="HBH-z6-3Rl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6o9-SQ-ehU"/>
+                    <constraint firstItem="ogs-Z9-IFo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="8Qf-GH-MSl"/>
                     <constraint firstAttribute="trailing" secondItem="HBH-z6-3Rl" secondAttribute="trailing" id="MMz-fI-6Ho"/>
+                    <constraint firstItem="HBH-z6-3Rl" firstAttribute="leading" secondItem="ogs-Z9-IFo" secondAttribute="trailing" id="O2v-d7-Cmi"/>
                     <constraint firstAttribute="bottom" secondItem="HBH-z6-3Rl" secondAttribute="bottom" id="Yto-OG-MIb"/>
-                    <constraint firstItem="9Sw-zR-4WS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="cIh-Tp-dPV"/>
-                    <constraint firstItem="HBH-z6-3Rl" firstAttribute="leading" secondItem="9Sw-zR-4WS" secondAttribute="trailing" constant="8" id="q1H-qk-QX6"/>
-                    <constraint firstItem="HBH-z6-3Rl" firstAttribute="leading" secondItem="5zs-Ek-JLb" secondAttribute="trailing" constant="8" id="ro5-aS-MU5"/>
+                    <constraint firstAttribute="bottom" secondItem="ogs-Z9-IFo" secondAttribute="bottom" id="nio-sE-jTE"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -54,7 +57,10 @@
                 <outlet property="title" destination="5zs-Ek-JLb" id="PpJ-En-Cd4"/>
                 <outlet property="urlToImageView" destination="HBH-z6-3Rl" id="hPg-98-Uwk"/>
             </connections>
-            <point key="canvasLocation" x="-438.40579710144931" y="93.75"/>
+            <point key="canvasLocation" x="-441.304347826087" y="110.49107142857143"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Background100x100" width="100" height="100"/>
+    </resources>
 </document>

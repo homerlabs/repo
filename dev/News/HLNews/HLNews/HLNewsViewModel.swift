@@ -10,6 +10,7 @@ import SwiftUI
 
 class HLNewsViewModel: ObservableObject {
     @Published var searchString: String = ""
+    static var lastURL: URL?
     
     let API_KEY = "&apiKey=0e1e28addfd5486ca24055fdd8d2048b"
     let baseHTTPString = "https://newsapi.org/v2/"
@@ -26,6 +27,7 @@ class HLNewsViewModel: ObservableObject {
     }
 
     func fetch(url: URL) {
+        HLNewsViewModel.lastURL = url
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error == nil {
                 if let dt = data {
@@ -47,12 +49,19 @@ class HLNewsViewModel: ObservableObject {
                         }
                     }
                     catch {
-                        print("error: \(error)")
+                        print("\n........................error: \(error)")
                     }
                 }
             }
         }
         task.resume()
+    }
+    
+    func refreshContent() {
+        print("refreshContent-  lastURL: \(String(describing: HLNewsViewModel.lastURL))")
+        if let url = HLNewsViewModel.lastURL {
+            fetch(url: url)
+        }
     }
 
     func fetchTopHeadlines() {

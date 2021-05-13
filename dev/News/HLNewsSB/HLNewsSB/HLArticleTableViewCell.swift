@@ -17,13 +17,14 @@ class HLArticleTableViewCell: UITableViewCell {
     var urlString: String? {
         didSet {
             if let url = urlString {
-                urlToImageView.loadAsyncFrom(url: url, placeholder: nil)
+                urlToImageView.loadAsyncFrom(url: url, placeholder: placeholderImage)
             }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+   //    urlToImageView.sizeToFit()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

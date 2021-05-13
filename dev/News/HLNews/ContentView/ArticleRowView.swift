@@ -31,9 +31,9 @@ struct ArticleRowView: View {
                     placeholder: { Text("Loading ...") },
                     image: { Image(uiImage: $0)
                     .resizable()
-                    })
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 150)
+                })
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 150)
                //     .frame(width: 200, height: 200, alignment: .center)
                 }
             }
