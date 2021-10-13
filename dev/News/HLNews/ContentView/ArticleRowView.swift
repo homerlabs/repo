@@ -27,14 +27,12 @@ struct ArticleRowView: View {
             Spacer()
             
             if article.urlToImage != nil {
-                AsyncImage(url: URL(string: article.urlToImage!)!,
-                    placeholder: { Text("Loading ...") },
-                    image: { Image(uiImage: $0)
-                    .resizable()
-                })
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 150)
-               //     .frame(width: 200, height: 200, alignment: .center)
+                AsyncImage(url: URL(string: article.urlToImage!)) { image in
+                    image.resizable().aspectRatio(contentMode: .fit)
+                } placeholder: {
+                    Color.blue
+                }
+                .frame(width: 200, height: 100, alignment: .trailing)
                 }
             }
         }

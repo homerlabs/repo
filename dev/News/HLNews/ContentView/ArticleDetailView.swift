@@ -9,22 +9,15 @@ import SwiftUI
 
 struct ArticleDetailView: View {
     let urlString: String
-    @State var javaScriptEnabled = true
     
     var body: some View {
         NavigationView {
-            WebViewContentView(urlString: urlString, javascriptEnabled: javaScriptEnabled)
+            WebViewContentView(urlString: urlString)
         }
-        .navigationBarItems(trailing: Button(action: {
-            javaScriptEnabled.toggle()
-            updateWebView()
-        },
-            label: {Text(javaScriptEnabled ? "JS Enabled" : "JS Disabled")})
-        )
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func updateWebView() {
-        let _ = WebViewContentView(urlString: urlString, javascriptEnabled: javaScriptEnabled)
+        let _ = WebViewContentView(urlString: urlString)
     }
 }

@@ -17,7 +17,6 @@
 		B03E952926449A16009AB120 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E952626449A16009AB120 /* ContentView.swift */; };
 		B03E952D26449A1D009AB120 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E952B26449A1D009AB120 /* Article.swift */; };
 		B03E952E26449A1D009AB120 /* TopHeadlinesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E952C26449A1D009AB120 /* TopHeadlinesRequest.swift */; };
-		B03E953226449A42009AB120 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E953126449A42009AB120 /* AsyncImage.swift */; };
 		B03E953426449E01009AB120 /* HLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E953326449E01009AB120 /* HLNewsViewModel.swift */; };
 		B081FF53265C0C940060E72B /* WebViewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081FF52265C0C940060E72B /* WebViewContentView.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +34,6 @@
 		B03E952626449A16009AB120 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B03E952B26449A1D009AB120 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		B03E952C26449A1D009AB120 /* TopHeadlinesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopHeadlinesRequest.swift; sourceTree = "<group>"; };
-		B03E953126449A42009AB120 /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		B03E953326449E01009AB120 /* HLNewsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLNewsViewModel.swift; sourceTree = "<group>"; };
 		B081FF52265C0C940060E72B /* WebViewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				B03E953326449E01009AB120 /* HLNewsViewModel.swift */,
-				B03E953126449A42009AB120 /* AsyncImage.swift */,
 				B03E950F26449979009AB120 /* AppDelegate.swift */,
 				B03E951126449979009AB120 /* SceneDelegate.swift */,
 				B03E951526449979009AB120 /* Assets.xcassets */,
@@ -188,7 +185,6 @@
 				B03E952D26449A1D009AB120 /* Article.swift in Sources */,
 				B03E953426449E01009AB120 /* HLNewsViewModel.swift in Sources */,
 				B03E951026449979009AB120 /* AppDelegate.swift in Sources */,
-				B03E953226449A42009AB120 /* AsyncImage.swift in Sources */,
 				B03E952726449A16009AB120 /* ArticleRowView.swift in Sources */,
 				B03E951226449979009AB120 /* SceneDelegate.swift in Sources */,
 				B03E952E26449A1D009AB120 /* TopHeadlinesRequest.swift in Sources */,
@@ -260,7 +256,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -315,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

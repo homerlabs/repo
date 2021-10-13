@@ -10,13 +10,13 @@ import SwiftUI
 //  http://www.mypet.com/img/basic-pet-care/how-long-leave-cat-alone-lead.jpg
 
 struct ContentView: View {
-    let searchBackgroundColor = Color(red: 0.1, green: 0.3, blue: 0.4, opacity: 0.3)
+    let searchBackgroundColor = Color(red: 0.1, green: 0.3, blue: 0.6, opacity: 0.2)
     
     @ObservedObject var newsViewModel = HLNewsViewModel()
     var body: some View {
         NavigationView {
             VStack {
-                HStack(alignment: .center) {
+                HStack(alignment: .top) {
                     Text("Search: ")
                     TextField(newsViewModel.searchString, text: $newsViewModel.searchString, onCommit: {
                         if newsViewModel.searchString.count > 0 {
@@ -27,8 +27,8 @@ struct ContentView: View {
                         }
                         print("newsViewModel.fetch")
                     })
-                    .background(searchBackgroundColor)
                 }
+                .background(searchBackgroundColor)
 
                 List(newsViewModel.articles, id: \.url) { article in
                     ArticleRowView(article: article)
