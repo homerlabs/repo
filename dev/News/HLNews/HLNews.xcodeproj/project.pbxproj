@@ -19,6 +19,7 @@
 		B03E952E26449A1D009AB120 /* TopHeadlinesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E952C26449A1D009AB120 /* TopHeadlinesRequest.swift */; };
 		B03E953226449A42009AB120 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E953126449A42009AB120 /* AsyncImage.swift */; };
 		B03E953426449E01009AB120 /* HLNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E953326449E01009AB120 /* HLNewsViewModel.swift */; };
+		B081FF53265C0C940060E72B /* WebViewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B081FF52265C0C940060E72B /* WebViewContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B03E952C26449A1D009AB120 /* TopHeadlinesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopHeadlinesRequest.swift; sourceTree = "<group>"; };
 		B03E953126449A42009AB120 /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		B03E953326449E01009AB120 /* HLNewsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLNewsViewModel.swift; sourceTree = "<group>"; };
+		B081FF52265C0C940060E72B /* WebViewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				B03E952426449A16009AB120 /* ArticleRowView.swift */,
 				B03E952526449A16009AB120 /* ArticleDetailView.swift */,
 				B03E952626449A16009AB120 /* ContentView.swift */,
+				B081FF52265C0C940060E72B /* WebViewContentView.swift */,
 			);
 			path = ContentView;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B081FF53265C0C940060E72B /* WebViewContentView.swift in Sources */,
 				B03E952826449A16009AB120 /* ArticleDetailView.swift in Sources */,
 				B03E952926449A16009AB120 /* ContentView.swift in Sources */,
 				B03E952D26449A1D009AB120 /* Article.swift in Sources */,
