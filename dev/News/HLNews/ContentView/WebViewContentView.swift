@@ -10,10 +10,12 @@ import WebKit
 
 struct WebViewContentView: UIViewRepresentable {
     let urlString: String
-    
+    let javascriptEnabled: Bool
+
     func makeUIView(context: Context) -> WKWebView  {
         let configuration = WKWebViewConfiguration()
-        configuration.defaultWebpagePreferences.allowsContentJavaScript = false
+        print("newsViewModel.javascriptEnabled: \(javascriptEnabled)")
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = javascriptEnabled
 
         let webView = WKWebView(frame: CGRect.zero, configuration: configuration)
         return webView
@@ -29,6 +31,6 @@ struct WebViewContentView: UIViewRepresentable {
 
 struct WebViewContentView_Previews: PreviewProvider {
     static var previews: some View {
-        WebViewContentView(urlString: "https://nypost.com/2021/03/26/jen-psaki-says-biden-will-sign-gun-control-executive-orders/")
+        WebViewContentView(urlString: "https://nypost.com/2021/03/26/jen-psaki-says-biden-will-sign-gun-control-executive-orders/", javascriptEnabled: true)
     }
 }

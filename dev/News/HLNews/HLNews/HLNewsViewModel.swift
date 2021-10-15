@@ -9,12 +9,11 @@ import SwiftUI
 //    let httpString = "https://newsapi.org/v2/top-headlines?country=us&apiKey=0e1e28addfd5486ca24055fdd8d2048b"
 
 class HLNewsViewModel: ObservableObject {
-    @Published var searchString: String = ""
     static var lastURL: URL?
-    
     let API_KEY = "&apiKey=0e1e28addfd5486ca24055fdd8d2048b"
     let baseHTTPString = "https://newsapi.org/v2/"
 
+    @Published var searchString: String = ""
     @Published var articles: [Article] = []
     
     func fetchSearch(_ search: String) {
@@ -73,3 +72,9 @@ class HLNewsViewModel: ObservableObject {
         }
     }
 }
+
+/*extension HLNewsViewModel: CustomStringConvertible {
+    public var description: String {
+        "jsEnabled:\(javascriptEnabled)"
+    }
+}   */

@@ -11,12 +11,15 @@ import SwiftUI
 
 struct ContentView: View {
     let searchBackgroundColor = Color(red: 0.1, green: 0.3, blue: 0.6, opacity: 0.2)
-    
+
     @ObservedObject var newsViewModel = HLNewsViewModel()
+    @State var javascriptEnabled = false
+
     var body: some View {
         NavigationView {
             VStack {
-                HStack(alignment: .top) {
+                Spacer()
+                HStack() {
                     Text("Search: ")
                     TextField(newsViewModel.searchString, text: $newsViewModel.searchString, onCommit: {
                         if newsViewModel.searchString.count > 0 {
@@ -27,15 +30,20 @@ struct ContentView: View {
                         }
                         print("newsViewModel.fetch")
                     })
+                    .background(searchBackgroundColor)
                 }
-                .background(searchBackgroundColor)
+                .padding([.horizontal])
 
                 List(newsViewModel.articles, id: \.url) { article in
-                    ArticleRowView(article: article)
+                    ArticleRowView(article: article, javascriptEnabled: javascriptEnabled)
                 }
             }
             .navigationBarTitle("Top Stories", displayMode: .inline)
-           }
+            .navigationBarItems(trailing: Button(action: {
+                javascriptEnabled.toggle()
+                },
+                      label: { Text(javascriptEnabled ? "JS Enabled" : "JS Disabled")}))
+                }
             .onAppear {
                 print("onAppear")
                 newsViewModel.fetchTopHeadlines()

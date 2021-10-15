@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ArticleRowView: View {
     var article: Article
-    
+    let javascriptEnabled: Bool
+
     var body: some View {
-        NavigationLink(destination: ArticleDetailView(urlString: article.url)) {
+        NavigationLink(destination: ArticleDetailView(urlString: article.url, javascriptEnabled: javascriptEnabled)) {
             HStack(alignment: .top, spacing: 1) {
                 VStack(alignment: .leading, spacing: 1) {
                     Text(article.title)
@@ -41,6 +42,6 @@ struct ArticleRowView: View {
 
 struct ArticleRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleRowView(article: Article.generateTestData())
+        ArticleRowView(article: Article.generateTestData(), javascriptEnabled: false)
     }
 }

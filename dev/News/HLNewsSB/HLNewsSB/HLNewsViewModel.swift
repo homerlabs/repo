@@ -9,7 +9,7 @@ import Foundation
 //  https://newsapi.org/docs
 //  https://newsapi.org/v2/everything?q=Apple&from=2021-04-07&sortBy=popularity&apiKey=API_KEY
 
-protocol LoadRequestComplete: class {
+protocol LoadRequestComplete: AnyObject {
     func dataReady(data: [Article])
 }
 
