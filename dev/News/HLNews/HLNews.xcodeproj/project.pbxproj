@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B029C5C52728C54000F91565 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B029C5C42728C54000F91565 /* AsyncImage.swift */; };
 		B03E951026449979009AB120 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E950F26449979009AB120 /* AppDelegate.swift */; };
 		B03E951226449979009AB120 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03E951126449979009AB120 /* SceneDelegate.swift */; };
 		B03E951626449979009AB120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B03E951526449979009AB120 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B029C5C42728C54000F91565 /* AsyncImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		B03E950C26449979009AB120 /* HLNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B03E950F26449979009AB120 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B03E951126449979009AB120 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		B03E950E26449979009AB120 /* HLNews */ = {
 			isa = PBXGroup;
 			children = (
+				B029C5C42728C54000F91565 /* AsyncImage.swift */,
 				B03E953326449E01009AB120 /* HLNewsViewModel.swift */,
 				B03E950F26449979009AB120 /* AppDelegate.swift */,
 				B03E951126449979009AB120 /* SceneDelegate.swift */,
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B029C5C52728C54000F91565 /* AsyncImage.swift in Sources */,
 				B081FF53265C0C940060E72B /* WebViewContentView.swift in Sources */,
 				B03E952826449A16009AB120 /* ArticleDetailView.swift in Sources */,
 				B03E952926449A16009AB120 /* ContentView.swift in Sources */,

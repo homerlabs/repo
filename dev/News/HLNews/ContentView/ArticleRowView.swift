@@ -10,7 +10,7 @@ import SwiftUI
 struct ArticleRowView: View {
     var article: Article
     let javascriptEnabled: Bool
-
+    
     var body: some View {
         NavigationLink(destination: ArticleDetailView(urlString: article.url, javascriptEnabled: javascriptEnabled)) {
             HStack(alignment: .top, spacing: 1) {
@@ -26,14 +26,26 @@ struct ArticleRowView: View {
             }
 
             Spacer()
-            
-            if article.urlToImage != nil {
-                AsyncImage(url: URL(string: article.urlToImage!)) { image in
-                    image.resizable().aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    Color.blue
+                
+  /*          if let urlString = article.urlToImage, let url = URL(string: urlString) {
+                    AsyncImage(url: URL(string: article.urlToImage!)) { image in
+                        image.resizable().aspectRatio(contentMode: .fit)
+                        let im: Image = image
+                    //    imageCache[url] = im
+                    } placeholder: {
+                        Color.blue
+                    }
+                    .frame(width: 200, height: 100, alignment: .trailing)
                 }
-                .frame(width: 200, height: 100, alignment: .trailing)
+*/
+            if article.urlToImage != nil {
+                AsyncImage(url: URL(string: article.urlToImage!)!,
+                           placeholder: { Text("Loading...") },
+                            image: { Image(uiImage: $0)
+                            .resizable()
+                        })
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 150)
                 }
             }
         }
