@@ -19,7 +19,7 @@ class SudokuSolverTests: XCTestCase, PuzzleFactoryProtocol {
         puzzleFactory.getNewPuzzle()
 //     puzzleFactory.getNewPuzzle("8543506682")
         
-        wait(for: [expectationLoadPuzzle], timeout: 3.0)
+        wait(for: [expectationLoadPuzzle], timeout: 7.0)
     }
     
     func puzzleReady(puzzle: HLSolver?) {

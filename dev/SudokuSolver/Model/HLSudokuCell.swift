@@ -8,11 +8,11 @@
 
 import Foundation
 
-public struct HLSudokuCell: Codable {
+public struct HLSudokuCell: Codable, Equatable {
 //    static var counter = 0
     var data: Set<String>
     var status: HLCellStatus
-//    var id = 0
+    var id = 0
     
     init(data: Set<String>, status: HLCellStatus) {
         self.data = data

@@ -18,7 +18,7 @@ struct HLGridView: View {
     var body: some View {
         ZStack {
         LazyVGrid(columns: cellColumns) {
-            ForEach(puzzleViewModel.solver.dataSet.indices) { index in
+            ForEach(puzzleViewModel.solver.dataSet.indices, id: \.self) { index in
                 let cell = puzzleViewModel.solver.dataSet[index]
                 Text("\(cell.setToString())")
                     .multilineTextAlignment(.center)
