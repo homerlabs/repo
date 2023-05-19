@@ -9,17 +9,12 @@
 import Foundation
 
 public struct HLSudokuCell: Codable, Equatable {
-//    static var counter = 0
     var data: Set<String>
     var status: HLCellStatus
-    var id = 0
     
     init(data: Set<String>, status: HLCellStatus) {
         self.data = data
         self.status = status
-    //    id = HLSudokuCell.counter
-   //    print("HLSudokuCell- init  id: \(id)")
-    //    HLSudokuCell.counter += 1
     }
 
     func setToString()-> String     {
@@ -69,16 +64,8 @@ extension HLSudokuCell {
         let stringData = intData.map { String($0) }
         data = Set(stringData)
         status = cellStatus
-     //   id = HLSudokuCell.counter
-     //   HLSudokuCell.counter += 1
     }
 }
-
-/*extension HLSudokuCell: Equatable {
-    public static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.data == rhs.data && lhs.status == rhs.status
-    }
-}*/
 
 extension HLSudokuCell: CustomStringConvertible {
     public var description: String {
