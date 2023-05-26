@@ -15,7 +15,8 @@ struct TopSectionView: View {
     let cellTextColorTable = [Color.green, Color.purple, Color.orange, Color.blue]
 
     var body: some View {
-        HStack(alignment: .center) {
+        VStack(alignment: .center) {
+            HStack(alignment: .center) {
             //*****  Rows, Columns, and Blocks Switches
             VStack {
                 HStack {
@@ -54,6 +55,19 @@ struct TopSectionView: View {
                 Text(puzzleViewModel.solver.puzzleName).padding(.top, 5)
                 Text("Unsolved Nodes: \(puzzleViewModel.solver.unsolvedNodeCount)").padding(.top, 3)
             }
+        }
+        
+        Button(action: {
+            self.puzzleViewModel.isOffline.toggle()
+            print("Toggle OfflineMode Button: self.puzzleViewModel.isOffline: \(self.puzzleViewModel.isOffline)")
+       }) {
+           if puzzleViewModel.isOffline {
+               Text("Offline Mode")
+           }
+           else {
+               Text("Online")
+           }
+       }
         }
     }
 }

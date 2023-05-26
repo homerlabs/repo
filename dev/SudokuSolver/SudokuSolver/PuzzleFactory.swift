@@ -23,38 +23,44 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
     var delegate: PuzzleFactoryProtocol?
     
     //  get random puzzle
-    public func getNewPuzzle() {
-        getNewPuzzle(puzzleId: "")
+    public func getNewPuzzle(isOffline: Bool) {
+        getNewPuzzle(isOffline: isOffline, puzzleId: "")
     }
 
     //  get specific puzzle 
-    public func getNewPuzzle(puzzleId: String) {
-        var url = websudokuURL
+    public func getNewPuzzle(isOffline: Bool, puzzleId: String) {
         
-        //  special case where loadRequest is not needed, so we can call puzzleReady() right away
-        if puzzleId == PuzzleFactory.test_data {
-            var testPuzzle = HLSolver()
-            testPuzzle.puzzleName = "TestData--1->81"
-            for index in 0..<81 {
-                var cell = testPuzzle.dataSet[index]
-                cell = HLSudokuCell(data: Set(arrayLiteral: String(index+1+100000000)), status: .givenStatus)
-                testPuzzle.dataSet[index] = cell
-            }
-            self.delegate?.puzzleReady(puzzle: testPuzzle)
+        if isOffline {
             
-            //  remember-  no loadRequest
-            return
         }
-        
-        if puzzleId.count > 0 {
-            let urlWithIdString = String(format: "https://nine.websudoku.com/?level=4&set_id=\(puzzleId)")
-            if let urlWithId = URL(string: urlWithIdString) {
-                url = urlWithId
+        else {
+            var url = websudokuURL
+            
+            //  special case where loadRequest is not needed, so we can call puzzleReady() right away
+            if puzzleId == PuzzleFactory.test_data {
+                var testPuzzle = HLSolver()
+                testPuzzle.puzzleName = "TestData--1->81"
+                for index in 0..<81 {
+                    var cell = testPuzzle.dataSet[index]
+                    cell = HLSudokuCell(data: Set(arrayLiteral: String(index+1+100000000)), status: .givenStatus)
+                    testPuzzle.dataSet[index] = cell
+                }
+                self.delegate?.puzzleReady(puzzle: testPuzzle)
+                
+                //  remember-  no loadRequest
+                return
             }
+            
+            if puzzleId.count > 0 {
+                let urlWithIdString = String(format: "https://nine.websudoku.com/?level=4&set_id=\(puzzleId)")
+                if let urlWithId = URL(string: urlWithIdString) {
+                    url = urlWithId
+                }
+            }
+            print("PuzzleFactory-  getNewPuzzle")
+            let request = URLRequest(url: url)
+            hlWebView.load(request)
         }
-        print("PuzzleFactory-  getNewPuzzle")
-        let request = URLRequest(url: url)
-        hlWebView.load(request)
     }
     
     //  must be declared public because of WKNavigation

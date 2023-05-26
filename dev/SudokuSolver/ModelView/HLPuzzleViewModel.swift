@@ -17,7 +17,8 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
     @Published var testColumns = true
     @Published var testBlocks = true
     @Published var undoButtonEnabled = false
-    
+    @Published var isOffline = false
+
     var puzzleFactory = PuzzleFactory()
     var previousState = HLPuzzleState.initial
 
@@ -25,10 +26,12 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
     let hlKeySettingColumn      = "hlKeySettingColumn"
     let hlKeySettingBlock       = "hlKeySettingBlock"
     let hlKeySettingAlgorithm   = "hlKeySettingAlgorithm"
-        
+    let hlKeyOfflineMode        = "hlKeyOfflineMode"
+
     func puzzleReady(puzzle: HLSolver?) {
+        print("puzzleReady: \(String(describing: puzzle))")
+
         if let puzzle = puzzle {
-            print("puzzleReady: \(puzzle)")
             
             //*******************************************************
             //  replacing solver object will break the SwiftUI!!
@@ -87,13 +90,15 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
         UserDefaults.standard.set(!testColumns, forKey: hlKeySettingColumn)
         UserDefaults.standard.set(!testBlocks, forKey: hlKeySettingBlock)
         UserDefaults.standard.set(algorithmSelected.rawValue, forKey: hlKeySettingAlgorithm)
+        
+        UserDefaults.standard.set(isOffline, forKey: hlKeyOfflineMode)
     }
     
     func getNewPuzzle() {
         solver.puzzleState = .initial
         solver.puzzleName = " "
         undoButtonEnabled = false
-        puzzleFactory.getNewPuzzle()
+        puzzleFactory.getNewPuzzle(isOffline: isOffline)
         
         //  use to fetch specific puzzle
         //     puzzleFactory.getNewPuzzle(puzzleId: "8543506682")
@@ -123,5 +128,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
         testColumns = !UserDefaults.standard.bool(forKey: hlKeySettingColumn)
         testBlocks = !UserDefaults.standard.bool(forKey: hlKeySettingBlock)
         algorithmSelected = HLAlgorithmMode(rawValue: UserDefaults.standard.integer(forKey: hlKeySettingAlgorithm))!
+        
+        isOffline = UserDefaults.standard.bool(forKey: hlKeyOfflineMode)
     }
 }
