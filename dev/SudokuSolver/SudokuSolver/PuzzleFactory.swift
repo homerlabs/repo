@@ -16,6 +16,8 @@ public protocol PuzzleFactoryProtocol {
 
 public class PuzzleFactory: NSObject, WKNavigationDelegate {
     static let test_data = "test_data"
+    let offlineManager = HLOfflineManager()
+
     let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
 
@@ -59,7 +61,7 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
             }
             print("PuzzleFactory-  getNewPuzzle")
             let request = URLRequest(url: url)
-            hlWebView.load(request)
+    //        hlWebView.load(request)
         }
     }
     
@@ -106,10 +108,14 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
             }
             
     //        print( "puzzleString: \(puzzleString)" )
+            //  at this point, have parsed all 81 cells, now get puzzleName
             if let range: Range<String.Index> = puzzleString.range(of:"Copy link for this puzzle\">")  {
                 puzzleString = String(puzzleString[range.upperBound..<puzzleString.endIndex])
                 if let range2: Range<String.Index> = puzzleString.range(of:"</a>")  {
+                    
                     let puzzleName = String(puzzleString[puzzleString.startIndex..<range2.lowerBound])
+                    offlineManager.insertPuzzle(data: puzzleArray, name: puzzleName)
+                    
                     let dataSet = HLSolver.loadWithIntegerArray(puzzleArray)
                     solver = HLSolver(dataSet, puzzleName: puzzleName, puzzleState: .initial)
                 }

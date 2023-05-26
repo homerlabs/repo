@@ -13,17 +13,37 @@ struct HLPuzzleRaw: Codable {
     let name: String
 }
 
-class HLOfflineManager {
-    var pusszleStore: [HLPuzzleRaw]?
-    let hlKeyPuzzleCount = "hlKeyPuzzleCount"
-    var puzzleCount = 0
+class HLOfflineManager: NSObject {
+    var puzzleStore: [HLPuzzleRaw] = []
+    let hlKeyPuzzleCountLimit = "hlKeyPuzzleCountLimit"
+    let hlKeyPuzzleData = "hlKeyPuzzleData"
+    var puzzleCountLimit = 3
 
     public func insertPuzzle(data: [Int], name: String) {
         print("insertPuzzle  name: \(name)")
+        
+        if puzzleStore.count < puzzleCountLimit {
+            let puzzle = HLPuzzleRaw(data: data, name: name)
+            puzzleStore.append(puzzle)
+        }
     }
     
     public func fetchRandomPuzzle() -> HLPuzzleRaw? {
-        print("fetchRandomPuzzle  pusszleStore: \(String(describing: pusszleStore?.count))")
+        print("fetchRandomPuzzle  pusszleStore: \(String(describing: puzzleStore.count))")
         return nil
     }
+    
+    override init() {
+        print("HLOfflineManager-  init")
+        puzzleCountLimit = UserDefaults.standard.integer(forKey: hlKeyPuzzleCountLimit)
+        puzzleStore = UserDefaults.standard.object(forKey: hlKeyPuzzleData) as! [HLPuzzleRaw]
+    }
+    
+    deinit {
+        print("HLOfflineManager-  deinit")
+        print("HLOfflineManager-  pusszleStore: \(puzzleStore)")
+        UserDefaults.standard.set(puzzleCountLimit, forKey: hlKeyPuzzleCountLimit)
+        UserDefaults.standard.set(puzzleStore, forKey: hlKeyPuzzleData)
+    }
+    
 }
