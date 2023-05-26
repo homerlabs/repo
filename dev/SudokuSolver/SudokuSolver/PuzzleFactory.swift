@@ -61,7 +61,7 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
             }
             print("PuzzleFactory-  getNewPuzzle")
             let request = URLRequest(url: url)
-    //        hlWebView.load(request)
+            hlWebView.load(request)
         }
     }
     

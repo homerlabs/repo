@@ -13,11 +13,16 @@ struct HLPuzzleRaw: Codable {
     let name: String
 }
 
+struct HLPuzzleOfflineDataSet: Codable {
+    let data: [HLPuzzleRaw]
+}
+
 class HLOfflineManager: NSObject {
     var puzzleStore: [HLPuzzleRaw] = []
     let hlKeyPuzzleCountLimit = "hlKeyPuzzleCountLimit"
     let hlKeyPuzzleData = "hlKeyPuzzleData"
-    var puzzleCountLimit = 3
+    let puzzleCountLimitDefault = 3
+    var puzzleCountLimit = 0
 
     public func insertPuzzle(data: [Int], name: String) {
         print("insertPuzzle  name: \(name)")
@@ -25,6 +30,8 @@ class HLOfflineManager: NSObject {
         if puzzleStore.count < puzzleCountLimit {
             let puzzle = HLPuzzleRaw(data: data, name: name)
             puzzleStore.append(puzzle)
+            
+            saveSetting()
         }
     }
     
@@ -33,17 +40,37 @@ class HLOfflineManager: NSObject {
         return nil
     }
     
+    func saveSetting() {
+        print("HLOfflineManager-  saveSetting")
+        print("HLOfflineManager saveSetting-  pusszleStore: \(puzzleStore)")
+        UserDefaults.standard.set(puzzleCountLimit, forKey: hlKeyPuzzleCountLimit)
+        
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(HLPuzzleOfflineDataSet(data: puzzleStore))
+            UserDefaults.standard.set(data, forKey: hlKeyPuzzleData)
+        } catch {
+            print("Unable to Encode puzzleDataset (\(error))")
+        }
+    }
+    
     override init() {
         print("HLOfflineManager-  init")
         puzzleCountLimit = UserDefaults.standard.integer(forKey: hlKeyPuzzleCountLimit)
-        puzzleStore = UserDefaults.standard.object(forKey: hlKeyPuzzleData) as! [HLPuzzleRaw]
+        if puzzleCountLimit == 0 {
+            puzzleCountLimit = puzzleCountLimitDefault
+        }
+        
+        if let data = UserDefaults.standard.data(forKey: hlKeyPuzzleData) {
+            do {
+                let decoder = JSONDecoder()
+                let offlineDataset = try decoder.decode(HLPuzzleOfflineDataSet.self, from: data)
+                puzzleStore = offlineDataset.data
+                
+            } catch {
+                print("Unable to Decode offlineDataset (\(error))")
+            }
+        }
+        print("HLOfflineManager init-  pusszleStore: \(puzzleStore)")
     }
-    
-    deinit {
-        print("HLOfflineManager-  deinit")
-        print("HLOfflineManager-  pusszleStore: \(puzzleStore)")
-        UserDefaults.standard.set(puzzleCountLimit, forKey: hlKeyPuzzleCountLimit)
-        UserDefaults.standard.set(puzzleStore, forKey: hlKeyPuzzleData)
-    }
-    
 }
