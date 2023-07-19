@@ -59,13 +59,13 @@ struct TopSectionView: View {
         
         Button(action: {
             self.puzzleViewModel.isOffline.toggle()
-            print("Toggle OfflineMode Button: self.puzzleViewModel.isOffline: \(self.puzzleViewModel.isOffline)")
+            UserDefaults.standard.set(self.puzzleViewModel.isOffline, forKey: self.puzzleViewModel.hlKeyOfflineMode)
        }) {
            if puzzleViewModel.isOffline {
-               Text("Offline Mode")
+               Text("Go Online")
            }
            else {
-               Text("Online")
+               Text("Go Offline")
            }
        }
         }

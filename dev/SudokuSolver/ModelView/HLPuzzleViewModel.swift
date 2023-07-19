@@ -41,6 +41,7 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
             self.solver.dataSet = puzzle.dataSet
             self.solver.puzzleName = puzzle.puzzleName
             self.solver.puzzleState = puzzle.puzzleState
+            self.solver.updateUnsolvedCount()
         }
     }
 
@@ -118,17 +119,17 @@ class HLPuzzleViewModel: NSObject, ObservableObject, PuzzleFactoryProtocol {
     }
     
     override init() {
-        print("HLPuzzleViewModel-  init")
         super.init()
         puzzleFactory.delegate = self
-        getNewPuzzle()
         
         //  by negating the returned value we change the default to true
         testRows = !UserDefaults.standard.bool(forKey: hlKeySettingRow)
         testColumns = !UserDefaults.standard.bool(forKey: hlKeySettingColumn)
         testBlocks = !UserDefaults.standard.bool(forKey: hlKeySettingBlock)
         algorithmSelected = HLAlgorithmMode(rawValue: UserDefaults.standard.integer(forKey: hlKeySettingAlgorithm))!
-        
         isOffline = UserDefaults.standard.bool(forKey: hlKeyOfflineMode)
+        
+        print("HLPuzzleViewModel-  init:  isOffline: \(isOffline)")
+        getNewPuzzle()
     }
 }

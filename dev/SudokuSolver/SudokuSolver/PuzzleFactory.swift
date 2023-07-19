@@ -17,6 +17,7 @@ public protocol PuzzleFactoryProtocol {
 public class PuzzleFactory: NSObject, WKNavigationDelegate {
     static let test_data = "test_data"
     let offlineManager = HLOfflineManager()
+    var offlinePuzzleIndex = 0
 
     let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4")!
 //    let websudokuURL = URL(string: "https://nine.websudoku.com/?level=4&set_id=8543506682")!
@@ -33,7 +34,17 @@ public class PuzzleFactory: NSObject, WKNavigationDelegate {
     public func getNewPuzzle(isOffline: Bool, puzzleId: String) {
         
         if isOffline {
+            let puzzleRaw = offlineManager.puzzleStore[offlinePuzzleIndex]
+            let dataSet = HLSolver.loadWithIntegerArray(puzzleRaw.data)
+            let solver = HLSolver(dataSet, puzzleName: puzzleRaw.name, puzzleState: .initial)
             
+            offlinePuzzleIndex += 1
+            //  don't let index go past end of array
+            if offlinePuzzleIndex >= offlineManager.puzzleStore.count {
+                offlinePuzzleIndex = 0
+            }
+
+            self.delegate?.puzzleReady(puzzle: solver)
         }
         else {
             var url = websudokuURL

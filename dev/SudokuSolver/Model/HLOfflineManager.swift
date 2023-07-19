@@ -55,7 +55,6 @@ class HLOfflineManager: NSObject {
     }
     
     override init() {
-        print("HLOfflineManager-  init")
         puzzleCountLimit = UserDefaults.standard.integer(forKey: hlKeyPuzzleCountLimit)
         if puzzleCountLimit == 0 {
             puzzleCountLimit = puzzleCountLimitDefault
