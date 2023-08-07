@@ -16,10 +16,10 @@ class SudokuSolverTests: XCTestCase, PuzzleFactoryProtocol {
     let expectationLoadPuzzle = XCTestExpectation(description: "Wait for puzzle to load")
     
     func testNewPuzzle() {
-        puzzleFactory.getNewPuzzle(isOffline: false)
+        puzzleFactory.getNewPuzzle(isOffline: true)
 //     puzzleFactory.getNewPuzzle("8543506682")
         
-        wait(for: [expectationLoadPuzzle], timeout: 7.0)
+        wait(for: [expectationLoadPuzzle], timeout: 1.0)
     }
     
     func puzzleReady(puzzle: HLSolver?) {
