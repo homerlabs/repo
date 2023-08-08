@@ -10,11 +10,22 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    func resetState() {
+        print("AppDelegate.resetState")
+        let defaultsName = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: defaultsName)
 
-
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        print("didFinishLaunchingWithOptions-  CommandLine.arguments: \(CommandLine.arguments)")
+
+        if CommandLine.arguments.contains("--uitesting") {
+            resetState()
+        }
+
         return true
     }
 

@@ -16,7 +16,8 @@ struct LoadSaveView: View {
             Spacer()
             VStack {
                 Button(action: {
-                    puzzleViewModel.solver.saveData(puzzleViewModel.solver.dataSet)
+                    puzzleViewModel.solver.saveDataToUserDefaults(puzzleViewModel.solver.dataSet)
+                    puzzleViewModel.solver.saveDataToDocuments(puzzleViewModel.solver.dataSet)
                 }) {
                     Text("Save")
                         .foregroundColor(.red)

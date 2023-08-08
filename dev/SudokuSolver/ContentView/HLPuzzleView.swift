@@ -10,7 +10,6 @@ import SwiftUI
 
 struct HLPuzzleView: View {
 
- //   let offlineManager = HLOfflineManager()
     @ObservedObject var puzzleViewModel = HLPuzzleViewModel()
     let mainPaddingX: CGFloat = 30
     let mainPaddingY: CGFloat = 15

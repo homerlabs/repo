@@ -39,6 +39,17 @@
                ReferencedContainer = "container:SudokuSolver.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B089638E2A817750008C170D"
+               BuildableName = "HLSudokuSolverUITests.xctest"
+               BlueprintName = "HLSudokuSolverUITests"
+               ReferencedContainer = "container:SudokuSolver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

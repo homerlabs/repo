@@ -569,7 +569,7 @@ public struct HLSolver: Codable {
         print("\n")
     }
 
-    func saveData(_ dataSet: [HLSudokuCell]) {
+    func saveDataToUserDefaults(_ dataSet: [HLSudokuCell]) {
         print( "HLSolver-  saveData:  \(puzzleName)" )
         
         let solver = HLSolver(dataSet, puzzleName: puzzleName, puzzleState: puzzleState)
@@ -577,6 +577,22 @@ public struct HLSolver: Codable {
         if let data = try? plistEncoder.encode(solver) {
             UserDefaults.standard.set(data, forKey: HLSolver.puzzleDataKey)
         }
+        
+    }
+
+    func saveDataToDocuments(_ dataSet: [HLSudokuCell]) {
+        print( "HLSolver-  saveData2:  \(puzzleName)" )
+        
+        let solver = HLSolver(dataSet, puzzleName: puzzleName, puzzleState: puzzleState)
+        let plistEncoder = PropertyListEncoder()
+        if let data = try? plistEncoder.encode(solver) {
+            let documentsDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let url = documentsDirectory.appendingPathComponent("puzzle.plist")
+            print( "HLSolver.saveData:  url:  \(url)" )
+
+            try! data.write(to: url)
+        }
+        
     }
 
     mutating func fastSolve() {
