@@ -14,6 +14,7 @@ struct PrimeFinderView: View {
     @State private var showErrorFindPrimes: Bool = false
     @State private var showErrorFindNicePrimes: Bool = false
     @State private var showErrorInvalidData: Bool = false
+    let numberOfProcessesWidth: CGFloat = 80.0
     let terminalPrimeWidth: CGFloat = 100.0
     let outsidePaddingValue: CGFloat = 16
     let verticalPaddingValue: CGFloat = 12
@@ -23,8 +24,8 @@ struct PrimeFinderView: View {
 
     var body: some View {
         
-        VStack {
-            Form {
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 //**********  primes url
                 HStack {
                     Button(action: {
@@ -82,79 +83,104 @@ struct PrimeFinderView: View {
                         }
                   })
                     .frame(width: terminalPrimeWidth)
-                    Spacer()
-                 
-                    Text("Percent completed: \(pfViewModel.progress)")
+                   
                }
               .alert(isPresented: $showErrorInvalidData) {
                     Alert(title: Text("Invalid data in TextField"), message: Text("'Terminal Prime' value must be a non-zero integer"))}
                 .padding(.top, verticalPaddingValue)
-            }
-
-            //**********  Status
-            HStack {
-                Text("Status: ")
-                Text(pfViewModel.status)
-                Spacer()
-            }
-            .padding(.bottom, verticalPaddingValue)
-        
-            VStack {
-                //**********  FindPrimes Button
-                Button(pfViewModel.findPrimesInProgress ? "   Running   " : " Find Primes ", action: {
-                    if self.pfViewModel.findPrimesInProgress {
-                        self.pfViewModel.stopProcess()
-                    } else {
-                        switch self.pfViewModel.findPrimes() {
-                            
-                            case .invalidDataError:
-                                self.showErrorInvalidData = true
-                            
-                            case .badPrimesFilePathError:
-                                self.pfViewModel.primesURL = nil
-                                self.showErrorFindPrimes = true
-                            
-                            case .badNicePrimesFilePathError, .noError:
-                                break
-                        }
+                
+                //**********  Status
+                HStack {
+                    Text("Status: ")
+                    Text(pfViewModel.status)
+                    Spacer()
+                 
+                    Text("Percent completed: \(pfViewModel.progress)")
+                }
+                .padding(.bottom, verticalPaddingValue)
+            
+                HStack {
+                    Toggle(isOn: $pfViewModel.runInParallel) {
+                        Text("Run in Parallel")
                     }
-                })
-                .alert(isPresented: $showErrorFindPrimes) {
-                    Alert(title: Text("Prime Finder encountered a serious problem!"), message: Text("No valid file path for Primes file."))}
-                .disabled(pfViewModel.findNPrimesInProgress)
+                    
+                    if( pfViewModel.runInParallel ) {
+                        Spacer()
 
-                //**********  FindNPrimes Button
-                Button(pfViewModel.findNPrimesInProgress ? "   Running   " : "Find NPrimes", action: {
-                    if self.pfViewModel.findNPrimesInProgress {
-                        self.pfViewModel.stopProcess()
-                    } else {
-                        switch self.pfViewModel.findNicePrimes() {
-                            
-                            case .invalidDataError:
+                        Text("Number of Processes: ")
+                        TextField(String(pfViewModel.numberOfProcesses), value: $pfViewModel.numberOfProcesses, formatter: NumberFormatter(), onCommit: {
+                            if self.pfViewModel.terminalPrime == 0 {
                                 self.showErrorInvalidData = true
-                            
-                            case .badPrimesFilePathError:
-                                self.pfViewModel.primesURL = nil
-                                self.showErrorFindPrimes = true
-
-                            case .badNicePrimesFilePathError:
-                                self.pfViewModel.nicePrimesURL = nil
-                                self.showErrorFindNicePrimes = true
-                                break
-
-                            case .noError:
-                                break
-                        }
+                            }
+                            else {
+                                UserDefaults.standard.set(pfViewModel.numberOfProcesses, forKey: HLPrime.HLNumberOfProcessesKey)
+                            }
+                        })
+                        .frame(width: numberOfProcessesWidth)
                     }
-                })
-                .alert(isPresented: $showErrorFindNicePrimes) {
-                    Alert(title: Text("Prime Finder encountered a serious problem!"), message: Text("No valid file path for NicePrimes file."))}
-                .disabled(pfViewModel.findPrimesInProgress)
+                }
+         //       Spacer()
             }
         }
-    //    .frame(width: 500, height: 200, alignment: .center)
         .padding(outsidePaddingValue)
         .background(windowBackgroundColor)
+
+        Spacer()
+
+        VStack(alignment: .center) {
+            //**********  FindPrimes Button
+            Button(pfViewModel.findPrimesInProgress ? "   Running   " : " Find Primes ", action: {
+                if self.pfViewModel.findPrimesInProgress {
+                    self.pfViewModel.stopProcess()
+                } else {
+                    switch self.pfViewModel.findPrimes() {
+                        
+                        case .invalidDataError:
+                            self.showErrorInvalidData = true
+                        
+                        case .badPrimesFilePathError:
+                            self.pfViewModel.primesURL = nil
+                            self.showErrorFindPrimes = true
+                        
+                        case .badNicePrimesFilePathError, .noError:
+                            break
+                    }
+                }
+            })
+            .alert(isPresented: $showErrorFindPrimes) {
+                Alert(title: Text("Prime Finder encountered a serious problem!"), message: Text("No valid file path for Primes file."))}
+            .disabled(pfViewModel.findNPrimesInProgress)
+
+            //**********  FindNPrimes Button
+            Button(pfViewModel.findNPrimesInProgress ? "   Running   " : "Find NPrimes", action: {
+                if self.pfViewModel.findNPrimesInProgress {
+                    self.pfViewModel.stopProcess()
+                } else {
+                    switch self.pfViewModel.findNicePrimes() {
+                        
+                        case .invalidDataError:
+                            self.showErrorInvalidData = true
+                        
+                        case .badPrimesFilePathError:
+                            self.pfViewModel.primesURL = nil
+                            self.showErrorFindPrimes = true
+
+                        case .badNicePrimesFilePathError:
+                            self.pfViewModel.nicePrimesURL = nil
+                            self.showErrorFindNicePrimes = true
+                            break
+
+                        case .noError:
+                            break
+                    }
+                }
+            })
+            .alert(isPresented: $showErrorFindNicePrimes) {
+                Alert(title: Text("Prime Finder encountered a serious problem!"), message: Text("No valid file path for NicePrimes file."))}
+            .disabled(pfViewModel.findPrimesInProgress)
+        }
+    //    .frame(width: 500, height: 200, alignment: .center)
+        Spacer()
     }
 }
 

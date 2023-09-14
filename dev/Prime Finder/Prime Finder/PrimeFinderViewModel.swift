@@ -17,10 +17,12 @@ enum HLErrorEnum {
 }
 
 class PrimeFinderViewModel: ObservableObject {
+    @Published var numberOfProcesses = 16
     @Published var terminalPrime = HLPrimeType(1000)
     @Published var findPrimesInProgress = false
     @Published var findNPrimesInProgress = false
     @Published var status = "Idle"
+    @Published var runInParallel = false
     @Published var progress = "0"
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
@@ -43,22 +45,45 @@ class PrimeFinderViewModel: ObservableObject {
         let maxPrime = HLPrimeType(terminalPrime)
         findPrimesInProgress = true
 
-        primeFinder.findPrimes3(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
-            guard let self = self else { return }
-            
-            let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
-            print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
-            self.timer.invalidate()
-            self.findPrimesInProgress = false
-            let (lastN, lastP) = result.parseLine()
-            self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
+        if( runInParallel )
+        {
+            primeFinder.findPrimes3(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
+                guard let self = self else { return }
+                
+                let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
+                print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
+                self.timer.invalidate()
+                self.findPrimesInProgress = false
+                let (lastN, lastP) = result.parseLine()
+                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+                self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
 
-            if self.primeFinder.okToRun {
-                self.progress = "100"
-            } else {
-                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
-                self.progress = String(percent)
+                if self.primeFinder.okToRun {
+                    self.progress = "100"
+                } else {
+                    let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+                    self.progress = String(percent)
+                }
+            }
+        }
+        else {
+            primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
+                guard let self = self else { return }
+                
+                let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
+                print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
+                self.timer.invalidate()
+                self.findPrimesInProgress = false
+                let (lastN, lastP) = result.parseLine()
+                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+                self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
+
+                if self.primeFinder.okToRun {
+                    self.progress = "100"
+                } else {
+                    let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+                    self.progress = String(percent)
+                }
             }
         }
         
@@ -130,6 +155,10 @@ class PrimeFinderViewModel: ObservableObject {
 
         if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLTerminalPrimeKey) as? NSNumber {
             terminalPrime = valueP.int64Value
+        }
+
+        if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLNumberOfProcessesKey) as? NSNumber {
+            numberOfProcesses = valueP.intValue
         }
     }
     

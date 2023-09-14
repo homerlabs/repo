@@ -17,6 +17,7 @@ public class HLPrime {
     public static let HLPrimesURLKey     = "HLPrimesURLKey"
     public static let HLNicePrimesKey    = "HLNicePrimesKey"
     public static let HLTerminalPrimeKey = "HLTerminalPrimeKey"
+    public static let HLNumberOfProcessesKey = "HLNumberOfProcessesKey"
 
     let fileManager = HLFileManager.shared
 
