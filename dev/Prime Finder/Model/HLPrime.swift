@@ -32,18 +32,18 @@ public class HLPrime {
 
     //**********************************************************************************************
     //  these are used in findPrimesMultithreaded()
-    let batchCount = 50
-    var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
-    var waitingForBatchId = 0                   //  needs to be protected for multithread
+//    let batchCount = 8
+//    var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
+//    var waitingForBatchId = 0                   //  needs to be protected for multithread
 
-    var operationsQueue = OperationQueue()
-    internal let semaphore = DispatchSemaphore(value: 1)
+//    var operationsQueue = OperationQueue()
+//    internal let semaphore = DispatchSemaphore(value: 1)
         
     public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
         
         let _ = fileManager.createTextFile(url: primeURL)
-        let initialList: String = "1\t2\n2\t3\n"
+        let initialList: String = "1\t2\n"
         let _ = fileManager.appendStringToFile(initialList)
    //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
 
@@ -190,8 +190,8 @@ public class HLPrime {
     public init() {
         let processInfo = ProcessInfo()
         let numberOfCores = processInfo.activeProcessorCount
-        operationsQueue.name = "HLPrimeFinderQueue"
-        operationsQueue.maxConcurrentOperationCount = numberOfCores
+  //      operationsQueue.name = "HLPrimeFinderQueue"
+  //      operationsQueue.maxConcurrentOperationCount = numberOfCores
         print("HLPrime-  init: numberOfCores: \(numberOfCores)")
     }
 }

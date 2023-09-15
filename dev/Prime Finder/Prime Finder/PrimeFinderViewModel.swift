@@ -47,7 +47,7 @@ class PrimeFinderViewModel: ObservableObject {
 
         if( runInParallel )
         {
-            primeFinder.findPrimes3(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
+            primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
                 guard let self = self else { return }
                 
                 let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
