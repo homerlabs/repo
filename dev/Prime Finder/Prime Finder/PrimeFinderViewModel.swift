@@ -17,7 +17,7 @@ enum HLErrorEnum {
 }
 
 class PrimeFinderViewModel: ObservableObject {
-    @Published var numberOfProcesses = 16
+    @Published var processCount = 8
     @Published var terminalPrime = HLPrimeType(1000)
     @Published var findPrimesInProgress = false
     @Published var findNPrimesInProgress = false
@@ -30,6 +30,8 @@ class PrimeFinderViewModel: ObservableObject {
     private let fileManager = HLFileManager.shared
 
     private var primeFinder: HLPrime
+    private var primeFinderParallel: HLPrimeParallel
+
     private var timer = Timer()
     private var updateTimeInSeconds = 4.0
     private let startingMessage = "Starting ..."
@@ -47,7 +49,7 @@ class PrimeFinderViewModel: ObservableObject {
 
         if( runInParallel )
         {
-            primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime) { [weak self] result in
+            primeFinderParallel.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, numberOfProcesses: processCount) { [weak self] result in
                 guard let self = self else { return }
                 
                 let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -149,6 +151,8 @@ class PrimeFinderViewModel: ObservableObject {
 
     init() {
         primeFinder = HLPrime()
+        primeFinderParallel = HLPrimeParallel()
+        
         primesURL = fileManager.getBookmark(HLPrime.HLPrimesURLKey)
         nicePrimesURL = fileManager.getBookmark(HLPrime.HLNicePrimesKey)
  //       print("PrimeFinderViewModel-  init-  primesURL: \(String(describing: primesURL))")
@@ -158,7 +162,7 @@ class PrimeFinderViewModel: ObservableObject {
         }
 
         if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLNumberOfProcessesKey) as? NSNumber {
-            numberOfProcesses = valueP.intValue
+            processCount = valueP.intValue
         }
     }
     

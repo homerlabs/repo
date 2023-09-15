@@ -111,7 +111,7 @@ public class HLPrimeParallel {
     
     //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
     //  uses holdingDict to sync operation outputs
-    func findPrimes3(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
+    func findPrimes2(primeURL: URL, maxPrime: HLPrimeType, numberOfProcesses: Int, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimes3-  maxPrime: \(maxPrime)" )
         let dispatchQueue = DispatchQueue.init(label: "FindPrimes0Queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
         dispatchQueue.async {
@@ -143,11 +143,11 @@ public class HLPrimeParallel {
         }
     }
     
-    //  findPrimes2 stuff
+    //  findPrimes stuff
     //  uses batchCount to make DispacthWorkItems then added to a DispatchGroup
     //  uses holdingDict to sync operation outputs
     //***************************************************************************************************
-    func findPrimes2(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
+    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, numberOfProcesses: Int, completion: @escaping (String) -> Void) {
         print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
         
         findPrimesSetup(maxPrime: maxPrime)
@@ -272,60 +272,6 @@ public class HLPrimeParallel {
         }
     }
     
-    //  a prime (p) is 'nice' if (p-1) / 2 is also prime
-    func makeNicePrimesFile(primeURL: URL, nicePrimeURL: URL, completion: @escaping HLCompletionClosure)    {
-        print( "HLPrime-  makeNicePrimesFile" )
-        
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-
-            var nextLine = self.fileManager.getLastLine(primeURL)
-
-            (self.lastN, self.lastP) = nextLine.parseLine()
-            let lastPrimeInPrimeFile = self.lastP
-            
-            //  now we can create pTable and begin testing for 'nice' primes
-            self.pTable = self.createPTable(maxPrime: self.lastP)
-                
-            self.startDate = Date()
-            
-            let success = self.fileManager.openFileForRead(url: primeURL)
-            guard success else { return }
-            
-            let _ = self.fileManager.createTextFile(url: nicePrimeURL)
-
-            nextLine = self.fileManager.getNextLine()  //  don't check prime '2' for niceness
-            nextLine = self.fileManager.getNextLine()  //  don't check prime '3' for niceness
-
-            self.okToRun = true
-            
-            while !nextLine.isEmpty && self.lastP<=lastPrimeInPrimeFile && self.okToRun   {
-                let possiblePrime = (self.lastP-1) / 2
-                
-                if self.isPrime(possiblePrime) {
-                    self.fileManager.appendStringToFile(nextLine)
-                    self.lastLine = nextLine
-                }
-                
-                nextLine = self.fileManager.getNextLine()
-                if !nextLine.isEmpty {
-                    (self.lastN, self.lastP) = nextLine.parseLine()
-                }
-            }
-            
-            self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
-            self.pTable.removeAll()
-            self.fileManager.closeFileForReading()
-            self.fileManager.closeFileForWritting()
-
-            DispatchQueue.main.async {
-                completion(self.lastLine)
-            }
-        }
-        
-        return
-    }
-
     func isPrime(_ value: HLPrimeType) -> Bool    {
         var candidateIsPrime = true
         let maxTestPrime = Int64(sqrt(Double(value)))
@@ -372,7 +318,7 @@ public class HLPrimeParallel {
                 primeCandidate += 2
         }
 
-        print(String(format: "HLPrime-  createPTable completed in %0.2f seconds and has \(pTable.count) elements,  pTable last value: \(pTable[self.pTable.count - 1])", -Double(startDate.timeIntervalSinceNow)))
+        print(String(format: "HLPrimeParallel-  createPTable completed in %0.2f seconds and has \(pTable.count) elements,  pTable last value: \(pTable[self.pTable.count - 1])", -Double(startDate.timeIntervalSinceNow)))
         return pTable
     }
 
@@ -381,6 +327,6 @@ public class HLPrimeParallel {
         let numberOfCores = processInfo.activeProcessorCount
         operationsQueue.name = "HLPrimeFinderQueue"
         operationsQueue.maxConcurrentOperationCount = numberOfCores
-        print("HLPrime-  init: numberOfCores: \(numberOfCores)")
+        print("HLPrimeParallel-  init: numberOfCores: \(numberOfCores)")
     }
 }

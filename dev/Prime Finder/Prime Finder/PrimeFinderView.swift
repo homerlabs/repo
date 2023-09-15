@@ -108,12 +108,12 @@ struct PrimeFinderView: View {
                         Spacer()
 
                         Text("Number of Processes: ")
-                        TextField(String(pfViewModel.numberOfProcesses), value: $pfViewModel.numberOfProcesses, formatter: NumberFormatter(), onCommit: {
+                        TextField(String(pfViewModel.processCount), value: $pfViewModel.processCount, formatter: NumberFormatter(), onCommit: {
                             if self.pfViewModel.terminalPrime == 0 {
                                 self.showErrorInvalidData = true
                             }
                             else {
-                                UserDefaults.standard.set(pfViewModel.numberOfProcesses, forKey: HLPrime.HLNumberOfProcessesKey)
+                                UserDefaults.standard.set(pfViewModel.processCount, forKey: HLPrime.HLNumberOfProcessesKey)
                             }
                         })
                         .frame(width: numberOfProcessesWidth)

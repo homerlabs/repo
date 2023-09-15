@@ -29,15 +29,6 @@ public class HLPrime {
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
-
-    //**********************************************************************************************
-    //  these are used in findPrimesMultithreaded()
-//    let batchCount = 8
-//    var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
-//    var waitingForBatchId = 0                   //  needs to be protected for multithread
-
-//    var operationsQueue = OperationQueue()
-//    internal let semaphore = DispatchSemaphore(value: 1)
         
     public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
@@ -190,8 +181,6 @@ public class HLPrime {
     public init() {
         let processInfo = ProcessInfo()
         let numberOfCores = processInfo.activeProcessorCount
-  //      operationsQueue.name = "HLPrimeFinderQueue"
-  //      operationsQueue.maxConcurrentOperationCount = numberOfCores
         print("HLPrime-  init: numberOfCores: \(numberOfCores)")
     }
 }
