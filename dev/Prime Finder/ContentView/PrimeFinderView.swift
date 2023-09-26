@@ -14,10 +14,11 @@ struct PrimeFinderView: View {
     @State private var showErrorFindPrimes: Bool = false
     @State private var showErrorFindNicePrimes: Bool = false
     @State private var showErrorInvalidData: Bool = false
-    let numberOfProcessesWidth: CGFloat = 80.0
+    let processCountWidth: CGFloat = 40.0
     let terminalPrimeWidth: CGFloat = 100.0
     let outsidePaddingValue: CGFloat = 16
     let verticalPaddingValue: CGFloat = 12
+    let horizontalPaddingValue: CGFloat = 12
     let textFieldBackgroundColor = Color(red: 0.9, green: 0.9, blue: 0.9)
     let windowBackgroundColor = Color(red: 0.85, green: 0.89, blue: 0.91)
     let fileManager = HLFileManager.shared
@@ -89,6 +90,8 @@ struct PrimeFinderView: View {
                     Alert(title: Text("Invalid data in TextField"), message: Text("'Terminal Prime' value must be a non-zero integer"))}
                 .padding(.top, verticalPaddingValue)
                 
+
+
                 //**********  Status
                 HStack {
                     Text("Status: ")
@@ -97,35 +100,36 @@ struct PrimeFinderView: View {
                  
                     Text("Percent completed: \(pfViewModel.progress)")
                 }
-                .padding(.bottom, verticalPaddingValue)
-            
-                HStack {
-                    Toggle(isOn: $pfViewModel.runInParallel) {
-                        Text("Run in Parallel")
-                    }
-                    
-                    if( pfViewModel.runInParallel ) {
-                        Spacer()
-
-                        Text("Number of Processes: ")
-                        TextField(String(pfViewModel.processCount), value: $pfViewModel.processCount, formatter: NumberFormatter(), onCommit: {
-                            if self.pfViewModel.terminalPrime == 0 {
-                                self.showErrorInvalidData = true
-                            }
-                            else {
-                                UserDefaults.standard.set(pfViewModel.processCount, forKey: HLPrime.HLNumberOfProcessesKey)
-                            }
-                        })
-                        .frame(width: numberOfProcessesWidth)
-                    }
-                }
-         //       Spacer()
+           //     .padding(.bottom, verticalPaddingValue)
             }
-        }
-        .padding(outsidePaddingValue)
-        .background(windowBackgroundColor)
 
-        Spacer()
+            HStack {
+                Toggle(isOn: $pfViewModel.runInParallel) {
+                    Text("Run in Parallel")
+                }
+                
+                if( pfViewModel.runInParallel ) {
+            //        Spacer()
+
+                    Text("Process Count: ")
+                    .padding(.leading, horizontalPaddingValue)
+                    
+                    TextField(String(pfViewModel.processCount), value: $pfViewModel.processCount, formatter: NumberFormatter(), onCommit: {
+                        if self.pfViewModel.processCount == 0 {
+                            self.showErrorInvalidData = true
+                        }
+                        else {
+                            UserDefaults.standard.set(pfViewModel.processCount, forKey: HLPrime.HLProcessCountKey)
+                        }
+                    })
+                    .frame(width: processCountWidth)
+                    Spacer()
+                }
+            }
+            .padding(.bottom, verticalPaddingValue)
+        }
+        .padding(horizontalPaddingValue)
+        .background(windowBackgroundColor)
 
         VStack(alignment: .center) {
             //**********  FindPrimes Button

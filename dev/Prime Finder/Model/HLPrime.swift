@@ -17,7 +17,9 @@ public class HLPrime {
     public static let HLPrimesURLKey     = "HLPrimesURLKey"
     public static let HLNicePrimesKey    = "HLNicePrimesKey"
     public static let HLTerminalPrimeKey = "HLTerminalPrimeKey"
-    public static let HLNumberOfProcessesKey = "HLNumberOfProcessesKey"
+    
+    public static let HLParallelKey = "HLParallelKey"
+    public static let HLProcessCountKey = "HLProcessCountKey"
 
     let fileManager = HLFileManager.shared
 
@@ -179,8 +181,6 @@ public class HLPrime {
     }
 
     public init() {
-        let processInfo = ProcessInfo()
-        let numberOfCores = processInfo.activeProcessorCount
-        print("HLPrime-  init: numberOfCores: \(numberOfCores)")
+        print("HLPrime-  init")
     }
 }

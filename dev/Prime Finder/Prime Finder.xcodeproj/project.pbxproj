@@ -86,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				B0D252C124291A62004EAB59 /* README.md */,
+				B0EF94662AB91052006C18D2 /* ContentView */,
+				B0EF94652AB9101C006C18D2 /* ViewModel */,
 				B0B8B6742404870E003D6FC4 /* Model */,
 				B04A496F23FF4731007D0D81 /* Prime Finder */,
 				B0BA086F24293380001628BE /* Help */,
@@ -114,8 +116,6 @@
 				B04A497923FF4732007D0D81 /* Main.storyboard */,
 				B04A497623FF4732007D0D81 /* Preview Content */,
 				B04A497D23FF4732007D0D81 /* Prime_Finder.entitlements */,
-				B04A497223FF4731007D0D81 /* PrimeFinderView.swift */,
-				B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */,
 			);
 			path = "Prime Finder";
 			sourceTree = "<group>";
@@ -156,6 +156,22 @@
 			);
 			path = Model;
 			sourceTree = SOURCE_ROOT;
+		};
+		B0EF94652AB9101C006C18D2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B0B89CBC24048962004E7BC7 /* PrimeFinderViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B0EF94662AB91052006C18D2 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				B04A497223FF4731007D0D81 /* PrimeFinderView.swift */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 

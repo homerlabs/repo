@@ -17,20 +17,20 @@ enum HLErrorEnum {
 }
 
 class PrimeFinderViewModel: ObservableObject {
-    @Published var processCount = 8
     @Published var terminalPrime = HLPrimeType(1000)
     @Published var findPrimesInProgress = false
     @Published var findNPrimesInProgress = false
     @Published var status = "Idle"
-    @Published var runInParallel = false
     @Published var progress = "0"
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
-    
+    @Published var runInParallel = false
+    @Published var processCount = 8
+
     private let fileManager = HLFileManager.shared
 
     private var primeFinder: HLPrime
-    private var primeFinderParallel: HLPrimeParallel
+//    private var primeFinderParallel: HLPrimeParallel
 
     private var timer = Timer()
     private var updateTimeInSeconds = 4.0
@@ -49,7 +49,9 @@ class PrimeFinderViewModel: ObservableObject {
 
         if( runInParallel )
         {
-            primeFinderParallel.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, numberOfProcesses: processCount) { [weak self] result in
+            let primeFinderParallel = HLPrimeParallel(processCount: processCount)
+            
+            primeFinderParallel.findPrimes2(primeURL: primesURL!, maxPrime: maxPrime, processCount: processCount) { [weak self] result in
                 guard let self = self else { return }
                 
                 let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
@@ -151,23 +153,29 @@ class PrimeFinderViewModel: ObservableObject {
 
     init() {
         primeFinder = HLPrime()
-        primeFinderParallel = HLPrimeParallel()
-        
+
         primesURL = fileManager.getBookmark(HLPrime.HLPrimesURLKey)
         nicePrimesURL = fileManager.getBookmark(HLPrime.HLNicePrimesKey)
  //       print("PrimeFinderViewModel-  init-  primesURL: \(String(describing: primesURL))")
+        
+        runInParallel = UserDefaults.standard.bool(forKey: HLPrime.HLParallelKey)
+
+        if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLProcessCountKey) as? NSNumber {
+            processCount = valueP.intValue
+        }
+        else {
+            processCount = 8
+        }
 
         if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLTerminalPrimeKey) as? NSNumber {
             terminalPrime = valueP.int64Value
-        }
-
-        if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLNumberOfProcessesKey) as? NSNumber {
-            processCount = valueP.intValue
         }
     }
     
     deinit {
   //      print("PrimeFinderViewModel-  deinit")
+        
+        UserDefaults.standard.set(runInParallel, forKey: HLPrime.HLParallelKey)
         primeFinder.okToRun = false
         primesURL?.stopAccessingSecurityScopedResource()
         nicePrimesURL?.stopAccessingSecurityScopedResource()

@@ -8,37 +8,17 @@
 
 import Foundation
 
-//public typealias HLPrimeType = Int64
+public class HLPrimeParallel : HLPrime {
 
-//public typealias HLCompletionClosure = (String) -> Void
-
-public class HLPrimeParallel {
-
-    public static let HLPrimesURLKey     = "HLPrimesURLKey"
-    public static let HLNicePrimesKey    = "HLNicePrimesKey"
-    public static let HLTerminalPrimeKey = "HLTerminalPrimeKey"
-    public static let HLNumberOfProcessesKey = "HLNumberOfProcessesKey"
-
-    let fileManager = HLFileManager.shared
-
-    var pTable: [HLPrimeType] = []
-    var startDate: Date!    //  used to calculate timeInSeconds
-    var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
-
-    var lastN: Int = 2  //  output file already contains primes 2 and 3
-    var lastP: HLPrimeType = 0
-    var lastLine = ""
-    var okToRun = true  //  used to exit big loop before app exits
-
-    //**********************************************************************************************
-    //  these are used in findPrimesMultithreaded()
-    let batchCount = 8
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
+    
+    var batchCount = 8   //  this gets updated by PrimeFinderViewModel
 
     var operationsQueue = OperationQueue()
     internal let semaphore = DispatchSemaphore(value: 1)
-        
+       
+    //  used to verify no out of order results
     //  return not valid if next count is not one more than last count and
     //  return not valid if next prime is <= last prime
     func primeFileIsValid(primeFileURL: URL?) -> Bool {
@@ -111,8 +91,8 @@ public class HLPrimeParallel {
     
     //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
     //  uses holdingDict to sync operation outputs
-    func findPrimes2(primeURL: URL, maxPrime: HLPrimeType, numberOfProcesses: Int, completion: @escaping (String) -> Void) {
-        print( "\nHLPrime-  findPrimes3-  maxPrime: \(maxPrime)" )
+    func findPrimes2(primeURL: URL, maxPrime: HLPrimeType, processCount: Int, completion: @escaping (String) -> Void) {
+        print( "\nHLPrimeParallel-  findPrimes2-  maxPrime: \(maxPrime)" )
         let dispatchQueue = DispatchQueue.init(label: "FindPrimes0Queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
         dispatchQueue.async {
             self.findPrimesBlocking(maxPrime: maxPrime, completion: completion)
@@ -147,9 +127,9 @@ public class HLPrimeParallel {
     //  uses batchCount to make DispacthWorkItems then added to a DispatchGroup
     //  uses holdingDict to sync operation outputs
     //***************************************************************************************************
-    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, numberOfProcesses: Int, completion: @escaping (String) -> Void) {
-        print( "\nHLPrime-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
-        
+    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, proessCount: Int, processCount: Int, completion: @escaping (String) -> Void) {
+        print( "\nHLPrimeParallel-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
+        batchCount = processCount
         findPrimesSetup(maxPrime: maxPrime)
 
         let dispatchGroup = DispatchGroup()
@@ -160,7 +140,7 @@ public class HLPrimeParallel {
             
             dispatchGroup.enter()
      //       let block = DispatchWorkItem(qos: .userInteractive, flags: .barrier) {    //  need the .barrier flag to protect var waitingForBatchId
-            let block = DispatchWorkItem(qos: .userInteractive) {    //  need the .barrier flag to protect var waitingForBatchId
+            let block = DispatchWorkItem(qos: .default) {    //  need the .barrier flag to protect var waitingForBatchId
                 let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
                 //print("getPrimes completion block: \(batchNumber)   result: \(result.count)")
                 
@@ -228,15 +208,15 @@ public class HLPrimeParallel {
         }
         semaphore.signal()
     }
-    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
-        print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
+    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, proessCount: Int, completion: @escaping HLCompletionClosure) {
+        print( "\nHLPrimeParalles-  findPrimes-  maxPrime: \(maxPrime)" )
         
         let _ = fileManager.createTextFile(url: primeURL)
         let initialList: String = "1\t2\n2\t3\n"
         let _ = fileManager.appendStringToFile(initialList)
    //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .default).async { [weak self] in
             guard let self = self else { return }
             
             self.okToRun = true //  must be above call to createPTable()
@@ -272,61 +252,13 @@ public class HLPrimeParallel {
         }
     }
     
-    func isPrime(_ value: HLPrimeType) -> Bool    {
-        var candidateIsPrime = true
-        let maxTestPrime = Int64(sqrt(Double(value)))
-        
-        //  when called from findPrimes() value will never be even
-        //  when called from makeNicePrimesFile() value can be even
-//        var index = 1   //  we don't try the value in [0] == 2
-        var index = 0   //  we do try the value in [0] == 2
-        
-        var testPrime = pTable[index]
-        while testPrime <= maxTestPrime {
-            let q_r = lldiv(value, testPrime)
-            if q_r.rem == 0 {
-                candidateIsPrime = false
-                break
-            }
+    public init(processCount: Int) {
+  //      super.init()
 
-            index += 1
-            guard index < pTable.count else { return true }    //  if we get here, we have exhausted the pTable
-            testPrime = pTable[index]
-        }
-        
-//        print( "HLPrime-  isPrime: \(value)   isPrime: \(candidateIsPrime)" )
-        return candidateIsPrime
-    }
-    
-    //  returns true if url found on the file system
-/*    func isFileFound(url: URL?) -> Bool {
-        guard url != nil else { return false }
-        return fileManager.defaultFileManager.fileExists(atPath: url!.path)
-    }*/
-    
-    public func createPTable(maxPrime: HLPrimeType) -> [HLPrimeType] {
-        let maxPTablePrimeRequired = Int64(sqrt(Double(maxPrime)))
-        pTable = [2, 3]
-        var primeCandidate = pTable.last! + 2   //  start after the last known prime (3)
-        let startDate = Date()
-
-        while primeCandidate <= maxPTablePrimeRequired && okToRun {
-            
-                if isPrime(primeCandidate) {
-                    pTable.append(primeCandidate)
-                }
-                primeCandidate += 2
-        }
-
-        print(String(format: "HLPrimeParallel-  createPTable completed in %0.2f seconds and has \(pTable.count) elements,  pTable last value: \(pTable[self.pTable.count - 1])", -Double(startDate.timeIntervalSinceNow)))
-        return pTable
-    }
-
-    public init() {
-        let processInfo = ProcessInfo()
-        let numberOfCores = processInfo.activeProcessorCount
+        let numberOfCores = ProcessInfo().activeProcessorCount
         operationsQueue.name = "HLPrimeFinderQueue"
         operationsQueue.maxConcurrentOperationCount = numberOfCores
+        self.batchCount = processCount
         print("HLPrimeParallel-  init: numberOfCores: \(numberOfCores)")
     }
 }
