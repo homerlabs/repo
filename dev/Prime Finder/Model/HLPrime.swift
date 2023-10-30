@@ -25,14 +25,14 @@ public class HLPrime {
 
     var pTable: [HLPrimeType] = []
     var startDate: Date!    //  used to calculate timeInSeconds
-    var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
+//    var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
 
     var lastN: Int = 2  //  output file already contains primes 2 and 3
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
         
-    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, completion: @escaping HLCompletionClosure) {
+    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType) async -> String {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
         
         let _ = fileManager.createTextFile(url: primeURL)
@@ -40,40 +40,31 @@ public class HLPrime {
         let _ = fileManager.appendStringToFile(initialList)
    //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
 
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            
-            self.okToRun = true //  must be above call to createPTable()
-            self.pTable = self.createPTable(maxPrime: maxPrime)
-            self.lastLine = "2\t3\n"
-            (self.lastN, self.lastP) = self.lastLine.parseLine()   //  this is our starting point
+        okToRun = true //  must be above call to createPTable()
+        pTable = self.createPTable(maxPrime: maxPrime)
+        lastLine = "2\t3\n"
+        (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
             
             self.startDate = Date()  //  don't count the time to create pTable
 
 
            //***********************************************************************************
-            while( maxPrime >= self.lastP && self.okToRun ) {
-                if self.isPrime(self.lastP)    {
-                    self.lastLine = String(format: "%d\t%ld\n", self.lastN, self.lastP)
-                    self.fileManager.appendStringToFile(self.lastLine)
-                    self.lastN += 1
+            while( maxPrime >= lastP && okToRun ) {
+                if isPrime(lastP)    {
+                    lastLine = String(format: "%d\t%ld\n", lastN, lastP)
+                    fileManager.appendStringToFile(lastLine)
+                    lastN += 1
                 }
-                self.lastP += 2
+                lastP += 2
             }
             //***********************************************************************************
 
 
-            self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
-            self.fileManager.closeFileForWritting()
-            self.pTable.removeAll()
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                let (newLastN, newLastP) = self.lastLine.parseLine()
-                print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
-                completion(self.lastLine)
-            }
-        }
+        //    timeInSeconds = -Int(startDate.timeIntervalSinceNow)
+            fileManager.closeFileForWritting()
+            pTable.removeAll()
+        
+        return lastLine
     }
     
     //  a prime (p) is 'nice' if (p-1) / 2 is also prime
@@ -117,7 +108,7 @@ public class HLPrime {
                 }
             }
             
-            self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
+   //         self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
             self.pTable.removeAll()
             self.fileManager.closeFileForReading()
             self.fileManager.closeFileForWritting()

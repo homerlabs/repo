@@ -137,7 +137,8 @@ struct PrimeFinderView: View {
                 if self.pfViewModel.findPrimesInProgress {
                     self.pfViewModel.stopProcess()
                 } else {
-                    switch self.pfViewModel.findPrimes() {
+                    self.pfViewModel.findPrimes()
+               /*     {
                         
                         case .invalidDataError:
                             self.showErrorInvalidData = true
@@ -148,7 +149,7 @@ struct PrimeFinderView: View {
                         
                         case .badNicePrimesFilePathError, .noError:
                             break
-                    }
+                    }*/
                 }
             })
             .alert(isPresented: $showErrorFindPrimes) {

@@ -9,6 +9,8 @@
 import Foundation
 
 public class HLPrimeParallel : HLPrime {
+    
+    let processCount: Int
 
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
@@ -17,7 +19,109 @@ public class HLPrimeParallel : HLPrime {
 
     var operationsQueue = OperationQueue()
     internal let semaphore = DispatchSemaphore(value: 1)
+    
+    func getPrimes(startNumber: HLPrimeType, batchSize: HLPrimeType, maxPrime: HLPrimeType) -> [HLPrimeType] {
+        var result: [HLPrimeType] = []
+        var primeCandidate = startNumber
+        let lastPrime = min(primeCandidate+batchSize, maxPrime)
+        print( "getPrimes startNumber: \(startNumber)  lastPrime: \(lastPrime)" )
+
+        while primeCandidate <= lastPrime-2 && okToRun {
+            primeCandidate += 2
+            
+            if isPrime(primeCandidate) {
+                result.append(primeCandidate)
+            }
+        }
+        return result
+    }
+    
+    func getBatchSize(processCount: Int, maxPrime: HLPrimeType) -> Int {
+        var batchSize = Int(maxPrime) / processCount + 1
+        if batchSize % 2 == 1 {
+            batchSize += 1
+        }
+        
+        return batchSize
+    }
        
+    //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
+    //  uses holdingDict to sync operation outputs
+    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
+        print( "\nHLPrimeParallel-  findPrimes2-  maxPrime: \(maxPrime)" )
+        
+        let batchSize = getBatchSize(processCount: 4, maxPrime: maxPrime)
+   //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
+
+        okToRun = true //  must be above call to createPTable()
+        pTable = self.createPTable(maxPrime: maxPrime)
+        lastLine = "2\t3\n"
+        (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
+            
+        self.startDate = Date()  //  don't count the time to create pTable
+        
+        let result0 = getPrimes(startNumber: HLPrimeType(batchSize * 0 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+        let result1 = getPrimes(startNumber: HLPrimeType(batchSize * 1 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+        let result2 = getPrimes(startNumber: HLPrimeType(batchSize * 2 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+        let result3 = getPrimes(startNumber: HLPrimeType(batchSize * 3 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+
+        let result = result0 + result1 + result2 + result3
+        print("result \(result)")
+
+
+//        timeInSeconds = -Int(startDate.timeIntervalSinceNow)
+
+        let _ = fileManager.createTextFile(url: primeURL)
+        primesToDisk(isNumbered: true, primes: result)
+        fileManager.closeFileForWritting()
+        pTable.removeAll()
+
+        return result
+    }
+    
+    func primesToDisk(isNumbered: Bool, primes: [HLPrimeType]) {
+        var outputLine = ""
+        
+        if isNumbered {
+            outputLine = "1\t2\n2\t3\n"
+        }
+        else {
+            outputLine = "2\t3\t"
+        }
+        
+        let _ = fileManager.appendStringToFile(outputLine)
+        var lastN: Int = 2
+        
+        for prime in primes {
+            lastN += 1
+
+            if isNumbered {
+                lastLine = String(format: "%d\t%ld\n", lastN, prime)
+            }
+            else {
+                lastLine = String(format: "%ld\t", prime)
+            }
+            
+     //       print("lastLine \(lastLine)")
+            fileManager.appendStringToFile(lastLine)
+        }
+    }
+
+
+/*    func findPrimesCompletion(completion: @escaping (String) -> Void) {
+        timeInSeconds = -Int(startDate.timeIntervalSinceNow)
+        pTable.removeAll()
+        fileManager.closeFileForWritting()
+        print( "findPrimes-  final lastN: \(lastN)    lastP: \(lastP)" )
+        lastLine = String(format: "%d\t%ld", self.lastN, lastP)
+        
+ /*       if !primeFileIsValid(primeFileURL) {
+            print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
+        }*/
+
+        completion(lastLine)
+    }*/
+    
     //  used to verify no out of order results
     //  return not valid if next count is not one more than last count and
     //  return not valid if next prime is <= last prime
@@ -62,7 +166,7 @@ public class HLPrimeParallel : HLPrime {
         return returnValue
     }
 
-    func findPrimesSetup(maxPrime: HLPrimeType) {
+/*    func findPrimesSetup(maxPrime: HLPrimeType) {
         pTable = createPTable(maxPrime: maxPrime)
         (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
         
@@ -73,90 +177,7 @@ public class HLPrimeParallel : HLPrime {
         }*/
 
         self.startDate = Date()  //  don't count the time to create pTable
-    }
-    
-    func findPrimesCompletion(completion: @escaping (String) -> Void) {
-        timeInSeconds = -Int(startDate.timeIntervalSinceNow)
-        pTable.removeAll()
-        fileManager.closeFileForWritting()
-        print( "findPrimes-  final lastN: \(lastN)    lastP: \(lastP)" )
-        lastLine = String(format: "%d\t%ld", self.lastN, lastP)
-        
- /*       if !primeFileIsValid(primeFileURL) {
-            print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
-        }*/
-
-        completion(lastLine)
-    }
-    
-    //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
-    //  uses holdingDict to sync operation outputs
-    func findPrimes2(primeURL: URL, maxPrime: HLPrimeType, processCount: Int, completion: @escaping (String) -> Void) {
-        print( "\nHLPrimeParallel-  findPrimes2-  maxPrime: \(maxPrime)" )
-        let dispatchQueue = DispatchQueue.init(label: "FindPrimes0Queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: DispatchQueue.global(qos: .userInteractive))
-        dispatchQueue.async {
-            self.findPrimesBlocking(maxPrime: maxPrime, completion: completion)
-        }
-    }
-
-    func findPrimesBlocking(maxPrime: HLPrimeType, completion: @escaping (String) -> Void) {
-        //       print( "batchSize(maxPrime: maxPrime): \(batchSize(maxPrime: maxPrime))" )
-
-        var operations: [Operation] = []
-        findPrimesSetup(maxPrime: maxPrime)
-        
-        for batchNumber in 0..<batchCount {
-            let task = {
-                let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
-                //        print( "findPrimes0-  finished batchNumber: \(batchNumber) result.count: \(result.count)" )
-                self.drainHoldingDict(batchId: batchNumber, data: result)
-            }
-
-            let block = BlockOperation(block: task)
-            //     dependentBlock.addDependency(block, block)
-                operations.append(block)
-            }
-
-        operationsQueue.addOperations(operations, waitUntilFinished: true)
-        DispatchQueue.main.async { [weak self] in
-            self?.findPrimesCompletion(completion: completion)
-        }
-    }
-    
-    //  findPrimes stuff
-    //  uses batchCount to make DispacthWorkItems then added to a DispatchGroup
-    //  uses holdingDict to sync operation outputs
-    //***************************************************************************************************
-    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, proessCount: Int, processCount: Int, completion: @escaping (String) -> Void) {
-        print( "\nHLPrimeParallel-  findPrimesMultithreaded2-  maxPrime: \(maxPrime)" )
-        batchCount = processCount
-        findPrimesSetup(maxPrime: maxPrime)
-
-        let dispatchGroup = DispatchGroup()
-        var blocks: [DispatchWorkItem] = []
-        
-        for batchNumber in 0..<batchCount {
-     //       print( "findPrimes2-  starting batchNumber: \(batchNumber)" )
-            
-            dispatchGroup.enter()
-     //       let block = DispatchWorkItem(qos: .userInteractive, flags: .barrier) {    //  need the .barrier flag to protect var waitingForBatchId
-            let block = DispatchWorkItem(qos: .default) {    //  need the .barrier flag to protect var waitingForBatchId
-                let result = self.getPrimes(batchNumber: batchNumber, maxPrime: maxPrime)
-                //print("getPrimes completion block: \(batchNumber)   result: \(result.count)")
-                
-                //  this makes sync call to queue0 (sequential queue)
-                self.drainHoldingDict(batchId: batchNumber, data: result)
-                
-                dispatchGroup.leave()
-            }
-            blocks.append(block)
-            DispatchQueue.global().async(execute: block)
-        }
-        
-        dispatchGroup.notify(queue: DispatchQueue.main) {
-            self.findPrimesCompletion(completion: completion)
-        }
-    }
+    }*/
     
     //  returns batchSize rounding up and making sure the value is even
     //  batchSize needs to be even because its multipled to determine startPrimeCandidate
@@ -239,7 +260,7 @@ public class HLPrimeParallel : HLPrime {
             //***********************************************************************************
 
 
-            self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
+  //          self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
             self.fileManager.closeFileForWritting()
             self.pTable.removeAll()
             
@@ -258,7 +279,7 @@ public class HLPrimeParallel : HLPrime {
         let numberOfCores = ProcessInfo().activeProcessorCount
         operationsQueue.name = "HLPrimeFinderQueue"
         operationsQueue.maxConcurrentOperationCount = numberOfCores
-        self.batchCount = processCount
+        self.processCount = processCount
         print("HLPrimeParallel-  init: numberOfCores: \(numberOfCores)")
     }
 }
