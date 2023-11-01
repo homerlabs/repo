@@ -38,7 +38,7 @@ class PrimeFinderViewModel: ObservableObject {
     private var returnString = ""
 
     //  returns HLErrorEnum
-    func findPrimes() {
+    func findPrimes() -> HLErrorEnum {
         if primesURL == nil {
             primesURL = fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Create Primes file", filename: "Primes")
         }
@@ -48,7 +48,7 @@ class PrimeFinderViewModel: ObservableObject {
         let maxPrime = HLPrimeType(terminalPrime)
         findPrimesInProgress = true
 
-        if( runInParallel )
+/*        if( runInParallel )
         {
             let primeFinderParallel = HLPrimeParallel(processCount: processCount)
             
@@ -96,31 +96,37 @@ class PrimeFinderViewModel: ObservableObject {
                 }
             }*/
         }
-        else {
+        else
+        {*/
             
             Task.init {
                 let result = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime)
+                //  result is always ""
                 
                 NSSound.beep()
                 let timeInSeconds = -Int(primeFinder.startDate.timeIntervalSinceNow)
                 let elaspedTime = timeInSeconds.formatTime()
                 print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
                 self.timer.invalidate()
-                self.findPrimesInProgress = false
+    //            self.findPrimesInProgress = false
                 let (lastN, lastP) = result.parseLine()
                 returnString = result
+                
+                DispatchQueue.main.async {
+                    self.findPrimesInProgress = false
+                    self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+                    self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
 
-                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-                self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
-
-                if self.primeFinder.okToRun {
-                    self.progress = "100"
-                } else {
-                    let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
-                    self.progress = String(percent)
+                    if self.primeFinder.okToRun {
+                        self.progress = "100"
+                    } else {
+                        let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+                        self.progress = String(percent)
+                    }
                 }
             }
-        }
+   //     }
+        return .noError
     }
     
     //  returns HLErrorEnum
