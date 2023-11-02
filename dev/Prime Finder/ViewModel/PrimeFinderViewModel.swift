@@ -137,37 +137,43 @@ class PrimeFinderViewModel: ObservableObject {
         
         //  if we don't have a good url to the primes file we can't continue
         //  this will happen if there is no primes file or the user can't find it
-        guard primesURL != nil else { return .badPrimesFilePathError }
+ //       guard primesURL != nil else { return .badPrimesFilePathError }
 
         if nicePrimesURL == nil {
             nicePrimesURL = fileManager.getURLForWritting(title: "Prime Finder Save Panel", message: "Create NicePrimes file", filename: "NPrimes")
         }
-        guard nicePrimesURL != nil else { return .badNicePrimesFilePathError }
+//        guard nicePrimesURL != nil else { return .badNicePrimesFilePathError }
 
         setupTimer()
         findNPrimesInProgress = true
         fileManager.setBookmarkForURL(primesURL, key: HLPrime.HLPrimesURLKey)
 
-        primeFinder.makeNicePrimesFile(primeURL: primesURL!, nicePrimeURL: nicePrimesURL!) { [weak self] result in
-            guard let self = self else { return }
+        Task.init {
+            let result = await primeFinder.makeNicePrimesFile(primeURL: primesURL!, nicePrimeURL: nicePrimesURL!)
 
-    //        let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
-    //        print("    *********  findNicePrimes completed in \(elaspedTime)       ********* \n")
-            self.timer.invalidate()
-            self.findNPrimesInProgress = false
-            let (lastN, lastP) = result.parseLine()
-            self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-            self.fileManager.setBookmarkForURL(self.nicePrimesURL, key: HLPrime.HLNicePrimesKey)
 
-            if self.primeFinder.okToRun {
-                self.progress = "100"
-            } else {
-                let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
-                self.progress = String(percent)
+            DispatchQueue.main.async {
+                NSSound.beep()
+                let timeInSeconds = -Int(self.primeFinder.startDate.timeIntervalSinceNow)
+                let elaspedTime = timeInSeconds.formatTime()
+                print("    *********  findNicePrimes completed in \(elaspedTime)       ********* \n")
+                self.timer.invalidate()
+                self.findNPrimesInProgress = false
+                let (lastN, lastP) = result.parseLine()
+                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+                self.fileManager.setBookmarkForURL(self.nicePrimesURL, key: HLPrime.HLNicePrimesKey)
+
+                if self.primeFinder.okToRun {
+                    self.progress = "100"
+                } else {
+                    let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+                    self.progress = String(percent)
+                }
             }
         }
         
         return .noError
+        
     }
     
     //  sets up timer for status and progress updates

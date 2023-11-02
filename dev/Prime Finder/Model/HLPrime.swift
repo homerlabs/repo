@@ -68,12 +68,9 @@ public class HLPrime {
     }
     
     //  a prime (p) is 'nice' if (p-1) / 2 is also prime
-    func makeNicePrimesFile(primeURL: URL, nicePrimeURL: URL, completion: @escaping HLCompletionClosure)    {
+    func makeNicePrimesFile(primeURL: URL, nicePrimeURL: URL) async -> String {
         print( "HLPrime-  makeNicePrimesFile" )
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-
             var nextLine = self.fileManager.getLastLine(primeURL)
 
             (self.lastN, self.lastP) = nextLine.parseLine()
@@ -85,7 +82,7 @@ public class HLPrime {
             self.startDate = Date()
             
             let success = self.fileManager.openFileForRead(url: primeURL)
-            guard success else { return }
+            guard success else { return "" }
             
             let _ = self.fileManager.createTextFile(url: nicePrimeURL)
 
@@ -108,17 +105,10 @@ public class HLPrime {
                 }
             }
             
-   //         self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
             self.pTable.removeAll()
             self.fileManager.closeFileForReading()
             self.fileManager.closeFileForWritting()
-
-            DispatchQueue.main.async {
-                completion(self.lastLine)
-            }
-        }
-        
-        return
+        return nextLine
     }
 
     func isPrime(_ value: HLPrimeType) -> Bool    {
