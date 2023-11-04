@@ -104,13 +104,9 @@ struct PrimeFinderView: View {
             }
 
             HStack {
-                Toggle(isOn: $pfViewModel.runInParallel) {
-                    Text("Run in Parallel")
-                }
+                Toggle("Run in Parallel", isOn: $pfViewModel.runInParallel) 
                 
                 if( pfViewModel.runInParallel ) {
-            //        Spacer()
-
                     Text("Process Count: ")
                     .padding(.leading, horizontalPaddingValue)
                     
@@ -138,8 +134,8 @@ struct PrimeFinderView: View {
                     self.pfViewModel.stopProcess()
                 } else {
                     let result = self.pfViewModel.findPrimes()
+                    
                     switch(result){
-                        
                         case .invalidDataError:
                             self.showErrorInvalidData = true
                         

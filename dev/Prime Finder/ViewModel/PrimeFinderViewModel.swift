@@ -35,7 +35,7 @@ class PrimeFinderViewModel: ObservableObject {
     private var timer = Timer()
     private var updateTimeInSeconds = 4.0
     private let startingMessage = "Starting ..."
-    private var returnString = ""
+//    private var returnString = ""
 
     //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
@@ -48,7 +48,7 @@ class PrimeFinderViewModel: ObservableObject {
         let maxPrime = HLPrimeType(terminalPrime)
         findPrimesInProgress = true
 
-/*        if( runInParallel )
+        if( runInParallel )
         {
             let primeFinderParallel = HLPrimeParallel(processCount: processCount)
             
@@ -56,61 +56,39 @@ class PrimeFinderViewModel: ObservableObject {
                 let _ = await primeFinderParallel.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: processCount)
                 
                 NSSound.beep()
-                let timeInSeconds = -Int(primeFinderParallel.startDate.timeIntervalSinceNow)
+                let timeInSeconds = Int(primeFinderParallel.stopDate.timeIntervalSince(primeFinderParallel.startDate))
                 let elaspedTime = timeInSeconds.formatTime()
                 print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
                 self.timer.invalidate()
-                self.findPrimesInProgress = false
-           //     let (lastN, lastP) = result.parseLine()
-           //     returnString = result
-
-          //      self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-                self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
-
-                if self.primeFinder.okToRun {
-                    self.progress = "100"
-                } else {
-                    let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
-                    self.progress = String(percent)
-                }
-            }
-            
- /*           { [weak self] result in
-                guard let self = self else { return }
+                let (lastN, lastP) = primeFinderParallel.lastLine.parseLine()
                 
-                let elaspedTime = self.primeFinder.timeInSeconds.formatTime()
-                print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
-                self.timer.invalidate()
-                self.findPrimesInProgress = false
-                let (lastN, lastP) = result.parseLine()
-                returnString = result
+                DispatchQueue.main.async {
+                    self.findPrimesInProgress = false
+                    self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
+                    self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
 
-                self.status = "Last Prime Processed (lastN : lastP): \(lastN) : \(lastP)"
-                self.fileManager.setBookmarkForURL(self.primesURL, key: HLPrime.HLPrimesURLKey)
-
-                if self.primeFinder.okToRun {
-                    self.progress = "100"
-                } else {
-                    let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
-                    self.progress = String(percent)
-                }
-            }*/
+                    if self.primeFinder.okToRun {
+                        self.progress = "100"
+                    } else {
+                        let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+                        self.progress = String(percent)
+                    }
+               }
+            }
         }
         else
-        {*/
+        {
             
             Task.init {
                 let result = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime)
                 //  result is always ""
                 
                 NSSound.beep()
-                let timeInSeconds = -Int(primeFinder.startDate.timeIntervalSinceNow)
+                let timeInSeconds = Int(primeFinder.stopDate.timeIntervalSince(primeFinder.startDate))
                 let elaspedTime = timeInSeconds.formatTime()
                 print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
                 self.timer.invalidate()
-    //            self.findPrimesInProgress = false
                 let (lastN, lastP) = result.parseLine()
-                returnString = result
                 
                 DispatchQueue.main.async {
                     self.findPrimesInProgress = false
@@ -125,7 +103,7 @@ class PrimeFinderViewModel: ObservableObject {
                     }
                 }
             }
-   //     }
+        }
         return .noError
     }
     

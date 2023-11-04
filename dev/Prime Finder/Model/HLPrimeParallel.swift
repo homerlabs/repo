@@ -48,7 +48,7 @@ public class HLPrimeParallel : HLPrime {
     //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
     //  uses holdingDict to sync operation outputs
     func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
-        print( "\nHLPrimeParallel-  findPrimes2-  maxPrime: \(maxPrime)" )
+        print( "\nHLPrimeParallel-  findPrimes-  maxPrime: \(maxPrime)" )
         
         let batchSize = getBatchSize(processCount: 4, maxPrime: maxPrime)
    //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
@@ -66,10 +66,10 @@ public class HLPrimeParallel : HLPrime {
         let result3 = getPrimes(startNumber: HLPrimeType(batchSize * 3 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
 
         let result = result0 + result1 + result2 + result3
-        print("result \(result)")
+   //     print("result \(result)")
 
 
-//        timeInSeconds = -Int(startDate.timeIntervalSinceNow)
+        self.stopDate = Date()
 
         let _ = fileManager.createTextFile(url: primeURL)
         primesToDisk(isNumbered: true, primes: result)
@@ -107,21 +107,6 @@ public class HLPrimeParallel : HLPrime {
         }
     }
 
-
-/*    func findPrimesCompletion(completion: @escaping (String) -> Void) {
-        timeInSeconds = -Int(startDate.timeIntervalSinceNow)
-        pTable.removeAll()
-        fileManager.closeFileForWritting()
-        print( "findPrimes-  final lastN: \(lastN)    lastP: \(lastP)" )
-        lastLine = String(format: "%d\t%ld", self.lastN, lastP)
-        
- /*       if !primeFileIsValid(primeFileURL) {
-            print("    *********  findPrimes completed but primeFileIsValid() failed!!       ********* \n")
-        }*/
-
-        completion(lastLine)
-    }*/
-    
     //  used to verify no out of order results
     //  return not valid if next count is not one more than last count and
     //  return not valid if next prime is <= last prime

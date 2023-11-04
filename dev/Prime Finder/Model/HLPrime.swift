@@ -24,8 +24,8 @@ public class HLPrime {
     let fileManager = HLFileManager.shared
 
     var pTable: [HLPrimeType] = []
-    var startDate: Date!    //  used to calculate timeInSeconds
-//    var timeInSeconds = 0   //  time for makePrimes, factorPrimes, or loadBuf to run
+    internal var startDate: Date!    //  used to calculate timeInSeconds
+    internal var stopDate: Date!    //  used to calculate timeInSeconds
 
     var lastN: Int = 2  //  output file already contains primes 2 and 3
     var lastP: HLPrimeType = 0
@@ -36,34 +36,31 @@ public class HLPrime {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
         
         let _ = fileManager.createTextFile(url: primeURL)
-        let initialList: String = "1\t2\n"
-        let _ = fileManager.appendStringToFile(initialList)
-   //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
+        let _ = fileManager.appendStringToFile("1\t2\n")
 
         okToRun = true //  must be above call to createPTable()
         pTable = self.createPTable(maxPrime: maxPrime)
         lastLine = "2\t3\n"
         (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
-            
-            self.startDate = Date()  //  don't count the time to create pTable
+
+        self.startDate = Date()  //  don't count the time to create pTable
 
 
-           //***********************************************************************************
-            while( maxPrime >= lastP && okToRun ) {
-                if isPrime(lastP)    {
-                    lastLine = String(format: "%d\t%ld\n", lastN, lastP)
-                    fileManager.appendStringToFile(lastLine)
-                    lastN += 1
-                }
-                lastP += 2
+        //***********************************************************************************
+        while( maxPrime >= lastP && okToRun ) {
+            if isPrime(lastP)    {
+                lastLine = String(format: "%d\t%ld\n", lastN, lastP)
+                fileManager.appendStringToFile(lastLine)
+                lastN += 1
             }
-            //***********************************************************************************
+            lastP += 2
+        }
+        //***********************************************************************************
 
 
-        //    timeInSeconds = -Int(startDate.timeIntervalSinceNow)
-            fileManager.closeFileForWritting()
-            pTable.removeAll()
-        
+        self.stopDate = Date()
+        fileManager.closeFileForWritting()
+        pTable.removeAll()
         return lastLine
     }
     
@@ -105,6 +102,7 @@ public class HLPrime {
                 }
             }
             
+            self.stopDate = Date()
             self.pTable.removeAll()
             self.fileManager.closeFileForReading()
             self.fileManager.closeFileForWritting()
@@ -157,6 +155,7 @@ public class HLPrime {
                 primeCandidate += 2
         }
 
+        self.stopDate = Date()
         print(String(format: "HLPrime-  createPTable completed in %0.2f seconds and has \(pTable.count) elements,  pTable last value: \(pTable[self.pTable.count - 1])", -Double(startDate.timeIntervalSinceNow)))
         return pTable
     }
