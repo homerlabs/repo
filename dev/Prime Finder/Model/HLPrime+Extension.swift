@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 
 extension HLPrime {
         
@@ -23,6 +24,8 @@ extension HLPrime {
                 result.append(primeCandidate)
             }
         }
+
+        print( "getPrimes completed with startNumber: \(startNumber)" )
         return result
     }
     
@@ -35,8 +38,6 @@ extension HLPrime {
         return batchSize
     }
     
- //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
- //  uses holdingDict to sync operation outputs
  func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
      print( "\nHLPrimeParallel-  findPrimes-  maxPrime: \(maxPrime)" )
      
@@ -49,7 +50,6 @@ extension HLPrime {
      (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
          
      startDate = Date()  //  don't count the time to create pTable
-     
      async let result0 = getPrimes(startNumber: HLPrimeType(batchSize * 0 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
      async let result1 = getPrimes(startNumber: HLPrimeType(batchSize * 1 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
      async let result2 = getPrimes(startNumber: HLPrimeType(batchSize * 2 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
@@ -61,19 +61,22 @@ extension HLPrime {
      async let result7 = getPrimes(startNumber: HLPrimeType(batchSize * 7 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
 
      let result = await result0 + result1 + result2 + result3 + result4 + result5 + result6 + result7
+     stopDate = Date()
+     NSSound.beep()
 //     print("result \(result)")
 
 
      let _ = fileManager.createTextFile(url: primeURL)
-     primesToDisk(isNumbered: true, primes: result)
+     let writeToDiskTime = Int(primesToDisk(isNumbered: true, primes: result))
+     print( "findPrimes-  writeToDiskTime: \(writeToDiskTime)" )
      fileManager.closeFileForWritting()
      pTable.removeAll()
 
-     stopDate = Date()
      return result
  }
 
-    func primesToDisk(isNumbered: Bool, primes: [HLPrimeType]) {
+    func primesToDisk(isNumbered: Bool, primes: [HLPrimeType]) -> Double {
+        let startTime = Date()
         var outputLine = ""
         
         if isNumbered {
@@ -96,10 +99,12 @@ extension HLPrime {
                 lastLine = String(format: "%ld\t", prime)
             }
             
-     //       print("lastLine \(lastLine)")
             fileManager.appendStringToFile(lastLine)
         }
+        
+        return -startTime.timeIntervalSinceNow.rounded()
     }
+
 
     //  used to verify no out of order results
     //  return not valid if next count is not one more than last count and

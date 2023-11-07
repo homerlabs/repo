@@ -53,7 +53,6 @@ class PrimeFinderViewModel: ObservableObject {
             Task.init {
                 let _ = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: 8)
                 
-                NSSound.beep()
                 let timeInSeconds = Int(primeFinder.stopDate.timeIntervalSince(primeFinder.startDate))
                 let elaspedTime = timeInSeconds.formatTime()
                 print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
