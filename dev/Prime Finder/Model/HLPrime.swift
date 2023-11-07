@@ -31,7 +31,9 @@ public class HLPrime {
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
-        
+    var processCount = 8
+
+
     public func findPrimes(primeURL: URL, maxPrime: HLPrimeType) async -> String {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
         
@@ -161,6 +163,8 @@ public class HLPrime {
     }
 
     public init() {
-        print("HLPrime-  init")
+        let numberOfCores = ProcessInfo().activeProcessorCount
+        processCount = 8
+        print("HLPrime-  init: numberOfCores: \(numberOfCores)")
     }
 }

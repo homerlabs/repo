@@ -8,18 +8,8 @@
 
 import Foundation
 
-public class HLPrimeParallel : HLPrime {
-    
-    let processCount: Int
-
-    var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
-    var waitingForBatchId = 0                   //  needs to be protected for multithread
-    
-//    var batchCount = 8   //  this gets updated by PrimeFinderViewModel
-
-//    var operationsQueue = OperationQueue()
-//    internal let semaphore = DispatchSemaphore(value: 1)
-    
+extension HLPrime {
+        
     func getPrimes(startNumber: HLPrimeType, batchSize: HLPrimeType, maxPrime: HLPrimeType) -> [HLPrimeType] {
         var result: [HLPrimeType] = []
         var primeCandidate = startNumber
@@ -180,9 +170,4 @@ public class HLPrimeParallel : HLPrime {
         return result
     }
     
-    public init(processCount: Int) {
-        let numberOfCores = ProcessInfo().activeProcessorCount
-        self.processCount = processCount
-        print("HLPrimeParallel-  init: numberOfCores: \(numberOfCores)")
-    }
 }

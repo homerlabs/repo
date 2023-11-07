@@ -50,17 +50,15 @@ class PrimeFinderViewModel: ObservableObject {
 
         if( runInParallel )
         {
-            let primeFinderParallel = HLPrimeParallel(processCount: 8)
-            
             Task.init {
-                let _ = await primeFinderParallel.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: 8)
+                let _ = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: 8)
                 
                 NSSound.beep()
-                let timeInSeconds = Int(primeFinderParallel.stopDate.timeIntervalSince(primeFinderParallel.startDate))
+                let timeInSeconds = Int(primeFinder.stopDate.timeIntervalSince(primeFinder.startDate))
                 let elaspedTime = timeInSeconds.formatTime()
                 print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
                 self.timer.invalidate()
-                let (lastN, lastP) = primeFinderParallel.lastLine.parseLine()
+                let (lastN, lastP) = primeFinder.lastLine.parseLine()
                 
                 DispatchQueue.main.async {
                     self.findPrimesInProgress = false
