@@ -50,10 +50,10 @@ class PrimeFinderViewModel: ObservableObject {
 
         if( runInParallel )
         {
-            let primeFinderParallel = HLPrimeParallel(processCount: processCount)
+            let primeFinderParallel = HLPrimeParallel(processCount: 8)
             
             Task.init {
-                let _ = await primeFinderParallel.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: processCount)
+                let _ = await primeFinderParallel.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: 8)
                 
                 NSSound.beep()
                 let timeInSeconds = Int(primeFinderParallel.stopDate.timeIntervalSince(primeFinderParallel.startDate))

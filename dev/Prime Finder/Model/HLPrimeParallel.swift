@@ -15,10 +15,10 @@ public class HLPrimeParallel : HLPrime {
     var holdingDict: [Int:[HLPrimeType]] = [:]  //  needs to be protected for multithread
     var waitingForBatchId = 0                   //  needs to be protected for multithread
     
-    var batchCount = 8   //  this gets updated by PrimeFinderViewModel
+//    var batchCount = 8   //  this gets updated by PrimeFinderViewModel
 
-    var operationsQueue = OperationQueue()
-    internal let semaphore = DispatchSemaphore(value: 1)
+//    var operationsQueue = OperationQueue()
+//    internal let semaphore = DispatchSemaphore(value: 1)
     
     func getPrimes(startNumber: HLPrimeType, batchSize: HLPrimeType, maxPrime: HLPrimeType) -> [HLPrimeType] {
         var result: [HLPrimeType] = []
@@ -44,41 +44,45 @@ public class HLPrimeParallel : HLPrime {
         
         return batchSize
     }
-       
-    //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
-    //  uses holdingDict to sync operation outputs
-    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
-        print( "\nHLPrimeParallel-  findPrimes-  maxPrime: \(maxPrime)" )
-        
-        let batchSize = getBatchSize(processCount: 4, maxPrime: maxPrime)
-   //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
-
-        okToRun = true //  must be above call to createPTable()
-        pTable = self.createPTable(maxPrime: maxPrime)
-        lastLine = "2\t3\n"
-        (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
-            
-        self.startDate = Date()  //  don't count the time to create pTable
-        
-        let result0 = getPrimes(startNumber: HLPrimeType(batchSize * 0 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-        let result1 = getPrimes(startNumber: HLPrimeType(batchSize * 1 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-        let result2 = getPrimes(startNumber: HLPrimeType(batchSize * 2 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-        let result3 = getPrimes(startNumber: HLPrimeType(batchSize * 3 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-
-        let result = result0 + result1 + result2 + result3
-   //     print("result \(result)")
-
-
-        self.stopDate = Date()
-
-        let _ = fileManager.createTextFile(url: primeURL)
-        primesToDisk(isNumbered: true, primes: result)
-        fileManager.closeFileForWritting()
-        pTable.removeAll()
-
-        return result
-    }
     
+ //  uses DispatchQueue with maxConcurrentOperationCount set to processInfo.activeProcessorCount
+ //  uses holdingDict to sync operation outputs
+ func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
+     print( "\nHLPrimeParallel-  findPrimes-  maxPrime: \(maxPrime)" )
+     
+     let batchSize = getBatchSize(processCount: processCount, maxPrime: maxPrime)
+//     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
+
+     okToRun = true //  must be above call to createPTable()
+     pTable = createPTable(maxPrime: maxPrime)
+     lastLine = "2\t3\n"
+     (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
+         
+     startDate = Date()  //  don't count the time to create pTable
+     
+     async let result0 = getPrimes(startNumber: HLPrimeType(batchSize * 0 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+     async let result1 = getPrimes(startNumber: HLPrimeType(batchSize * 1 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+     async let result2 = getPrimes(startNumber: HLPrimeType(batchSize * 2 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+     async let result3 = getPrimes(startNumber: HLPrimeType(batchSize * 3 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+
+     async let result4 = getPrimes(startNumber: HLPrimeType(batchSize * 4 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+     async let result5 = getPrimes(startNumber: HLPrimeType(batchSize * 5 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+     async let result6 = getPrimes(startNumber: HLPrimeType(batchSize * 6 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+     async let result7 = getPrimes(startNumber: HLPrimeType(batchSize * 7 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+
+     let result = await result0 + result1 + result2 + result3 + result4 + result5 + result6 + result7
+//     print("result \(result)")
+
+
+     let _ = fileManager.createTextFile(url: primeURL)
+     primesToDisk(isNumbered: true, primes: result)
+     fileManager.closeFileForWritting()
+     pTable.removeAll()
+
+     stopDate = Date()
+     return result
+ }
+
     func primesToDisk(isNumbered: Bool, primes: [HLPrimeType]) {
         var outputLine = ""
         
@@ -151,23 +155,10 @@ public class HLPrimeParallel : HLPrime {
         return returnValue
     }
 
-/*    func findPrimesSetup(maxPrime: HLPrimeType) {
-        pTable = createPTable(maxPrime: maxPrime)
-        (self.lastN, self.lastP) = (3, 5)   //  this is our starting point
-        
- /*       if let primeURL = primeFileURL {
-            let _ = fileManager.createTextFile(url: primeURL)
-            let initialList: String = "1\t2\n2\t3\n3\t5\n"
-            let _ = fileManager.appendStringToFile(initialList)
-        }*/
-
-        self.startDate = Date()  //  don't count the time to create pTable
-    }*/
-    
     //  returns batchSize rounding up and making sure the value is even
     //  batchSize needs to be even because its multipled to determine startPrimeCandidate
     func batchSize(maxPrime: HLPrimeType) -> HLPrimeType {
-        var batchSize = (maxPrime / HLPrimeType(batchCount)) + 1
+        var batchSize = (maxPrime / HLPrimeType(processCount)) + 1
         if batchSize % HLPrimeType(2) == 1 {
             batchSize += 1
         }
@@ -188,82 +179,9 @@ public class HLPrimeParallel : HLPrime {
 
         return result
     }
-
-    func drainHoldingDict(batchId: Int, data: [HLPrimeType]) {
-        semaphore.wait()
-        holdingDict[batchId] = data
-        
-        while let batchResult = holdingDict[waitingForBatchId] {
-            var compoundLine = ""
-            var lastLine = ""
-
-            for item in batchResult {
-                lastN += 1
-                lastP = item
-                lastLine = String(format: "%d\t%ld\n", lastN, lastP)
-                compoundLine.append(lastLine)
-            }
-
-            //  compoundLine might be "" on the last batch
-            if !compoundLine.isEmpty {
-                self.fileManager.appendStringToFile(compoundLine)
-            }
-            
-            holdingDict.removeValue(forKey: waitingForBatchId)
-            waitingForBatchId += 1
-        }
-        semaphore.signal()
-    }
-    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, proessCount: Int, completion: @escaping HLCompletionClosure) {
-        print( "\nHLPrimeParalles-  findPrimes-  maxPrime: \(maxPrime)" )
-        
-        let _ = fileManager.createTextFile(url: primeURL)
-        let initialList: String = "1\t2\n2\t3\n"
-        let _ = fileManager.appendStringToFile(initialList)
-   //     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
-
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            guard let self = self else { return }
-            
-            self.okToRun = true //  must be above call to createPTable()
-            self.pTable = self.createPTable(maxPrime: maxPrime)
-            self.lastLine = "2\t3\n"
-            (self.lastN, self.lastP) = self.lastLine.parseLine()   //  this is our starting point
-            
-            self.startDate = Date()  //  don't count the time to create pTable
-
-
-           //***********************************************************************************
-            while( maxPrime >= self.lastP && self.okToRun ) {
-                if self.isPrime(self.lastP)    {
-                    self.lastLine = String(format: "%d\t%ld\n", self.lastN, self.lastP)
-                    self.fileManager.appendStringToFile(self.lastLine)
-                    self.lastN += 1
-                }
-                self.lastP += 2
-            }
-            //***********************************************************************************
-
-
-  //          self.timeInSeconds = -Int(self.startDate.timeIntervalSinceNow)
-            self.fileManager.closeFileForWritting()
-            self.pTable.removeAll()
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                let (newLastN, newLastP) = self.lastLine.parseLine()
-                print( "findPrimes-  final lastN: \(newLastN)    lastP: \(newLastP)" )
-                completion(self.lastLine)
-            }
-        }
-    }
     
     public init(processCount: Int) {
-  //      super.init()
-
         let numberOfCores = ProcessInfo().activeProcessorCount
-        operationsQueue.name = "HLPrimeFinderQueue"
-        operationsQueue.maxConcurrentOperationCount = numberOfCores
         self.processCount = processCount
         print("HLPrimeParallel-  init: numberOfCores: \(numberOfCores)")
     }
