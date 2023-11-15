@@ -25,7 +25,7 @@ class PrimeFinderViewModel: ObservableObject {
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
     @Published var runInParallel = false
-    @Published var processCount = 8
+    @Published var processCount: Int
 
     private let fileManager = HLFileManager.shared
 
@@ -51,7 +51,7 @@ class PrimeFinderViewModel: ObservableObject {
         if( runInParallel )
         {
             Task.init {
-                let _ = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: 8)
+                let _ = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, processCount: processCount)
                 
                 let timeInSeconds = Int(primeFinder.stopDate.timeIntervalSince(primeFinder.startDate))
                 let elaspedTime = timeInSeconds.formatTime()

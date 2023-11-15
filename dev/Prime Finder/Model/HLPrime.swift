@@ -10,8 +10,6 @@ import Foundation
 
 public typealias HLPrimeType = Int64
 
-public typealias HLCompletionClosure = (String) -> Void
-
 public class HLPrime {
 
     public static let HLPrimesURLKey     = "HLPrimesURLKey"
@@ -31,7 +29,7 @@ public class HLPrime {
     var lastP: HLPrimeType = 0
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
-    var processCount = 8
+    var processCount: Int
 
 
     public func findPrimes(primeURL: URL, maxPrime: HLPrimeType) async -> String {
@@ -164,7 +162,7 @@ public class HLPrime {
 
     public init() {
         let numberOfCores = ProcessInfo().activeProcessorCount
-        processCount = 8
+        processCount = numberOfCores
         print("HLPrime-  init: numberOfCores: \(numberOfCores)")
     }
 }

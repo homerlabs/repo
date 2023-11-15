@@ -11,7 +11,48 @@ import Cocoa
 
 extension HLPrime {
         
-    func getPrimes(startNumber: HLPrimeType, batchSize: HLPrimeType, maxPrime: HLPrimeType) -> [HLPrimeType] {
+    func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
+        print( "\nHLPrimeParallel-  findPrimes-  processCount: \(processCount)  maxPrime: \(maxPrime)" )
+        
+        okToRun = true //  must be above call to createPTable()
+        pTable = createPTable(maxPrime: maxPrime)
+        lastLine = "2\t3\n"
+        (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
+            
+        let batchSize = getBatchSize(processCount: processCount, maxPrime: maxPrime)
+        startDate = Date()  //  don't count the time to create pTable
+        
+        let primes = await withTaskGroup(of: [HLPrimeType].self, returning: [HLPrimeType].self) { group in
+
+            for index in 0..<processCount {
+                group.addTask {
+                    await self.getPrimes(startNumber: HLPrimeType(batchSize * index + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
+                }
+            }
+            
+            var results = [HLPrimeType]()
+            for await result in group {
+                results += result
+            }
+            
+            return results
+        }
+
+        stopDate = Date()
+        print("result.count: \(primes.count)")
+        NSSound.beep()
+
+        let _ = fileManager.createTextFile(url: primeURL)
+        let writeToDiskTime = Int(primesToDisk(isNumbered: true, primes: primes))
+        print( "findPrimes-  writeToDiskTime took \(writeToDiskTime) seconds" )
+        fileManager.closeFileForWritting()
+        pTable.removeAll()
+
+        NSSound.beep()
+        return primes
+    }
+
+    func getPrimes(startNumber: HLPrimeType, batchSize: HLPrimeType, maxPrime: HLPrimeType) async -> [HLPrimeType] {
         var result: [HLPrimeType] = []
         var primeCandidate = startNumber
         let lastPrime = min(primeCandidate+batchSize, maxPrime)
@@ -38,43 +79,6 @@ extension HLPrime {
         return batchSize
     }
     
- func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
-     print( "\nHLPrimeParallel-  findPrimes-  maxPrime: \(maxPrime)" )
-     
-     let batchSize = getBatchSize(processCount: processCount, maxPrime: maxPrime)
-//     print( "\nHLPrime-  findPrimes-  primesFileURL: \(String(describing: primesFileURL))   appendSuccess: \(appendSuccess)" )
-
-     okToRun = true //  must be above call to createPTable()
-     pTable = createPTable(maxPrime: maxPrime)
-     lastLine = "2\t3\n"
-     (lastN, lastP) = lastLine.parseLine()   //  this is our starting point
-         
-     startDate = Date()  //  don't count the time to create pTable
-     async let result0 = getPrimes(startNumber: HLPrimeType(batchSize * 0 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-     async let result1 = getPrimes(startNumber: HLPrimeType(batchSize * 1 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-     async let result2 = getPrimes(startNumber: HLPrimeType(batchSize * 2 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-     async let result3 = getPrimes(startNumber: HLPrimeType(batchSize * 3 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-
-     async let result4 = getPrimes(startNumber: HLPrimeType(batchSize * 4 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-     async let result5 = getPrimes(startNumber: HLPrimeType(batchSize * 5 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-     async let result6 = getPrimes(startNumber: HLPrimeType(batchSize * 6 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-     async let result7 = getPrimes(startNumber: HLPrimeType(batchSize * 7 + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
-
-     let result = await result0 + result1 + result2 + result3 + result4 + result5 + result6 + result7
-     stopDate = Date()
-     NSSound.beep()
-//     print("result \(result)")
-
-
-     let _ = fileManager.createTextFile(url: primeURL)
-     let writeToDiskTime = Int(primesToDisk(isNumbered: true, primes: result))
-     print( "findPrimes-  writeToDiskTime: \(writeToDiskTime)" )
-     fileManager.closeFileForWritting()
-     pTable.removeAll()
-
-     return result
- }
-
     func primesToDisk(isNumbered: Bool, primes: [HLPrimeType]) -> Double {
         let startTime = Date()
         var outputLine = ""
