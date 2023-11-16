@@ -12,8 +12,7 @@ import Cocoa
 extension HLPrime {
         
     func findPrimes(primeURL: URL, maxPrime: HLPrimeType, processCount: Int) async -> [HLPrimeType] {
-        print( "\nHLPrimeParallel-  findPrimes-  processCount: \(processCount)  maxPrime: \(maxPrime)" )
-        
+
         okToRun = true //  must be above call to createPTable()
         pTable = createPTable(maxPrime: maxPrime)
         lastLine = "2\t3\n"
@@ -21,7 +20,8 @@ extension HLPrime {
             
         let batchSize = getBatchSize(processCount: processCount, maxPrime: maxPrime)
         startDate = Date()  //  don't count the time to create pTable
-        
+        print( "\nHLPrimeParallel-  findPrimes-  processCount: \(processCount)  maxPrime: \(maxPrime)    batchSize: \(batchSize)" )
+
         let primes = await withTaskGroup(of: [HLPrimeType].self, returning: [HLPrimeType].self) { group in
 
             for index in 0..<processCount {
@@ -42,10 +42,12 @@ extension HLPrime {
         print("result.count: \(primes.count)")
         NSSound.beep()
 
-        let _ = fileManager.createTextFile(url: primeURL)
-        let writeToDiskTime = Int(primesToDisk(isNumbered: true, primes: primes))
-        print( "findPrimes-  writeToDiskTime took \(writeToDiskTime) seconds" )
-        fileManager.closeFileForWritting()
+        if createPrimeFile {
+            let _ = fileManager.createTextFile(url: primeURL)
+            let writeToDiskTime = Int(primesToDisk(isNumbered: true, primes: primes))
+            print( "findPrimes-  writeToDiskTime took \(writeToDiskTime) seconds" )
+            fileManager.closeFileForWritting()
+        }
         pTable.removeAll()
 
         NSSound.beep()
@@ -63,6 +65,11 @@ extension HLPrime {
             
             if isPrime(primeCandidate) {
                 result.append(primeCandidate)
+                
+                if startNumber == 3 {
+                    lastP = primeCandidate
+                    lastLine = String(format: "%d\t%ld\n", -1, lastP)
+                }
             }
         }
 

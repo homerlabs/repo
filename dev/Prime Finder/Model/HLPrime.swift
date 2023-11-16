@@ -30,6 +30,7 @@ public class HLPrime {
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
     var processCount: Int
+    let createPrimeFile = false
 
 
     public func findPrimes(primeURL: URL, maxPrime: HLPrimeType) async -> String {
@@ -50,9 +51,14 @@ public class HLPrime {
         while( maxPrime >= lastP && okToRun ) {
             if isPrime(lastP)    {
                 lastLine = String(format: "%d\t%ld\n", lastN, lastP)
-                fileManager.appendStringToFile(lastLine)
+
+                if createPrimeFile {
+                    fileManager.appendStringToFile(lastLine)
+                }
+                
                 lastN += 1
             }
+            
             lastP += 2
         }
         //***********************************************************************************

@@ -26,7 +26,7 @@ class PrimeFinderViewModel: ObservableObject {
     @Published var nicePrimesURL: URL?
     @Published var runInParallel = false
     @Published var processCount: Int
-
+    
     private let fileManager = HLFileManager.shared
 
     private var primeFinder: HLPrime
@@ -35,7 +35,6 @@ class PrimeFinderViewModel: ObservableObject {
     private var timer = Timer()
     private var updateTimeInSeconds = 4.0
     private let startingMessage = "Starting ..."
-//    private var returnString = ""
 
     //  returns HLErrorEnum
     func findPrimes() -> HLErrorEnum {
@@ -158,8 +157,12 @@ class PrimeFinderViewModel: ObservableObject {
         timer.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: updateTimeInSeconds, repeats: true, block: { _ in
             self.status = "Processed (lastN : lastP): \(self.primeFinder.lastN) : \(self.primeFinder.lastP)"
-            let percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+            var percent = Int(Double(self.primeFinder.lastP) / Double(self.terminalPrime) * 100)
+            if self.runInParallel {
+                percent *= self.processCount
+            }
             self.progress = String(percent)
+    //        print("    progress \(self.progress)")
         })
     }
     
