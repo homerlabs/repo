@@ -25,7 +25,7 @@ extension HLPrime {
         let primes = await withTaskGroup(of: [HLPrimeType].self, returning: [HLPrimeType].self) { group in
 
             for index in 0..<processCount {
-                group.addTask {
+                group.addTask(priority: .userInitiated) {
                     await self.getPrimes(startNumber: HLPrimeType(batchSize * index + 3), batchSize: HLPrimeType(batchSize), maxPrime: maxPrime)
                 }
             }
@@ -73,7 +73,7 @@ extension HLPrime {
             }
         }
 
-        print( "getPrimes completed with startNumber: \(startNumber)" )
+        print( "   **********   getPrimes completed with startNumber: \(startNumber)" )
         return result
     }
     
