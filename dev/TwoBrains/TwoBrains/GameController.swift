@@ -26,14 +26,13 @@ class GameController: NSObject
     private var gameScene: GameScene
     var gameControllerIsConnected = false
     
-    private var workLoopCounter: Int = 0
-    private let workLoopMod: Int = 2000
     private var movePointLeft: CGPoint = .zero
     private var movePointRight: CGPoint = .zero
-    private var joystickMoveDistance: Float = 7.0
-    private var randomMoveDistance: CGFloat = 3.0
     
-    private var pauseGame: Bool = false
+    private var joystickMoveDistance: Float = 7.0
+    private var randomMoveDistance: CGFloat = 5.0
+    
+    private var pauseGame = false
 
     func controllerLeftTrigger(_ controllerJump: Bool) {
   //      print("GameController.controllerLeftTrigger")
@@ -173,7 +172,7 @@ class GameController: NSObject
             }
             else {
                 gameScene.textNode.fontColor = .red
-                gameScene.textNode.text = "No Game Controller Connected"
+                gameScene.textNode.text = "No Game Controller"
                 gameControllerIsConnected = false
             }
         }
@@ -204,15 +203,17 @@ class GameController: NSObject
                     cgPoint.x += CGFloat(gamePadLeft.xAxis.value * joystickMoveDistance * Float(deltaTime))
                     cgPoint.y += CGFloat(gamePadLeft.yAxis.value * joystickMoveDistance * Float(deltaTime))
                     
-                    if cgPoint.x*cgPoint.x + cgPoint.y*cgPoint.y < outerCircleRadius*outerCircleRadius {
+                    if cgPoint.x*cgPoint.x + cgPoint.y*cgPoint.y < outerCircleRadiusSquared {
                         node.position = cgPoint
+                    }
+                    else {
+                        gameScene.handleHitOuterEdge("circleLeftPoint- poll")
                     }
                 } else {
                     print("gamePadLeft is nil")
                     //            self.characterDirection = simd_make_float2(0)
                 }
             }
-            
             else if node.name == circleRightName {
                 if let gamePadRight = self.gamePadRight {
                     //          print("gamePadLeft.xAxis.value: \(gamePadLeft.xAxis.value)    yAxis.value: \(gamePadLeft.yAxis.value)")
@@ -220,8 +221,11 @@ class GameController: NSObject
                     cgPoint.x += CGFloat(gamePadRight.xAxis.value * joystickMoveDistance * Float(deltaTime))
                     cgPoint.y += CGFloat(gamePadRight.yAxis.value * joystickMoveDistance * Float(deltaTime))
                     
-                    if cgPoint.x*cgPoint.x + cgPoint.y*cgPoint.y < outerCircleRadius*outerCircleRadius {
+                    if cgPoint.x*cgPoint.x + cgPoint.y*cgPoint.y < outerCircleRadiusSquared {
                         node.position = cgPoint
+                    }
+                    else {
+                        gameScene.handleHitOuterEdge("circleRightPoint- poll")
                     }
                 } else {
                     print("gamePadRight is nil")

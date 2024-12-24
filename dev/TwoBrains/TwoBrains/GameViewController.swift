@@ -10,25 +10,26 @@ import SpriteKit
 import GameplayKit
 import GameController
 
-let outerCircleRadius: CGFloat = 500.0
-let innerCircleRadius: CGFloat = 18.0
-let movingCircleRadius: CGFloat = 15.0
+public let outerCircleRadiusSquared: CGFloat = 250000.0 //  used for trig calcs
+public let outerCircleRadius: CGFloat = 500.0
+
 let circleRightName = "circleRightName"
 let circleLeftName = "circleLeftName"
 public let textNodeName = "textNodeName"
 
 public let textColor: UIColor = .white
 
-public  var startTime = Date()
-
 class GameViewController: GCEventViewController {
-    
+    let innerCircleRadius: CGFloat = 18.0
+    let movingCircleRadius: CGFloat = 15.0
+
+    var gameController: GameController?
     var scene = SKScene(size: .zero)
+
     var gameView: SKView? {
         return view as? SKView
     }
-    var gameController: GameController?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,12 +49,6 @@ class GameViewController: GCEventViewController {
             outerCircle.lineWidth = 5.0
             outerCircle.strokeColor = .white
 
-/*            let centerCircle = SKShapeNode(circleOfRadius: centerCircleRadius)
-            centerCircle.name = "centerCircle"
-            centerCircle.lineWidth = 2.0
-            centerCircle.strokeColor = .black
-            scene.addChild(centerCircle)
-*/
             let innerCircle = SKShapeNode(circleOfRadius: innerCircleRadius)
             innerCircle.name = "innerCircle"
             innerCircle.lineWidth = 2.0

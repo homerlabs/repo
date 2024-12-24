@@ -13,7 +13,9 @@ class GameScene: SKScene {
     
     var secondsInterval: TimeInterval = 0
     var time = -1
-    
+    var startTime = Date()
+
+
     var gameController: GameController!
     var circleLeftNode = SKShapeNode()
     var circleRightNode = SKShapeNode()
@@ -23,8 +25,8 @@ class GameScene: SKScene {
     var pauseGame: Bool = true
     private var circleLeftVelocity : CGPoint = .zero
     private var circleRightVelocity : CGPoint = .zero
-    private var joystickMoveDistance: Float = 7.0
-    private var randomMoveDistance: CGFloat = 3.0
+    private var joystickMoveDistance: Float = 5.0
+    private var randomMoveDistance: CGFloat = 4.0
 
     override func didMove(to view: SKView) {
         // Get label node from scene and store it for use later
@@ -44,7 +46,9 @@ class GameScene: SKScene {
     }
     
     func randomMovement() -> CGPoint {
-        let randomdegree = Double.random(in: 0..<360)
+        let randomdegree = Double.random(in: 0..<Double.pi*2)
+        let formattedFloat = String(format: "%.2f", randomdegree)
+        print("GameScene.randomMovement     randomdegree: \(formattedFloat) rads")
         let x: CGFloat = randomMoveDistance * sin(randomdegree)
         let y: CGFloat = randomMoveDistance * cos(randomdegree)
         return CGPoint(x: x, y: y)
@@ -84,24 +88,42 @@ class GameScene: SKScene {
         
         let xLeft = circleLeftVelocity.x * deltaTime
         let yLeft = circleLeftVelocity.y * deltaTime
-
-        let xRight = circleRightVelocity.x * deltaTime
-        let yRight = circleRightVelocity.y * deltaTime
-
         let circleLeftPoint = CGPoint(x:Double(circleLeftNode.position.x + xLeft), y: Double(circleLeftNode.position.y + yLeft))
-        let circleRightPoint = CGPoint(x:Double(circleRightNode.position.x + xRight), y: Double(circleRightNode.position.y + yRight))
         
-        if circleLeftPoint.x*circleLeftPoint.x + circleLeftPoint.y*circleLeftPoint.y < outerCircleRadius*outerCircleRadius {
+        let xLeftSquared = circleLeftPoint.x * circleLeftPoint.x
+        let yLeftSquared = circleLeftPoint.y * circleLeftPoint.y
+
+        if xLeftSquared + yLeftSquared < outerCircleRadiusSquared {
             circleLeftNode.position = circleLeftPoint
         }
         else {
+/*            let difference = sqrt(xLeftSquared + yLeftSquared - outerCircleRadiusSquared)
+            let angle = atan2(circleLeftVelocity.y, circleLeftVelocity.x)
+            
+            let minusX = sin(angle) * difference
+            let minusY = cos(angle) * difference
+            let adjustedCirclePoint = CGPoint(x:Double(circleLeftPoint.x  - minusX), y: Double(circleLeftPoint.y - minusY))
+   //         circleLeftNode.position = adjustedCirclePoint*/
             handleHitOuterEdge("circleLeftPoint")
         }
         
-        if circleRightPoint.x*circleRightPoint.x + circleRightPoint.y*circleRightPoint.y < outerCircleRadius*outerCircleRadius {
+        let xRight = circleRightVelocity.x * deltaTime
+        let yRight = circleRightVelocity.y * deltaTime
+        let circleRightPoint = CGPoint(x:Double(circleRightNode.position.x + xRight), y: Double(circleRightNode.position.y + yRight))
+        let xRightSquared = circleRightPoint.x * circleRightPoint.x
+        let yRightSquared = circleRightPoint.y * circleRightPoint.y
+        
+        if xRightSquared + yRightSquared < outerCircleRadiusSquared {
             circleRightNode.position = circleRightPoint
         }
         else {
+/*            let difference = sqrt(xRightSquared + yRightSquared - outerCircleRadiusSquared)
+            let angle = atan2(circleRightVelocity.y, circleRightVelocity.x)
+            
+            let minusX = sin(angle) * difference
+            let minusY = cos(angle) * difference
+            let adjustedCirclePoint = CGPoint(x:Double(circleRightPoint.x  - minusX), y: Double(circleRightPoint.y - minusY))
+     //       circleRightNode.position = adjustedCirclePoint*/
             handleHitOuterEdge("circleRightPoint")
         }
 
