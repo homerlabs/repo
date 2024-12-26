@@ -14,17 +14,14 @@ import GameplayKit
 class GameController: NSObject
 {
     // Game Controller Properties
-    private var gamePadCurrent: GCController?
-    private var gamePadLeft: GCControllerDirectionPad?
-    private var gamePadRight: GCControllerDirectionPad?
+    public var gameControllerIsConnected = false
+    public var gamePadLeft: GCControllerDirectionPad?
+    public var gamePadRight: GCControllerDirectionPad?
+    
     private var debounceRightTrigger = false
     private var debounceLeftTrigger = false
-
-    // Update the delta time.
-//    private var lastUpdateTime = TimeInterval()
-
+    
     private var gameScene: GameScene
-    var gameControllerIsConnected = false
     
     private var movePointLeft: CGPoint = .zero
     private var movePointRight: CGPoint = .zero
@@ -33,20 +30,20 @@ class GameController: NSObject
     private var randomMoveDistance: CGFloat = 5.0
     
     private var pauseGame = false
-
+    
     func controllerLeftTrigger(_ controllerJump: Bool) {
-  //      print("GameController.controllerLeftTrigger")
-
+        //      print("GameController.controllerLeftTrigger")
+        
         debounceLeftTrigger = !debounceLeftTrigger
         if debounceLeftTrigger {
             gameScene.pauseGame = !gameScene.pauseGame
             gameScene.lastUpdateTime = 0
         }
     }
-
+    
     func controllerRightTrigger() {
- //       print("GameController.controllerRightTrigger")
-
+        //       print("GameController.controllerRightTrigger")
+        
         debounceRightTrigger = !debounceRightTrigger
         if debounceRightTrigger {
             gameScene.pauseGame = true
@@ -59,9 +56,9 @@ class GameController: NSObject
                 gameScene.textNode.fontColor = .red
                 gameScene.textNode.text = "No Game Controller Connected"
             }
-
+            
             for node in gameScene.children {
-
+                
                 //  move targets to the center
                 if node.name == circleLeftName {
                     let moveTo = SKAction.move(to: CGPointZero, duration: 0.15)
@@ -79,20 +76,20 @@ class GameController: NSObject
             gameScene.setupGame()
         }
     }
-
+    
     func setupGameController() {
         print("GameController.setupGameController")
-
+        
         NotificationCenter.default.addObserver(
-                self, selector: #selector(self.handleControllerDidConnect),
-                name: NSNotification.Name.GCControllerDidBecomeCurrent, object: nil)
-
+            self, selector: #selector(self.handleControllerDidConnect),
+            name: NSNotification.Name.GCControllerDidBecomeCurrent, object: nil)
+        
         NotificationCenter.default.addObserver(
             self, selector: #selector(self.handleControllerDidDisconnect),
             name: NSNotification.Name.GCControllerDidStopBeingCurrent, object: nil)
-                
+        
         guard let controller = GCController.controllers().first else {
-//            print("GameController.setupGameController-->  No Game Controller")
+            //            print("GameController.setupGameController-->  No Game Controller")
             return
         }
         registerGameController(controller)
@@ -109,14 +106,14 @@ class GameController: NSObject
         registerGameController(gameController)
         HapticUtility.initHapticsFor(controller: gameController)
         
-//        self.overlay?.showHints()
+        //        self.overlay?.showHints()
     }
-
+    
     @objc
     func handleControllerDidDisconnect(_ notification: Notification) {
         unregisterGameController()
         print("GameController.handleControllerDidDisconnect")
-
+        
         guard let gameController = notification.object as? GCController else {
             return
         }
@@ -125,13 +122,13 @@ class GameController: NSObject
     }
     
     func registerGameController(_ gameController: GCController) {
-
-//        print("GameController.registerGameController")
+        
+        //        print("GameController.registerGameController")
         var buttonA: GCControllerButtonInput?
         var buttonB: GCControllerButtonInput?
         var leftTrigger: GCControllerButtonInput?
         var rightTrigger: GCControllerButtonInput?
-
+        
         weak var weakController = self
         
         if let gamepad = gameController.extendedGamepad {
@@ -153,7 +150,7 @@ class GameController: NSObject
             }
             strongController.controllerLeftTrigger(pressed)
         }
-
+        
         buttonB?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             guard let strongController = weakController else {
                 return
@@ -177,62 +174,19 @@ class GameController: NSObject
             }
         }
     }
-
+    
     func unregisterGameController() {
- //       print("GameController.unregisterGameController")
+        //       print("GameController.unregisterGameController")
         gamePadLeft = nil
         gamePadRight = nil
-        gamePadCurrent = nil
         gameControllerIsConnected = false
     }
     
     func randomMovement() -> CGPoint {
-        let randomdegree = Double.random(in: 0..<360)
-        let x: CGFloat = randomMoveDistance * sin(randomdegree)
-        let y: CGFloat = randomMoveDistance * cos(randomdegree)
+        let randomdegree = Double.random(in: 0..<Double.pi*2)
+        let y: CGFloat = randomMoveDistance * sin(randomdegree)
+        let x: CGFloat = randomMoveDistance * cos(randomdegree)
         return CGPoint(x: x, y: y)
-    }
-
-    func pollInput(deltaTime: TimeInterval) {
-        for node in gameScene.children {
-            //  move target in random direction for workLoopMod cycles
-            if node.name == circleLeftName {
-                if let gamePadLeft = self.gamePadLeft {
-                    //          print("gamePadLeft.xAxis.value: \(gamePadLeft.xAxis.value)    yAxis.value: \(gamePadLeft.yAxis.value)")
-                    var cgPoint = CGPoint(x: node.position.x, y: node.position.y)
-                    cgPoint.x += CGFloat(gamePadLeft.xAxis.value * joystickMoveDistance * Float(deltaTime))
-                    cgPoint.y += CGFloat(gamePadLeft.yAxis.value * joystickMoveDistance * Float(deltaTime))
-                    
-                    if cgPoint.x*cgPoint.x + cgPoint.y*cgPoint.y < outerCircleRadiusSquared {
-                        node.position = cgPoint
-                    }
-                    else {
-                        gameScene.handleHitOuterEdge("circleLeftPoint- poll")
-                    }
-                } else {
-                    print("gamePadLeft is nil")
-                    //            self.characterDirection = simd_make_float2(0)
-                }
-            }
-            else if node.name == circleRightName {
-                if let gamePadRight = self.gamePadRight {
-                    //          print("gamePadLeft.xAxis.value: \(gamePadLeft.xAxis.value)    yAxis.value: \(gamePadLeft.yAxis.value)")
-                    var cgPoint = CGPoint(x: node.position.x, y: node.position.y)
-                    cgPoint.x += CGFloat(gamePadRight.xAxis.value * joystickMoveDistance * Float(deltaTime))
-                    cgPoint.y += CGFloat(gamePadRight.yAxis.value * joystickMoveDistance * Float(deltaTime))
-                    
-                    if cgPoint.x*cgPoint.x + cgPoint.y*cgPoint.y < outerCircleRadiusSquared {
-                        node.position = cgPoint
-                    }
-                    else {
-                        gameScene.handleHitOuterEdge("circleRightPoint- poll")
-                    }
-                } else {
-                    print("gamePadRight is nil")
-                    //            self.characterDirection = simd_make_float2(0)
-                }
-            }
-        }
     }
 
     // MARK: - Init
