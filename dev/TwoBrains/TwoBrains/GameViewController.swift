@@ -52,7 +52,8 @@ class GameViewController: GCEventViewController {
             let innerCircle = SKShapeNode(circleOfRadius: innerCircleRadius)
             innerCircle.name = "innerCircle"
             innerCircle.lineWidth = 2.0
-            innerCircle.strokeColor = .white
+    //        innerCircle.fillColor = .white
+            innerCircle.strokeColor = .red
 
             let circleRight = SKShapeNode(circleOfRadius: movingCircleRadius)
       //      circleRight.alpha = 0.5

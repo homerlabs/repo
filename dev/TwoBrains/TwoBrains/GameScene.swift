@@ -23,10 +23,10 @@ class GameScene: SKScene {
     var lastUpdateTime  = 0.0
     
     var pauseGame: Bool = true
-    private var circleLeftVelocity : CGPoint = .zero
-    private var circleRightVelocity : CGPoint = .zero
-    private var joystickMoveDistance: Float = 7.0
-    private var randomMoveDistance: CGFloat = 5.0
+    private var randomVelocityL : CGPoint = .zero
+    private var randomVelocityR : CGPoint = .zero
+    private var moveDistanceJoystick: CGFloat = 7.0
+    private var moveDistanceRandom: CGFloat = 5.0
 
     override func didMove(to view: SKView) {
         // Get label node from scene and store it for use later
@@ -37,21 +37,25 @@ class GameScene: SKScene {
     }
     
     func setupGame() {
-        circleLeftVelocity = randomMovement()
-        circleRightVelocity = randomMovement()
+        randomVelocityL = randomMovement()
+        randomVelocityR = randomMovement()
         lastUpdateTime = 0.0
         startTime = Date()
         secondsInterval = 0.0
         time = -1
+        print("GameScene.setupGame: \(String(format: "LVelocity.x  %.2f   .y  %.2f", randomVelocityL.x, randomVelocityL.y))")
+        print("GameScene.setupGame: \(String(format: "RVelocity.x  %.2f   .y  %.2f", randomVelocityR.x, randomVelocityR.y))")
     }
     
     func randomMovement() -> CGPoint {
         let randomdegree = Double.random(in: 0..<Double.pi*2)
-        let formattedFloat = String(format: "%.2f", randomdegree)
-        print("GameScene.randomMovement     randomdegree: \(formattedFloat) rads")
-        let y: CGFloat = randomMoveDistance * sin(randomdegree)
-        let x: CGFloat = randomMoveDistance * cos(randomdegree)
+        let y: CGFloat = moveDistanceRandom * sin(randomdegree)
+        let x: CGFloat = moveDistanceRandom * cos(randomdegree)
         return CGPoint(x: x, y: y)
+    }
+    
+    func updatePosition(position: CGPoint, randomVelocity: CGPoint, joystickVelocity: CGPoint) -> CGPoint {
+        return CGPoint(x: position.x + randomVelocity.x + joystickVelocity.x, y: position.y + randomVelocity.y + joystickVelocity.y)
     }
 
     func handleHitOuterEdge(_ message: String) {
@@ -67,6 +71,37 @@ class GameScene: SKScene {
         textNode.fontColor = textColor
         textNode.text = "Elapsed Time: \(time) Seconds"
 //        print("Time:", time, terminator: "s\n")
+    }
+    
+/*    func addTwoPoints(_ point1: CGPoint, _ point2: CGPoint) -> CGPoint {
+        return CGPoint(x: point1.x + point2.x, y: point1.y + point2.y)
+    }*/
+    
+    func joystickVelocity(gameControllerPad: GCControllerDirectionPad?, moveDistance: CGFloat, deltaTime: TimeInterval) -> CGPoint {
+        if let gamePad = gameControllerPad {
+            //          print("gamePadLeft.xAxis.value: \(gamePadLeft.xAxis.value)    yAxis.value: \(gamePadLeft.yAxis.value)")
+            let x = CGFloat(gamePad.xAxis.value) * moveDistanceJoystick * CGFloat(deltaTime)
+            let y = CGFloat(gamePad.yAxis.value) * moveDistanceJoystick * CGFloat(deltaTime)
+            return CGPoint(x: x, y: y)
+        }
+        else {
+            print("joystickVelocity.gameControllerPad is nil")
+            return .zero
+        }
+    }
+    
+    func adjustPositionForInBounds(position: CGPoint) -> CGPoint {
+        var adjustedPosition = position
+        let lengthToCenter = sqrt(position.x*position.x + position.y*position.y)
+        
+        if lengthToCenter > outerCircleRadius {
+            let percentageReduction = outerCircleRadius / lengthToCenter
+            adjustedPosition.x *= percentageReduction
+            adjustedPosition.y *= percentageReduction
+            handleHitOuterEdge("adjustPositionForInBounds")
+        }
+
+        return adjustedPosition
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -88,64 +123,16 @@ class GameScene: SKScene {
         
         let deltaTime = currentTime - lastUpdateTime
         
-        //**********************    adjust left circle  ***************************
-        //*************************************************************************
-        let xLeft = circleLeftVelocity.x * deltaTime
-        let yLeft = circleLeftVelocity.y * deltaTime
-        var circleLeftPoint = CGPoint(x:Double(circleLeftNode.position.x + xLeft), y: Double(circleLeftNode.position.y + yLeft))
-        
-        if let gamePadLeft = gameController.gamePadLeft {
-            //          print("gamePadLeft.xAxis.value: \(gamePadLeft.xAxis.value)    yAxis.value: \(gamePadLeft.yAxis.value)")
-            circleLeftPoint.x += CGFloat(gamePadLeft.xAxis.value * joystickMoveDistance * Float(deltaTime))
-            circleLeftPoint.y += CGFloat(gamePadLeft.yAxis.value * joystickMoveDistance * Float(deltaTime))
-        }
+        let joystickVelocityL = joystickVelocity(gameControllerPad: gameController.gamePadLeft, moveDistance: moveDistanceJoystick, deltaTime: deltaTime)
+        let joystickVelocityR = joystickVelocity(gameControllerPad: gameController.gamePadRight, moveDistance: moveDistanceJoystick, deltaTime: deltaTime)
 
-        let xLeftSquared = circleLeftPoint.x * circleLeftPoint.x
-        let yLeftSquared = circleLeftPoint.y * circleLeftPoint.y
-
-        if xLeftSquared + yLeftSquared < outerCircleRadiusSquared {
-            circleLeftNode.position = circleLeftPoint
-        }
-        else {
-            let difference = sqrt(xLeftSquared + yLeftSquared - outerCircleRadiusSquared)
-            let angle = atan2(circleLeftVelocity.y, circleLeftVelocity.x)
-            
-            let minusY = sin(angle) * difference
-            let minusX = cos(angle) * difference
-            let adjustedCirclePoint = CGPoint(x:Double(circleLeftPoint.x  - minusX), y: Double(circleLeftPoint.y - minusY))
-            circleLeftNode.position = adjustedCirclePoint
-            handleHitOuterEdge("Left-  difference: \(Int(difference))  minusX: \(Int(minusX)) minusY: \(Int(minusY))")
-        }
-        //*************************************************************************
+        let adjustedRandomVelocityL = CGPoint(x: randomVelocityL.x * deltaTime, y: randomVelocityL.y * deltaTime)
+        let adjustedRandomVelocityR = CGPoint(x: randomVelocityR.x * deltaTime, y: randomVelocityR.y * deltaTime)
         
+        let positionL = updatePosition(position: circleLeftNode.position, randomVelocity: adjustedRandomVelocityL, joystickVelocity: joystickVelocityL)
+        let positionR = updatePosition(position: circleRightNode.position, randomVelocity: adjustedRandomVelocityR, joystickVelocity: joystickVelocityR)
         
-        //**********************    adjust right circle  **************************
-        //*************************************************************************
-        let xRight = circleRightVelocity.x * deltaTime
-        let yRight = circleRightVelocity.y * deltaTime
-        var circleRightPoint = CGPoint(x:Double(circleRightNode.position.x + xRight), y: Double(circleRightNode.position.y + yRight))
-        
-        if let gamePadRight = gameController.gamePadRight {
-            //          print("gamePadRight.xAxis.value: \(gamePadRight.xAxis.value)    yAxis.value: \(gamePadRight.yAxis.value)")
-            circleRightPoint.x += CGFloat(gamePadRight.xAxis.value * joystickMoveDistance * Float(deltaTime))
-            circleRightPoint.y += CGFloat(gamePadRight.yAxis.value * joystickMoveDistance * Float(deltaTime))
-        }
-
-        let xRightSquared = circleRightPoint.x * circleRightPoint.x
-        let yRightSquared = circleRightPoint.y * circleRightPoint.y
-        
-        if xRightSquared + yRightSquared < outerCircleRadiusSquared {
-            circleRightNode.position = circleRightPoint
-        }
-        else {
-            let difference = sqrt(xRightSquared + yRightSquared - outerCircleRadiusSquared)
-            let angle = atan2(circleRightVelocity.y, circleRightVelocity.x)
-            
-            let minusY = sin(angle) * difference
-            let minusX = cos(angle) * difference
-            let adjustedCirclePoint = CGPoint(x:Double(circleRightPoint.x - minusX), y: Double(circleRightPoint.y - minusY))
-            circleRightNode.position = adjustedCirclePoint
-            handleHitOuterEdge("Right-  difference: \(Int(difference))  minusX: \(Int(minusX)) minusY: \(Int(minusY))")
-        }
+        circleLeftNode.position = adjustPositionForInBounds(position: positionL)
+        circleRightNode.position = adjustPositionForInBounds(position: positionR)
    }
 }
