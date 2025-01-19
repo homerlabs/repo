@@ -9,6 +9,14 @@ import SpriteKit
 import GameController
 import CoreHaptics
 
+
+enum PhysicsCategory {
+    static let none:        UInt32 = 0
+    static let background:  UInt32 = 0b1
+    static let player:      UInt32 = 0b10
+}
+
+
 class GameScene: SKScene {
     
     var secondsInterval: TimeInterval = 0
@@ -30,6 +38,8 @@ class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         // Get label node from scene and store it for use later
+        physicsWorld.contactDelegate = self
+
         self.circleLeftNode = self.childNode(withName: circleLeftName) as! SKShapeNode
         self.circleRightNode = self.childNode(withName: circleRightName) as! SKShapeNode
         self.textNode = self.childNode(withName: textNodeName) as! SKLabelNode
@@ -72,10 +82,6 @@ class GameScene: SKScene {
         textNode.text = "Elapsed Time: \(time) Seconds"
 //        print("Time:", time, terminator: "s\n")
     }
-    
-/*    func addTwoPoints(_ point1: CGPoint, _ point2: CGPoint) -> CGPoint {
-        return CGPoint(x: point1.x + point2.x, y: point1.y + point2.y)
-    }*/
     
     func joystickVelocity(gameControllerPad: GCControllerDirectionPad?, moveDistance: CGFloat, deltaTime: TimeInterval) -> CGPoint {
         if let gamePad = gameControllerPad {
@@ -135,4 +141,19 @@ class GameScene: SKScene {
         circleLeftNode.position = adjustPositionForInBounds(position: positionL)
         circleRightNode.position = adjustPositionForInBounds(position: positionR)
    }
+}
+
+
+extension GameScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        pauseGame = true
+
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        // Check collision bodies
+ //       let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        print("didBegin  collision: \(String(describing: bodyA.node?.name)) \(String(describing: bodyB.node?.name))")
+    }
 }

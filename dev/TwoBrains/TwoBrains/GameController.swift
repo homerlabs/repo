@@ -162,7 +162,9 @@ class GameController: NSObject
         rightTrigger?.pressedChangedHandler = buttonB?.valueChangedHandler
         
         if let venderName = gameController.vendorName {
-            if venderName.hasPrefix("DUALSHOCK") {
+            print("venderName: \(venderName)")
+
+            if venderName.hasPrefix("DUALSHOCK 4") || venderName.hasPrefix("DualSense Wireless Controller") {
                 gameScene.textNode.fontColor = textColor
                 gameScene.textNode.text = "Ready To Start"
                 gameControllerIsConnected = true

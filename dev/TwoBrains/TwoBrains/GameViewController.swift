@@ -40,31 +40,51 @@ class GameViewController: GCEventViewController {
             scene.backgroundColor = .black
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
-            
+            view.showsPhysics = true
+
             // Set the scene coordinates (0, 0) to the center of the screen.
             scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        //    scene.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
 
             let outerCircle = SKShapeNode(circleOfRadius: outerCircleRadius)
             outerCircle.name = "outerCircle"
             outerCircle.lineWidth = 5.0
-            outerCircle.strokeColor = .white
+            outerCircle.strokeColor = .yellow
+            outerCircle.physicsBody = SKPhysicsBody(circleOfRadius: outerCircleRadius)
+            outerCircle.physicsBody?.isDynamic = true
+            outerCircle.physicsBody?.affectedByGravity = false
+            outerCircle.physicsBody?.categoryBitMask = PhysicsCategory.background
+            outerCircle.physicsBody?.contactTestBitMask = PhysicsCategory.player
+            outerCircle.physicsBody?.collisionBitMask = PhysicsCategory.none
 
             let innerCircle = SKShapeNode(circleOfRadius: innerCircleRadius)
             innerCircle.name = "innerCircle"
             innerCircle.lineWidth = 2.0
     //        innerCircle.fillColor = .white
-            innerCircle.strokeColor = .red
+            innerCircle.strokeColor = .yellow
 
             let circleRight = SKShapeNode(circleOfRadius: movingCircleRadius)
       //      circleRight.alpha = 0.5
             circleRight.fillColor = .red
             circleRight.name = circleRightName
             circleRight.position = CGPoint(x: 0.0, y: 0.0)
+            circleRight.physicsBody = SKPhysicsBody(circleOfRadius: movingCircleRadius)
+            circleRight.physicsBody?.affectedByGravity = false
+            circleRight.physicsBody?.isDynamic = true
+            circleRight.physicsBody?.categoryBitMask = PhysicsCategory.player
+            circleRight.physicsBody?.contactTestBitMask = PhysicsCategory.background | PhysicsCategory.player
+            circleRight.physicsBody?.collisionBitMask = PhysicsCategory.none
 
             let circleLeft = SKShapeNode(circleOfRadius: movingCircleRadius)
             circleLeft.fillColor = .magenta
             circleLeft.name = circleLeftName
             circleLeft.position = CGPoint(x: 0.0, y: 0.0)
+            circleLeft.physicsBody = SKPhysicsBody(circleOfRadius: movingCircleRadius)
+            circleLeft.physicsBody?.affectedByGravity = false
+            circleLeft.physicsBody?.isDynamic = true
+            circleLeft.physicsBody?.categoryBitMask = PhysicsCategory.player
+            circleLeft.physicsBody?.contactTestBitMask = PhysicsCategory.background | PhysicsCategory.player
+            circleLeft.physicsBody?.collisionBitMask = PhysicsCategory.none
 
             let textNode = SKLabelNode(fontNamed: "Helvetica")
     //        let textNode = SKLabelNode(fontNamed: "Arial")
