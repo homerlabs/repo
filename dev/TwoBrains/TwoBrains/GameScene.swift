@@ -53,8 +53,8 @@ class GameScene: SKScene {
         startTime = Date()
         secondsInterval = 0.0
         time = -1
-        print("GameScene.setupGame: \(String(format: "LVelocity.x  %.2f   .y  %.2f", randomVelocityL.x, randomVelocityL.y))")
-        print("GameScene.setupGame: \(String(format: "RVelocity.x  %.2f   .y  %.2f", randomVelocityR.x, randomVelocityR.y))")
+   //     print("GameScene.setupGame: \(String(format: "LVelocity.x  %.2f   .y  %.2f", randomVelocityL.x, randomVelocityL.y))")
+   //     print("GameScene.setupGame: \(String(format: "RVelocity.x  %.2f   .y  %.2f", randomVelocityR.x, randomVelocityR.y))")
     }
     
     func randomMovement() -> CGPoint {

@@ -50,12 +50,12 @@ class GameViewController: GCEventViewController {
             outerCircle.name = "outerCircle"
             outerCircle.lineWidth = 5.0
             outerCircle.strokeColor = .yellow
-            outerCircle.physicsBody = SKPhysicsBody(circleOfRadius: outerCircleRadius)
-            outerCircle.physicsBody?.isDynamic = true
-            outerCircle.physicsBody?.affectedByGravity = false
-            outerCircle.physicsBody?.categoryBitMask = PhysicsCategory.background
-            outerCircle.physicsBody?.contactTestBitMask = PhysicsCategory.player
-            outerCircle.physicsBody?.collisionBitMask = PhysicsCategory.none
+    //        outerCircle.physicsBody = SKPhysicsBody(circleOfRadius: outerCircleRadius)
+    //        outerCircle.physicsBody?.isDynamic = true
+    //        outerCircle.physicsBody?.affectedByGravity = false
+    //        outerCircle.physicsBody?.categoryBitMask = PhysicsCategory.background
+    //        outerCircle.physicsBody?.contactTestBitMask = PhysicsCategory.player
+     //       outerCircle.physicsBody?.collisionBitMask = PhysicsCategory.none
 
             let innerCircle = SKShapeNode(circleOfRadius: innerCircleRadius)
             innerCircle.name = "innerCircle"
@@ -72,7 +72,7 @@ class GameViewController: GCEventViewController {
             circleRight.physicsBody?.affectedByGravity = false
             circleRight.physicsBody?.isDynamic = true
             circleRight.physicsBody?.categoryBitMask = PhysicsCategory.player
-            circleRight.physicsBody?.contactTestBitMask = PhysicsCategory.background | PhysicsCategory.player
+            circleRight.physicsBody?.contactTestBitMask = PhysicsCategory.none
             circleRight.physicsBody?.collisionBitMask = PhysicsCategory.none
 
             let circleLeft = SKShapeNode(circleOfRadius: movingCircleRadius)
@@ -83,7 +83,7 @@ class GameViewController: GCEventViewController {
             circleLeft.physicsBody?.affectedByGravity = false
             circleLeft.physicsBody?.isDynamic = true
             circleLeft.physicsBody?.categoryBitMask = PhysicsCategory.player
-            circleLeft.physicsBody?.contactTestBitMask = PhysicsCategory.background | PhysicsCategory.player
+            circleLeft.physicsBody?.contactTestBitMask = PhysicsCategory.none
             circleLeft.physicsBody?.collisionBitMask = PhysicsCategory.none
 
             let textNode = SKLabelNode(fontNamed: "Helvetica")
