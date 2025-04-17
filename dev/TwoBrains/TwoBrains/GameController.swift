@@ -14,13 +14,11 @@ import GameplayKit
 class GameController: NSObject
 {
     // Game Controller Properties
+    public var currentViewController: UIViewController?
     public var gameControllerIsConnected = false
     public var gamePadLeft: GCControllerDirectionPad?
     public var gamePadRight: GCControllerDirectionPad?
-    
-    private var debounceRightTrigger = false
-    private var debounceLeftTrigger = false
-    
+
     private var gameScene: GameScene
     
     private var movePointLeft: CGPoint = .zero
@@ -31,21 +29,30 @@ class GameController: NSObject
     
     private var pauseGame = false
     
-    func controllerLeftTrigger(_ controllerJump: Bool) {
-        //      print("GameController.controllerLeftTrigger")
-        
-        debounceLeftTrigger = !debounceLeftTrigger
-        if debounceLeftTrigger {
+    func controllerButtonMenu(_ value: Bool) {
+        if !value {
+            if currentViewController == nil {
+                currentViewController = gameScene.view?.window?.rootViewController
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "Settings")
+                currentViewController!.present(vc, animated: true)
+            }
+            else {
+                currentViewController!.dismiss(animated: true)
+                currentViewController = nil
+            }
+        }
+    }
+    
+    func controllerLeftTrigger(_ value: Bool) {
+        if value {
             gameScene.pauseGame = !gameScene.pauseGame
             gameScene.lastUpdateTime = 0
         }
     }
     
-    func controllerRightTrigger() {
-        //       print("GameController.controllerRightTrigger")
-        
-        debounceRightTrigger = !debounceRightTrigger
-        if debounceRightTrigger {
+    func controllerRightTrigger(_ value: Bool) {
+        if value {
             gameScene.pauseGame = true
             
             if gameControllerIsConnected {
@@ -128,7 +135,8 @@ class GameController: NSObject
         var buttonB: GCControllerButtonInput?
         var leftTrigger: GCControllerButtonInput?
         var rightTrigger: GCControllerButtonInput?
-        
+        var buttonMenu: GCControllerButtonInput?
+
         weak var weakController = self
         
         if let gamepad = gameController.extendedGamepad {
@@ -136,6 +144,7 @@ class GameController: NSObject
             self.gamePadRight = gamepad.rightThumbstick
             buttonA = gamepad.buttonA
             buttonB = gamepad.buttonB
+            buttonMenu = gamepad.buttonMenu
             leftTrigger = gamepad.leftTrigger
             rightTrigger = gamepad.rightTrigger
         } else if let gamepad = gameController.microGamepad {
@@ -144,18 +153,25 @@ class GameController: NSObject
             buttonB = gamepad.buttonX
         }
         
+        buttonMenu?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+            guard let strongController = weakController else {
+                return
+            }
+            strongController.controllerButtonMenu(pressed)
+        }
+        
         buttonA?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             guard let strongController = weakController else {
                 return
             }
             strongController.controllerLeftTrigger(pressed)
         }
-        
+
         buttonB?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             guard let strongController = weakController else {
                 return
             }
-            strongController.controllerRightTrigger()
+            strongController.controllerRightTrigger(pressed)
         }
         
         leftTrigger?.pressedChangedHandler = buttonA?.valueChangedHandler

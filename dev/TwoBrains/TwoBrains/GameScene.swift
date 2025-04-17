@@ -8,13 +8,7 @@
 import SpriteKit
 import GameController
 import CoreHaptics
-
-
-enum PhysicsCategory {
-    static let none:        UInt32 = 0
-    static let background:  UInt32 = 0b1
-    static let player:      UInt32 = 0b10
-}
+import AVFoundation
 
 
 class GameScene: SKScene {
@@ -22,7 +16,17 @@ class GameScene: SKScene {
     var secondsInterval: TimeInterval = 0
     var time = -1
     var startTime = Date()
+    let userPreferences = UserPreferences()
 
+    // Audio nodes
+    let musicAudioNode = SKAudioNode(fileNamed: "music.mp3")
+//    let bubblesAudioNode = SKAudioNode(fileNamed: "bubbles.mp3")
+    let bubblesAudioNode = SKAudioNode(fileNamed: "collect.wav")
+
+    private let playCollectSound = SKAction.playSoundFileNamed("collect.wav",
+                                                      waitForCompletion: false)
+    private let playMissSound = SKAction.playSoundFileNamed("miss.wav",
+                                                      waitForCompletion: false)
 
     var gameController: GameController!
     var circleLeftNode = SKShapeNode()
@@ -33,12 +37,34 @@ class GameScene: SKScene {
     var pauseGame: Bool = true
     private var randomVelocityL : CGPoint = .zero
     private var randomVelocityR : CGPoint = .zero
-    private var moveDistanceJoystick: CGFloat = 7.0
-    private var moveDistanceRandom: CGFloat = 5.0
+//    private var moveDistanceJoystick: CGFloat = 7.0
+//    private var moveDistanceRandom: CGFloat = 4.0
 
     override func didMove(to view: SKView) {
-        // Get label node from scene and store it for use later
-        physicsWorld.contactDelegate = self
+        // Decrease the audio engine's volume
+        audioEngine.mainMixerNode.outputVolume = 0.0
+        
+        // Set up the background music audio node
+        musicAudioNode.autoplayLooped = true
+        musicAudioNode.isPositional = false
+
+        // Add the audio node to the scene
+  //      addChild(musicAudioNode)
+        
+        // Use an action to adjust the audio node's volume to 0
+        musicAudioNode.run(SKAction.changeVolume(to: 0.0, duration: 0.0))
+        
+        // Run a delayed action on the scene that fades-in the music
+        run(SKAction.wait(forDuration: 1.0), completion: { [unowned self] in
+          self.audioEngine.mainMixerNode.outputVolume = 1.0
+          self.musicAudioNode.run(SKAction.changeVolume(to: 0.75, duration: 2.0))
+        })
+        
+        // Run a delayed action to add bubble audio to the scene
+/*        run(SKAction.wait(forDuration: 1.5), completion: { [unowned self] in
+          self.bubblesAudioNode.autoplayLooped = true
+          self.addChild(self.bubblesAudioNode)
+        })*/
 
         self.circleLeftNode = self.childNode(withName: circleLeftName) as! SKShapeNode
         self.circleRightNode = self.childNode(withName: circleRightName) as! SKShapeNode
@@ -59,8 +85,8 @@ class GameScene: SKScene {
     
     func randomMovement() -> CGPoint {
         let randomdegree = Double.random(in: 0..<Double.pi*2)
-        let y: CGFloat = moveDistanceRandom * sin(randomdegree)
-        let x: CGFloat = moveDistanceRandom * cos(randomdegree)
+        let y = userPreferences.circleSpeed * sin(randomdegree)
+        let x = userPreferences.circleSpeed * cos(randomdegree)
         return CGPoint(x: x, y: y)
     }
     
@@ -75,6 +101,9 @@ class GameScene: SKScene {
         textNode.text = "Elapsed Time: \(formattedFloat) Seconds"
 
         pauseGame = true
+        
+        let actionGroup = SKAction.group([playMissSound])
+        self.run(actionGroup)
     }
 
     func updateEachSecond() {
@@ -86,8 +115,10 @@ class GameScene: SKScene {
     func joystickVelocity(gameControllerPad: GCControllerDirectionPad?, moveDistance: CGFloat, deltaTime: TimeInterval) -> CGPoint {
         if let gamePad = gameControllerPad {
             //          print("gamePadLeft.xAxis.value: \(gamePadLeft.xAxis.value)    yAxis.value: \(gamePadLeft.yAxis.value)")
-            let x = CGFloat(gamePad.xAxis.value) * moveDistanceJoystick * CGFloat(deltaTime)
-            let y = CGFloat(gamePad.yAxis.value) * moveDistanceJoystick * CGFloat(deltaTime)
+   //         let x = CGFloat(gamePad.xAxis.value) * moveDistanceJoystick * CGFloat(deltaTime)
+   //         let y = CGFloat(gamePad.yAxis.value) * moveDistanceJoystick * CGFloat(deltaTime)
+            let x = CGFloat(gamePad.xAxis.value) * userPreferences.joystickSpeed
+            let y = CGFloat(gamePad.yAxis.value) * userPreferences.joystickSpeed
             return CGPoint(x: x, y: y)
         }
         else {
@@ -129,31 +160,16 @@ class GameScene: SKScene {
         
         let deltaTime = currentTime - lastUpdateTime
         
-        let joystickVelocityL = joystickVelocity(gameControllerPad: gameController.gamePadLeft, moveDistance: moveDistanceJoystick, deltaTime: deltaTime)
-        let joystickVelocityR = joystickVelocity(gameControllerPad: gameController.gamePadRight, moveDistance: moveDistanceJoystick, deltaTime: deltaTime)
+        let joystickVelocityL = joystickVelocity(gameControllerPad: gameController.gamePadLeft, moveDistance: userPreferences.joystickSpeed, deltaTime: deltaTime)
+        let joystickVelocityR = joystickVelocity(gameControllerPad: gameController.gamePadRight, moveDistance: userPreferences.joystickSpeed, deltaTime: deltaTime)
 
-        let adjustedRandomVelocityL = CGPoint(x: randomVelocityL.x * deltaTime, y: randomVelocityL.y * deltaTime)
-        let adjustedRandomVelocityR = CGPoint(x: randomVelocityR.x * deltaTime, y: randomVelocityR.y * deltaTime)
-        
+        let adjustedRandomVelocityL = CGPoint(x: randomVelocityL.x, y: randomVelocityL.y)
+        let adjustedRandomVelocityR = CGPoint(x: randomVelocityR.x, y: randomVelocityR.y)
+
         let positionL = updatePosition(position: circleLeftNode.position, randomVelocity: adjustedRandomVelocityL, joystickVelocity: joystickVelocityL)
         let positionR = updatePosition(position: circleRightNode.position, randomVelocity: adjustedRandomVelocityR, joystickVelocity: joystickVelocityR)
         
         circleLeftNode.position = adjustPositionForInBounds(position: positionL)
         circleRightNode.position = adjustPositionForInBounds(position: positionR)
    }
-}
-
-
-extension GameScene: SKPhysicsContactDelegate {
-    func didBegin(_ contact: SKPhysicsContact) {
-        
-        pauseGame = true
-
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        // Check collision bodies
- //       let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        print("didBegin  collision: \(String(describing: bodyA.node?.name)) \(String(describing: bodyB.node?.name))")
-    }
 }
