@@ -20,9 +20,7 @@ public let textNodeName = "textNodeName"
 public let textColor: UIColor = .white
 
 class GameViewController: GCEventViewController {
-    let innerCircleRadius: CGFloat = 18.0
     var scene = SKScene(size: .zero)
-    let userPreferences = UserPreferences()
 
     var gameView: SKView? {
         return view as? SKView
@@ -30,7 +28,7 @@ class GameViewController: GCEventViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let view = self.view as! SKView? {
             
             //  create scene and its nodes
@@ -49,19 +47,19 @@ class GameViewController: GCEventViewController {
             outerCircle.lineWidth = 5.0
             outerCircle.strokeColor = .yellow
 
-            let innerCircle = SKShapeNode(circleOfRadius: innerCircleRadius)
+            let innerCircle = SKShapeNode(circleOfRadius: UserPreferences.shared.circleSize+2.0)
             innerCircle.name = "innerCircle"
             innerCircle.lineWidth = 2.0
     //        innerCircle.fillColor = .white
             innerCircle.strokeColor = .yellow
 
-            let circleRight = SKShapeNode(circleOfRadius: userPreferences.circleSize)
+            let circleRight = SKShapeNode(circleOfRadius: UserPreferences.shared.circleSize)
             circleRight.alpha = 0.5
             circleRight.fillColor = .red
             circleRight.name = circleRightName
             circleRight.position = CGPoint(x: 0.0, y: 0.0)
 
-            let circleLeft = SKShapeNode(circleOfRadius: userPreferences.circleSize)
+            let circleLeft = SKShapeNode(circleOfRadius: UserPreferences.shared.circleSize)
             circleLeft.alpha = 0.5
             circleLeft.fillColor = .magenta
             circleLeft.name = circleLeftName

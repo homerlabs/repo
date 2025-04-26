@@ -16,11 +16,17 @@ class UserPreferences: NSObject {
     public var circleSpeed: CGFloat = 4.0
     public var joystickSpeed: CGFloat = 7.0
     
-    let userPrefrences = UserDefaults.standard
-    
-    override init() {
+    static let shared: UserPreferences = {
+        let instance = UserPreferences()
+        // setup code
+        return instance
+    }()
+
+    private override init() {
         super.init()
         print("UserPreferences.init")
+        
+        let userPrefrences = UserDefaults.standard
         
         let circleSize = userPrefrences.float(forKey: circleSizeKey)
         if circleSize > 0 {
@@ -40,6 +46,8 @@ class UserPreferences: NSObject {
 
     
     func storeUserPreferences() {
+        let userPrefrences = UserDefaults.standard
+        
         userPrefrences.set(circleSize, forKey: circleSizeKey)
         userPrefrences.set(circleSpeed, forKey: circleSpeedKey)
         userPrefrences.set(joystickSpeed, forKey: joystickSpeedKey)

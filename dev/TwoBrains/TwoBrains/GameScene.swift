@@ -10,13 +10,15 @@ import GameController
 import CoreHaptics
 import AVFoundation
 
+var gameController: GameController!
+
 
 class GameScene: SKScene {
     
     var secondsInterval: TimeInterval = 0
     var time = -1
     var startTime = Date()
-    let userPreferences = UserPreferences()
+    let userPreferences = UserPreferences.shared
 
     // Audio nodes
     let musicAudioNode = SKAudioNode(fileNamed: "music.mp3")
@@ -28,7 +30,6 @@ class GameScene: SKScene {
     private let playMissSound = SKAction.playSoundFileNamed("miss.wav",
                                                       waitForCompletion: false)
 
-    var gameController: GameController!
     var circleLeftNode = SKShapeNode()
     var circleRightNode = SKShapeNode()
     var textNode  = SKLabelNode()

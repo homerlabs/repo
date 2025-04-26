@@ -9,17 +9,23 @@ import GameController
 import SpriteKit
 import CoreHaptics
 import GameplayKit
-//import os
+
+/*protocol UpdatePreferencesProtocol {
+    func increment()
+    func decrement()
+}*/
 
 class GameController: NSObject
 {
+    var delegate: UIViewController?
+    
     // Game Controller Properties
     public var currentViewController: UIViewController?
     public var gameControllerIsConnected = false
     public var gamePadLeft: GCControllerDirectionPad?
     public var gamePadRight: GCControllerDirectionPad?
 
-    private var gameScene: GameScene
+    private var gameScene: GameScene?
     
     private var movePointLeft: CGPoint = .zero
     private var movePointRight: CGPoint = .zero
@@ -32,9 +38,10 @@ class GameController: NSObject
     func controllerButtonMenu(_ value: Bool) {
         if !value {
             if currentViewController == nil {
-                currentViewController = gameScene.view?.window?.rootViewController
+                currentViewController = gameScene!.view?.window?.rootViewController
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "Settings")
+  //              delegate = vc as? PreferencesViewController
                 currentViewController!.present(vc, animated: true)
             }
             else {
@@ -44,27 +51,45 @@ class GameController: NSObject
         }
     }
     
+    func controllerRightShoulder(_ value: Bool) {
+//        print("GameController.controllerRightShoulder: \(value)")
+        if value {
+            if let vc = delegate as? PreferencesViewController {
+                vc.increment()
+            }
+        }
+    }
+    
+    func controllerLeftShoulder(_ value: Bool) {
+//        print("GameController.controllerLeftShoulder: \(value)")
+        if value {
+            if let vc = delegate as? PreferencesViewController {
+                vc.decrement()
+            }
+        }
+    }
+
     func controllerLeftTrigger(_ value: Bool) {
         if value {
-            gameScene.pauseGame = !gameScene.pauseGame
-            gameScene.lastUpdateTime = 0
+            gameScene!.pauseGame = !gameScene!.pauseGame
+            gameScene!.lastUpdateTime = 0
         }
     }
     
     func controllerRightTrigger(_ value: Bool) {
         if value {
-            gameScene.pauseGame = true
+            gameScene!.pauseGame = true
             
             if gameControllerIsConnected {
-                gameScene.textNode.text = "Elasped Time: 0 Seconds"
-                gameScene.textNode.fontColor = textColor
+                gameScene!.textNode.text = "Elasped Time: 0 Seconds"
+                gameScene!.textNode.fontColor = textColor
             }
             else {
-                gameScene.textNode.fontColor = .red
-                gameScene.textNode.text = "No Game Controller Connected"
+                gameScene!.textNode.fontColor = .red
+                gameScene!.textNode.text = "No Game Controller Connected"
             }
             
-            for node in gameScene.children {
+            for node in gameScene!.children {
                 
                 //  move targets to the center
                 if node.name == circleLeftName {
@@ -79,8 +104,8 @@ class GameController: NSObject
             }
         }
         else {
-            gameScene.pauseGame = false
-            gameScene.setupGame()
+            gameScene!.pauseGame = false
+            gameScene!.setupGame()
         }
     }
     
@@ -133,6 +158,8 @@ class GameController: NSObject
         //        print("GameController.registerGameController")
         var buttonA: GCControllerButtonInput?
         var buttonB: GCControllerButtonInput?
+        var leftShoulder: GCControllerButtonInput?
+        var rightShoulder: GCControllerButtonInput?
         var leftTrigger: GCControllerButtonInput?
         var rightTrigger: GCControllerButtonInput?
         var buttonMenu: GCControllerButtonInput?
@@ -145,6 +172,8 @@ class GameController: NSObject
             buttonA = gamepad.buttonA
             buttonB = gamepad.buttonB
             buttonMenu = gamepad.buttonMenu
+            leftShoulder = gamepad.leftShoulder
+            rightShoulder = gamepad.rightShoulder
             leftTrigger = gamepad.leftTrigger
             rightTrigger = gamepad.rightTrigger
         } else if let gamepad = gameController.microGamepad {
@@ -160,6 +189,20 @@ class GameController: NSObject
             strongController.controllerButtonMenu(pressed)
         }
         
+        rightShoulder?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+            guard let strongController = weakController else {
+                return
+            }
+            strongController.controllerRightShoulder(pressed)
+        }
+        
+        leftShoulder?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+            guard let strongController = weakController else {
+                return
+            }
+            strongController.controllerLeftShoulder(pressed)
+        }
+
         buttonA?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             guard let strongController = weakController else {
                 return
@@ -181,13 +224,13 @@ class GameController: NSObject
   //          print("venderName: \(venderName)")
 
             if venderName.hasPrefix("DUALSHOCK 4") || venderName.hasPrefix("DualSense Wireless Controller") {
-                gameScene.textNode.fontColor = textColor
-                gameScene.textNode.text = "Ready To Start"
+                gameScene!.textNode.fontColor = textColor
+                gameScene!.textNode.text = "Ready To Start"
                 gameControllerIsConnected = true
             }
             else {
-                gameScene.textNode.fontColor = .red
-                gameScene.textNode.text = "No Game Controller"
+                gameScene!.textNode.fontColor = .red
+                gameScene!.textNode.text = "No Game Controller"
                 gameControllerIsConnected = false
             }
         }
