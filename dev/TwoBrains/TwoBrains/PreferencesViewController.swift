@@ -15,8 +15,18 @@ class PreferencesViewController: UIViewController
     @IBOutlet weak var joystickSpeedTextView: UITextField!
     @IBOutlet weak var ballSizeTextView: UITextField!
     @IBOutlet weak var ballSpeedTextView: UITextField!
-    
+
     let userPreferences = UserPreferences.shared
+    
+    @IBAction func useDefualtsAction(sender: UIButton)
+    {
+        print("useDefualtsAction")
+    }
+    
+    @IBAction func SaveAction(sender: UIButton)
+    {
+        print("SaveAction")
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
