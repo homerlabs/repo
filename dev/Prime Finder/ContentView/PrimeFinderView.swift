@@ -91,6 +91,27 @@ struct PrimeFinderView: View {
                 .padding(.top, verticalPaddingValue)
                 
 
+                HStack {
+                    Toggle("Run in Parallel", isOn: $pfViewModel.runInParallel)
+           //         Spacer()
+                    Toggle("PrimesToRAM", isOn: $pfViewModel.dataToRAM)
+
+                    if( pfViewModel.runInParallel ) {
+                        Text("Process Count: ")
+                        .padding(.leading, horizontalPaddingValue)
+                        
+                        TextField(String(pfViewModel.processCount), value: $pfViewModel.processCount, formatter: NumberFormatter(), onCommit: {
+                            if self.pfViewModel.processCount == 0 {
+                                self.showErrorInvalidData = true
+                            }
+                            else {
+                                UserDefaults.standard.set(pfViewModel.processCount, forKey: HLPrime.HLProcessCountKey)
+                            }
+                        })
+                        .frame(width: processCountWidth)
+                        Spacer()
+                    }
+                }
 
                 //**********  Status
                 HStack {
@@ -101,26 +122,6 @@ struct PrimeFinderView: View {
                     Text("Percent completed: \(pfViewModel.progress)")
                 }
            //     .padding(.bottom, verticalPaddingValue)
-            }
-
-            HStack {
-                Toggle("Run in Parallel", isOn: $pfViewModel.runInParallel) 
-                
-                if( pfViewModel.runInParallel ) {
-                    Text("Process Count: ")
-                    .padding(.leading, horizontalPaddingValue)
-                    
-                    TextField(String(pfViewModel.processCount), value: $pfViewModel.processCount, formatter: NumberFormatter(), onCommit: {
-                        if self.pfViewModel.processCount == 0 {
-                            self.showErrorInvalidData = true
-                        }
-                        else {
-                            UserDefaults.standard.set(pfViewModel.processCount, forKey: HLPrime.HLProcessCountKey)
-                        }
-                    })
-                    .frame(width: processCountWidth)
-                    Spacer()
-                }
             }
             .padding(.bottom, verticalPaddingValue)
         }

@@ -10,7 +10,7 @@
         <!--Game View Controller-->
         <scene sceneID="dEh-eV-dlg">
             <objects>
-                <viewController id="499-42-d0g" customClass="GameViewController" customModule="TwoBrains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" id="499-42-d0g" customClass="GameViewController" customModule="TwoBrains" customModuleProvider="target" sceneMemberID="viewController">
                     <skView key="view" contentMode="scaleToFill" id="K8t-Ib-8TU">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -20,10 +20,10 @@
             </objects>
             <point key="canvasLocation" x="-2041" y="-73"/>
         </scene>
-        <!--Settings-->
+        <!--Preference View Controller-->
         <scene sceneID="QNA-cs-1Xe">
             <objects>
-                <viewController storyboardIdentifier="Settings" title="Settings" id="xXA-MZ-Fc0" customClass="PreferencesViewController" customModule="TwoBrains" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreferencesViewController" title="Settings" id="xXA-MZ-Fc0" userLabel="Preference View Controller" customClass="PreferencesViewController" customModule="TwoBrains" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1zG-Ho-onz"/>
                         <viewControllerLayoutGuide type="bottom" id="ayn-PZ-QoV"/>
@@ -131,11 +131,13 @@
                         <outlet property="ballSizeTextView" destination="yYm-UI-LTj" id="hmG-qn-yLM"/>
                         <outlet property="ballSpeedTextView" destination="O09-dO-2i3" id="5Ve-Cb-6za"/>
                         <outlet property="joystickSpeedTextView" destination="r8P-80-3NH" id="GUd-of-dv2"/>
+                        <outlet property="saveButton" destination="VSb-Gb-7qp" id="SlJ-0J-bW2"/>
+                        <outlet property="useDefaultsButton" destination="aZw-j8-n65" id="1CS-qB-xZm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KmE-dV-TEM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2195" y="-73"/>
+            <point key="canvasLocation" x="239" y="-73"/>
         </scene>
     </scenes>
 </document>

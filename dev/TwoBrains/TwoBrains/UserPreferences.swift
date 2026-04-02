@@ -11,10 +11,14 @@ let circleSizeKey   = "circleSizeKey"
 let circleSpeedKey  = "circleSpeedKey"
 let joystickSpeedKey = "joystickSpeedKey"
 
+let defaultCircleSize: CGFloat = 10.0
+let defaultCircleSpeed: CGFloat = 4.0
+let defaultJoystickSpeed: CGFloat = 7.0
+
 class UserPreferences: NSObject {
-    public var circleSize: CGFloat  = 15.0
-    public var circleSpeed: CGFloat = 4.0
-    public var joystickSpeed: CGFloat = 7.0
+    public var circleSize: CGFloat  = defaultCircleSize
+    public var circleSpeed: CGFloat = defaultCircleSpeed
+    public var joystickSpeed: CGFloat = defaultJoystickSpeed
     
     static let shared: UserPreferences = {
         let instance = UserPreferences()
@@ -24,7 +28,7 @@ class UserPreferences: NSObject {
 
     private override init() {
         super.init()
-        print("UserPreferences.init")
+        print("UserPreferences.init-  SINGLETON")
         
         let userPrefrences = UserDefaults.standard
         
@@ -44,6 +48,20 @@ class UserPreferences: NSObject {
         }
     }
 
+    
+    func resetUserPreferences() {
+        print("UserPreferences.resetUserPreferences")
+
+        let userPrefrences = UserDefaults.standard
+        
+        circleSize = defaultCircleSize
+        circleSpeed = defaultCircleSize
+        joystickSpeed = defaultJoystickSpeed
+
+        userPrefrences.set(circleSize, forKey: circleSizeKey)
+        userPrefrences.set(circleSpeed, forKey: circleSpeedKey)
+        userPrefrences.set(joystickSpeed, forKey: joystickSpeedKey)
+    }
     
     func storeUserPreferences() {
         let userPrefrences = UserDefaults.standard

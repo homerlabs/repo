@@ -42,6 +42,7 @@ extension HLPrime {
         print("result.count: \(primes.count)")
         NSSound.beep()
 
+        let createPrimeFile = false
         if createPrimeFile {
             let _ = fileManager.createTextFile(url: primeURL)
             let writeToDiskTime = Int(primesToDisk(isNumbered: true, primes: primes))

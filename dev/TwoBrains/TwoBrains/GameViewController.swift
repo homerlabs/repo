@@ -19,13 +19,21 @@ public let textNodeName = "textNodeName"
 
 public let textColor: UIColor = .white
 
-class GameViewController: GCEventViewController {
+var gameController: GameController!
+
+class GameViewController: GCEventViewController, TBGameControllerProtocol {
     var scene = SKScene(size: .zero)
 
     var gameView: SKView? {
         return view as? SKView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        gameController.delegate = self as GameViewController
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,6 +97,23 @@ class GameViewController: GCEventViewController {
             
             view.showsFPS = true
             view.showsNodeCount = true
-        }
+            
+            gameController = GameController(scene: scene)
+       }
+    }
+    
+    
+    //  TBGameControllerProtocol
+    func buttonA_X(_ value: Bool) {
+        print("GameViewController.buttonA_X:  \(value)")
+    }
+    func buttonB_Circle(_ value: Bool) {
+        print("GameViewController.buttonB_Circle:  \(value)")
+    }
+    func buttonX_Square(_ value: Bool) {
+        print("GameViewController.buttonX_Square:  \(value)")
+    }
+    func buttonY_Triangle(_ value: Bool) {
+        print("GameViewController.buttonY_Triangle:  \(value)")
     }
 }

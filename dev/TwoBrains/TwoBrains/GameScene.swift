@@ -10,7 +10,7 @@ import GameController
 import CoreHaptics
 import AVFoundation
 
-var gameController: GameController!
+//var gameController: GameController!
 
 
 class GameScene: SKScene {
@@ -70,7 +70,7 @@ class GameScene: SKScene {
         self.circleLeftNode = self.childNode(withName: circleLeftName) as! SKShapeNode
         self.circleRightNode = self.childNode(withName: circleRightName) as! SKShapeNode
         self.textNode = self.childNode(withName: textNodeName) as! SKLabelNode
-        gameController = GameController(scene: self)
+   //     gameController = GameController(scene: self)
     }
     
     func setupGame() {

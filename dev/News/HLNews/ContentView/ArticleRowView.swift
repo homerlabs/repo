@@ -38,8 +38,8 @@ struct ArticleRowView: View {
                     .frame(width: 200, height: 100, alignment: .trailing)
                 }
 */
-            if article.urlToImage != nil {
-                AsyncImage(url: URL(string: article.urlToImage!)!,
+                if let urlString = article.urlToImage, let url = URL(string: urlString) {
+                AsyncImage(url: url,
                            placeholder: { Text("Loading...") },
                             image: { Image(uiImage: $0)
                             .resizable()

@@ -16,6 +16,7 @@ public class HLPrime {
     public static let HLNicePrimesKey    = "HLNicePrimesKey"
     public static let HLTerminalPrimeKey = "HLTerminalPrimeKey"
     
+    public static let HLDataToRAMKey = "HLDataToRAMKey"
     public static let HLParallelKey = "HLParallelKey"
     public static let HLProcessCountKey = "HLProcessCountKey"
 
@@ -30,10 +31,10 @@ public class HLPrime {
     var lastLine = ""
     var okToRun = true  //  used to exit big loop before app exits
     var processCount: Int
-    let createPrimeFile = false
+    var bigPrimeArray : [HLPrimeType] = [2,3]
 
 
-    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType) async -> String {
+    public func findPrimes(primeURL: URL, maxPrime: HLPrimeType, primeToRAM: Bool) async -> String {
         print( "\nHLPrime-  findPrimes-  maxPrime: \(maxPrime)" )
         
         let _ = fileManager.createTextFile(url: primeURL)
@@ -52,10 +53,13 @@ public class HLPrime {
             if isPrime(lastP)    {
                 lastLine = String(format: "%d\t%ld\n", lastN, lastP)
 
-                if createPrimeFile {
+                if primeToRAM {
+                    bigPrimeArray.append(lastP)
+                }
+                else  {
                     fileManager.appendStringToFile(lastLine)
                 }
-                
+
                 lastN += 1
             }
             

@@ -16,7 +16,7 @@ enum HLErrorEnum {
     case invalidDataError
 }
 
-class PrimeFinderViewModel: ObservableObject {
+class PrimeFinderViewModel: ObservableObject, @unchecked Sendable {
     @Published var terminalPrime = HLPrimeType(1000)
     @Published var findPrimesInProgress = false
     @Published var findNPrimesInProgress = false
@@ -25,8 +25,9 @@ class PrimeFinderViewModel: ObservableObject {
     @Published var primesURL: URL?
     @Published var nicePrimesURL: URL?
     @Published var runInParallel = false
+    @Published var dataToRAM = false
     @Published var processCount: Int
-    
+
     private let fileManager = HLFileManager.shared
 
     private var primeFinder: HLPrime
@@ -76,7 +77,7 @@ class PrimeFinderViewModel: ObservableObject {
         {
             
             Task.init {
-                let result = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime)
+                let result = await primeFinder.findPrimes(primeURL: primesURL!, maxPrime: maxPrime, primeToRAM: dataToRAM)
                 //  result is always ""
                 
                 NSSound.beep()
@@ -85,6 +86,10 @@ class PrimeFinderViewModel: ObservableObject {
                 print("    *********  findPrimes completed in \(elaspedTime)       ********* \n")
                 self.timer.invalidate()
                 let (lastN, lastP) = result.parseLine()
+                
+                if dataToRAM {
+                    print("    *********  primeFinderbigPrimeArray \(primeFinder.bigPrimeArray)       ********* \n")
+                }
                 
                 DispatchQueue.main.async {
                     self.findPrimesInProgress = false
@@ -162,7 +167,7 @@ class PrimeFinderViewModel: ObservableObject {
                 percent *= self.processCount
             }
             self.progress = String(percent)
-    //        print("    progress \(self.progress)")
+            print("    progress \(self.progress)")
         })
     }
     
@@ -178,6 +183,7 @@ class PrimeFinderViewModel: ObservableObject {
  //       print("PrimeFinderViewModel-  init-  primesURL: \(String(describing: primesURL))")
         
         runInParallel = UserDefaults.standard.bool(forKey: HLPrime.HLParallelKey)
+        dataToRAM = UserDefaults.standard.bool(forKey: HLPrime.HLDataToRAMKey)
 
         if let valueP = UserDefaults.standard.object(forKey: HLPrime.HLProcessCountKey) as? NSNumber {
             processCount = valueP.intValue
@@ -193,7 +199,8 @@ class PrimeFinderViewModel: ObservableObject {
     
     deinit {
   //      print("PrimeFinderViewModel-  deinit")
-        
+
+        UserDefaults.standard.set(dataToRAM, forKey: HLPrime.HLDataToRAMKey)
         UserDefaults.standard.set(runInParallel, forKey: HLPrime.HLParallelKey)
         primeFinder.okToRun = false
         primesURL?.stopAccessingSecurityScopedResource()

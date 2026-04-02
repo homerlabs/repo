@@ -10,10 +10,12 @@ import SpriteKit
 import CoreHaptics
 import GameplayKit
 
-/*protocol UpdatePreferencesProtocol {
-    func increment()
-    func decrement()
-}*/
+@objc public protocol TBGameControllerProtocol {
+    func buttonA_X(_ value: Bool)
+    @objc optional func buttonB_Circle(_ value: Bool)
+    @objc optional func buttonX_Square(_ value: Bool)
+    @objc optional func buttonY_Triangle(_ value: Bool)
+}
 
 class GameController: NSObject
 {
@@ -40,8 +42,8 @@ class GameController: NSObject
             if currentViewController == nil {
                 currentViewController = gameScene!.view?.window?.rootViewController
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "Settings")
-  //              delegate = vc as? PreferencesViewController
+                let vc = storyboard.instantiateViewController(withIdentifier: "PreferencesViewController")
+                delegate = vc as? PreferencesViewController
                 currentViewController!.present(vc, animated: true)
             }
             else {
@@ -52,7 +54,7 @@ class GameController: NSObject
     }
     
     func controllerRightShoulder(_ value: Bool) {
-//        print("GameController.controllerRightShoulder: \(value)")
+        print("GameController.controllerRightShoulder: \(value)")
         if value {
             if let vc = delegate as? PreferencesViewController {
                 vc.increment()
@@ -61,7 +63,7 @@ class GameController: NSObject
     }
     
     func controllerLeftShoulder(_ value: Bool) {
-//        print("GameController.controllerLeftShoulder: \(value)")
+        print("GameController.controllerLeftShoulder: \(value)")
         if value {
             if let vc = delegate as? PreferencesViewController {
                 vc.decrement()
@@ -69,14 +71,45 @@ class GameController: NSObject
         }
     }
 
+    func controllerButtonA(_ value: Bool) {
+        if let vc = delegate as? GameViewController  {
+            vc.buttonA_X(value)
+        }
+        else if let vc = delegate as? PreferencesViewController  {
+            vc.buttonA_X(value)
+        }
+    }
+
+    func controllerButtonB(_ value: Bool) {
+        if let vc = delegate as? GameViewController  {
+            vc.buttonB_Circle(value)
+        }
+        else if let vc = delegate as? PreferencesViewController  {
+            vc.buttonB_Circle(value)
+        }
+    }
+
     func controllerLeftTrigger(_ value: Bool) {
+        if let _ = delegate as? PreferencesViewController
+        {
+            print("GameController.controllerLeftTrigger:  \(value)")
+            return
+        }
+
         if value {
             gameScene!.pauseGame = !gameScene!.pauseGame
             gameScene!.lastUpdateTime = 0
         }
     }
-    
+
     func controllerRightTrigger(_ value: Bool) {
+        if let _ = delegate as? PreferencesViewController
+        {
+            print("GameController.controllerRightTrigger:  \(value)")
+            return
+        }
+
+        //  GameViewController
         if value {
             gameScene!.pauseGame = true
             
@@ -164,7 +197,7 @@ class GameController: NSObject
         var rightTrigger: GCControllerButtonInput?
         var buttonMenu: GCControllerButtonInput?
 
-        weak var weakController = self
+        weak let weakController = self
         
         if let gamepad = gameController.extendedGamepad {
             self.gamePadLeft = gamepad.leftThumbstick
@@ -203,22 +236,34 @@ class GameController: NSObject
             strongController.controllerLeftShoulder(pressed)
         }
 
-        buttonA?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
-            guard let strongController = weakController else {
-                return
-            }
-            strongController.controllerLeftTrigger(pressed)
-        }
-
-        buttonB?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+        
+        rightTrigger?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
             guard let strongController = weakController else {
                 return
             }
             strongController.controllerRightTrigger(pressed)
         }
         
-        leftTrigger?.pressedChangedHandler = buttonA?.valueChangedHandler
-        rightTrigger?.pressedChangedHandler = buttonB?.valueChangedHandler
+        leftTrigger?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+            guard let strongController = weakController else {
+                return
+            }
+            strongController.controllerLeftTrigger(pressed)
+        }
+
+        buttonA?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+            guard let strongController = weakController else {
+                return
+            }
+            strongController.controllerButtonA(pressed)
+        }
+
+        buttonB?.valueChangedHandler = {(_ button: GCControllerButtonInput, _ value: Float, _ pressed: Bool) -> Void in
+            guard let strongController = weakController else {
+                return
+            }
+            strongController.controllerButtonB(pressed)
+        }
         
         if let venderName = gameController.vendorName {
   //          print("venderName: \(venderName)")
