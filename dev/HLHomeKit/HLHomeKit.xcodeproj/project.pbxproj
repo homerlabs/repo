@@ -6,41 +6,46 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B04238DD2F7F2C53004736D9 /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04238DC2F7F2C53004736D9 /* HomeKit.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
-		B0D842972F7F0F3200428544 /* PBXContainerItemProxy */ = {
+		B04238BF2F7F2B9B004736D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B0D842812F7F0F3100428544 /* Project object */;
+			containerPortal = B04238A92F7F2B9A004736D9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B0D842882F7F0F3100428544;
+			remoteGlobalIDString = B04238B02F7F2B9A004736D9;
 			remoteInfo = HLHomeKit;
 		};
-		B0D842A12F7F0F3200428544 /* PBXContainerItemProxy */ = {
+		B04238C92F7F2B9B004736D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B0D842812F7F0F3100428544 /* Project object */;
+			containerPortal = B04238A92F7F2B9A004736D9 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B0D842882F7F0F3100428544;
+			remoteGlobalIDString = B04238B02F7F2B9A004736D9;
 			remoteInfo = HLHomeKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B0D842892F7F0F3100428544 /* HLHomeKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLHomeKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0D842962F7F0F3200428544 /* HLHomeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0D842A02F7F0F3200428544 /* HLHomeKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B04238B12F7F2B9A004736D9 /* HLHomeKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLHomeKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B04238BE2F7F2B9B004736D9 /* HLHomeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B04238C82F7F2B9B004736D9 /* HLHomeKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B04238DC2F7F2C53004736D9 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B0D8428B2F7F0F3100428544 /* HLHomeKit */ = {
+		B04238B32F7F2B9A004736D9 /* HLHomeKit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HLHomeKit;
 			sourceTree = "<group>";
 		};
-		B0D842992F7F0F3200428544 /* HLHomeKitTests */ = {
+		B04238C12F7F2B9B004736D9 /* HLHomeKitTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HLHomeKitTests;
 			sourceTree = "<group>";
 		};
-		B0D842A32F7F0F3200428544 /* HLHomeKitUITests */ = {
+		B04238CB2F7F2B9B004736D9 /* HLHomeKitUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HLHomeKitUITests;
 			sourceTree = "<group>";
@@ -48,21 +53,22 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B0D842862F7F0F3100428544 /* Frameworks */ = {
+		B04238AE2F7F2B9A004736D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B04238DD2F7F2C53004736D9 /* HomeKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B04238BB2F7F2B9B004736D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B0D842932F7F0F3200428544 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B0D8429D2F7F0F3200428544 /* Frameworks */ = {
+		B04238C52F7F2B9B004736D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,157 +78,166 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B0D842802F7F0F3100428544 = {
+		B04238A82F7F2B9A004736D9 = {
 			isa = PBXGroup;
 			children = (
-				B0D8428B2F7F0F3100428544 /* HLHomeKit */,
-				B0D842992F7F0F3200428544 /* HLHomeKitTests */,
-				B0D842A32F7F0F3200428544 /* HLHomeKitUITests */,
-				B0D8428A2F7F0F3100428544 /* Products */,
+				B04238B32F7F2B9A004736D9 /* HLHomeKit */,
+				B04238C12F7F2B9B004736D9 /* HLHomeKitTests */,
+				B04238CB2F7F2B9B004736D9 /* HLHomeKitUITests */,
+				B04238DB2F7F2C53004736D9 /* Frameworks */,
+				B04238B22F7F2B9A004736D9 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B0D8428A2F7F0F3100428544 /* Products */ = {
+		B04238B22F7F2B9A004736D9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B0D842892F7F0F3100428544 /* HLHomeKit.app */,
-				B0D842962F7F0F3200428544 /* HLHomeKitTests.xctest */,
-				B0D842A02F7F0F3200428544 /* HLHomeKitUITests.xctest */,
+				B04238B12F7F2B9A004736D9 /* HLHomeKit.app */,
+				B04238BE2F7F2B9B004736D9 /* HLHomeKitTests.xctest */,
+				B04238C82F7F2B9B004736D9 /* HLHomeKitUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B04238DB2F7F2C53004736D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B04238DC2F7F2C53004736D9 /* HomeKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B0D842882F7F0F3100428544 /* HLHomeKit */ = {
+		B04238B02F7F2B9A004736D9 /* HLHomeKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B0D842AA2F7F0F3200428544 /* Build configuration list for PBXNativeTarget "HLHomeKit" */;
+			buildConfigurationList = B04238D22F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKit" */;
 			buildPhases = (
-				B0D842852F7F0F3100428544 /* Sources */,
-				B0D842862F7F0F3100428544 /* Frameworks */,
-				B0D842872F7F0F3100428544 /* Resources */,
+				B04238AD2F7F2B9A004736D9 /* Sources */,
+				B04238AE2F7F2B9A004736D9 /* Frameworks */,
+				B04238AF2F7F2B9A004736D9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				B0D8428B2F7F0F3100428544 /* HLHomeKit */,
+				B04238B32F7F2B9A004736D9 /* HLHomeKit */,
 			);
 			name = HLHomeKit;
 			packageProductDependencies = (
 			);
 			productName = HLHomeKit;
-			productReference = B0D842892F7F0F3100428544 /* HLHomeKit.app */;
+			productReference = B04238B12F7F2B9A004736D9 /* HLHomeKit.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B0D842952F7F0F3200428544 /* HLHomeKitTests */ = {
+		B04238BD2F7F2B9B004736D9 /* HLHomeKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B0D842AD2F7F0F3200428544 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */;
+			buildConfigurationList = B04238D52F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */;
 			buildPhases = (
-				B0D842922F7F0F3200428544 /* Sources */,
-				B0D842932F7F0F3200428544 /* Frameworks */,
-				B0D842942F7F0F3200428544 /* Resources */,
+				B04238BA2F7F2B9B004736D9 /* Sources */,
+				B04238BB2F7F2B9B004736D9 /* Frameworks */,
+				B04238BC2F7F2B9B004736D9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B0D842982F7F0F3200428544 /* PBXTargetDependency */,
+				B04238C02F7F2B9B004736D9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				B0D842992F7F0F3200428544 /* HLHomeKitTests */,
+				B04238C12F7F2B9B004736D9 /* HLHomeKitTests */,
 			);
 			name = HLHomeKitTests;
 			packageProductDependencies = (
 			);
 			productName = HLHomeKitTests;
-			productReference = B0D842962F7F0F3200428544 /* HLHomeKitTests.xctest */;
+			productReference = B04238BE2F7F2B9B004736D9 /* HLHomeKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B0D8429F2F7F0F3200428544 /* HLHomeKitUITests */ = {
+		B04238C72F7F2B9B004736D9 /* HLHomeKitUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B0D842B02F7F0F3200428544 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */;
+			buildConfigurationList = B04238D82F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */;
 			buildPhases = (
-				B0D8429C2F7F0F3200428544 /* Sources */,
-				B0D8429D2F7F0F3200428544 /* Frameworks */,
-				B0D8429E2F7F0F3200428544 /* Resources */,
+				B04238C42F7F2B9B004736D9 /* Sources */,
+				B04238C52F7F2B9B004736D9 /* Frameworks */,
+				B04238C62F7F2B9B004736D9 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B0D842A22F7F0F3200428544 /* PBXTargetDependency */,
+				B04238CA2F7F2B9B004736D9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				B0D842A32F7F0F3200428544 /* HLHomeKitUITests */,
+				B04238CB2F7F2B9B004736D9 /* HLHomeKitUITests */,
 			);
 			name = HLHomeKitUITests;
 			packageProductDependencies = (
 			);
 			productName = HLHomeKitUITests;
-			productReference = B0D842A02F7F0F3200428544 /* HLHomeKitUITests.xctest */;
+			productReference = B04238C82F7F2B9B004736D9 /* HLHomeKitUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B0D842812F7F0F3100428544 /* Project object */ = {
+		B04238A92F7F2B9A004736D9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
-					B0D842882F7F0F3100428544 = {
+					B04238B02F7F2B9A004736D9 = {
 						CreatedOnToolsVersion = 26.4;
 					};
-					B0D842952F7F0F3200428544 = {
+					B04238BD2F7F2B9B004736D9 = {
 						CreatedOnToolsVersion = 26.4;
-						TestTargetID = B0D842882F7F0F3100428544;
+						TestTargetID = B04238B02F7F2B9A004736D9;
 					};
-					B0D8429F2F7F0F3200428544 = {
+					B04238C72F7F2B9B004736D9 = {
 						CreatedOnToolsVersion = 26.4;
-						TestTargetID = B0D842882F7F0F3100428544;
+						TestTargetID = B04238B02F7F2B9A004736D9;
 					};
 				};
 			};
-			buildConfigurationList = B0D842842F7F0F3100428544 /* Build configuration list for PBXProject "HLHomeKit" */;
+			buildConfigurationList = B04238AC2F7F2B9A004736D9 /* Build configuration list for PBXProject "HLHomeKit" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = B0D842802F7F0F3100428544;
+			mainGroup = B04238A82F7F2B9A004736D9;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = B0D8428A2F7F0F3100428544 /* Products */;
+			productRefGroup = B04238B22F7F2B9A004736D9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B0D842882F7F0F3100428544 /* HLHomeKit */,
-				B0D842952F7F0F3200428544 /* HLHomeKitTests */,
-				B0D8429F2F7F0F3200428544 /* HLHomeKitUITests */,
+				B04238B02F7F2B9A004736D9 /* HLHomeKit */,
+				B04238BD2F7F2B9B004736D9 /* HLHomeKitTests */,
+				B04238C72F7F2B9B004736D9 /* HLHomeKitUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B0D842872F7F0F3100428544 /* Resources */ = {
+		B04238AF2F7F2B9A004736D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B0D842942F7F0F3200428544 /* Resources */ = {
+		B04238BC2F7F2B9B004736D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B0D8429E2F7F0F3200428544 /* Resources */ = {
+		B04238C62F7F2B9B004736D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,21 +247,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B0D842852F7F0F3100428544 /* Sources */ = {
+		B04238AD2F7F2B9A004736D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B0D842922F7F0F3200428544 /* Sources */ = {
+		B04238BA2F7F2B9B004736D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B0D8429C2F7F0F3200428544 /* Sources */ = {
+		B04238C42F7F2B9B004736D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,20 +271,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B0D842982F7F0F3200428544 /* PBXTargetDependency */ = {
+		B04238C02F7F2B9B004736D9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B0D842882F7F0F3100428544 /* HLHomeKit */;
-			targetProxy = B0D842972F7F0F3200428544 /* PBXContainerItemProxy */;
+			target = B04238B02F7F2B9A004736D9 /* HLHomeKit */;
+			targetProxy = B04238BF2F7F2B9B004736D9 /* PBXContainerItemProxy */;
 		};
-		B0D842A22F7F0F3200428544 /* PBXTargetDependency */ = {
+		B04238CA2F7F2B9B004736D9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B0D842882F7F0F3100428544 /* HLHomeKit */;
-			targetProxy = B0D842A12F7F0F3200428544 /* PBXContainerItemProxy */;
+			target = B04238B02F7F2B9A004736D9 /* HLHomeKit */;
+			targetProxy = B04238C92F7F2B9B004736D9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		B0D842A82F7F0F3200428544 /* Debug */ = {
+		B04238D02F7F2B9B004736D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -322,18 +337,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		B0D842A92F7F0F3200428544 /* Release */ = {
+		B04238D12F7F2B9B004736D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -380,82 +395,83 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		B0D842AB2F7F0F3200428544 /* Debug */ = {
+		B04238D32F7F2B9B004736D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHomeKitUsageDescription = "Configure accessories from Logitech, Inc.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
+					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.HLHomeKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		B0D842AC2F7F0F3200428544 /* Release */ = {
+		B04238D42F7F2B9B004736D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHomeKitUsageDescription = "Configure accessories from Logitech, Inc.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
-					"@executable_path/../Frameworks",
+					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.HLHomeKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		B0D842AE2F7F0F3200428544 /* Debug */ = {
+		B04238D62F7F2B9B004736D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -463,7 +479,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.HLHomeKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -472,11 +488,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLHomeKit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HLHomeKit";
 			};
 			name = Debug;
 		};
-		B0D842AF2F7F0F3200428544 /* Release */ = {
+		B04238D72F7F2B9B004736D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -484,7 +501,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = us.homerlabs.HLHomeKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -493,11 +510,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLHomeKit.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HLHomeKit";
 			};
 			name = Release;
 		};
-		B0D842B12F7F0F3200428544 /* Debug */ = {
+		B04238D92F7F2B9B004736D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -512,11 +530,12 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = HLHomeKit;
 			};
 			name = Debug;
 		};
-		B0D842B22F7F0F3200428544 /* Release */ = {
+		B04238DA2F7F2B9B004736D9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -531,6 +550,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = HLHomeKit;
 			};
 			name = Release;
@@ -538,43 +558,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B0D842842F7F0F3100428544 /* Build configuration list for PBXProject "HLHomeKit" */ = {
+		B04238AC2F7F2B9A004736D9 /* Build configuration list for PBXProject "HLHomeKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B0D842A82F7F0F3200428544 /* Debug */,
-				B0D842A92F7F0F3200428544 /* Release */,
+				B04238D02F7F2B9B004736D9 /* Debug */,
+				B04238D12F7F2B9B004736D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B0D842AA2F7F0F3200428544 /* Build configuration list for PBXNativeTarget "HLHomeKit" */ = {
+		B04238D22F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B0D842AB2F7F0F3200428544 /* Debug */,
-				B0D842AC2F7F0F3200428544 /* Release */,
+				B04238D32F7F2B9B004736D9 /* Debug */,
+				B04238D42F7F2B9B004736D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B0D842AD2F7F0F3200428544 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */ = {
+		B04238D52F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B0D842AE2F7F0F3200428544 /* Debug */,
-				B0D842AF2F7F0F3200428544 /* Release */,
+				B04238D62F7F2B9B004736D9 /* Debug */,
+				B04238D72F7F2B9B004736D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B0D842B02F7F0F3200428544 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */ = {
+		B04238D82F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B0D842B12F7F0F3200428544 /* Debug */,
-				B0D842B22F7F0F3200428544 /* Release */,
+				B04238D92F7F2B9B004736D9 /* Debug */,
+				B04238DA2F7F2B9B004736D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B0D842812F7F0F3100428544 /* Project object */;
+	rootObject = B04238A92F7F2B9A004736D9 /* Project object */;
 }
