@@ -6,59 +6,41 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		B0DD69E62F7F2FB3009FBD1F /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B04238DC2F7F2C53004736D9 /* HomeKit.framework */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
-		B04238BF2F7F2B9B004736D9 /* PBXContainerItemProxy */ = {
+		B07E44922F8EB561002812F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B04238A92F7F2B9A004736D9 /* Project object */;
+			containerPortal = B07E447C2F8EB560002812F6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B04238B02F7F2B9A004736D9;
+			remoteGlobalIDString = B07E44832F8EB560002812F6;
 			remoteInfo = HLHomeKit;
 		};
-		B04238C92F7F2B9B004736D9 /* PBXContainerItemProxy */ = {
+		B07E449C2F8EB561002812F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B04238A92F7F2B9A004736D9 /* Project object */;
+			containerPortal = B07E447C2F8EB560002812F6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B04238B02F7F2B9A004736D9;
+			remoteGlobalIDString = B07E44832F8EB560002812F6;
 			remoteInfo = HLHomeKit;
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		B0DD69E82F7F2FB3009FBD1F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		B04238B12F7F2B9A004736D9 /* HLHomeKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLHomeKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B04238BE2F7F2B9B004736D9 /* HLHomeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B04238C82F7F2B9B004736D9 /* HLHomeKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B04238DC2F7F2C53004736D9 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
+		B07E44842F8EB560002812F6 /* HLHomeKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLHomeKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07E44912F8EB561002812F6 /* HLHomeKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07E449B2F8EB561002812F6 /* HLHomeKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HLHomeKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B04238B32F7F2B9A004736D9 /* HLHomeKit */ = {
+		B07E44862F8EB560002812F6 /* HLHomeKit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HLHomeKit;
 			sourceTree = "<group>";
 		};
-		B04238C12F7F2B9B004736D9 /* HLHomeKitTests */ = {
+		B07E44942F8EB561002812F6 /* HLHomeKitTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HLHomeKitTests;
 			sourceTree = "<group>";
 		};
-		B04238CB2F7F2B9B004736D9 /* HLHomeKitUITests */ = {
+		B07E449E2F8EB561002812F6 /* HLHomeKitUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HLHomeKitUITests;
 			sourceTree = "<group>";
@@ -66,22 +48,21 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B04238AE2F7F2B9A004736D9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B0DD69E62F7F2FB3009FBD1F /* HomeKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B04238BB2F7F2B9B004736D9 /* Frameworks */ = {
+		B07E44812F8EB560002812F6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B04238C52F7F2B9B004736D9 /* Frameworks */ = {
+		B07E448E2F8EB561002812F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B07E44982F8EB561002812F6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -91,167 +72,157 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B04238A82F7F2B9A004736D9 = {
+		B07E447B2F8EB560002812F6 = {
 			isa = PBXGroup;
 			children = (
-				B04238B32F7F2B9A004736D9 /* HLHomeKit */,
-				B04238C12F7F2B9B004736D9 /* HLHomeKitTests */,
-				B04238CB2F7F2B9B004736D9 /* HLHomeKitUITests */,
-				B04238DB2F7F2C53004736D9 /* Frameworks */,
-				B04238B22F7F2B9A004736D9 /* Products */,
+				B07E44862F8EB560002812F6 /* HLHomeKit */,
+				B07E44942F8EB561002812F6 /* HLHomeKitTests */,
+				B07E449E2F8EB561002812F6 /* HLHomeKitUITests */,
+				B07E44852F8EB560002812F6 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B04238B22F7F2B9A004736D9 /* Products */ = {
+		B07E44852F8EB560002812F6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B04238B12F7F2B9A004736D9 /* HLHomeKit.app */,
-				B04238BE2F7F2B9B004736D9 /* HLHomeKitTests.xctest */,
-				B04238C82F7F2B9B004736D9 /* HLHomeKitUITests.xctest */,
+				B07E44842F8EB560002812F6 /* HLHomeKit.app */,
+				B07E44912F8EB561002812F6 /* HLHomeKitTests.xctest */,
+				B07E449B2F8EB561002812F6 /* HLHomeKitUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		B04238DB2F7F2C53004736D9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B04238DC2F7F2C53004736D9 /* HomeKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B04238B02F7F2B9A004736D9 /* HLHomeKit */ = {
+		B07E44832F8EB560002812F6 /* HLHomeKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B04238D22F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKit" */;
+			buildConfigurationList = B07E44A52F8EB561002812F6 /* Build configuration list for PBXNativeTarget "HLHomeKit" */;
 			buildPhases = (
-				B04238AD2F7F2B9A004736D9 /* Sources */,
-				B04238AE2F7F2B9A004736D9 /* Frameworks */,
-				B04238AF2F7F2B9A004736D9 /* Resources */,
-				B0DD69E82F7F2FB3009FBD1F /* Embed Frameworks */,
+				B07E44802F8EB560002812F6 /* Sources */,
+				B07E44812F8EB560002812F6 /* Frameworks */,
+				B07E44822F8EB560002812F6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				B04238B32F7F2B9A004736D9 /* HLHomeKit */,
+				B07E44862F8EB560002812F6 /* HLHomeKit */,
 			);
 			name = HLHomeKit;
 			packageProductDependencies = (
 			);
 			productName = HLHomeKit;
-			productReference = B04238B12F7F2B9A004736D9 /* HLHomeKit.app */;
+			productReference = B07E44842F8EB560002812F6 /* HLHomeKit.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B04238BD2F7F2B9B004736D9 /* HLHomeKitTests */ = {
+		B07E44902F8EB561002812F6 /* HLHomeKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B04238D52F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */;
+			buildConfigurationList = B07E44A82F8EB561002812F6 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */;
 			buildPhases = (
-				B04238BA2F7F2B9B004736D9 /* Sources */,
-				B04238BB2F7F2B9B004736D9 /* Frameworks */,
-				B04238BC2F7F2B9B004736D9 /* Resources */,
+				B07E448D2F8EB561002812F6 /* Sources */,
+				B07E448E2F8EB561002812F6 /* Frameworks */,
+				B07E448F2F8EB561002812F6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B04238C02F7F2B9B004736D9 /* PBXTargetDependency */,
+				B07E44932F8EB561002812F6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				B04238C12F7F2B9B004736D9 /* HLHomeKitTests */,
+				B07E44942F8EB561002812F6 /* HLHomeKitTests */,
 			);
 			name = HLHomeKitTests;
 			packageProductDependencies = (
 			);
 			productName = HLHomeKitTests;
-			productReference = B04238BE2F7F2B9B004736D9 /* HLHomeKitTests.xctest */;
+			productReference = B07E44912F8EB561002812F6 /* HLHomeKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B04238C72F7F2B9B004736D9 /* HLHomeKitUITests */ = {
+		B07E449A2F8EB561002812F6 /* HLHomeKitUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B04238D82F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */;
+			buildConfigurationList = B07E44AB2F8EB561002812F6 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */;
 			buildPhases = (
-				B04238C42F7F2B9B004736D9 /* Sources */,
-				B04238C52F7F2B9B004736D9 /* Frameworks */,
-				B04238C62F7F2B9B004736D9 /* Resources */,
+				B07E44972F8EB561002812F6 /* Sources */,
+				B07E44982F8EB561002812F6 /* Frameworks */,
+				B07E44992F8EB561002812F6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B04238CA2F7F2B9B004736D9 /* PBXTargetDependency */,
+				B07E449D2F8EB561002812F6 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				B04238CB2F7F2B9B004736D9 /* HLHomeKitUITests */,
+				B07E449E2F8EB561002812F6 /* HLHomeKitUITests */,
 			);
 			name = HLHomeKitUITests;
 			packageProductDependencies = (
 			);
 			productName = HLHomeKitUITests;
-			productReference = B04238C82F7F2B9B004736D9 /* HLHomeKitUITests.xctest */;
+			productReference = B07E449B2F8EB561002812F6 /* HLHomeKitUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B04238A92F7F2B9A004736D9 /* Project object */ = {
+		B07E447C2F8EB560002812F6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
-					B04238B02F7F2B9A004736D9 = {
+					B07E44832F8EB560002812F6 = {
 						CreatedOnToolsVersion = 26.4;
 					};
-					B04238BD2F7F2B9B004736D9 = {
+					B07E44902F8EB561002812F6 = {
 						CreatedOnToolsVersion = 26.4;
-						TestTargetID = B04238B02F7F2B9A004736D9;
+						TestTargetID = B07E44832F8EB560002812F6;
 					};
-					B04238C72F7F2B9B004736D9 = {
+					B07E449A2F8EB561002812F6 = {
 						CreatedOnToolsVersion = 26.4;
-						TestTargetID = B04238B02F7F2B9A004736D9;
+						TestTargetID = B07E44832F8EB560002812F6;
 					};
 				};
 			};
-			buildConfigurationList = B04238AC2F7F2B9A004736D9 /* Build configuration list for PBXProject "HLHomeKit" */;
+			buildConfigurationList = B07E447F2F8EB560002812F6 /* Build configuration list for PBXProject "HLHomeKit" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = B04238A82F7F2B9A004736D9;
+			mainGroup = B07E447B2F8EB560002812F6;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = B04238B22F7F2B9A004736D9 /* Products */;
+			productRefGroup = B07E44852F8EB560002812F6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B04238B02F7F2B9A004736D9 /* HLHomeKit */,
-				B04238BD2F7F2B9B004736D9 /* HLHomeKitTests */,
-				B04238C72F7F2B9B004736D9 /* HLHomeKitUITests */,
+				B07E44832F8EB560002812F6 /* HLHomeKit */,
+				B07E44902F8EB561002812F6 /* HLHomeKitTests */,
+				B07E449A2F8EB561002812F6 /* HLHomeKitUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B04238AF2F7F2B9A004736D9 /* Resources */ = {
+		B07E44822F8EB560002812F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B04238BC2F7F2B9B004736D9 /* Resources */ = {
+		B07E448F2F8EB561002812F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B04238C62F7F2B9B004736D9 /* Resources */ = {
+		B07E44992F8EB561002812F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -261,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B04238AD2F7F2B9A004736D9 /* Sources */ = {
+		B07E44802F8EB560002812F6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B04238BA2F7F2B9B004736D9 /* Sources */ = {
+		B07E448D2F8EB561002812F6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B04238C42F7F2B9B004736D9 /* Sources */ = {
+		B07E44972F8EB561002812F6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B04238C02F7F2B9B004736D9 /* PBXTargetDependency */ = {
+		B07E44932F8EB561002812F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B04238B02F7F2B9A004736D9 /* HLHomeKit */;
-			targetProxy = B04238BF2F7F2B9B004736D9 /* PBXContainerItemProxy */;
+			target = B07E44832F8EB560002812F6 /* HLHomeKit */;
+			targetProxy = B07E44922F8EB561002812F6 /* PBXContainerItemProxy */;
 		};
-		B04238CA2F7F2B9B004736D9 /* PBXTargetDependency */ = {
+		B07E449D2F8EB561002812F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B04238B02F7F2B9A004736D9 /* HLHomeKit */;
-			targetProxy = B04238C92F7F2B9B004736D9 /* PBXContainerItemProxy */;
+			target = B07E44832F8EB560002812F6 /* HLHomeKit */;
+			targetProxy = B07E449C2F8EB561002812F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		B04238D02F7F2B9B004736D9 /* Debug */ = {
+		B07E44A32F8EB561002812F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -362,7 +333,7 @@
 			};
 			name = Debug;
 		};
-		B04238D12F7F2B9B004736D9 /* Release */ = {
+		B07E44A42F8EB561002812F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -419,7 +390,7 @@
 			};
 			name = Release;
 		};
-		B04238D32F7F2B9B004736D9 /* Debug */ = {
+		B07E44A62F8EB561002812F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -430,7 +401,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHomeKitUsageDescription = "Configure HomeKit Camera accessories";
+				INFOPLIST_KEY_NSHomeKitUsageDescription = "Control HomeKit Accessories";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -453,7 +424,7 @@
 			};
 			name = Debug;
 		};
-		B04238D42F7F2B9B004736D9 /* Release */ = {
+		B07E44A72F8EB561002812F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -464,7 +435,7 @@
 				DEVELOPMENT_TEAM = 9YP4SSJBR5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHomeKitUsageDescription = "Configure HomeKit Camera accessories";
+				INFOPLIST_KEY_NSHomeKitUsageDescription = "Control HomeKit Accessories";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -487,7 +458,7 @@
 			};
 			name = Release;
 		};
-		B04238D62F7F2B9B004736D9 /* Debug */ = {
+		B07E44A92F8EB561002812F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -509,7 +480,7 @@
 			};
 			name = Debug;
 		};
-		B04238D72F7F2B9B004736D9 /* Release */ = {
+		B07E44AA2F8EB561002812F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -531,7 +502,7 @@
 			};
 			name = Release;
 		};
-		B04238D92F7F2B9B004736D9 /* Debug */ = {
+		B07E44AC2F8EB561002812F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -551,7 +522,7 @@
 			};
 			name = Debug;
 		};
-		B04238DA2F7F2B9B004736D9 /* Release */ = {
+		B07E44AD2F8EB561002812F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -574,43 +545,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B04238AC2F7F2B9A004736D9 /* Build configuration list for PBXProject "HLHomeKit" */ = {
+		B07E447F2F8EB560002812F6 /* Build configuration list for PBXProject "HLHomeKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B04238D02F7F2B9B004736D9 /* Debug */,
-				B04238D12F7F2B9B004736D9 /* Release */,
+				B07E44A32F8EB561002812F6 /* Debug */,
+				B07E44A42F8EB561002812F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B04238D22F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKit" */ = {
+		B07E44A52F8EB561002812F6 /* Build configuration list for PBXNativeTarget "HLHomeKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B04238D32F7F2B9B004736D9 /* Debug */,
-				B04238D42F7F2B9B004736D9 /* Release */,
+				B07E44A62F8EB561002812F6 /* Debug */,
+				B07E44A72F8EB561002812F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B04238D52F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */ = {
+		B07E44A82F8EB561002812F6 /* Build configuration list for PBXNativeTarget "HLHomeKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B04238D62F7F2B9B004736D9 /* Debug */,
-				B04238D72F7F2B9B004736D9 /* Release */,
+				B07E44A92F8EB561002812F6 /* Debug */,
+				B07E44AA2F8EB561002812F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B04238D82F7F2B9B004736D9 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */ = {
+		B07E44AB2F8EB561002812F6 /* Build configuration list for PBXNativeTarget "HLHomeKitUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B04238D92F7F2B9B004736D9 /* Debug */,
-				B04238DA2F7F2B9B004736D9 /* Release */,
+				B07E44AC2F8EB561002812F6 /* Debug */,
+				B07E44AD2F8EB561002812F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B04238A92F7F2B9A004736D9 /* Project object */;
+	rootObject = B07E447C2F8EB560002812F6 /* Project object */;
 }
