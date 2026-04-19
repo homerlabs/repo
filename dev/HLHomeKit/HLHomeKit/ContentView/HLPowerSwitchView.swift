@@ -5,19 +5,29 @@
 //  Created by Matthew Homer on 4/14/26.
 //
 
+import HomeKit
 import SwiftUI
+import Foundation
 
 struct HLPowerSwitchView: View {
-    @State private var viewModel = HLPowerSwitchViewModel.shared
-
+    let accessory: HMAccessory?
+    var accessoryManager = HLAccessoryManager.shared
+    
+  //  @EnvironmentObject var viewModel: HLHomeViewModel
+    func toggle() {
+        if let accessory = self.accessory {
+            accessoryManager.toggleSwitch(accessory)
+        }
+    }
+    
     var body: some View {
         Text("HLPowerSwitchView")
-        List(viewModel.switches) { powerSwitch in
+        if let accessory = self.accessory {
             HStack(alignment: .center) {
-                Text(powerSwitch.name)
-               Text(powerSwitch.isOn ? "On" : "Off")
-                Button(powerSwitch.name) {
-             //       viewModel.toggle(powerSwitch)
+                Text(accessory.name)
+        //       Text(accessory.isOn ? "On" : "Off")
+                Button(accessory.name) {
+                    toggle()
                 }
             }
         }
@@ -25,5 +35,5 @@ struct HLPowerSwitchView: View {
 }
 
 #Preview {
-    HLPowerSwitchView()
+    HLPowerSwitchView(accessory: nil)
 }

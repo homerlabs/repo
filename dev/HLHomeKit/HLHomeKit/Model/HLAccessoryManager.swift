@@ -16,9 +16,11 @@ import HomeKit
 
     /// The filtered list of services that the app displays.
     var homeAccessories = [HMAccessory]()    // These are called "accessories" in the UI.
-    var powerSwitches = [HLPowerSwitchModel]()    // These are called "accessories" in the UI.
+ //   var powerSwitches = [HLPowerSwitchModel]()    // These are called "accessories" in the UI.
     var cameras = [HLCameraModel]()    // These are called "accessories" in the UI.
-    let powerSwitchViewModel = HLPowerSwitchViewModel.shared
+//    let powerSwitchViewModel = HLPowerSwitchViewModel.shared
+    var currentAccessory : HMAccessory?
+
 
     /// The home whose accessories the app displays.
     var home: HMHome? {
@@ -28,7 +30,11 @@ import HomeKit
         }
     }
     
- //   private init() { print("HLAccessoryManager.init singleton") }
+    func toggleSwitch(_ accessory: HMAccessory) {
+        print("HLAccessoryManager.toggleSwitch-  accessory.name.name: \(accessory.name)")
+        let services = accessory.services
+        print("currentAccessory?.name: \(currentAccessory?.name ?? "?")   services: \(services)")
+    }
     
     /// Resets the list of Kilgo services from the currently set home.
     func reloadData() {
@@ -40,12 +46,12 @@ import HomeKit
         let switchTypeaAccessories = home.accessories.filter({ $0.category.categoryType == HMAccessoryCategoryTypeOutlet })
         //  collect all the HMAccessoryCategoryTypeOutlet accessories
         
-        powerSwitchViewModel.switchAccessories.removeAll()
+//        powerSwitchViewModel.switchAccessories.removeAll()
 
         for accessory in switchTypeaAccessories {
             accessory.delegate = HomeStore.shared
             homeAccessories.append(accessory)
-            powerSwitchViewModel.switchAccessories.append(accessory)
+//            powerSwitchViewModel.switchAccessories.append(accessory)
             print("found accessory.name: \(accessory.name)  accessory.category.categoryType: \(accessory.category.categoryType)  accessory.manufacturer: \(String(describing: accessory.manufacturer))")
 
 /*            print("\taccessory: \(accessory.manufacturer ?? "none") \tname: \(accessory.name)   category: \(accessory.category)")
