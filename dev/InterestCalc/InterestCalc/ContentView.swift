@@ -15,7 +15,7 @@ struct ContentView: View {
                 let startingSum = 10_000.0
                 let compoundsPerYear = 2.0
           //      let annualInterest = 0.09
-                let annualInterest = 0.04
+                let annualInterest = 0.05
                 let interest = annualInterest / compoundsPerYear
                 let numberOfYears = 20
                 

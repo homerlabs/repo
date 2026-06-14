@@ -7,6 +7,7 @@
 
 import UIKit
 import HomeKit
+//https://www.createwithswift.com/creating-a-homekit-enabled-app-with-swiftui/
 
 @Observable class HLAccessoryManager: NSObject {
     static let shared = HLAccessoryManager()
@@ -30,29 +31,53 @@ import HomeKit
         }
     }
     
+    func printCharactics(characteristics: [HMCharacteristic]) {
+        for characteristic in characteristics {
+            print("characteristic: \(characteristic.localizedDescription)   characteristicType: \(characteristic.characteristicType)   properties: \(characteristic.properties)")
+            
+        //    if characteristic == HMServiceTypeOutlet {
+       //         print("serviceType: \(service.serviceType)   characteristics.count: \(service.characteristics.count)")
+        //    }
+        }
+    }
+    
     func toggleSwitch(_ accessory: HMAccessory) {
-        print("HLAccessoryManager.toggleSwitch-  accessory.name.name: \(accessory.name)")
         let services = accessory.services
-        print("currentAccessory?.name: \(currentAccessory?.name ?? "?")   services: \(services)")
+        print("HLAccessoryManager.toggleSwitch-  accessory.name: \(accessory.name)   services.count: \(services.count)")
+ //       print("HMServiceTypeStatefulProgrammableSwitch: \(HMServiceTypeStatefulProgrammableSwitch)   HMServiceTypeOutlet: \(HMServiceTypeOutlet)   HMServiceTypeAccessoryInformation: \(HMServiceTypeAccessoryInformation)   HMServiceTypeStatelessProgrammableSwitch: \(HMServiceTypeStatelessProgrammableSwitch)")
+
+        for service in services {
+            print("serviceType: \(service.serviceType)   characteristics.count: \(service.characteristics.count)")
+            
+            if service.serviceType == HMServiceTypeOutlet {
+                if let characteristic = service.characteristics.first {
+                    if characteristic.characteristicType == HMCharacteristicTypePowerState {
+                  //      let newValue: Bool = characteristic.value as! Bool
+                 //       print("HMCharacteristicTypePowerState   newValue: \(newValue)")
+               //         characteristic.setValue(!newValue, forKey: <#String#>)
+                        print("HMCharacteristicTypePowerState   characteristics.localizedDescription: \(characteristic.localizedDescription)")
+                    }
+                }
+   //             printCharactics(characteristics: service.characteristics)
+            }
+        }
     }
     
     /// Resets the list of Kilgo services from the currently set home.
     func reloadData() {
-        print("HLAccessoryManager.reloadData")
-        
         homeAccessories.removeAll()
 
         guard let home = home else { return }
-        let switchTypeaAccessories = home.accessories.filter({ $0.category.categoryType == HMAccessoryCategoryTypeOutlet })
+        let switchTypeAccessories = home.accessories.filter({ $0.category.categoryType == HMAccessoryCategoryTypeOutlet })
         //  collect all the HMAccessoryCategoryTypeOutlet accessories
         
 //        powerSwitchViewModel.switchAccessories.removeAll()
 
-        for accessory in switchTypeaAccessories {
+        for accessory in switchTypeAccessories {
             accessory.delegate = HomeStore.shared
             homeAccessories.append(accessory)
 //            powerSwitchViewModel.switchAccessories.append(accessory)
-            print("found accessory.name: \(accessory.name)  accessory.category.categoryType: \(accessory.category.categoryType)  accessory.manufacturer: \(String(describing: accessory.manufacturer))")
+ //           print("found accessory.name: \(accessory.name)  accessory.category.categoryType: \(accessory.category.categoryType)  accessory.manufacturer: \(String(describing: accessory.manufacturer))")
 
 /*            print("\taccessory: \(accessory.manufacturer ?? "none") \tname: \(accessory.name)   category: \(accessory.category)")
             print("\tHMServiceTypeSwitch: \(HMServiceTypeSwitch)")
@@ -64,7 +89,7 @@ import HomeKit
             for accessory in home.accessories.filter({ $0.manufacturer == "Logitech" || $0.manufacturer == "Aqara" }) {
                 accessory.delegate = HomeStore.shared
                 homeAccessories.append(accessory)
-                print("found accessory.name: \(accessory.name)  accessory.category.categoryType: \(accessory.category.categoryType)  accessory.manufacturer: \(String(describing: accessory.manufacturer))")
+    //            print("found accessory.name: \(accessory.name)  accessory.category.categoryType: \(accessory.category.categoryType)  accessory.manufacturer: \(String(describing: accessory.manufacturer))")
 
                 for service in accessory.services.filter({ $0.isUserInteractive }) {
                     cameraServices.append(service)
@@ -80,7 +105,7 @@ import HomeKit
             }
         }
         
-        print("homeAccessories.count: \(homeAccessories.count)")
+        print("HLAccessoryManager.reloadData-  homeAccessories.count: \(homeAccessories.count)")
     }
     
     private override init() {
