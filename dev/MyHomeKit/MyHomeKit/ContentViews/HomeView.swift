@@ -18,13 +18,13 @@ struct HomeView: View {
         NavigationStack(path: $path) {
             Text("My Homes")
             List {
-                    ForEach(model.homes, id: \.uniqueIdentifier) { home in
-                        NavigationLink(value: home){
-                            Text("\(home.name)")
-                        }
+                ForEach(model.homes, id: \.uniqueIdentifier) { home in
+                    NavigationLink(value: home){
+                        Text("\(home.name)")
                     }
-                }.navigationDestination(for: HMHome.self){
-                    AccessoriesView(homeId: $0.uniqueIdentifier, model: model)
+                }
+            }.navigationDestination(for: HMHome.self){
+                AccessoriesView(homeId: $0.uniqueIdentifier, model: model)
             }
             Spacer()
         }

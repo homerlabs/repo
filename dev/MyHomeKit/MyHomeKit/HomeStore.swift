@@ -26,6 +26,10 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
     @Published var powerState: Bool?
     @Published var model: String?
     @Published var name: String?
+    
+    @Published var outletAccessories: [HMAccessory] = []
+    @Published var cameraAccessories: [HMAccessory] = []
+
 
     func findAccessories(homeId: UUID) {
         guard let devices = homes.first(where: {$0.uniqueIdentifier == homeId})?.accessories else {
@@ -33,6 +37,21 @@ class HomeStore: NSObject, ObservableObject, HMHomeManagerDelegate {
             return
         }
         accessories = devices
+        
+        outletAccessories = []
+        cameraAccessories = []
+
+        for accessory in devices {
+            if accessory.category.categoryType == HMAccessoryCategoryTypeOutlet {
+                outletAccessories.append(accessory)
+            }
+            
+            else if accessory.category.categoryType == HMAccessoryCategoryTypeIPCamera {
+                cameraAccessories.append(accessory)
+            }
+        }
+
+        print("outletAccessories.count: \(outletAccessories.count)    cameraAccessories.count: \(cameraAccessories.count)")
     }
 
     func findServices(accessoryId: UUID, homeId: UUID){

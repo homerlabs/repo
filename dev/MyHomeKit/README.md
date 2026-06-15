@@ -1,6 +1,16 @@
 # Configuring a Home Automation Device
 
+https://www.createwithswift.com/creating-a-homekit-enabled-app-with-swiftui/
+
 Give users a familiar experience when they manage HomeKit accessories.
+
+Outlet
+Outlet:  Power State
+Accessory Information Service:  Name, Identity, Firmware Version, Model, Serial Number, Manufacturer
+
+IP Camera
+Accessory Information Service:  Name, Identity, Firmware Version, Model, Serial Number, Manufacturer, ++
+
 
 ## Overview
 

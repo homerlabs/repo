@@ -26,11 +26,14 @@ struct AccessoriesView: View {
                     }
                 }
             }
-            }.navigationDestination(for: HMAccessory.self) {
+        }.navigationDestination(for: HMAccessory.self) {
                 ServicesView(accessoryId: $0.uniqueIdentifier, homeId: homeId, model: model)
         }.onAppear(){
             model.findAccessories(homeId: homeId)
         }
+        
+        AccessoryOutletsView(homeId: homeId, model: model)
+        AccessoryCamerasView(homeId: homeId, model: model)
     }
 }
     
